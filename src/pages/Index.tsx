@@ -2,14 +2,31 @@
 
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
+import SEO from '@/components/layout/SEO';
 import ROICalculator from '@/components/tools/ROICalculator';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, BarChart3, Globe2, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle2, BarChart3, Globe2, Zap, Star } from 'lucide-react';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
+  const testimonials = [
+    {
+      quote: "Qala Labs didn't just run ads; they rebuilt our entire data infrastructure. We went from $200k to $1.2M/mo in 6 months.",
+      author: "Sarah Chen",
+      role: "Founder, GlowSkin",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"
+    },
+    {
+      quote: "The most technical marketing team we've ever worked with. Their headless commerce transition paid for itself in 30 days.",
+      author: "Marcus Thorne",
+      role: "CEO, Urban Threads",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO />
       <Navbar />
       
       {/* Hero Section */}
@@ -32,6 +49,20 @@ const Index = () => {
             <Button size="lg" variant="outline" className="text-lg px-8 py-7 rounded-2xl border-2">
               View Case Studies
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted By Section */}
+      <section className="py-10 border-y border-slate-200 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="text-center text-slate-400 text-sm font-bold uppercase tracking-widest mb-8">Trusted by high-growth brands</p>
+          <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale">
+            <span className="text-2xl font-black text-slate-900">GLOWSKIN</span>
+            <span className="text-2xl font-black text-slate-900">URBAN THREADS</span>
+            <span className="text-2xl font-black text-slate-900">VITACORE</span>
+            <span className="text-2xl font-black text-slate-900">LUMINA</span>
+            <span className="text-2xl font-black text-slate-900">AURA</span>
           </div>
         </div>
       </section>
@@ -84,10 +115,62 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-10 border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-slate-500 text-sm">© 2024 Qala Labs. All rights reserved. Built for performance.</p>
-          <MadeWithDyad />
+      {/* Testimonials Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Built for Performance</h2>
+            <p className="text-slate-600">Don't take our word for it. Here's what our partners say.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((t, i) => (
+              <div key={i} className="p-10 bg-slate-50 rounded-3xl border border-slate-100 relative">
+                <Star className="w-8 h-8 text-blue-600 mb-6 fill-blue-600" />
+                <p className="text-xl text-slate-700 italic mb-8">"{t.quote}"</p>
+                <div className="flex items-center gap-4">
+                  <img src={t.image} alt={t.author} className="w-12 h-12 rounded-full" />
+                  <div>
+                    <p className="font-bold text-slate-900">{t.author}</p>
+                    <p className="text-sm text-slate-500">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-20 border-t border-slate-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-12 mb-16">
+            <div className="col-span-2">
+              <h3 className="text-2xl font-black text-slate-900 mb-6">QALA LABS</h3>
+              <p className="text-slate-500 max-w-sm">
+                The performance marketing agency for brands that demand 8-figure growth and digital excellence.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Company</h4>
+              <ul className="space-y-4 text-slate-500 text-sm">
+                <li><a href="/services" className="hover:text-blue-600">Services</a></li>
+                <li><a href="/case-studies" className="hover:text-blue-600">Case Studies</a></li>
+                <li><a href="/blog" className="hover:text-blue-600">Blog</a></li>
+                <li><a href="/pricing" className="hover:text-blue-600">Pricing</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Contact</h4>
+              <ul className="space-y-4 text-slate-500 text-sm">
+                <li>hello@qalalabs.com</li>
+                <li>London, UK</li>
+                <li>Dubai, UAE</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-10 border-t border-slate-100 text-center">
+            <p className="text-slate-400 text-sm mb-4">© 2024 Qala Labs. All rights reserved. Built for performance.</p>
+            <MadeWithDyad />
+          </div>
         </div>
       </footer>
     </div>
