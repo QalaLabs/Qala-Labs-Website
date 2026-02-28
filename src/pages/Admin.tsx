@@ -10,17 +10,29 @@ import {
   Settings, 
   LogOut,
   TrendingUp,
-  Mail
+  Mail,
+  Eye,
+  CheckCircle2,
+  Clock
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from "@/components/ui/dialog";
 import { format } from 'date-fns';
 import Logo from '@/components/layout/Logo';
+import { showSuccess, showError } from '@/utils/toast';
 
 const Admin = () => {
   const navigate = useNavigate();
   const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedLead, setSelectedLead] = useState<any>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -44,6 +56,20 @@ const Admin = () => {
     setLoading(false);
   };
 
+  const updateLeadStatus = async (id: string, status: string) => {
+    const { error } = await supabase
+      .from('leads')
+      .update({ status })
+      .eq('id', id);
+
+    if (error) {
+      showError("Failed to update status");
+    } else {
+      showSuccess(`Lead marked as ${status}`);
+      fetchLeads();
+    }
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/login');
@@ -52,7 +78,7 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col">
+      <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full">
         <div className="mb-10">
           <Logo variant="white" />
         </div>
@@ -78,9 +104,9 @@ const Admin = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-10 overflow-y-auto">
+      <main className="flex-1 ml-64 p-10 overflow-y-auto">
         <header className="flex justify-between items-center mb-10">
-          <h1 className="text-3xl font-bold text-slate-900">Dashboard Overview</h1>
+          <h1 className="text-3xl font-bold text-slate-900">Scale Engine Control</h1>
           <div className="flex gap-4">
             <Button variant="outline">Export CSV</Button>
             <Button className="bg-blue-600">New Post</Button>
@@ -133,6 +159,7 @@ const Admin = () => {
                     <th className="px-6 py-3">Tool</th>
                     <th className="px-6 py-3">Date</th>
                     <th className="px-6 py-3">Status</th>
+                    <th className="px-6 py-3 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,13 +169,73 @@ const Admin = () => {
                       <td className="px-6 py-4 capitalize">{lead.tool_used.replace('_', ' ')}</td>
                       <td className="px-6 py-4">{format(new Date(lead.created_at), 'MMM d, yyyy')}</td>
                       <td className="px-6 py-4">
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">New</span>
+                        <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                          lead.status === 'contacted' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                        }`}>
+                          {lead.status || 'new'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right space-x-2">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant="ghost" size="sm" onClick={() => setSelectedLead(lead)}>
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl">
+                            <DialogHeader>
+                              <DialogTitle>Lead Details: {lead.email}</DialogTitle>
+                            </DialogHeader>
+                            <div className="mt-4 space-y-6">
+                              <div className="grid grid-cols-2 gap-4">
+                                <div className="p-4 bg-slate-50 rounded-xl">
+                                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Source Tool</p>
+                                  <p className="font-bold capitalize">{lead.tool_used.replace('_', ' ')}</p>
+                                </div>
+                                <div className="p-4 bg-slate-50 rounded-xl">
+                                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Captured On</p>
+                                  <p className="font-bold">{format(new Date(lead.created_at), 'PPP p')}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">Captured Data</p>
+                                <div className="grid grid-cols-2 gap-y-4">
+                                  {Object.entries(lead.data || {}).map(([key, value]: [string, any]) => (
+                                    <div key={key}>
+                                      <p className="text-xs text-slate-500 capitalize">{key.replace(/_/g, ' ')}</p>
+                                      <p className="font-bold text-slate-900">
+                                        {typeof value === 'number' ? value.toLocaleString() : String(value)}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="flex justify-end gap-3">
+                                <Button 
+                                  variant="outline" 
+                                  className="gap-2"
+                                  onClick={() => updateLeadStatus(lead.id, 'pending')}
+                                >
+                                  <Clock className="w-4 h-4" /> Mark Pending
+                                </Button>
+                                <Button 
+                                  className="bg-green-600 hover:bg-green-700 gap-2"
+                                  onClick={() => updateLeadStatus(lead.id, 'contacted')}
+                                >
+                                  <CheckCircle2 className="w-4 h-4" /> Mark Contacted
+                                </Button>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </td>
                     </tr>
                   ))}
                   {leads.length === 0 && !loading && (
                     <tr>
-                      <td colSpan={4} className="px-6 py-10 text-center text-slate-400">No leads found yet.</td>
+                      <td colSpan={5} className="px-6 py-10 text-center text-slate-400">No leads found yet.</td>
                     </tr>
                   )}
                 </tbody>

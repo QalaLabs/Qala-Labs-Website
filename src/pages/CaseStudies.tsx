@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import SEO from '@/components/layout/SEO';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,9 +10,11 @@ import { ArrowUpRight, TrendingUp, DollarSign, Users, ArrowRight } from 'lucide-
 import { motion } from "framer-motion";
 
 const CaseStudies = () => {
+  const navigate = useNavigate();
   const cases = [
     {
       title: "Scaling a Skincare Brand to $10M ARR",
+      slug: "skincare-scale-10m",
       category: "E-com Scale",
       metrics: { roas: "4.2x", growth: "310%", revenue: "$10M+" },
       image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800",
@@ -20,6 +23,7 @@ const CaseStudies = () => {
     },
     {
       title: "Digital Transformation for Legacy Retailer",
+      slug: "legacy-retail-transformation",
       category: "Transformation",
       metrics: { roas: "3.8x", growth: "120%", revenue: "$25M+" },
       image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800",
@@ -28,6 +32,7 @@ const CaseStudies = () => {
     },
     {
       title: "Global Expansion for Fashion Creator",
+      slug: "fashion-global-expansion",
       category: "Global Scale",
       metrics: { roas: "5.1x", growth: "450%", revenue: "$5M+" },
       image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800",
@@ -105,7 +110,10 @@ const CaseStudies = () => {
                     ))}
                   </div>
 
-                  <button className="w-full flex items-center justify-center gap-2 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors">
+                  <button 
+                    onClick={() => navigate(`/case-studies/${c.slug}`)}
+                    className="w-full flex items-center justify-center gap-2 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors"
+                  >
                     View Full Case Study <ArrowRight className="w-4 h-4" />
                   </button>
                 </CardContent>
