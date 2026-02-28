@@ -1,0 +1,208 @@
+"use client";
+
+import React, { useState } from 'react';
+import Navbar from '@/components/layout/Navbar';
+import SEO from '@/components/layout/SEO';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { showSuccess, showError } from '@/utils/toast';
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2, Send, CheckCircle2, Mail, Phone, MapPin } from 'lucide-react';
+import { motion } from "framer-motion";
+
+const Contact = () => {
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    website: '',
+    revenue: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const { error } = await supabase.from('leads').insert({
+      email: formData.email,
+      tool_used: 'contact_form',
+      data: formData
+    });
+
+    setLoading(false);
+    if (error) {
+      showError("Something went wrong. Please try again.");
+    } else {
+      showSuccess("Audit request received! We'll be in touch within 24 hours.");
+      setFormData({ name: '', email: '', website: '', revenue: '', message: '' });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <SEO title="Book Your Free Audit" description="Get a detailed performance audit and growth strategy for your brand." />
+      <Navbar />
+      
+      <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
+              Let's Build Your <br /> <span className="text-blue-600">Scale Engine.</span>
+            </h1>
+            <p className="text-xl text-slate-600 mb-12 leading-relaxed">
+              We only partner with brands we know we can scale. Fill out the form to see if you're a fit for our 8-figure framework.
+            </p>
+
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <Mail className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Email Us</h4>
+                  <p className="text-slate-500">hello@qalalabs.com</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <Phone className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Call Us</h4>
+                  <p className="text-slate-500">+44 (0) 20 3835 1234</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <MapPin className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Global Offices</h4>
+                  <p className="text-slate-500">London • Dubai • New York</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-16 p-8 bg-white rounded-3xl border border-slate-100 shadow-sm">
+              <h4 className="font-bold text-slate-900 mb-4">What happens next?</h4>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>Data analysis of your current performance</span>
+                </li>
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>30-minute strategy call with our founders</span>
+                </li>
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>Custom 8-figure scale roadmap</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <Card className="border-none shadow-2xl rounded-[2.5rem] overflow-hidden">
+              <CardHeader className="bg-slate-900 text-white p-10">
+                <CardTitle className="text-3xl font-bold">Request Free Audit</CardTitle>
+                <p className="text-slate-400 mt-2">Get your custom growth strategy in 24 hours.</p>
+              </CardHeader>
+              <CardContent className="p-10 bg-white">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input 
+                        id="name" 
+                        placeholder="John Doe" 
+                        required 
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        className="rounded-xl py-6"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Work Email</Label>
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="john@brand.com" 
+                        required 
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        className="rounded-xl py-6"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="website">Website URL</Label>
+                      <Input 
+                        id="website" 
+                        placeholder="brand.com" 
+                        required 
+                        value={formData.website}
+                        onChange={(e) => setFormData({...formData, website: e.target.value})}
+                        className="rounded-xl py-6"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="revenue">Monthly Revenue</Label>
+                      <select 
+                        id="revenue"
+                        className="w-full h-12 px-3 rounded-xl border border-input bg-background text-sm"
+                        required
+                        value={formData.revenue}
+                        onChange={(e) => setFormData({...formData, revenue: e.target.value})}
+                      >
+                        <option value="">Select range</option>
+                        <option value="<50k">< $50k/mo</option>
+                        <option value="50k-150k">$50k - $150k/mo</option>
+                        <option value="150k-500k">$150k - $500k/mo</option>
+                        <option value="500k+">$500k+/mo</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Growth Goals</Label>
+                    <Textarea 
+                      id="message" 
+                      placeholder="Tell us about your current challenges and goals..." 
+                      className="min-h-[120px] rounded-xl"
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full py-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xl font-black shadow-xl shadow-blue-500/20"
+                    disabled={loading}
+                  >
+                    {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : (
+                      <span className="flex items-center gap-2">
+                        Send Audit Request <Send className="w-5 h-5" />
+                      </span>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;

@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Logo from './Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: 'Services', href: '/services' },
@@ -34,7 +35,10 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full">
+            <Button 
+              onClick={() => navigate('/contact')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full"
+            >
               Free Audit
             </Button>
           </div>
@@ -60,7 +64,13 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Button className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl">
+          <Button 
+            onClick={() => {
+              navigate('/contact');
+              setIsOpen(false);
+            }}
+            className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl"
+          >
             Free Audit
           </Button>
         </div>
