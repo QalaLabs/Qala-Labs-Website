@@ -10,7 +10,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
 
 const ProfitabilityEstimator = () => {
-  const [gmv, setGmv] = useState(100000);
+  const [gmv, setGmv] = useState(8000000);
   const [margin, setMargin] = useState(20);
   const [growth, setGrowth] = useState(30);
   const [email, setEmail] = useState("");
@@ -48,13 +48,13 @@ const ProfitabilityEstimator = () => {
       <CardHeader className="bg-slate-900 text-white rounded-t-lg">
         <CardTitle className="flex items-center gap-2">
           <Calculator className="w-5 h-5" />
-          E-com Profitability Estimator
+          E-com Profitability Estimator (₹)
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-6">
         <div className="grid gap-4">
           <div className="space-y-2">
-            <Label>Current Annual GMV ($)</Label>
+            <Label>Current Annual GMV (₹)</Label>
             <Input 
               type="number" 
               value={gmv} 
@@ -88,7 +88,7 @@ const ProfitabilityEstimator = () => {
           <div className="flex justify-between items-end">
             <div>
               <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-1">Projected Annual Profit</p>
-              <p className="text-4xl font-black text-blue-900">${projectedProfit.toLocaleString()}</p>
+              <p className="text-4xl font-black text-blue-900">₹{projectedProfit.toLocaleString()}</p>
             </div>
             <TrendingUp className="w-12 h-12 text-blue-200" />
           </div>

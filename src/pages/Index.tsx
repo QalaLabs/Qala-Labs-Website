@@ -10,9 +10,24 @@ import { MadeWithDyad } from "@/components/made-with-dyad";
 import { motion } from "framer-motion";
 
 const Index = () => {
+  const clientLogos = [
+    "/clients/logo1.webp",
+    "/clients/logo2.webp",
+    "/clients/logo3.png",
+    "/clients/logo4.png",
+    "/clients/logo5.png",
+    "/clients/logo6.png",
+    "/clients/logo7.png",
+    "/clients/logo8.png",
+    "/clients/logo9.png",
+    "/clients/logo10.png",
+    "/clients/logo11.png",
+    "/clients/logo12.png",
+  ];
+
   const testimonials = [
     {
-      quote: "Qala Labs didn't just run ads; they rebuilt our entire data infrastructure. We went from $200k to $1.2M/mo in 6 months.",
+      quote: "Qala Labs didn't just run ads; they rebuilt our entire data infrastructure. We went from ₹15L to ₹1Cr/mo in 6 months.",
       author: "Sarah Chen",
       role: "Founder, GlowSkin",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"
@@ -34,7 +49,7 @@ const Index = () => {
     {
       icon: <Zap className="w-8 h-8 text-blue-600" />,
       title: "Infrastructure Build",
-      description: "We deploy our proprietary tracking and headless tech to ensure every dollar is accounted for."
+      description: "We deploy our proprietary tracking and headless tech to ensure every Rupee is accounted for."
     },
     {
       icon: <Rocket className="w-8 h-8 text-blue-600" />,
@@ -97,15 +112,18 @@ const Index = () => {
       </section>
 
       {/* Trusted By Section */}
-      <section className="py-10 border-y border-slate-200 bg-white overflow-hidden">
+      <section className="py-16 border-y border-slate-200 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="text-center text-slate-400 text-sm font-bold uppercase tracking-widest mb-8">Trusted by high-growth brands</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale">
-            <span className="text-2xl font-black text-slate-900">GLOWSKIN</span>
-            <span className="text-2xl font-black text-slate-900">URBAN THREADS</span>
-            <span className="text-2xl font-black text-slate-900">VITACORE</span>
-            <span className="text-2xl font-black text-slate-900">LUMINA</span>
-            <span className="text-2xl font-black text-slate-900">AURA</span>
+          <p className="text-center text-slate-400 text-sm font-bold uppercase tracking-widest mb-12">Trusted by high-growth brands</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+            {clientLogos.map((logo, index) => (
+              <img 
+                key={index} 
+                src={logo} 
+                alt={`Client ${index + 1}`} 
+                className="h-12 w-auto object-contain max-w-[140px]"
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -116,7 +134,7 @@ const Index = () => {
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">The Scale Engine Framework</h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Our 4-step methodology for taking brands from $100k to $1M+ per month.
+              Our 4-step methodology for taking brands from ₹10L to ₹1Cr+ per month.
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-8">

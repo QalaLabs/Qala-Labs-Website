@@ -11,8 +11,8 @@ const Pricing = () => {
   const tiers = [
     {
       name: "Growth",
-      price: "$5k",
-      description: "For brands doing $50k-$150k/mo looking to break through the ceiling.",
+      price: "₹4,00,000",
+      description: "For brands doing ₹40L-₹1.2Cr/mo looking to break through the ceiling.",
       icon: <Rocket className="w-8 h-8 text-blue-600" />,
       features: [
         "Meta & TikTok Ad Management",
@@ -24,8 +24,8 @@ const Pricing = () => {
     },
     {
       name: "Scale",
-      price: "$12k",
-      description: "Our flagship engine for brands doing $200k+/mo ready for 8-figures.",
+      price: "₹10,00,000",
+      description: "Our flagship engine for brands doing ₹1.6Cr+/mo ready for 8-figures.",
       icon: <Zap className="w-8 h-8 text-blue-600" />,
       popular: true,
       features: [
@@ -103,7 +103,7 @@ const Pricing = () => {
         <div className="mt-20 p-10 bg-slate-900 rounded-3xl text-white text-center">
           <h2 className="text-3xl font-bold mb-4">Looking for a Performance-Only Deal?</h2>
           <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-            For established brands doing $500k+/mo, we offer pure performance-based models where we only get paid on the incremental revenue we generate.
+            For established brands doing ₹4Cr+/mo, we offer pure performance-based models where we only get paid on the incremental revenue we generate.
           </p>
           <Button variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-6 rounded-xl font-bold">
             Apply for Performance Partnership

@@ -11,9 +11,9 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
 
 const ROICalculator = () => {
-  const [adSpend, setAdSpend] = useState(5000);
-  const [cpa, setCpa] = useState(50);
-  const [avgOrderValue, setAvgOrderValue] = useState(120);
+  const [adSpend, setAdSpend] = useState(400000);
+  const [cpa, setCpa] = useState(4000);
+  const [avgOrderValue, setAvgOrderValue] = useState(10000);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any[]>([]);
@@ -54,22 +54,22 @@ const ROICalculator = () => {
       <CardHeader className="bg-blue-600 text-white rounded-t-lg">
         <CardTitle className="flex items-center gap-2">
           <Target className="w-6 h-6" />
-          Ad Spend ROI Calculator
+          Ad Spend ROI Calculator (₹)
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Monthly Ad Spend ($)</Label>
+              <Label>Monthly Ad Spend (₹)</Label>
               <Input type="number" value={adSpend} onChange={(e) => setAdSpend(Number(e.target.value))} />
             </div>
             <div className="space-y-2">
-              <Label>Target CPA ($)</Label>
+              <Label>Target CPA (₹)</Label>
               <Input type="number" value={cpa} onChange={(e) => setCpa(Number(e.target.value))} />
             </div>
             <div className="space-y-2">
-              <Label>Average Order Value ($)</Label>
+              <Label>Average Order Value (₹)</Label>
               <Input type="number" value={avgOrderValue} onChange={(e) => setAvgOrderValue(Number(e.target.value))} />
             </div>
             
@@ -78,7 +78,7 @@ const ROICalculator = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-blue-600 uppercase font-bold">Revenue</p>
-                  <p className="text-2xl font-bold text-blue-900">${((adSpend / cpa) * avgOrderValue).toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-blue-900">₹{((adSpend / cpa) * avgOrderValue).toLocaleString()}</p>
                 </div>
                 <div>
                   <p className="text-xs text-blue-600 uppercase font-bold">ROAS</p>
@@ -95,7 +95,7 @@ const ROICalculator = () => {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip />
+                  <Tooltip formatter={(value) => `₹${Number(value).toLocaleString()}`} />
                   <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" />
                   <Bar dataKey="spend" fill="#94a3b8" name="Ad Spend" />
                 </BarChart>
