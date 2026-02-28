@@ -167,7 +167,7 @@ const Contact = () => {
                         onChange={(e) => setFormData({...formData, revenue: e.target.value})}
                       >
                         <option value="">Select range</option>
-                        <option value="<50k">< $50k/mo</option>
+                        <option value="<50k">{"< $50k/mo"}</option>
                         <option value="50k-150k">$50k - $150k/mo</option>
                         <option value="150k-500k">$150k - $500k/mo</option>
                         <option value="500k+">$500k+/mo</option>
