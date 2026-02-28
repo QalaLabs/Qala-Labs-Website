@@ -6,21 +6,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, DollarSign, Target } from 'lucide-react';
-import { showSuccess } from '@/utils/toast';
+import { Target, Loader2 } from 'lucide-react';
+import { showSuccess, showError } from '@/utils/toast';
+import { supabase } from "@/integrations/supabase/client";
 
 const ROICalculator = () => {
   const [adSpend, setAdSpend] = useState(5000);
   const [cpa, setCpa] = useState(50);
   const [avgOrderValue, setAvgOrderValue] = useState(120);
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any[]>([]);
 
   useEffect(() => {
     const conversions = adSpend / cpa;
     const revenue = conversions * avgOrderValue;
-    const roas = revenue / adSpend;
-    const profit = revenue - adSpend;
-
     setResults([
       { name: 'Current', revenue: revenue, spend: adSpend },
       { name: 'Projected (+20%)', revenue: revenue * 1.2, spend: adSpend },
@@ -29,8 +29,24 @@ const ROICalculator = () => {
 
   const handleCapture = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Trigger n8n webhook placeholder
-    showSuccess("Report sent to your email!");
+    setLoading(true);
+    
+    const revenue = (adSpend / cpa) * avgOrderValue;
+    const roas = revenue / adSpend;
+
+    const { error } = await supabase.from('leads').insert({
+      email,
+      tool_used: 'roi_calculator',
+      data: { adSpend, cpa, avgOrderValue, revenue, roas }
+    });
+
+    setLoading(false);
+    if (error) {
+      showError("Something went wrong. Please try again.");
+    } else {
+      showSuccess("Strategy report sent to your email!");
+      setEmail("");
+    }
   };
 
   return (
@@ -62,33 +78,43 @@ const ROICalculator = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-blue-600 uppercase font-bold">Revenue</p>
-                  <p className="text-2xl font-bold text-blue-900">${(adSpend / cpa * avgOrderValue).toLocaleString()}</p>
+                  <p className="text-2xl font-bold text-blue-900">${((adSpend / cpa) * avgOrderValue).toLocaleString()}</p>
                 </div>
                 <div>
                   <p className="text-xs text-blue-600 uppercase font-bold">ROAS</p>
-                  <p className="text-2xl font-bold text-blue-900">{( (adSpend / cpa * avgOrderValue) / adSpend).toFixed(2)}x</p>
+                  <p className="text-2xl font-bold text-blue-900">{((adSpend / cpa * avgOrderValue) / adSpend).toFixed(2)}x</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={results}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" />
-                <Bar dataKey="spend" fill="#94a3b8" name="Ad Spend" />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="h-[300px] flex flex-col">
+            <div className="flex-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={results}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" />
+                  <Bar dataKey="spend" fill="#94a3b8" name="Ad Spend" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
             
             <form onSubmit={handleCapture} className="mt-6 space-y-3">
               <p className="text-sm text-gray-600">Get a detailed PDF growth strategy based on these numbers.</p>
               <div className="flex gap-2">
-                <Input placeholder="Enter your email" type="email" required />
-                <Button type="submit" className="bg-blue-600 hover:bg-blue-700">Get Report</Button>
+                <Input 
+                  placeholder="Enter your email" 
+                  type="email" 
+                  required 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={loading}>
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Get Report"}
+                </Button>
               </div>
             </form>
           </div>
