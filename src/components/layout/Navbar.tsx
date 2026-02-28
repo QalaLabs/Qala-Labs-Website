@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Rocket, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +20,8 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="bg-blue-600 p-2 rounded-lg">
-              <Rocket className="text-white w-6 h-6" />
-            </div>
-            <span className="text-2xl font-black tracking-tighter text-slate-900">QALA<span className="text-blue-600">LABS</span></span>
+          <Link to="/">
+            <Logo />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

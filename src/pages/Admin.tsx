@@ -10,12 +10,12 @@ import {
   Settings, 
   LogOut,
   TrendingUp,
-  Mail,
-  Calendar
+  Mail
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { format } from 'date-fns';
+import Logo from '@/components/layout/Logo';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -53,11 +53,8 @@ const Admin = () => {
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}
       <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col">
-        <div className="flex items-center gap-2 mb-10">
-          <div className="bg-blue-600 p-1.5 rounded-lg">
-            <TrendingUp className="w-5 h-5" />
-          </div>
-          <span className="text-xl font-black tracking-tighter">QALA<span className="text-blue-600">LABS</span></span>
+        <div className="mb-10">
+          <Logo variant="white" />
         </div>
 
         <nav className="space-y-2 flex-1">
