@@ -5,8 +5,9 @@ import Navbar from '@/components/layout/Navbar';
 import SEO from '@/components/layout/SEO';
 import ROICalculator from '@/components/tools/ROICalculator';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, BarChart3, Globe2, Zap, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle2, BarChart3, Globe2, Zap, Star, Search, Rocket, ShieldCheck } from 'lucide-react';
 import { MadeWithDyad } from "@/components/made-with-dyad";
+import { motion } from "framer-motion";
 
 const Index = () => {
   const testimonials = [
@@ -24,6 +25,29 @@ const Index = () => {
     }
   ];
 
+  const steps = [
+    {
+      icon: <Search className="w-8 h-8 text-blue-600" />,
+      title: "Data Audit",
+      description: "We deep-dive into your attribution, unit economics, and creative performance to find the leaks."
+    },
+    {
+      icon: <Zap className="w-8 h-8 text-blue-600" />,
+      title: "Infrastructure Build",
+      description: "We deploy our proprietary tracking and headless tech to ensure every dollar is accounted for."
+    },
+    {
+      icon: <Rocket className="w-8 h-8 text-blue-600" />,
+      title: "Aggressive Scale",
+      description: "We launch high-velocity creative testing and omnichannel scaling to dominate your niche."
+    },
+    {
+      icon: <ShieldCheck className="w-8 h-8 text-blue-600" />,
+      title: "LTV Moat",
+      description: "We build retention systems and community engines to protect your growth and maximize profit."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO />
@@ -32,24 +56,43 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-bold mb-8 animate-bounce">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-bold mb-8"
+          >
             <Zap className="w-4 h-4" />
             New: E-com Creator Scale Engine 2.0
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight mb-6 leading-[1.1]">
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight mb-6 leading-[1.1]"
+          >
             We Scale Brands to <span className="text-blue-600">8-Figures</span> <br className="hidden md:block" /> with Performance Data.
-          </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-slate-600 max-w-2xl mx-auto mb-10"
+          >
             Qala Labs is a revenue-growth agency that combines digital transformation with aggressive performance marketing to dominate global markets.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col sm:flex-row justify-center gap-4"
+          >
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-7 rounded-2xl shadow-xl shadow-blue-200">
               Start Your Scale Engine <ArrowRight className="ml-2" />
             </Button>
             <Button size="lg" variant="outline" className="text-lg px-8 py-7 rounded-2xl border-2">
               View Case Studies
             </Button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -67,8 +110,34 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Methodology Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">The Scale Engine Framework</h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Our 4-step methodology for taking brands from $100k to $1M+ per month.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-4 gap-8">
+            {steps.map((step, i) => (
+              <div key={i} className="relative p-8 bg-slate-50 rounded-[2rem] border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-300">
+                <div className="mb-6 p-4 bg-white rounded-2xl shadow-sm w-fit group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  {step.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{step.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{step.description}</p>
+                <div className="absolute top-8 right-8 text-4xl font-black text-slate-100 group-hover:text-blue-50 transition-colors">
+                  0{i + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Interactive Tool Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Calculate Your Growth Potential</h2>
