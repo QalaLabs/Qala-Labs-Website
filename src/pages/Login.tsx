@@ -1,18 +1,39 @@
-import React from 'react';
+"use client";
+
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from "@/integrations/supabase/client";
-import Hero from '../components/Hero';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Logo from '@/components/layout/Logo';
 
-function Login() {
+const Login = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        navigate('/admin');
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
   return (
-    <div className="bg-slate-50 min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Hero />
-        <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 mt-8">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
+      <Card className="w-full max-w-md shadow-2xl border-none">
+        <CardHeader className="flex flex-col items-center space-y-4 pt-8">
+          <Logo className="scale-125 mb-2" />
+          <div className="text-center">
+            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest">Admin Portal</h2>
+            <p className="text-slate-500 text-xs mt-1">Sign in to manage your scale engine</p>
+          </div>
+        </CardHeader>
+        <CardContent>
           <Auth
             supabaseClient={supabase}
-            providers={['google', 'github']}
+            providers={[]}
             appearance={{
               theme: ThemeSupa,
               variables: {
@@ -20,16 +41,16 @@ function Login() {
                   colors: {
                     brand: '#2563eb',
                     brandAccent: '#1d4ed8',
-                  },
-                },
-              },
+                  }
+                }
+              }
             }}
             theme="light"
           />
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
 
 export default Login;
