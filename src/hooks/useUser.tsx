@@ -1,33 +1,38 @@
-"use client";
+   import { useEffect, useState } from 'react';
+   import { supabase } from "@/integrations/supabase/client";
 
-import { useEffect, useState } from 'react';
-import { supabase } from "@/integrations/supabase/client";
+   const useUser = () => {
+     const [user, setUser] = useState(null);
+     const [loading, setLoading] = useState(true);
 
-const useUser = () => {
-  const [user, setUser] = useState(null);
+     useEffect(() => {
+       const fetchUser = async () => {
+         try {
+           const { data: session, error } = await supabase.auth.getSession();
+           if (error) throw error;
+           if (!session?.user) return setUser(null);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: session } = await supabase.auth.getSession();
-      if (session?.user) {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
+           const { data: userData, error: userError } = await supabase
+             .from('profiles')
+             .select('*')
+             .eq('id', session.user.id)
+             .single();
 
-        if (error) {
-          console.error(error);
-        } else {
-          setUser(data);
-        }
-      }
-    };
+           if (userError) throw userError;
 
-    getUser();
-  }, []);
+           setUser(userData);
+         } catch (error) {
+           console.error('Error fetching user data:', error);
+         } finally {
+           setLoading(false);
+         }
+       };
 
-  return user;
-};
+       fetchUser();
+     }, []);
 
-export default useUser;
+     return { user, loading };
+   };
+
+   export default useUser;
+   ```

@@ -1,30 +1,21 @@
-"use client";
+                                                                                                                                    import React from 'react';
+                                                                                                                                    import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+                                                                                                                                    import Header from './components/Header';
+                                                                                                                                    import Dashboard from './pages/Dashboard';
+                                                                                                                                    import Login from './pages/Login';
 
-import React from 'react';
-import { useEffect } from 'react';
-import { supabase } from "@/integrations/supabase/client";
-import Login from '../pages/Login';
+                                                                                                                                    const App = () => {
+                                                                                                                                      return (
+                                                                                                                                        <Router>
+                                                                                                                                          <Header />
+                                                                                                                                          <Routes>
+                                                                                                                                            <Route path="/" element={<Index />} />
+                                                                                                                                            <Route path="/login" element={<Login />} />
+                                                                                                                                            <Route path="/dashboard" element={<Dashboard />} />
+                                                                                                                                          </Routes>
+                                                                                                                                        </Router>
+                                                                                                                                      );
+                                                                                                                                    };
 
-function App() {
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        // Redirect to main page
-        window.location.href = '/';
-      } else {
-        // Redirect to login page
-        window.location.href = '/login';
-      }
-    });
-
-    return () => authListener?.unsubscribe();
-  }, []);
-
-  return (
-    <div className="p-4">
-      {/* ... keep existing code (rest of the component) */}
-    </div>
-  );
-}
-
-export default App;
+                                                                                                                                    export default App;
+                                                                                                                                    ```

@@ -1,22 +1,24 @@
-"use client";
+                                                                                                                                import React from 'react';
+                                                                                                                                import { useUser } from '../hooks/useUser';
+                                                                                                                                import Hero from '../components/Hero';
 
-import React from 'react';
-import { supabase } from "@/integrations/supabase/client";
-import { useUser } from "@/hooks/useUser";
+                                                                                                                                const Dashboard = () => {
+                                                                                                                                  const { user, loading } = useUser();
 
-const Dashboard = () => {
-  const user = useUser();
+                                                                                                                                  if (loading) return <div>Loading...</div>;
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+                                                                                                                                  if (!user) return <div>Please log in to view your dashboard.</div>;
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-      <p>Welcome, {user.email}!</p>
-    </div>
-  );
-};
+                                                                                                                                  return (
+                                                                                                                                    <div className="container mx-auto p-4">
+                                                                                                                                      <Hero />
+                                                                                                                                      <div className="bg-white shadow rounded-lg p-6">
+                                                                                                                                        <h3 className="font-medium text-lg">{user.first_name} {user.last_name}</h3>
+                                                                                                                                        <p className="text-gray-500">{user.email}</p>
+                                                                                                                                      </div>
+                                                                                                                                    </div>
+                                                                                                                                  );
+                                                                                                                                };
 
-export default Dashboard;
+                                                                                                                                export default Dashboard;
+                                                                                                                                ```

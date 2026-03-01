@@ -1,27 +1,21 @@
-"use client";
+                                                                                                                                 import React from 'react';
+                                                                                                                                 import { useUser } from '../hooks/useUser';
+                                                                                                                                 import Hero from '../components/Hero';
 
-import React from 'react';
-import { useEffect } from 'react';
-import { supabase } from "@/integrations/supabase/client";
-import Login from '../pages/Login';
+                                                                                                                                 const Index = () => {
+                                                                                                                                   const { user, loading } = useUser();
 
-const Index = () => {
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session?.user) {
-        // Redirect to login page
-        window.location.href = '/login';
-      }
-    });
+                                                                                                                                   if (loading) return <div>Loading...</div>;
 
-    return () => authListener?.unsubscribe();
-  }, []);
+                                                                                                                                   if (!user) return <div><a href="/login">Please log in</a> to view your dashboard.</div>;
 
-  return (
-    <div className="p-4">
-      {/* ... keep existing code (rest of the component) */}
-    </div>
-  );
-};
+                                                                                                                                   return (
+                                                                                                                                     <div className="container mx-auto p-4">
+                                                                                                                                       <Hero />
+                                                                                                                                       <p>Your data will be displayed here.</p>
+                                                                                                                                     </div>
+                                                                                                                                   );
+                                                                                                                                 };
 
-export default Index;
+                                                                                                                                 export default Index;
+                                                                                                                                 ```
