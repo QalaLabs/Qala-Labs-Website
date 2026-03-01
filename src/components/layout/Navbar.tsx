@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Logo from './Logo';
+import { useUser } from '@/hooks/useUser';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const navLinks = [
     { name: 'Services', href: '/services' },
@@ -36,12 +38,23 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button 
-              onClick={() => navigate('/contact')}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full"
-            >
-              Free Audit
-            </Button>
+            
+            {user ? (
+              <Button 
+                onClick={() => navigate('/admin')}
+                variant="outline"
+                className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold px-6 rounded-full flex items-center gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4" /> Dashboard
+              </Button>
+            ) : (
+              <Button 
+                onClick={() => navigate('/contact')}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full"
+              >
+                Free Audit
+              </Button>
+            )}
           </div>
 
           <div className="md:hidden">
@@ -67,12 +80,12 @@ const Navbar = () => {
           ))}
           <Button 
             onClick={() => {
-              navigate('/contact');
+              navigate(user ? '/admin' : '/contact');
               setIsOpen(false);
             }}
             className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl"
           >
-            Free Audit
+            {user ? 'Dashboard' : 'Free Audit'}
           </Button>
         </div>
       )}

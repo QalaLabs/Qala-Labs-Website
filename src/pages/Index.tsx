@@ -5,8 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import SEO from '@/components/layout/SEO';
 import Hero from '@/components/layout/Hero';
 import ROICalculator from '@/components/tools/ROICalculator';
-import { Button } from "@/components/ui/button";
-import { CheckCircle2, BarChart3, Globe2, Zap, Star, Search, Rocket, ShieldCheck } from 'lucide-react';
+import { Search, Zap, Rocket, ShieldCheck } from 'lucide-react';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
@@ -47,7 +46,6 @@ const Index = () => {
       
       <Hero />
 
-      {/* Trusted By Section */}
       <section className="py-16 border-y border-slate-200 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <p className="text-center text-slate-400 text-sm font-bold uppercase tracking-widest mb-12">Trusted by high-growth brands</p>
@@ -64,7 +62,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Rest of the sections remain the same... */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20">
