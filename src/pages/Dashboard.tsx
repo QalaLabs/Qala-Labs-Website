@@ -1,5 +1,5 @@
 import React from 'react';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 import Hero from '../components/Hero';
 
 const Dashboard = () => {
@@ -23,7 +23,6 @@ const Dashboard = () => {
             <p className="text-sm font-bold text-blue-600 uppercase tracking-wider mb-1">Status</p>
             <p className="text-xl font-black text-blue-900">Active Partner</p>
           </div>
-          {/* Add more dashboard widgets here */}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useUser from '../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 import Logo from './layout/Logo';
 
 const Header = () => {
