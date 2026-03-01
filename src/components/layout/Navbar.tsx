@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, LayoutDashboard } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import Logo from './Logo';
 import { useUser } from '@/hooks/useUser';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
 
