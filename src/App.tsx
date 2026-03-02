@@ -17,11 +17,13 @@ import Contact from "./pages/Contact";
 import Tools from "./pages/Tools";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import EditorGuide from "./pages/EditorGuide";
+import Onboarding from "./pages/Onboarding";
 import StickyCTA from "./components/layout/StickyCTA";
 
 const queryClient = new QueryClient();
@@ -47,6 +49,8 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
