@@ -4,7 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, FileText, Settings, LogOut, 
   TrendingUp, Mail, Eye, CheckCircle2, Clock, Upload, Database,
-  Search, Filter, MoreVertical, Download, X, BookOpen, Plus
+  Search, Filter, MoreVertical, Download, X, BookOpen, Plus,
+  BarChart as BarChartIcon
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,10 +13,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { format } from 'date-fns';
+import { format, startOfToday, subDays, isSameDay } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { parseAsenkaiXML, uploadToSupabase } from '@/utils/xmlImporter';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
+  ResponsiveContainer, Cell 
+} from 'recharts';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -72,6 +77,18 @@ const Admin = () => {
     lead.tool_used.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Generate chart data for the last 7 days
+  const chartData = React.useMemo(() => {
+    return Array.from({ length: 7 }).map((_, i) => {
+      const date = subDays(new Date(), i);
+      const count = leads.filter(l => isSameDay(new Date(l.created_at), date)).length;
+      return {
+        name: format(date, 'MMM dd'),
+        leads: count,
+      };
+    }).reverse();
+  }, [leads]);
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full">
@@ -124,14 +141,23 @@ const Admin = () => {
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-white border-none shadow-sm">
+          <Card className="bg-white border-none shadow-sm md:col-span-3">
             <CardContent className="pt-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm text-slate-500 font-medium">Conversion Rate</p>
-                  <h3 className="text-3xl font-bold mt-1">12.4%</h3>
-                </div>
-                <div className="p-2 bg-green-50 rounded-lg text-green-600"><TrendingUp className="w-5 h-5" /></div>
+              <div className="h-[120px] w-full">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Weekly Acquisition</p>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData}>
+                    <Tooltip 
+                      cursor={{fill: 'transparent'}}
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Bar dataKey="leads" radius={[4, 4, 0, 0]}>
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index === 6 ? '#2563eb' : '#e2e8f0'} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </CardContent>
           </Card>
@@ -197,6 +223,13 @@ const Admin = () => {
                           </td>
                         </tr>
                       ))}
+                      {filteredLeads.length === 0 && (
+                        <tr>
+                          <td colSpan={5} className="px-6 py-10 text-center text-slate-400">
+                            No leads found. Run the SQL script in Supabase to start collecting data.
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
