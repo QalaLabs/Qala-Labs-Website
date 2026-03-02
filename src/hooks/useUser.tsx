@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import * as React from 'react';
 import { supabase } from "@/integrations/supabase/client";
 
 export const useUser = () => {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState(true);
 
-  const fetchUser = useCallback(async () => {
+  const fetchUser = React.useCallback(async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user) {
@@ -29,7 +29,7 @@ export const useUser = () => {
     }
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchUser();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
