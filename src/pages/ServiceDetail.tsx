@@ -73,6 +73,60 @@ const serviceData: Record<string, any> = {
       { title: "Build", desc: "Clean, performant React development." },
       { title: "Launch", desc: "Rigorous testing and seamless migration." }
     ]
+  },
+  'cro': {
+    title: "Conversion Optimization",
+    description: "Stop leaking revenue at the finish line. We eliminate friction in your customer journey from landing page to checkout.",
+    icon: <Search className="w-12 h-12" />,
+    metric: "+42% CVR Lift",
+    features: [
+      "Heatmap & Session Analysis",
+      "Rigorous A/B Testing",
+      "Checkout Flow Optimization",
+      "Landing Page Design",
+      "User Psychology Audits"
+    ],
+    process: [
+      { title: "Analyze", desc: "Identify drop-off points in the funnel." },
+      { title: "Hypothesize", desc: "Create data-backed test variations." },
+      { title: "Test", desc: "Run experiments to find winning changes." }
+    ]
+  },
+  'data': {
+    title: "Analytics & Data",
+    description: "Data is only useful if it's actionable. We build custom dashboards and server-side tracking solutions.",
+    icon: <Database className="w-12 h-12" />,
+    metric: "100% Accuracy",
+    features: [
+      "Server-Side GTM Setup",
+      "Custom Looker Studio Dashboards",
+      "LTV & Cohort Analysis",
+      "Attribution Modeling",
+      "Data Warehouse Integration"
+    ],
+    process: [
+      { title: "Audit", desc: "Verify current tracking integrity." },
+      { title: "Implement", desc: "Deploy server-side infrastructure." },
+      { title: "Visualize", desc: "Build real-time performance views." }
+    ]
+  },
+  'strategy': {
+    title: "eCommerce Growth",
+    description: "A holistic approach to scaling your brand to 8-figures and beyond. We act as your fractional growth team.",
+    icon: <Rocket className="w-12 h-12" />,
+    metric: "310% YoY Growth",
+    features: [
+      "Omnichannel Growth Strategy",
+      "Inventory & Cashflow Planning",
+      "Product Roadmap Alignment",
+      "Retention & LTV Strategy",
+      "Market Expansion Planning"
+    ],
+    process: [
+      { title: "Discovery", desc: "Deep dive into unit economics." },
+      { title: "Roadmap", desc: "Build a 12-month scale plan." },
+      { title: "Execute", desc: "Weekly sprints to hit growth targets." }
+    ]
   }
 };
 
@@ -104,9 +158,11 @@ const ServiceDetail = () => {
                 {data.description}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-200">
-                  Book Free Audit <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <Link to="/contact">
+                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-200">
+                    Book Free Audit <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
                 <div className="px-8 py-4 bg-slate-900 text-white rounded-2xl flex items-center gap-3">
                   <Target className="w-6 h-6 text-blue-400" />
                   <div>
@@ -126,7 +182,6 @@ const ServiceDetail = () => {
                 <div className="text-blue-600 scale-[3]">
                   {data.icon}
                 </div>
-                {/* Decorative elements */}
                 <div className="absolute top-10 right-10 w-20 h-20 bg-blue-100 rounded-full blur-2xl" />
                 <div className="absolute bottom-10 left-10 w-32 h-32 bg-indigo-100 rounded-full blur-3xl" />
               </div>

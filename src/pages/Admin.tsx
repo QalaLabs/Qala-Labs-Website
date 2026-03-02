@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, FileText, Settings, LogOut, 
   TrendingUp, Mail, Eye, CheckCircle2, Clock, Upload, Database,
-  Search, Filter, MoreVertical, Download
+  Search, Filter, MoreVertical, Download, X
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { format } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
@@ -22,6 +23,7 @@ const Admin = () => {
   const [loading, setLoading] = React.useState(true);
   const [importing, setImporting] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [selectedLead, setSelectedLead] = React.useState<any>(null);
 
   React.useEffect(() => {
     const checkAuth = async () => {
@@ -168,7 +170,7 @@ const Admin = () => {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {filteredLeads.map((lead) => (
-                        <tr key={lead.id} className="hover:bg-slate-50 transition-colors">
+                        <tr key={lead.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => setSelectedLead(lead)}>
                           <td className="px-6 py-4 font-medium text-slate-900">{lead.email}</td>
                           <td className="px-6 py-4">
                             <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-none">
@@ -185,7 +187,7 @@ const Admin = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <Button variant="ghost" size="icon"><MoreVertical className="w-4 h-4" /></Button>
+                            <Button variant="ghost" size="icon"><Eye className="w-4 h-4" /></Button>
                           </td>
                         </tr>
                       ))}
@@ -222,6 +224,50 @@ const Admin = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Lead Detail Dialog */}
+        <Dialog open={!!selectedLead} onOpenChange={() => setSelectedLead(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold">Lead Details</DialogTitle>
+            </DialogHeader>
+            {selectedLead && (
+              <div className="space-y-6 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 bg-slate-50 rounded-xl">
+                    <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-1">Email Address</p>
+                    <p className="font-bold text-slate-900">{selectedLead.email}</p>
+                  </div>
+                  <div className="p-4 bg-slate-50 rounded-xl">
+                    <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-1">Source Tool</p>
+                    <p className="font-bold text-slate-900 capitalize">{selectedLead.tool_used.replace('_', ' ')}</p>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                  <h4 className="font-bold text-blue-900 mb-4 flex items-center gap-2">
+                    <Database className="w-4 h-4" /> Submission Data
+                  </h4>
+                  <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+                    {Object.entries(selectedLead.data || {}).map(([key, value]: [string, any]) => (
+                      <div key={key}>
+                        <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-1">{key.replace('_', ' ')}</p>
+                        <p className="text-slate-900 font-medium">
+                          {typeof value === 'number' ? value.toLocaleString() : String(value)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-3">
+                  <Button variant="outline" onClick={() => setSelectedLead(null)}>Close</Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700">Mark as Contacted</Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );
