@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, FileText, Settings, LogOut, 
   TrendingUp, Mail, Eye, CheckCircle2, Clock, Upload, Database,
-  Search, Filter, MoreVertical, Download, X
+  Search, Filter, MoreVertical, Download, X, BookOpen, Plus
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -86,6 +86,11 @@ const Admin = () => {
           <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
             <Database className="w-4 h-4" /> Data Sync
           </Button>
+          <Link to="/admin/guide">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+              <BookOpen className="w-4 h-4" /> Editor Guide
+            </Button>
+          </Link>
         </nav>
         <Button onClick={handleLogout} variant="ghost" className="w-full justify-start gap-3 text-red-400 hover:text-red-300 hover:bg-red-900/20">
           <LogOut className="w-4 h-4" /> Logout
@@ -135,6 +140,7 @@ const Admin = () => {
         <Tabs defaultValue="leads" className="space-y-6">
           <TabsList className="bg-white p-1 rounded-xl border border-slate-200">
             <TabsTrigger value="leads" className="rounded-lg">Recent Leads</TabsTrigger>
+            <TabsTrigger value="builder" className="rounded-lg">Page Builder</TabsTrigger>
             <TabsTrigger value="content" className="rounded-lg">Content Library</TabsTrigger>
           </TabsList>
 
@@ -191,18 +197,54 @@ const Admin = () => {
                           </td>
                         </tr>
                       ))}
-                      {filteredLeads.length === 0 && (
-                        <tr>
-                          <td colSpan={5} className="px-6 py-20 text-center text-slate-400">
-                            No leads found matching your search.
-                          </td>
-                        </tr>
-                      )}
                     </tbody>
                   </table>
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="builder">
+            <div className="grid grid-cols-3 gap-8">
+              <div className="col-span-2 space-y-6">
+                <Card className="border-none shadow-sm">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle>Active Blocks</CardTitle>
+                    <Button size="sm" className="bg-blue-600"><Plus className="w-4 h-4 mr-2" /> Add Block</Button>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {['Hero Section', 'Services Grid', 'Case Study Portfolio', 'CTA Banner'].map((block, i) => (
+                      <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <div className="flex items-center gap-4">
+                          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-xs font-bold text-slate-400">{i+1}</div>
+                          <span className="font-bold text-slate-700">{block}</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon"><Settings className="w-4 h-4" /></Button>
+                          <Button variant="ghost" size="icon" className="text-red-500"><X className="w-4 h-4" /></Button>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="space-y-6">
+                <Card className="border-none shadow-sm">
+                  <CardHeader><CardTitle>Page Settings</CardTitle></CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase">Page Title</label>
+                      <Input defaultValue="Home Page" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase">Slug</label>
+                      <Input defaultValue="/" />
+                    </div>
+                    <Button className="w-full bg-slate-900">Save Changes</Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="content">
