@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import Hero from '@/components/layout/Hero';
 import ROICalculator from '@/components/tools/ROICalculator';
 import { Search, Zap, Rocket, ShieldCheck } from 'lucide-react';
-import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
   const clientLogos = [
@@ -95,12 +95,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-20 border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-slate-400 text-sm mb-4">© 2024 Qala Labs. All rights reserved. Built for performance.</p>
-          <MadeWithDyad />
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
