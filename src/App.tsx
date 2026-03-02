@@ -17,6 +17,9 @@ import Contact from "./pages/Contact";
 import Tools from "./pages/Tools";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
+import About from "./pages/About";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +44,9 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
