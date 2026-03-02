@@ -21,6 +21,7 @@ import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import StickyCTA from "./components/layout/StickyCTA";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <StickyCTA />
         </BrowserRouter>
       </TooltipProvider>
     </HelmetProvider>
