@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, ArrowRight, Zap } from 'lucide-react';
 import Logo from './Logo';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
@@ -111,7 +111,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+        {/* Motion Note */}
+        <div className="mt-8 p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 flex items-center gap-4">
+          <Zap className="w-6 h-6 text-blue-500 shrink-0" />
+          <p className="text-xs text-slate-400 leading-relaxed">
+            <span className="font-bold text-white">Why motion matters:</span> We use purposeful animation to guide your focus and clarify complex data. Our motion system respects your system preferences and reduces intensity if "Reduced Motion" is enabled.
+          </p>
+        </div>
+
+        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
           <p>© {currentYear} Qala Labs. All rights reserved.</p>
           <div className="flex gap-8">
             {links.legal.map((link) => (
