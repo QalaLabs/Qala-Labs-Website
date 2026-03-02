@@ -1,6 +1,4 @@
-"use client";
-
-import React from 'react';
+import * as React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import SEO from '@/components/layout/SEO';
 import Hero from '@/components/layout/Hero';
