@@ -30,46 +30,10 @@ const projects = [
     metrics: { roas: "N/A", growth: "25.7K Subs" },
     tags: ["Music Label", "Kashmir", "Digital Strategy"],
     description: "Building Kashmir's first digital-first music label through staggered storytelling and community-first activations."
-  },
-  {
-    id: 1,
-    title: "GlowSkin DTC",
-    category: "DTC",
-    result: "₹12Cr in 90 Days",
-    slug: "skincare-scale-10m",
-    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-woman-applying-face-cream-42884-large.mp4",
-    metrics: { roas: "4.2x", growth: "310%" },
-    tags: ["Meta Ads", "TikTok", "LTV Optimization"],
-    description: "How we leveraged creator-led content and proprietary attribution to dominate the skincare niche."
-  },
-  {
-    id: 2,
-    title: "UrbanThread",
-    category: "Fashion",
-    result: "3.5x ROAS on TikTok",
-    slug: "fashion-global-expansion",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-a-runway-42885-large.mp4",
-    metrics: { roas: "3.5x", growth: "180%" },
-    tags: ["TikTok Ads", "UGC", "Influencer"],
-    description: "Scaling a streetwear brand through high-velocity creative testing and creator partnerships."
-  },
-  {
-    id: 4,
-    title: "LuxeDecor",
-    category: "DTC",
-    result: "Scaled to $1M/mo",
-    slug: "legacy-retail-transformation",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-interior-of-a-modern-living-room-42887-large.mp4",
-    metrics: { roas: "3.8x", growth: "450%" },
-    tags: ["Google Ads", "PMax", "Retention"],
-    description: "Building a sustainable scale engine for a high-ticket home decor brand."
   }
 ];
 
-const categories = ["All", "DTC", "Fashion", "Music Marketing", "Meta Lead Generation"];
+const categories = ["All", "Music Marketing", "Meta Lead Generation"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -102,7 +66,7 @@ const PortfolioGrid = () => {
       {/* Grid */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
       >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (
