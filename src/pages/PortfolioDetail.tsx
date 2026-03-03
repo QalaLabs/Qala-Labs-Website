@@ -22,7 +22,9 @@ import {
   Users,
   Heart,
   Bookmark,
-  Share2
+  Share2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -86,7 +88,9 @@ const portfolioData: Record<string, any> = {
         • Reduced CPC through relevance and bid control
         • Identified clear winners and stopped budget leakage on underperforming campaigns`
       }
-    ]
+    ],
+    prev: "user-generated-content-chennai-superkings",
+    next: "try-on-campaign"
   },
   'try-on-campaign': {
     title: "The Try on campaign: Style Meets Real Life",
@@ -130,7 +134,9 @@ const portfolioData: Record<string, any> = {
         
         By leveraging real people in real environments, we bypassed the "ad blindness" that often plagues high-production studio content. The campaign focused on the lifestyle integration of the apparel, making it a part of the creator's daily routine rather than a static product feature.`
       }
-    ]
+    ],
+    prev: "amazon-ads",
+    next: "user-generated-content-chennai-superkings"
   },
   'user-generated-content-chennai-superkings': {
     title: "It's All Real - #WhistlePodu Army",
@@ -151,7 +157,7 @@ const portfolioData: Record<string, any> = {
     projectInfo: {
       category: "User Generated Content",
       location: "India",
-      dated: "April 2025",
+      dated: "May 2025",
       client: "playR",
       platform: "Instagram"
     },
@@ -170,7 +176,9 @@ const portfolioData: Record<string, any> = {
         
         By tapping into the raw energy of the #WhistlePodu army, we created a self-sustaining content engine. The authenticity of the fan-led content resonated far more deeply than any studio-produced ad could, driving both brand affinity and direct sales.`
       }
-    ]
+    ],
+    prev: "try-on-campaign",
+    next: "amazon-ads"
   }
 };
 
@@ -292,11 +300,33 @@ const PortfolioDetail = () => {
             ))}
           </div>
 
+          {/* Project Navigation */}
+          <div className="flex justify-between items-center py-12 border-t border-slate-100 mb-12">
+            <Link 
+              to={`/portfolio/${data.prev}`}
+              className="flex items-center gap-4 group text-slate-400 hover:text-blue-600 transition-colors"
+            >
+              <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-blue-600 transition-colors">
+                <ChevronLeft className="w-6 h-6" />
+              </div>
+              <span className="font-bold uppercase tracking-widest text-xs">Prev Project</span>
+            </Link>
+            <Link 
+              to={`/portfolio/${data.next}`}
+              className="flex items-center gap-4 group text-slate-400 hover:text-blue-600 transition-colors text-right"
+            >
+              <span className="font-bold uppercase tracking-widest text-xs">Next Project</span>
+              <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-blue-600 transition-colors">
+                <ChevronRight className="w-6 h-6" />
+              </div>
+            </Link>
+          </div>
+
           <section className="py-20">
             <div className="relative p-12 md:p-20 bg-slate-900 rounded-[3.5rem] overflow-hidden text-center shadow-2xl">
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-5xl font-black mb-10 leading-tight text-white">
-                  Ready to build your <br /> own scale engine?
+                  talktous@lightcyan-porpoise-736517.hostingersite.com
                 </h2>
                 <Link to="/contact">
                   <Button className="bg-blue-600 text-white hover:bg-blue-700 px-10 py-7 rounded-2xl text-lg font-black group">
