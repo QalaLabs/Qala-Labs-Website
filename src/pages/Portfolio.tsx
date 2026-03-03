@@ -6,7 +6,7 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
 import { motion } from "framer-motion";
-import { Briefcase, Sparkles, Rocket } from 'lucide-react';
+import { Briefcase, Sparkles, Rocket, TrendingUp } from 'lucide-react';
 
 const Portfolio = () => {
   return (
