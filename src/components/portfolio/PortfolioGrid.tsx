@@ -8,10 +8,23 @@ import { Filter } from 'lucide-react';
 
 const projects = [
   {
+    id: 9,
+    title: "Mystic Studio 8",
+    category: "Music Marketing",
+    result: "3.4M+ Views in 90 Days",
+    slug: "music-marketing",
+    image: "https://images.unsplash.com/photo-1514525253361-bee8718a740b?auto=format&fit=crop&q=80&w=800",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-man-singing-into-a-microphone-42892-large.mp4",
+    metrics: { roas: "N/A", growth: "25.7K Subs" },
+    tags: ["Music Label", "Kashmir", "Digital Strategy"],
+    description: "Building Kashmir's first digital-first music label through staggered storytelling and community-first activations."
+  },
+  {
     id: 1,
     title: "GlowSkin DTC",
     category: "DTC",
     result: "₹12Cr in 90 Days",
+    slug: "skincare-scale-10m",
     image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&q=80&w=800",
     video: "https://assets.mixkit.co/videos/preview/mixkit-woman-applying-face-cream-42884-large.mp4",
     metrics: { roas: "4.2x", growth: "310%" },
@@ -23,6 +36,7 @@ const projects = [
     title: "UrbanThread",
     category: "Fashion",
     result: "3.5x ROAS on TikTok",
+    slug: "fashion-global-expansion",
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800",
     video: "https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-on-a-runway-42885-large.mp4",
     metrics: { roas: "3.5x", growth: "180%" },
@@ -30,74 +44,20 @@ const projects = [
     description: "Scaling a streetwear brand through high-velocity creative testing and creator partnerships."
   },
   {
-    id: 3,
-    title: "PureHydrate",
-    category: "Performance",
-    result: "42% CVR Lift",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-pouring-water-into-a-glass-42886-large.mp4",
-    metrics: { roas: "5.1x", growth: "220%" },
-    tags: ["CRO", "A/B Testing", "Landing Pages"],
-    description: "Optimizing the post-click experience to maximize every rupee of ad spend."
-  },
-  {
     id: 4,
     title: "LuxeDecor",
     category: "DTC",
     result: "Scaled to $1M/mo",
+    slug: "legacy-retail-transformation",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800",
     video: "https://assets.mixkit.co/videos/preview/mixkit-interior-of-a-modern-living-room-42887-large.mp4",
     metrics: { roas: "3.8x", growth: "450%" },
     tags: ["Google Ads", "PMax", "Retention"],
     description: "Building a sustainable scale engine for a high-ticket home decor brand."
-  },
-  {
-    id: 5,
-    title: "FitFuel",
-    category: "Performance",
-    result: "50% Lower CPA",
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-man-exercising-in-a-gym-42888-large.mp4",
-    metrics: { roas: "4.8x", growth: "120%" },
-    tags: ["Meta Ads", "Creative Strategy", "Data"],
-    description: "Reducing acquisition costs through aggressive creative iteration and audience modeling."
-  },
-  {
-    id: 6,
-    title: "AuraJewels",
-    category: "Fashion",
-    result: "Global Expansion",
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-wearing-jewelry-42889-large.mp4",
-    metrics: { roas: "6.2x", growth: "510%" },
-    tags: ["International", "Localization", "SEO"],
-    description: "Taking a boutique jewelry brand to the US and UAE markets with localized scale engines."
-  },
-  {
-    id: 7,
-    title: "EcoHome",
-    category: "DTC",
-    result: "8-Figure Transformation",
-    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-woman-cleaning-a-kitchen-counter-42890-large.mp4",
-    metrics: { roas: "3.9x", growth: "280%" },
-    tags: ["Headless", "Shopify", "Performance"],
-    description: "Modernizing a sustainable home goods brand for the digital-first economy."
-  },
-  {
-    id: 8,
-    title: "TechGadget",
-    category: "Performance",
-    result: "Omnichannel Dominance",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-computer-keyboard-42891-large.mp4",
-    metrics: { roas: "4.5x", growth: "150%" },
-    tags: ["Google Ads", "Meta", "YouTube"],
-    description: "Dominating the tech niche through a unified omnichannel growth strategy."
   }
 ];
 
-const categories = ["All", "DTC", "Fashion", "Performance"];
+const categories = ["All", "DTC", "Fashion", "Music Marketing"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -137,7 +97,14 @@ const PortfolioGrid = () => {
             <ProjectCard 
               key={project.id} 
               project={project} 
-              onClick={() => setSelectedProject(project)}
+              onClick={() => {
+                // If it has a slug, navigate to the detail page
+                if (project.slug) {
+                  window.location.href = `/case-studies/${project.slug}`;
+                } else {
+                  setSelectedProject(project);
+                }
+              }}
             />
           ))}
         </AnimatePresence>

@@ -12,11 +12,47 @@ import {
   Zap, 
   CheckCircle2,
   BarChart3,
-  Users
+  Users,
+  Play
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
+const YouTubeEmbed = ({ videoId }: { videoId: string }) => (
+  <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl mb-8">
+    <iframe
+      className="absolute top-0 left-0 w-full h-full"
+      src={`https://www.youtube.com/embed/${videoId}`}
+      title="YouTube video player"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
+  </div>
+);
+
 const caseStudiesData: Record<string, any> = {
+  'music-marketing': {
+    title: "Mystic Studio 8: Kashmir's First Digital-First Music Label",
+    category: "Music Marketing",
+    heroImage: "https://images.unsplash.com/photo-1514525253361-bee8718a740b?auto=format&fit=crop&q=80&w=1200",
+    videos: ["UOu0IIMDC3g", "m1K5-eBFt74"],
+    metrics: [
+      { label: "Views", value: "3.4M+", icon: <Play className="w-5 h-5" /> },
+      { label: "Subscribers", value: "25.7K", icon: <Users className="w-5 h-5" /> },
+      { label: "Retention", value: "61%", icon: <TrendingUp className="w-5 h-5" /> },
+      { label: "Sentiment", value: "91%", icon: <Target className="w-5 h-5" /> }
+    ],
+    challenge: "Mystic Studio 8 set out to launch Kashmir’s first digital-first, culturally rooted music label — but with no previous audience, no fanbase, and no playbook. They needed to build a brand from scratch in a region with unique cultural nuances.",
+    solution: "We took charge of everything: market research, song strategy, artist casting, music video production, offline activations, and full-scale digital rollout. Over 3 months, we launched 3 original songs — one per month — each crafted and positioned to create an emotional, community-first music movement.",
+    results: [
+      "3.4M+ YouTube Views across 3 original tracks",
+      "25.7K Organic Subscribers gained in 90 days",
+      "61% Average Viewer Retention (Industry leading)",
+      "12 offline events with 1,100+ attendees in Srinagar",
+      "91% positive sentiment across 4,300+ comments",
+      "Earned media in Rising Kashmir & The Sufi Journal"
+    ]
+  },
   'skincare-scale-10m': {
     title: "Scaling a Skincare Brand to $10M ARR",
     category: "E-com Scale",
@@ -110,9 +146,17 @@ const CaseStudyDetail = () => {
               ))}
             </div>
 
-            <div className="rounded-[3rem] overflow-hidden h-[500px] mb-16 shadow-2xl">
-              <img src={data.heroImage} alt={data.title} className="w-full h-full object-cover" />
-            </div>
+            {data.videos ? (
+              <div className="space-y-8 mb-16">
+                {data.videos.map((id: string) => (
+                  <YouTubeEmbed key={id} videoId={id} />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-[3rem] overflow-hidden h-[500px] mb-16 shadow-2xl">
+                <img src={data.heroImage} alt={data.title} className="w-full h-full object-cover" />
+              </div>
+            )}
 
             <div className="grid md:grid-cols-3 gap-16">
               <div className="md:col-span-2 space-y-12">
