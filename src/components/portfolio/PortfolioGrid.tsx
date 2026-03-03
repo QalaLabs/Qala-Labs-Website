@@ -42,22 +42,10 @@ const projects = [
     metrics: { roas: "N/A", growth: "5M+ Reach" },
     tags: ["CSK", "IPL", "UGC", "Fandom"],
     description: "Turning the raw energy of the #WhistlePodu army into a high-converting content engine for playR."
-  },
-  {
-    id: 12,
-    title: "Brand Identity: Eco-Luxe",
-    category: "Branding",
-    result: "Global Brand Launch",
-    slug: "eco-luxe",
-    image: "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?auto=format&fit=crop&q=80&w=1200",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-graphic-designer-working-on-a-tablet-42894-large.mp4",
-    metrics: { roas: "N/A", growth: "Global" },
-    tags: ["Branding", "Design", "Identity"],
-    description: "Crafting a premium, sustainable brand identity for a luxury skincare line."
   }
 ];
 
-const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content", "Branding"];
+const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
