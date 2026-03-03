@@ -8,6 +8,18 @@ import { Filter } from 'lucide-react';
 
 const projects = [
   {
+    id: 10,
+    title: "Trotr: Founder-Led Storytelling",
+    category: "Meta Lead Generation",
+    result: "28x ROAS & ₹14L Revenue",
+    slug: "meta-lead-generation-trotr",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-traveler-walking-on-a-mountain-path-42888-large.mp4",
+    metrics: { roas: "28x", growth: "₹14L Rev" },
+    tags: ["Meta Ads", "Lead Gen", "Storytelling"],
+    description: "How we pivoted from failing WhatsApp ads to a founder-led storytelling engine that sold out a high-ticket Spain trip."
+  },
+  {
     id: 9,
     title: "Turning Regional Roots into a Global Soundtrack",
     category: "Music Marketing",
@@ -57,7 +69,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "DTC", "Fashion", "Music Marketing"];
+const categories = ["All", "DTC", "Fashion", "Music Marketing", "Meta Lead Generation"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");

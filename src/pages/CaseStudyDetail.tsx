@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { 
   ArrowLeft, 
   TrendingUp, 
@@ -18,7 +19,9 @@ import {
   Play,
   ArrowRight,
   XCircle,
-  Quote
+  Quote,
+  IndianRupee,
+  MousePointer2
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -97,6 +100,62 @@ const caseStudiesData: Record<string, any> = {
       { myth: "Views are the goal", reality: "Retention, comments, and community UGC are stronger brand signals." }
     ],
     finalResult: "In just 3 months, Mystic Studio 8 transformed from an unknown regional label into a cultural movement. By launching three original Kashmiri songs — one each month — we didn't just create content, we built emotional capital, digital momentum, and community loyalty. The campaign generated over 3.4 million YouTube views and brought in 25.7K organic subscribers, with an average viewer retention of 61%."
+  },
+  'meta-lead-generation-trotr': {
+    title: "Importance of storytelling and founder led marketing in social media marketing",
+    category: "Meta Lead Generation",
+    instagramReels: [
+      "https://www.instagram.com/reel/DIlN_orTgbo/",
+      "https://www.instagram.com/reel/DJWaMMcTBTa/"
+    ],
+    metrics: [
+      { label: "Revenue", value: "₹14L", icon: <IndianRupee className="w-5 h-5" /> },
+      { label: "Cost per Lead", value: "₹6700", icon: <MousePointer2 className="w-5 h-5" /> },
+      { label: "ROAS", value: "28x", icon: <TrendingUp className="w-5 h-5" /> },
+      { label: "Avg. Order Value", value: "1.9L", icon: <Target className="w-5 h-5" /> }
+    ],
+    blocks: [
+      {
+        id: "overview",
+        title: "Case Study Overview",
+        content: `When Trotr launched its travel campaign for a group trip to Turkey, the ad strategy looked great on paper: low cost per click, high interest, and a beautiful destination. But despite the numbers, the campaign failed to convert a single lead.
+
+        That failure revealed a deeper insight: we weren’t just selling a vacation. We were selling **trust** — and our funnel wasn’t built to support it.
+
+        In Month 2, we rebuilt everything. With the same budget, we pivoted to a Spain trip and launched a bold new strategy: founder-led storytelling, emotion-driven ads, a high-converting landing page, audience segmentation, and contextual placements.`
+      },
+      {
+        id: "research",
+        title: "Month 1: We Failed.",
+        content: `We ran Click-to-WhatsApp ads for Trotr’s Turkey trip. We saw cheap clicks, an exciting destination, and high interest. But we saw zero conversions.
+
+        That’s when we knew: we weren’t selling travel, we were selling trust. And our funnel wasn’t ready to receive it. The friction of moving from a social ad to a WhatsApp chat was too high for a high-ticket purchase where the customer needed to feel a deep connection to the brand before committing.`
+      },
+      {
+        id: "strategy",
+        title: "Month 2: Same Budget. New Destination. New Strategy.",
+        content: `We pivoted the entire approach for the Spain trip:
+        
+        • **Founder-Led Content:** We launched a ZNMD-style video featuring the founder. It was raw, emotional, and built face-value trust immediately.
+        • **Frictionless Funnel:** We moved away from Click-to-WhatsApp and built a dedicated website lead form funnel.
+        • **Manual Targeting:** We ignored Meta's Advantage+ and went all-in on manual, intent-based targeting.
+        • **Segmentation:** We created custom creatives for Men, Women, and Couples.
+        • **Contextual Placement:** We placed ads only on Reels and timed them for late-night "wanderlust" scrolls and lunch breaks.`
+      },
+      {
+        id: "results",
+        title: "Result of The Case Study",
+        content: `This campaign didn’t just outperform expectations, it redefined how high-ticket travel should be marketed. By anchoring our strategy in **emotion**, backing it with a **frictionless funnel**, and using **humanized storytelling**, we turned a failing campaign into a revenue-generating engine.
+
+        At Asenkai, we don’t run ads to chase impressions. We design campaigns to **convert belief into booking**. The result was a staggering 28x ROAS and a complete sell-out of the Spain group trip.`
+      }
+    ],
+    learnings: [
+      { myth: "Click-to-WhatsApp always converts", reality: "People don’t want to text brands — they want clarity. CTWA gave us traffic. Website gave us money." },
+      { myth: "Use Advantage+ and let Meta auto-scale", reality: "Manual, intent-based targeting crushed automation. We knew our audience better than Meta did." },
+      { myth: "High CTR = success", reality: "CTR ≠ revenue. It's the funnel that converts. Good targeting + right format + low-friction form = gold." }
+    ],
+    finalResult: "By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine with a 28x ROAS."
   }
 };
 
@@ -129,7 +188,15 @@ const CaseStudyDetail = () => {
               {data.title}
             </h1>
             
-            <YouTubeEmbed videoId={data.heroVideo} title={data.title} />
+            {data.heroVideo && <YouTubeEmbed videoId={data.heroVideo} title={data.title} />}
+            
+            {data.instagramReels && (
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                {data.instagramReels.map((url: string, i: number) => (
+                  <InstagramEmbed key={i} url={url} />
+                ))}
+              </div>
+            )}
           </motion.div>
 
           {/* Stats Grid */}
@@ -168,7 +235,9 @@ const CaseStudyDetail = () => {
           <div className="relative py-20 mb-24 text-center">
             <Quote className="w-20 h-20 text-blue-600/10 absolute top-0 left-1/2 -translate-x-1/2" />
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 italic relative z-10 max-w-3xl mx-auto leading-tight">
-              "We didn't just want to release songs; we wanted to build a movement. Every frame, every beat, and every ad rupee was designed to evoke a sense of belonging."
+              {data.category === 'Music Marketing' 
+                ? '"We didn\'t just want to release songs; we wanted to build a movement. Every frame, every beat, and every ad rupee was designed to evoke a sense of belonging."'
+                : '"We weren’t just selling a vacation. We were selling trust — and our funnel wasn’t built to support it. In Month 2, we rebuilt everything."'}
             </h3>
           </div>
 
