@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
-import ProjectModal from './ProjectModal';
-import { Filter } from 'lucide-case';
+import { Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const projects = [
