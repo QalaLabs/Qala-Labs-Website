@@ -24,11 +24,75 @@ import {
   Bookmark,
   Share2,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Globe,
+  Layout,
+  Database,
+  Search
 } from 'lucide-react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const portfolioData: Record<string, any> = {
+  'custom-web-developement': {
+    title: "Capital Keys: Custom Web Development",
+    category: "Web Development",
+    heroImage: "dyad-media://media/flying-kraken-wag/.dyad/media/cc06cafddcd9355fc90dce2ae4d30db7.png",
+    sliderImages: [
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/cc06cafddcd9355fc90dce2ae4d30db7.png", type: "Frontend", label: "Listings Grid" },
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/75f8c0f668f94bd57dddf2e4aa45cba1.png", type: "Frontend", label: "Property Detail" },
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/246d260f8fe90378f0e42da71ec7caa9.png", type: "Frontend", label: "Search & Filters" },
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/0662ba5a4187eb0747844a3478dbf91e.png", type: "Backend", label: "Lead Dashboard" },
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/8ddcf2480cca5e4cd88ae0904a86f585.png", type: "Backend", label: "Property Management" },
+      { url: "dyad-media://media/flying-kraken-wag/.dyad/media/98f26046690bc80c1ec78f95cf392614.png", type: "Backend", label: "CMS Controls" }
+    ],
+    metrics: [
+      { label: "Leads", value: "17", icon: <Users className="w-5 h-5" /> },
+      { label: "Close Rate", value: "64.7%", icon: <TrendingUp className="w-5 h-5" /> },
+      { label: "Efficiency", value: "Night/Day", icon: <Zap className="w-5 h-5" /> },
+      { label: "SEO", value: "Optimized", icon: <Search className="w-5 h-5" /> }
+    ],
+    projectInfo: {
+      category: "Full-Stack Web Development",
+      location: "Gurgaon / Dubai",
+      software: "React, Supabase, Tailwind",
+      dated: "Feb 2024",
+      client: "Capital Keys",
+      platform: "Web / Admin Portal"
+    },
+    blocks: [
+      {
+        id: "overview",
+        title: "Architecting a Lead-Generation Machine",
+        content: `We architected Capital Keys' full-stack digital ecosystem—a sleek, conversion-optimized platform dominating premium real estate scene. Think jaw-dropping listings, real-time lead intelligence, and admin dashboards that turn data into deals.
+
+        From Gurgaon's Smart City luxury pads to Dubai's elite rentals, every pixel drives inquiries. 17 leads in 30 days. 64.7% close rate. That's not luck—that's engineered performance.`
+      },
+      {
+        id: "experience",
+        title: "The Experience We Delivered",
+        content: `**Listings That Convert**
+        Dynamic grids of 2BHK furnished masterpieces and penthouse stunners. Filters? Laser-sharp (type, name, price). Images pop. CTAs compel. Scroll stops here.
+
+        **Lead Intelligence Dashboard**
+        Live charts decode inquiry types vs. sales velocity. Bar graphs scream opportunity. Pie charts expose bottlenecks. Recent leads table: Anil Kumar (Buying, New)—your next close.
+
+        **Management Mastery**
+        • Leads: Name/email/phone/status/export—pagination perfected.
+        • Properties: Title/price/status/CRUD—10+ Gurgaon Sector 81 gems at ₹60K+.
+        • CMS: Hero copy ("Your Key to Premium Properties"), CTAs ("Rent/Buy"), FAQ flows.`
+      },
+      {
+        id: "tech",
+        title: "Tech That Scales",
+        content: `Responsive across devices. Dark/light mode mastery. Interactive Plotly charts. Dubai-focused UX (Gurgaon listings with global appeal). Built to capture high-net-worth traffic and convert.
+
+        We didn't just build a site—we built a lead-generation machine. Every component was built with SEO best practices to ensure organic visibility in the competitive luxury real estate market.`
+      }
+    ],
+    websiteUrl: "https://capitalkeys.in",
+    prev: "user-generated-content-chennai-superkings",
+    next: "amazon-ads"
+  },
   'amazon-ads': {
     title: "Amazon Ads: Performance Scaling for Apparel Brand",
     category: "Ecommerce",
@@ -89,7 +153,7 @@ const portfolioData: Record<string, any> = {
         • Identified clear winners and stopped budget leakage on underperforming campaigns`
       }
     ],
-    prev: "user-generated-content-chennai-superkings",
+    prev: "custom-web-developement",
     next: "try-on-campaign"
   },
   'try-on-campaign': {
@@ -178,13 +242,26 @@ const portfolioData: Record<string, any> = {
       }
     ],
     prev: "try-on-campaign",
-    next: "amazon-ads"
+    next: "custom-web-developement"
   }
 };
 
 const PortfolioDetail = () => {
   const { slug } = useParams();
   const data = portfolioData[slug || 'amazon-ads'] || portfolioData['amazon-ads'];
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const nextSlide = () => {
+    if (data.sliderImages) {
+      setCurrentSlide((prev) => (prev + 1) % data.sliderImages.length);
+    }
+  };
+
+  const prevSlide = () => {
+    if (data.sliderImages) {
+      setCurrentSlide((prev) => (prev - 1 + data.sliderImages.length) % data.sliderImages.length);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
@@ -209,7 +286,53 @@ const PortfolioDetail = () => {
               {data.title}
             </h1>
             
-            {data.heroImage && (
+            {/* Image Slider for Capital Keys */}
+            {data.sliderImages ? (
+              <div className="relative group mb-12">
+                <div className="aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-50 relative">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      className="w-full h-full"
+                    >
+                      <img 
+                        src={data.sliderImages[currentSlide].url} 
+                        alt={data.sliderImages[currentSlide].label}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+                        <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/20">
+                          <Badge className={data.sliderImages[currentSlide].type === 'Backend' ? 'bg-slate-900' : 'bg-blue-600'}>
+                            {data.sliderImages[currentSlide].type}
+                          </Badge>
+                          <p className="text-lg font-black text-slate-900 mt-2">{data.sliderImages[currentSlide].label}</p>
+                        </div>
+                        <div className="flex gap-2">
+                          <button onClick={prevSlide} className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <ChevronLeft className="w-6 h-6" />
+                          </button>
+                          <button onClick={nextSlide} className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <ChevronRight className="w-6 h-6" />
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+                <div className="flex justify-center gap-2 mt-6">
+                  {data.sliderImages.map((_: any, i: number) => (
+                    <button 
+                      key={i}
+                      onClick={() => setCurrentSlide(i)}
+                      className={`w-2 h-2 rounded-full transition-all ${currentSlide === i ? 'w-8 bg-blue-600' : 'bg-slate-200'}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : data.heroImage && (
               <div className="rounded-[2rem] overflow-hidden shadow-2xl mb-12 border border-slate-100">
                 <img src={data.heroImage} alt={data.title} className="w-full h-auto" />
               </div>
@@ -326,13 +449,22 @@ const PortfolioDetail = () => {
             <div className="relative p-12 md:p-20 bg-slate-900 rounded-[3.5rem] overflow-hidden text-center shadow-2xl">
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-5xl font-black mb-10 leading-tight text-white">
-                  talktous@lightcyan-porpoise-736517.hostingersite.com
+                  {data.websiteUrl ? "Ready to dominate your vertical?" : "talktous@lightcyan-porpoise-736517.hostingersite.com"}
                 </h2>
-                <Link to="/contact">
-                  <Button className="bg-blue-600 text-white hover:bg-blue-700 px-10 py-7 rounded-2xl text-lg font-black group">
-                    Book Your Free Audit <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                  </Button>
-                </Link>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {data.websiteUrl && (
+                    <a href={data.websiteUrl} target="_blank" rel="noopener noreferrer">
+                      <Button className="bg-white text-slate-900 hover:bg-slate-100 px-10 py-7 rounded-2xl text-lg font-black group">
+                        Visit Website <Globe className="ml-2 w-5 h-5" />
+                      </Button>
+                    </a>
+                  )}
+                  <Link to="/contact">
+                    <Button className="bg-blue-600 text-white hover:bg-blue-700 px-10 py-7 rounded-2xl text-lg font-black group">
+                      Book Your Free Audit <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>

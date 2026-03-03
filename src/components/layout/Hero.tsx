@@ -142,6 +142,7 @@ const Hero = () => {
                 ) : (
                   <Lottie 
                     animationData={null}
+                    // @ts-ignore - path is not in types but supported by some lottie versions
                     path="https://assets9.lottiefiles.com/packages/lf20_qp1q7mct.json"
                     loop={true}
                     className="w-full h-full object-cover opacity-90"

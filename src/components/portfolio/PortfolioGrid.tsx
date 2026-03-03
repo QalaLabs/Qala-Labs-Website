@@ -8,6 +8,18 @@ import { useNavigate } from 'react-router-dom';
 
 const projects = [
   {
+    id: 15,
+    title: "Capital Keys: Custom Web Development",
+    category: "Web Development",
+    result: "17 Leads & 64.7% Close Rate",
+    slug: "custom-web-developement",
+    image: "dyad-media://media/flying-kraken-wag/.dyad/media/cc06cafddcd9355fc90dce2ae4d30db7.png",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-graphic-designer-working-on-a-tablet-42894-large.mp4",
+    metrics: { roas: "N/A", growth: "64.7% Close" },
+    tags: ["Full-Stack", "Real Estate", "Lead Gen"],
+    description: "Architecting a conversion-optimized digital ecosystem for premium real estate, featuring lead intelligence and property management."
+  },
+  {
     id: 11,
     title: "Amazon Ads: Performance Scaling",
     category: "Ecommerce",
@@ -45,7 +57,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content"];
+const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content", "Web Development"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");

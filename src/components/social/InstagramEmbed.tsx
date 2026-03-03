@@ -9,13 +9,13 @@ interface InstagramEmbedProps {
 const InstagramEmbed = ({ url }: InstagramEmbedProps) => {
   useEffect(() => {
     // Load Instagram embed script if not already present
-    if (!window.instgrm) {
+    if (!(window as any).instgrm) {
       const script = document.createElement('script');
       script.async = true;
       script.src = '//www.instagram.com/embed.js';
       document.body.appendChild(script);
     } else {
-      window.instgrm.Embeds.process();
+      (window as any).instgrm.Embeds.process();
     }
   }, [url]);
 

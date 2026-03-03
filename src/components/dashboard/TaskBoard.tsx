@@ -4,6 +4,7 @@ import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 const tasks = [
   { id: '1', title: 'Approve Meta Ad Creatives', priority: 'High', status: 'Pending', owner: 'Client' },
