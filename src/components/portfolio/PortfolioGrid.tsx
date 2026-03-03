@@ -9,7 +9,7 @@ import { Filter } from 'lucide-react';
 const projects = [
   {
     id: 9,
-    title: "Mystic Studio 8",
+    title: "Turning Regional Roots into a Global Soundtrack",
     category: "Music Marketing",
     result: "3.4M+ Views in 90 Days",
     slug: "music-marketing",
@@ -98,7 +98,6 @@ const PortfolioGrid = () => {
               key={project.id} 
               project={project} 
               onClick={() => {
-                // If it has a slug, navigate to the detail page
                 if (project.slug) {
                   window.location.href = `/case-studies/${project.slug}`;
                 } else {
