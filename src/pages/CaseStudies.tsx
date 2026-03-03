@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
-import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
+import CaseStudyGrid from '@/components/case-studies/CaseStudyGrid';
 import { motion } from "framer-motion";
 
 const CaseStudies = () => {
@@ -27,7 +27,7 @@ const CaseStudies = () => {
           </p>
         </motion.div>
 
-        <PortfolioGrid />
+        <CaseStudyGrid />
 
         {/* Bottom CTA */}
         <div className="mt-32 p-16 bg-slate-900 rounded-[4rem] text-white text-center relative overflow-hidden">
