@@ -21,7 +21,8 @@ import {
   Play,
   Users,
   Heart,
-  Bookmark
+  Bookmark,
+  Share2
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -130,6 +131,46 @@ const portfolioData: Record<string, any> = {
         By leveraging real people in real environments, we bypassed the "ad blindness" that often plagues high-production studio content. The campaign focused on the lifestyle integration of the apparel, making it a part of the creator's daily routine rather than a static product feature.`
       }
     ]
+  },
+  'user-generated-content-chennai-superkings': {
+    title: "It's All Real - #WhistlePodu Army",
+    category: "User Generated Content",
+    heroImage: "/src/assets/csk-ugc-hero.png",
+    instagramReels: [
+      "https://www.instagram.com/reel/DJwG9tOIBFY/",
+      "https://www.instagram.com/reel/DIYq7R_sOk1/",
+      "https://www.instagram.com/reel/DIdRQJus9BL/",
+      "https://www.instagram.com/reel/DH_UXdJI9gm/"
+    ],
+    metrics: [
+      { label: "Viral Reach", value: "5M+", icon: <Share2 className="w-5 h-5" /> },
+      { label: "Engagement", value: "12%", icon: <Heart className="w-5 h-5" /> },
+      { label: "Conv. Lift", value: "35%", icon: <TrendingUp className="w-5 h-5" /> },
+      { label: "Fan Reels", value: "500+", icon: <Play className="w-5 h-5" /> }
+    ],
+    projectInfo: {
+      category: "User Generated Content",
+      location: "India",
+      dated: "April 2025",
+      client: "playR",
+      platform: "Instagram"
+    },
+    blocks: [
+      {
+        id: "overview",
+        title: "Behind the CSK jersey drop that turned Instagram into a stadium",
+        content: `For this campaign, we didn’t hire actors. We didn’t write scripts. We simply handed the official CSK jersey to Chennai Super Kings’ most passionate fans—and hit “record.”
+        
+        From fan unboxings to mirror try-ons, Dhoni signature reveals to poll-driven showdowns, this series exploded across Reels. Each creator brought their own version of what it means to bleed yellow.`
+      },
+      {
+        id: "results",
+        title: "Real Fans. Real Reels. Real Roar",
+        content: `The result? Pure emotion, viral momentum, and an lift in site conversions for playR. No filters. Just fandom.
+        
+        By tapping into the raw energy of the #WhistlePodu army, we created a self-sustaining content engine. The authenticity of the fan-led content resonated far more deeply than any studio-produced ad could, driving both brand affinity and direct sales.`
+      }
+    ]
   }
 };
 
@@ -207,10 +248,12 @@ const PortfolioDetail = () => {
                   <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Location:</p>
                   <p className="font-bold text-slate-700">{data.projectInfo.location}</p>
                 </div>
-                <div>
-                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Software:</p>
-                  <p className="font-bold text-slate-700">{data.projectInfo.software}</p>
-                </div>
+                {data.projectInfo.software && (
+                  <div>
+                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Software:</p>
+                    <p className="font-bold text-slate-700">{data.projectInfo.software}</p>
+                  </div>
+                )}
                 <div>
                   <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Dated:</p>
                   <p className="font-bold text-slate-700">{data.projectInfo.dated}</p>

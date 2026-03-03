@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
-import { Filter } from 'lucide-react';
+import { Filter } from 'lucide-case';
 import { useNavigate } from 'react-router-dom';
 
 const projects = [
@@ -33,6 +33,18 @@ const projects = [
     description: "A high-velocity UGC campaign for playR that focused on relatability and real-life style integration."
   },
   {
+    id: 14,
+    title: "It's All Real - #WhistlePodu Army",
+    category: "User Generated Content",
+    result: "5M+ Reach & 35% Conv. Lift",
+    slug: "user-generated-content-chennai-superkings",
+    image: "/src/assets/csk-ugc-hero.png",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-fans-cheering-at-a-stadium-42898-large.mp4",
+    metrics: { roas: "N/A", growth: "5M+ Reach" },
+    tags: ["CSK", "IPL", "UGC", "Fandom"],
+    description: "Turning the raw energy of the #WhistlePodu army into a high-converting content engine for playR."
+  },
+  {
     id: 12,
     title: "Brand Identity: Eco-Luxe",
     category: "Branding",
@@ -46,7 +58,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "Branding"];
+const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content", "Branding"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
