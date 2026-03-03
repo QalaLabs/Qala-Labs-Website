@@ -32,7 +32,7 @@ const portfolioData: Record<string, any> = {
   'amazon-ads': {
     title: "Amazon Ads: Performance Scaling for Apparel Brand",
     category: "Ecommerce",
-    heroImage: "/src/assets/amazon-ads-hero.png",
+    heroImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=1200",
     proofImages: [
       "/src/assets/amazon-ads-1.jpeg",
       "/src/assets/amazon-ads-2.jpeg"
@@ -95,7 +95,7 @@ const portfolioData: Record<string, any> = {
   'try-on-campaign': {
     title: "The Try on campaign: Style Meets Real Life",
     category: "Social Media - User Generated Content",
-    heroImage: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1200",
+    heroImage: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200",
     instagramReels: [
       "https://www.instagram.com/reel/DKAFjyep3bK/",
       "https://www.instagram.com/reel/DHiyDrzS0nu/",
@@ -141,7 +141,7 @@ const portfolioData: Record<string, any> = {
   'user-generated-content-chennai-superkings': {
     title: "It's All Real - #WhistlePodu Army",
     category: "User Generated Content",
-    heroImage: "/src/assets/csk-ugc-hero.png",
+    heroImage: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=1200",
     instagramReels: [
       "https://www.instagram.com/reel/DJwG9tOIBFY/",
       "https://www.instagram.com/reel/DIYq7R_sOk1/",
