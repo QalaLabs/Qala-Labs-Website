@@ -8,6 +8,18 @@ import { Filter } from 'lucide-react';
 
 const projects = [
   {
+    id: 11,
+    title: "Amazon Ads: Performance Scaling",
+    category: "Ecommerce/Performance Marketing",
+    result: "11.2x ROAS & ₹2.7L+ Sales",
+    slug: "amazon-ads",
+    image: "/src/assets/amazon-ads-hero.png",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-shopping-online-on-a-laptop-42890-large.mp4",
+    metrics: { roas: "11.2x", growth: "₹2.7L+ Sales" },
+    tags: ["Amazon Ads", "E-com", "Scaling"],
+    description: "Scaling Amazon Ads profitably for an apparel brand through structured campaign segmentation and search term mining."
+  },
+  {
     id: 10,
     title: "Trotr: Founder-Led Storytelling",
     category: "Meta Lead Generation",
@@ -33,7 +45,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "Music Marketing", "Meta Lead Generation"];
+const categories = ["All", "Music Marketing", "Meta Lead Generation", "Ecommerce/Performance Marketing"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -66,7 +78,7 @@ const PortfolioGrid = () => {
       {/* Grid */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
       >
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project) => (

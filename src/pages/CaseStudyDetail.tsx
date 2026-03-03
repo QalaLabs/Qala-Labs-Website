@@ -21,7 +21,9 @@ import {
   XCircle,
   Quote,
   IndianRupee,
-  MousePointer2
+  MousePointer2,
+  ShoppingBag,
+  Globe
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -53,45 +55,27 @@ const caseStudiesData: Record<string, any> = {
       {
         id: "overview",
         title: "The Vision: Preserving Soul in a Digital Age",
-        content: `In the heart of the Himalayas, a cultural revolution was brewing, but it lacked the digital infrastructure to reach the global stage. Mystic Studio 8 wasn't just a music label; it was a vision to preserve the soul of Kashmiri music while packaging it for a modern, global audience. When we took on this project, the challenge was clear: how do you take a region with deep-rooted traditions and no established digital music ecosystem and turn it into a high-growth scale engine?
-
-        The Kashmiri music scene had historically been fragmented, relying on local distribution and word-of-mouth. There was a massive "blue ocean" opportunity to build the first digital-first label that could leverage modern performance marketing and high-velocity creative production to dominate the regional niche and spill over into the global diaspora. We knew that to succeed, we couldn't just release songs; we had to build a movement that resonated with the identity of the people.`
+        content: `In the heart of the Himalayas, a cultural revolution was brewing, but it lacked the digital infrastructure to reach the global stage. Mystic Studio 8 wasn't just a music label; it was a vision to preserve the soul of Kashmiri music while packaging it for a modern, global audience. When we took on this project, the challenge was clear: how do you take a region with deep-rooted traditions and no established digital music ecosystem and turn it into a high-growth scale engine?`
       },
       {
         id: "challenge",
         title: "The Challenge: Breaking the Digital Silence",
-        content: `The primary hurdle was the total lack of historical data. We were starting from zero—no previous audience, no pixel data, and no established fanbase. Furthermore, the cultural nuances of the region required a delicate balance. If the content felt too "corporate," it would lose its soul; if it felt too "traditional," it wouldn't scale on platforms like TikTok and YouTube. We needed a strategy that was culturally authentic yet technically aggressive.
-
-        Key challenges included:
-        • Zero Digital Footprint: Building a brand identity and social presence from scratch in a high-competition attention economy.
-        • Infrastructure Gaps: Establishing reliable distribution channels across Spotify, Apple Music, and YouTube for a region with inconsistent internet connectivity.
-        • Content Velocity: Producing high-fidelity music videos that met international standards on a regional budget.
-        • Audience Trust: Convincing a traditional audience that a digital-first label could represent their culture accurately.`
+        content: `The primary hurdle was the total lack of historical data. We were starting from zero—no previous audience, no pixel data, and no established fanbase. Furthermore, the cultural nuances of the region required a delicate balance. If the content felt too "corporate," it would lose its soul; if it felt too "traditional," it wouldn't scale on platforms like TikTok and YouTube. We needed a strategy that was culturally authentic yet technically aggressive.`
       },
       {
         id: "strategy",
         title: "The Strategy: The Staggered Release Framework",
-        content: `We deployed a 3-month "Scale Engine" rollout strategy. Instead of a single big launch, we opted for a staggered release cycle—one original track per month—to build cumulative momentum. This allowed us to use the data from the first release to optimize the targeting and creative hooks for the second and third.
-
-        Phase 1: The Cultural Hook. We identified a traditional melody and reimagined it with modern production values. We launched a high-velocity creative testing campaign on Meta and YouTube, testing 15 different "scroll-stopping" hooks in the first 48 hours.
-        
-        Phase 2: Community-First Growth. For the second release, we shifted focus to community engagement. We launched a series of "Behind the Scenes" (BTS) content pieces that highlighted the artists' journeys. This humanized the label and built a loyal core audience.
-        
-        Phase 3: Global Diaspora Reach. The final phase targeted the global Kashmiri diaspora, using nostalgia as a primary emotional lever. We used advanced interest-based targeting to reach Kashmiris living in the UK, US, and Middle East.`
+        content: `We deployed a 3-month "Scale Engine" rollout strategy. Instead of a single big launch, we opted for a staggered release cycle—one original track per month—to build cumulative momentum. This allowed us to use the data from the first release to optimize the targeting and creative hooks for the second and third.`
       },
       {
         id: "execution",
         title: "Technical Execution: Data-Driven Soul",
-        content: `Behind the beautiful visuals was a rigorous technical framework. We implemented server-side tracking to ensure we captured every interaction, even in low-bandwidth environments. We used proprietary attribution models to see how our YouTube ads were driving Spotify streams, allowing us to optimize our spend in real-time.
-
-        Our creative production team produced over 100 ad variants for each track, leveraging creator-led content and UGC-style snippets to drive down CPAs. By the third month, our cost-per-subscriber had dropped by 45%, and our organic reach was compounding at a rate of 20% week-over-week. We also utilized AI-driven sentiment analysis to monitor comment sections and adjust our community management strategy daily.`
+        content: `Behind the beautiful visuals was a rigorous technical framework. We implemented server-side tracking to ensure we captured every interaction, even in low-bandwidth environments. We used proprietary attribution models to see how our YouTube ads were driving Spotify streams, allowing us to optimize our spend in real-time.`
       },
       {
         id: "results",
         title: "The Impact: Legacy Over Virality",
-        content: `The results exceeded all benchmarks. In just 90 days, Mystic Studio 8 became the most talked-about music label in the region. We didn't just hit 3.4M views; we built a community of 25.7K subscribers who are actively waiting for the next drop. The sentiment analysis showed a 91% positive rating, proving that our "data-meets-soul" approach was the right path.
-
-        Beyond the numbers, the label secured earned media coverage in Rising Kashmir, CultureWire, and The Sufi Journal—with zero rupees spent on traditional PR. This case study proves that when regional storytelling meets strategic rollout, the result isn't just virality—it's legacy. Mystic Studio 8 is no longer just a music label. It's a symbol of modern Kashmiri sound.`
+        content: `The results exceeded all benchmarks. In just 90 days, Mystic Studio 8 became the most talked-about music label in the region. We didn't just hit 3.4M views; we built a community of 25.7K subscribers who are actively waiting for the next drop. The sentiment analysis showed a 91% positive rating, proving that our "data-meets-soul" approach was the right path.`
       }
     ],
     learnings: [
@@ -99,7 +83,7 @@ const caseStudiesData: Record<string, any> = {
       { myth: "Digital is enough", reality: "Real-world emotion boosts digital traction — every offline event sparked online spikes." },
       { myth: "Views are the goal", reality: "Retention, comments, and community UGC are stronger brand signals." }
     ],
-    finalResult: "In just 3 months, Mystic Studio 8 transformed from an unknown regional label into a cultural movement. By launching three original Kashmiri songs — one each month — we didn't just create content, we built emotional capital, digital momentum, and community loyalty. The campaign generated over 3.4 million YouTube views and brought in 25.7K organic subscribers, with an average viewer retention of 61%."
+    finalResult: "In just 3 months, Mystic Studio 8 transformed from an unknown regional label into a cultural movement. By launching three original Kashmiri songs — one each month — we didn't just create content, we built emotional capital, digital momentum, and community loyalty."
   },
   'meta-lead-generation-trotr': {
     title: "Importance of storytelling and founder led marketing in social media marketing",
@@ -118,36 +102,26 @@ const caseStudiesData: Record<string, any> = {
       {
         id: "overview",
         title: "Case Study Overview",
-        content: `When Trotr launched its travel campaign for a group trip to Turkey, the ad strategy looked great on paper: low cost per click, high interest, and a beautiful destination. But despite the numbers, the campaign failed to convert a single lead.
-
-        That failure revealed a deeper insight: we weren’t just selling a vacation. We were selling **trust** — and our funnel wasn’t built to support it.
-
-        In Month 2, we rebuilt everything. With the same budget, we pivoted to a Spain trip and launched a bold new strategy: founder-led storytelling, emotion-driven ads, a high-converting landing page, audience segmentation, and contextual placements.`
+        content: `When Trotr launched its travel campaign for a group trip to Turkey, the ad strategy looked great on paper: low cost per click, high interest, and a beautiful destination. But despite the numbers, the campaign failed to convert a single lead.`
       },
       {
         id: "research",
         title: "Month 1: We Failed.",
-        content: `We ran Click-to-WhatsApp ads for Trotr’s Turkey trip. We saw cheap clicks, an exciting destination, and high interest. But we saw zero conversions.
-
-        That’s when we knew: we weren’t selling travel, we were selling trust. And our funnel wasn’t ready to receive it. The friction of moving from a social ad to a WhatsApp chat was too high for a high-ticket purchase where the customer needed to feel a deep connection to the brand before committing.`
+        content: `We ran Click-to-WhatsApp ads for Trotr’s Turkey trip. We saw cheap clicks, an exciting destination, and high interest. But we saw zero conversions.`
       },
       {
         id: "strategy",
         title: "Month 2: Same Budget. New Destination. New Strategy.",
         content: `We pivoted the entire approach for the Spain trip:
         
-        • **Founder-Led Content:** We launched a ZNMD-style video featuring the founder. It was raw, emotional, and built face-value trust immediately.
-        • **Frictionless Funnel:** We moved away from Click-to-WhatsApp and built a dedicated website lead form funnel.
-        • **Manual Targeting:** We ignored Meta's Advantage+ and went all-in on manual, intent-based targeting.
-        • **Segmentation:** We created custom creatives for Men, Women, and Couples.
-        • **Contextual Placement:** We placed ads only on Reels and timed them for late-night "wanderlust" scrolls and lunch breaks.`
+        • Founder-Led Content: We launched a ZNMD-style video featuring the founder.
+        • Frictionless Funnel: We moved away from Click-to-WhatsApp and built a dedicated website lead form funnel.
+        • Manual Targeting: We ignored Meta's Advantage+ and went all-in on manual, intent-based targeting.`
       },
       {
         id: "results",
         title: "Result of The Case Study",
-        content: `This campaign didn’t just outperform expectations, it redefined how high-ticket travel should be marketed. By anchoring our strategy in **emotion**, backing it with a **frictionless funnel**, and using **humanized storytelling**, we turned a failing campaign into a revenue-generating engine.
-
-        At Asenkai, we don’t run ads to chase impressions. We design campaigns to **convert belief into booking**. The result was a staggering 28x ROAS and a complete sell-out of the Spain group trip.`
+        content: `This campaign didn’t just outperform expectations, it redefined how high-ticket travel should be marketed. By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine.`
       }
     ],
     learnings: [
@@ -156,6 +130,72 @@ const caseStudiesData: Record<string, any> = {
       { myth: "High CTR = success", reality: "CTR ≠ revenue. It's the funnel that converts. Good targeting + right format + low-friction form = gold." }
     ],
     finalResult: "By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine with a 28x ROAS."
+  },
+  'amazon-ads': {
+    title: "Amazon Ads: Performance Scaling for Apparel Brand",
+    category: "Ecommerce/Performance Marketing",
+    heroImage: "/src/assets/amazon-ads-hero.png",
+    proofImages: [
+      "/src/assets/amazon-ads-1.jpeg",
+      "/src/assets/amazon-ads-2.jpeg"
+    ],
+    metrics: [
+      { label: "Max ROAS", value: "11.2x", icon: <TrendingUp className="w-5 h-5" /> },
+      { label: "Monthly Sales", value: "₹2.7L+", icon: <IndianRupee className="w-5 h-5" /> },
+      { label: "Account ROAS", value: "6.5x+", icon: <Target className="w-5 h-5" /> },
+      { label: "CPC", value: "Reduced", icon: <MousePointer2 className="w-5 h-5" /> }
+    ],
+    projectInfo: {
+      category: "E-Commerce Scaling",
+      location: "India",
+      software: "Amazon Ad Platform",
+      dated: "March and April",
+      client: "playR"
+    },
+    blocks: [
+      {
+        id: "overview",
+        title: "Sponsored Products & Sponsored Display",
+        content: `This project focused on scaling Amazon Ads profitably for an apparel brand operating in a highly competitive marketplace environment. The objective was to drive sustained sales growth while maintaining healthy ROAS, using a structured performance marketing approach across Sponsored Products and Sponsored Display campaigns.
+
+        We managed and optimized multiple campaigns across categories such as team merchandise, topwear, jerseys, and new product launches, ensuring budget efficiency, keyword relevance, and continuous performance improvement.`
+      },
+      {
+        id: "challenges",
+        title: "The Challenges We Faced",
+        content: `• High competition in apparel keywords
+        • Low CTR on new product launches
+        • Scaling spend without hurting ROAS
+        • Managing multiple campaigns across different product categories
+        • Improving conversion efficiency while controlling CPC`
+      },
+      {
+        id: "strategy",
+        title: "Data-First Amazon Ads Strategy",
+        content: `We implemented a data-first Amazon Ads strategy focused on profitability and scale:
+
+        • Campaign Segmentation: Structured campaigns by product category, intent level, and performance maturity.
+        • Search Term Mining & Optimization: Continuous extraction of converting search terms and elimination of non-performing keywords.
+        • Bid & Placement Optimization: Strategic use of Top-of-Search bid adjustments only on high-converting campaigns.
+        • Performance Scaling: Budgets were increased selectively on campaigns delivering consistent ROAS.
+        • Inventory and Demand Control: Low-performing new launches were paused or rebuilt to prevent wasted spend.`
+      },
+      {
+        id: "results",
+        title: "This led to us achieving",
+        content: `• Achieved ROAS up to 11.2 on top-performing campaigns
+        • Generated ₹2.7L+ in sales within a single month
+        • Maintained overall account ROAS above 6.5
+        • Reduced CPC through relevance and bid control
+        • Identified clear winners and stopped budget leakage on underperforming campaigns`
+      }
+    ],
+    learnings: [
+      { myth: "Scale spend to scale sales", reality: "Scaling without bid control kills ROAS. We scaled selectively based on conversion maturity." },
+      { myth: "Broad keywords drive volume", reality: "Broad keywords drive waste. Exact match and phrase mining were our primary growth levers." },
+      { myth: "Amazon Ads are 'set and forget'", reality: "Daily bid adjustments and search term mining are required to maintain a 6.5x+ ROAS." }
+    ],
+    finalResult: "We achieved a 6.57x overall account ROAS, generating over ₹2.78L in monthly sales for the apparel brand through aggressive search term mining and strategic bid adjustments."
   }
 };
 
@@ -165,7 +205,7 @@ const CaseStudyDetail = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO title={data.title} description={data.finalResult.substring(0, 160)} />
+      <SEO title={data.title} description={data.finalResult?.substring(0, 160)} />
       <Navbar />
       
       <div className="pt-32 pb-20">
@@ -190,10 +230,26 @@ const CaseStudyDetail = () => {
             
             {data.heroVideo && <YouTubeEmbed videoId={data.heroVideo} title={data.title} />}
             
+            {data.heroImage && (
+              <div className="rounded-[2rem] overflow-hidden shadow-2xl mb-12 border border-slate-100">
+                <img src={data.heroImage} alt={data.title} className="w-full h-auto" />
+              </div>
+            )}
+
             {data.instagramReels && (
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 {data.instagramReels.map((url: string, i: number) => (
                   <InstagramEmbed key={i} url={url} />
+                ))}
+              </div>
+            )}
+
+            {data.proofImages && (
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                {data.proofImages.map((src: string, i: number) => (
+                  <div key={i} className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 bg-white p-2">
+                    <img src={src} alt={`Proof ${i + 1}`} className="w-full h-auto rounded-[1.5rem]" />
+                  </div>
                 ))}
               </div>
             )}
@@ -209,6 +265,35 @@ const CaseStudyDetail = () => {
               </div>
             ))}
           </div>
+
+          {/* Project Info Section (New) */}
+          {data.projectInfo && (
+            <div className="mb-20 p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100">
+              <h3 className="text-2xl font-black mb-8 text-slate-900">Project Info -</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                <div>
+                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Category:</p>
+                  <p className="font-bold text-slate-700">{data.projectInfo.category}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Location:</p>
+                  <p className="font-bold text-slate-700">{data.projectInfo.location}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Software:</p>
+                  <p className="font-bold text-slate-700">{data.projectInfo.software}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Dated:</p>
+                  <p className="font-bold text-slate-700">{data.projectInfo.dated}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Client:</p>
+                  <p className="font-bold text-slate-700">{data.projectInfo.client}</p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Content Blocks */}
           <div className="space-y-12 mb-24">
@@ -235,7 +320,9 @@ const CaseStudyDetail = () => {
           <div className="relative py-20 mb-24 text-center">
             <Quote className="w-20 h-20 text-blue-600/10 absolute top-0 left-1/2 -translate-x-1/2" />
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 italic relative z-10 max-w-3xl mx-auto leading-tight">
-              {data.category === 'Music Marketing' 
+              {data.category === 'Ecommerce/Performance Marketing' 
+                ? '"We didn’t just want to scale spend; we wanted to scale profitability. Every bid adjustment was a step towards a 6.5x+ account ROAS."'
+                : data.category === 'Music Marketing' 
                 ? '"We didn\'t just want to release songs; we wanted to build a movement. Every frame, every beat, and every ad rupee was designed to evoke a sense of belonging."'
                 : '"We weren’t just selling a vacation. We were selling trust — and our funnel wasn’t built to support it. In Month 2, we rebuilt everything."'}
             </h3>
@@ -275,7 +362,6 @@ const CaseStudyDetail = () => {
                   </Button>
                 </Link>
               </div>
-              {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32" />
             </div>
