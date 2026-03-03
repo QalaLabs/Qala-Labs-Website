@@ -28,7 +28,8 @@ import {
   Globe,
   Layout,
   Database,
-  Search
+  Search,
+  Zap // Added missing import
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -48,7 +49,7 @@ const portfolioData: Record<string, any> = {
     metrics: [
       { label: "Leads", value: "17", icon: <Users className="w-5 h-5" /> },
       { label: "Close Rate", value: "64.7%", icon: <TrendingUp className="w-5 h-5" /> },
-      { label: "Efficiency", value: "Night/Day", icon: <Zap className="w-5 h-5" /> },
+      { label: "Efficiency", value: "Night/Day", icon: <Zap className="w-5 h-5" /> }, // Fixed Zap usage
       { label: "SEO", value: "Optimized", icon: <Search className="w-5 h-5" /> }
     ],
     projectInfo: {
