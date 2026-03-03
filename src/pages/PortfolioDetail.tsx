@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { 
   ArrowLeft, 
   TrendingUp, 
@@ -16,14 +17,18 @@ import {
   MousePointer2,
   Quote,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Play,
+  Users,
+  Heart,
+  Bookmark
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
 const portfolioData: Record<string, any> = {
   'amazon-ads': {
     title: "Amazon Ads: Performance Scaling for Apparel Brand",
-    category: "Ecommerce/Performance Marketing",
+    category: "Ecommerce",
     heroImage: "/src/assets/amazon-ads-hero.png",
     proofImages: [
       "/src/assets/amazon-ads-1.jpeg",
@@ -36,11 +41,12 @@ const portfolioData: Record<string, any> = {
       { label: "CPC", value: "Reduced", icon: <MousePointer2 className="w-5 h-5" /> }
     ],
     projectInfo: {
-      category: "Artwork",
-      location: "United Kingdom",
-      software: "Adobe Illustrator",
-      dated: "14-Aug-2022",
-      client: "Andreo Bowla"
+      category: "Ecommerce",
+      location: "India",
+      software: "Amazon Ad Platform",
+      dated: "March and April",
+      client: "playR",
+      platform: "Amazon Vendor Central/Advertisement"
     },
     blocks: [
       {
@@ -80,6 +86,50 @@ const portfolioData: Record<string, any> = {
         • Identified clear winners and stopped budget leakage on underperforming campaigns`
       }
     ]
+  },
+  'try-on-campaign': {
+    title: "The Try on campaign: Style Meets Real Life",
+    category: "Social Media - User Generated Content",
+    heroImage: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1200",
+    instagramReels: [
+      "https://www.instagram.com/reel/DKAFjyep3bK/",
+      "https://www.instagram.com/reel/DHiyDrzS0nu/",
+      "https://www.instagram.com/reel/DGKmlErvU_N/",
+      "https://www.instagram.com/reel/DGibQIWtzIN/"
+    ],
+    metrics: [
+      { label: "Total Views", value: "1.2M+", icon: <Play className="w-5 h-5" /> },
+      { label: "Saves", value: "15K+", icon: <Bookmark className="w-5 h-5" /> },
+      { label: "Engagement", value: "8.4%", icon: <Heart className="w-5 h-5" /> },
+      { label: "Conv. Lift", value: "22%", icon: <TrendingUp className="w-5 h-5" /> }
+    ],
+    projectInfo: {
+      category: "Social Media - User Generated Content",
+      location: "India",
+      software: "Adobe Premiere Pro, After Effects",
+      dated: "May 2025",
+      client: "playR",
+      platform: "Instagram"
+    },
+    blocks: [
+      {
+        id: "overview",
+        title: "Style Meets Real Life",
+        content: `Let’s be honest — the first thing people wonder when they land on a product page isn’t fabric quality or moisture-wicking. It’s:
+        👉 “How will this look on me?”
+        👉 “Can I wear this to college… and then out for coffee?”
+        👉 “Will this fit my body type or just the model’s?”
+        
+        We got the hint. So we threw the catalog out and handed the gear to creators of all shapes, vibes, and routines. In metro rides, dance rehearsals, chill walks, college corridors — we let them wear it their way.`
+      },
+      {
+        id: "strategy",
+        title: "Relatability Over Perfection",
+        content: `Each Reel became a visual answer to the unspoken question: “Could I pull this off?” Spoiler: Yes. And the views, saves, and comments proved that relatability converts better than a size chart ever could.
+        
+        By leveraging real people in real environments, we bypassed the "ad blindness" that often plagues high-production studio content. The campaign focused on the lifestyle integration of the apparel, making it a part of the creator's daily routine rather than a static product feature.`
+      }
+    ]
   }
 };
 
@@ -113,6 +163,14 @@ const PortfolioDetail = () => {
             {data.heroImage && (
               <div className="rounded-[2rem] overflow-hidden shadow-2xl mb-12 border border-slate-100">
                 <img src={data.heroImage} alt={data.title} className="w-full h-auto" />
+              </div>
+            )}
+
+            {data.instagramReels && (
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                {data.instagramReels.map((url: string, i: number) => (
+                  <InstagramEmbed key={i} url={url} />
+                ))}
               </div>
             )}
 
@@ -161,6 +219,12 @@ const PortfolioDetail = () => {
                   <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Client:</p>
                   <p className="font-bold text-slate-700">{data.projectInfo.client}</p>
                 </div>
+                {data.projectInfo.platform && (
+                  <div>
+                    <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Platform:</p>
+                    <p className="font-bold text-slate-700">{data.projectInfo.platform}</p>
+                  </div>
+                )}
               </div>
             </div>
           )}

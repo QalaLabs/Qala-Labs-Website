@@ -11,7 +11,7 @@ const projects = [
   {
     id: 11,
     title: "Amazon Ads: Performance Scaling",
-    category: "Ecommerce/Performance Marketing",
+    category: "Ecommerce",
     result: "11.2x ROAS & ₹2.7L+ Sales",
     slug: "amazon-ads",
     image: "/src/assets/amazon-ads-hero.png",
@@ -19,6 +19,18 @@ const projects = [
     metrics: { roas: "11.2x", growth: "₹2.7L+ Sales" },
     tags: ["Amazon Ads", "E-com", "Scaling"],
     description: "Scaling Amazon Ads profitably for an apparel brand through structured campaign segmentation and search term mining."
+  },
+  {
+    id: 13,
+    title: "The Try on campaign",
+    category: "Social Media - User Generated Content",
+    result: "1.2M+ Views & 22% Conv. Lift",
+    slug: "try-on-campaign",
+    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-woman-holding-a-smartphone-and-smiling-42896-large.mp4",
+    metrics: { roas: "N/A", growth: "1.2M+ Views" },
+    tags: ["UGC", "Instagram", "Fashion"],
+    description: "A high-velocity UGC campaign for playR that focused on relatability and real-life style integration."
   },
   {
     id: 12,
@@ -34,7 +46,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "Ecommerce/Performance Marketing", "Branding"];
+const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "Branding"];
 
 const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
