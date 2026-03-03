@@ -23,7 +23,7 @@ import {
 import { motion } from "framer-motion";
 
 const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) => (
-  <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-white/10 bg-slate-900">
+  <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-slate-100 bg-slate-900">
     <iframe
       className="absolute top-0 left-0 w-full h-full"
       src={`https://www.youtube.com/embed/${videoId}`}
@@ -105,14 +105,14 @@ const CaseStudyDetail = () => {
   const data = caseStudiesData[slug || 'music-marketing'] || caseStudiesData['music-marketing'];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30">
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO title={data.title} description={data.finalResult.substring(0, 160)} />
       <Navbar />
       
       <div className="pt-32 pb-20">
         <div className="max-w-5xl mx-auto px-4">
           {/* Back Button */}
-          <Link to="/case-studies" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-bold mb-12 transition-colors group">
+          <Link to="/case-studies" className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold mb-12 transition-colors group">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Case Studies
           </Link>
 
@@ -125,7 +125,7 @@ const CaseStudyDetail = () => {
             <Badge className="bg-blue-600 text-white mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]">
               {data.category}
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-12 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-12 leading-tight">
               {data.title}
             </h1>
             
@@ -135,10 +135,10 @@ const CaseStudyDetail = () => {
           {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
             {data.metrics.map((metric: any, i: number) => (
-              <div key={i} className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center hover:bg-white/10 transition-colors">
-                <div className="text-blue-500 mb-3 flex justify-center">{metric.icon}</div>
-                <p className="text-3xl font-black mb-1">{metric.value}</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{metric.label}</p>
+              <div key={i} className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center hover:bg-white hover:shadow-xl hover:border-blue-100 transition-all">
+                <div className="text-blue-600 mb-3 flex justify-center">{metric.icon}</div>
+                <p className="text-3xl font-black mb-1 text-slate-900">{metric.value}</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{metric.label}</p>
               </div>
             ))}
           </div>
@@ -152,12 +152,12 @@ const CaseStudyDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-8 md:p-12 bg-white/5 rounded-[2.5rem] border border-white/10 hover:border-blue-500/30 transition-all group"
+                className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all group"
               >
-                <h2 className="text-2xl md:text-3xl font-black mb-6 text-white group-hover:text-blue-400 transition-colors">
+                <h2 className="text-2xl md:text-3xl font-black mb-6 text-slate-900 group-hover:text-blue-600 transition-colors">
                   {block.title}
                 </h2>
-                <div className="text-lg text-slate-400 leading-relaxed space-y-6 whitespace-pre-line">
+                <div className="text-lg text-slate-600 leading-relaxed space-y-6 whitespace-pre-line">
                   {block.content}
                 </div>
               </motion.div>
@@ -166,28 +166,28 @@ const CaseStudyDetail = () => {
 
           {/* Pull Quote */}
           <div className="relative py-20 mb-24 text-center">
-            <Quote className="w-20 h-20 text-blue-600/20 absolute top-0 left-1/2 -translate-x-1/2" />
-            <h3 className="text-3xl md:text-4xl font-black text-white italic relative z-10 max-w-3xl mx-auto leading-tight">
+            <Quote className="w-20 h-20 text-blue-600/10 absolute top-0 left-1/2 -translate-x-1/2" />
+            <h3 className="text-3xl md:text-4xl font-black text-slate-900 italic relative z-10 max-w-3xl mx-auto leading-tight">
               "We didn't just want to release songs; we wanted to build a movement. Every frame, every beat, and every ad rupee was designed to evoke a sense of belonging."
             </h3>
           </div>
 
           {/* Learnings Section */}
-          <section className="py-16 bg-blue-600/10 rounded-[3rem] px-8 md:px-16 mb-24 border border-blue-500/20">
-            <h2 className="text-3xl font-black mb-12 text-center">What We Learned</h2>
+          <section className="py-16 bg-slate-50 rounded-[3rem] px-8 md:px-16 mb-24 border border-slate-100">
+            <h2 className="text-3xl font-black mb-12 text-center text-slate-900">What We Learned</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {data.learnings.map((item: any, i: number) => (
                 <div key={i} className="space-y-4">
-                  <div className="flex items-center gap-2 text-red-400">
+                  <div className="flex items-center gap-2 text-red-600">
                     <XCircle className="w-4 h-4" />
                     <span className="text-[10px] font-black uppercase tracking-widest">Myth</span>
                   </div>
-                  <p className="text-sm font-bold text-slate-300">"{item.myth}"</p>
-                  <div className="flex items-center gap-2 text-green-400 pt-2">
+                  <p className="text-sm font-bold text-slate-800">"{item.myth}"</p>
+                  <div className="flex items-center gap-2 text-green-600 pt-2">
                     <CheckCircle2 className="w-4 h-4" />
                     <span className="text-[10px] font-black uppercase tracking-widest">Reality</span>
                   </div>
-                  <p className="text-sm text-slate-400 leading-relaxed">{item.reality}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed">{item.reality}</p>
                 </div>
               ))}
             </div>
@@ -197,7 +197,7 @@ const CaseStudyDetail = () => {
           <section className="py-20">
             <div className="relative p-12 md:p-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3.5rem] overflow-hidden text-center shadow-2xl shadow-blue-500/20">
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-5xl font-black mb-10 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-black mb-10 leading-tight text-white">
                   Ready to build your <br /> own scale engine?
                 </h2>
                 <Link to="/contact">
