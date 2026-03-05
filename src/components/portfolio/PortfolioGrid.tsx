@@ -8,6 +8,18 @@ import { useNavigate } from 'react-router-dom';
 
 const projects = [
   {
+    id: 14,
+    title: "It's All Real: #WhistlePodu Army",
+    category: "User Generated Content",
+    result: "5M+ Reach & 35% Conv. Lift",
+    slug: "user-generated-content-chennai-superkings",
+    image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=1200",
+    video: "https://assets.mixkit.co/videos/preview/mixkit-fans-cheering-at-a-stadium-42898-large.mp4",
+    metrics: { roas: "N/A", growth: "5M+ Reach" },
+    tags: ["CSK", "IPL", "UGC", "Fandom"],
+    description: "Turning the raw energy of the #WhistlePodu army into a high-converting content engine for playR."
+  },
+  {
     id: 15,
     title: "Capital Keys: Custom Web Development",
     category: "Web Development",
@@ -42,18 +54,6 @@ const projects = [
     metrics: { roas: "N/A", growth: "1.2M+ Views" },
     tags: ["UGC", "Instagram", "Fashion"],
     description: "A high-velocity UGC campaign for playR that focused on relatability and real-life style integration."
-  },
-  {
-    id: 14,
-    title: "It's All Real - #WhistlePodu Army",
-    category: "User Generated Content",
-    result: "5M+ Reach & 35% Conv. Lift",
-    slug: "user-generated-content-chennai-superkings",
-    image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=1200",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-fans-cheering-at-a-stadium-42898-large.mp4",
-    metrics: { roas: "N/A", growth: "5M+ Reach" },
-    tags: ["CSK", "IPL", "UGC", "Fandom"],
-    description: "Turning the raw energy of the #WhistlePodu army into a high-converting content engine for playR."
   }
 ];
 
