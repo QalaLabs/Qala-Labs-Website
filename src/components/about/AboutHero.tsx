@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, FileText, Calendar } from 'lucide-react';
+import { FileText, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -38,7 +38,7 @@ const AboutHero = ({ onBookClick, onCasePackClick }: AboutHeroProps) => {
             </h1>
             
             <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-xl">
-              Performance marketing, AI automation, conversion-first sites and creator programs — all engineered to grow revenue, not vanity metrics.
+              Performance marketing, AI automation, conversion-first sites and creator programs all engineered to grow revenue, not vanity metrics.
             </p>
             
             <div className="flex flex-wrap gap-4 mb-12">
@@ -63,8 +63,8 @@ const AboutHero = ({ onBookClick, onCasePackClick }: AboutHeroProps) => {
                   <span className="text-blue-600 font-black text-xs">“</span>
                 </div>
                 <p className="text-sm italic text-slate-500 leading-relaxed">
-                  “Qala Labs helped us scale to a six-figure monthly run-rate — fast, strategic, and data-driven.” 
-                  <span className="block mt-2 font-bold text-slate-900 not-italic">— CEO, Gaffar India</span>
+                  “Qala Labs helped us scale to a six-figure monthly run-rate fast, strategic, and data-driven.” 
+                  <span className="block mt-2 font-bold text-slate-900 not-italic">CEO, Gaffar India</span>
                 </p>
               </div>
             </div>

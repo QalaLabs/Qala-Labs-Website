@@ -47,7 +47,7 @@ const About = () => {
               <div>
                 <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-6">Our Mission</h2>
                 <p className="text-3xl md:text-5xl font-black text-slate-900 leading-tight mb-8">
-                  To help product-led ecommerce brands scale sustainably by turning data and research into high-confidence experiments.
+                  To help product-led ecommerce brands scale sustainably by turning data and research into high-confidence experiments then automating the winners.
                 </p>
                 <div className="space-y-6">
                   {[
