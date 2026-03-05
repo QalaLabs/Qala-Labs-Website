@@ -7,12 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 const QuickMetrics = () => {
   const metrics = [
     {
-      brand: "TroTr: Lead Generation",
+      brand: "playR: CSK UGC Campaign",
       stats: [
-        { label: "Revenue", value: "₹14L" },
-        { label: "Cost per lead", value: "₹6,700" },
-        { label: "ROAS", value: "28×" },
-        { label: "Avg. order value", value: "₹1.9L" }
+        { label: "Viral Reach", value: "5M+" },
+        { label: "Engagement", value: "12%" },
+        { label: "Conv. Lift", value: "35%" },
+        { label: "Fan Reels", value: "500+" }
       ]
     },
     {

@@ -17,12 +17,12 @@ const CaseStudySnapshots = () => {
       slug: "meta-lead-generation-trotr"
     },
     {
-      brand: "playR: Amazon Growth",
-      challenge: "Marketplace competitiveness with thin margins and unpredictable ad performance.",
-      action: "Product listing CRO, enhanced content, aggressive micro-campaigns, creator-led UGC for PDPs, and lifecycle retargeting.",
-      outcome: "Consistent monthly revenue ~₹3,00,000 with peak 11.2× ROAS and account-level 6.5×+. CPC materially reduced.",
-      meaning: "Better visibility, higher conversion, and a repeatable paid to organic loop on Amazon.",
-      slug: "amazon-ads"
+      brand: "Mystic Studio 8: Music Movement",
+      challenge: "Total lack of historical data and digital infrastructure in a region with deep-rooted traditions.",
+      action: "Deployed a 3-month staggered release framework with server-side tracking and proprietary attribution models.",
+      outcome: "3.4M+ views; 25.7K subscribers; 61% retention; 91% positive sentiment.",
+      meaning: "Transformed an unknown regional label into a cultural movement through data-driven storytelling.",
+      slug: "music-marketing"
     }
   ];
 

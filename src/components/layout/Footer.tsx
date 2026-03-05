@@ -39,13 +39,13 @@ const Footer = () => {
               The performance marketing agency for brands that refuse to settle for average growth. We build scale engines.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -88,7 +88,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-blue-500 shrink-0" />
-                <span className="text-slate-400">London • Dubai • New York</span>
+                <span className="text-slate-400">London, Dubai, New York</span>
               </li>
             </ul>
           </div>
@@ -105,6 +105,7 @@ const Footer = () => {
               type="email" 
               placeholder="Enter your email" 
               className="flex-1 bg-slate-800 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-blue-600 outline-none"
+              aria-label="Email for newsletter"
             />
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-xl font-bold transition-colors flex items-center gap-2">
               Join <ArrowRight className="w-4 h-4" />

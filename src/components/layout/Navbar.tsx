@@ -57,7 +57,7 @@ const Navbar = () => {
           </div>
 
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900" aria-label="Toggle menu">
               {isOpen ? <X /> : <Menu />}
             </button>
           </div>
