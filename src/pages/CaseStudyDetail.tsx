@@ -21,9 +21,7 @@ import {
   XCircle,
   Quote,
   IndianRupee,
-  MousePointer2,
-  ShoppingBag,
-  Globe
+  MousePointer2
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -36,6 +34,7 @@ const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) =
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
+      loading="lazy"
     ></iframe>
   </div>
 );
@@ -60,12 +59,12 @@ const caseStudiesData: Record<string, any> = {
       {
         id: "challenge",
         title: "The Challenge: Breaking the Digital Silence",
-        content: `The primary hurdle was the total lack of historical data. We were starting from zero—no previous audience, no pixel data, and no established fanbase. Furthermore, the cultural nuances of the region required a delicate balance. If the content felt too "corporate," it would lose its soul; if it felt too "traditional," it wouldn't scale on platforms like TikTok and YouTube. We needed a strategy that was culturally authentic yet technically aggressive.`
+        content: `The primary hurdle was the total lack of historical data. We were starting from zero: no previous audience, no pixel data, and no established fanbase. Furthermore, the cultural nuances of the region required a delicate balance. If the content felt too "corporate," it would lose its soul; if it felt too "traditional," it wouldn't scale on platforms like TikTok and YouTube. We needed a strategy that was culturally authentic yet technically aggressive.`
       },
       {
         id: "strategy",
         title: "The Strategy: The Staggered Release Framework",
-        content: `We deployed a 3-month "Scale Engine" rollout strategy. Instead of a single big launch, we opted for a staggered release cycle—one original track per month—to build cumulative momentum. This allowed us to use the data from the first release to optimize the targeting and creative hooks for the second and third.`
+        content: `We deployed a 3-month "Scale Engine" rollout strategy. Instead of a single big launch, we opted for a staggered release cycle: one original track per month to build cumulative momentum. This allowed us to use the data from the first release to optimize the targeting and creative hooks for the second and third.`
       },
       {
         id: "execution",
@@ -80,10 +79,10 @@ const caseStudiesData: Record<string, any> = {
     ],
     learnings: [
       { myth: "Drop all songs together for virality", reality: "Staggered storytelling builds depth, audience trust, and momentum." },
-      { myth: "Digital is enough", reality: "Real-world emotion boosts digital traction — every offline event sparked online spikes." },
+      { myth: "Digital is enough", reality: "Real-world emotion boosts digital traction: every offline event sparked online spikes." },
       { myth: "Views are the goal", reality: "Retention, comments, and community UGC are stronger brand signals." }
     ],
-    finalResult: "In just 3 months, Mystic Studio 8 transformed from an unknown regional label into a cultural movement. By launching three original Kashmiri songs — one each month — we didn't just create content, we built emotional capital, digital momentum, and community loyalty."
+    finalResult: "In just 3 months, Mystic Studio 8 transformed from an unknown regional label into a cultural movement. By launching three original Kashmiri songs, one each month, we didn't just create content; we built emotional capital, digital momentum, and community loyalty."
   },
   'meta-lead-generation-trotr': {
     title: "Importance of storytelling and founder led marketing in social media marketing",
@@ -121,13 +120,13 @@ const caseStudiesData: Record<string, any> = {
       {
         id: "results",
         title: "Result of The Case Study",
-        content: `This campaign didn’t just outperform expectations, it redefined how high-ticket travel should be marketed. By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine.`
+        content: `This campaign didn’t just outperform expectations; it redefined how high-ticket travel should be marketed. By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine.`
       }
     ],
     learnings: [
-      { myth: "Click-to-WhatsApp always converts", reality: "People don’t want to text brands — they want clarity. CTWA gave us traffic. Website gave us money." },
+      { myth: "Click-to-WhatsApp always converts", reality: "People don’t want to text brands: they want clarity. CTWA gave us traffic; website gave us money." },
       { myth: "Use Advantage+ and let Meta auto-scale", reality: "Manual, intent-based targeting crushed automation. We knew our audience better than Meta did." },
-      { myth: "High CTR = success", reality: "CTR ≠ revenue. It's the funnel that converts. Good targeting + right format + low-friction form = gold." }
+      { myth: "High CTR = success", reality: "CTR is not revenue. It's the funnel that converts. Good targeting, right format, and low-friction form equals gold." }
     ],
     finalResult: "By anchoring our strategy in emotion, backing it with a frictionless funnel, and using humanized storytelling, we turned a failing campaign into a revenue-generating engine with a 28x ROAS."
   },
@@ -210,12 +209,10 @@ const CaseStudyDetail = () => {
       
       <div className="pt-32 pb-20">
         <div className="max-w-5xl mx-auto px-4">
-          {/* Back Button */}
           <Link to="/case-studies" className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold mb-12 transition-colors group">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Case Studies
           </Link>
 
-          {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -232,7 +229,7 @@ const CaseStudyDetail = () => {
             
             {data.heroImage && (
               <div className="rounded-[2rem] overflow-hidden shadow-2xl mb-12 border border-slate-100">
-                <img src={data.heroImage} alt={data.title} className="w-full h-auto" />
+                <img src={data.heroImage} alt={data.title} className="w-full h-auto" loading="lazy" />
               </div>
             )}
 
@@ -248,14 +245,13 @@ const CaseStudyDetail = () => {
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 {data.proofImages.map((src: string, i: number) => (
                   <div key={i} className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 bg-white p-2">
-                    <img src={src} alt={`Proof ${i + 1}`} className="w-full h-auto rounded-[1.5rem]" />
+                    <img src={src} alt={`Proof ${i + 1}`} className="w-full h-auto rounded-[1.5rem]" loading="lazy" />
                   </div>
                 ))}
               </div>
             )}
           </motion.div>
 
-          {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
             {data.metrics.map((metric: any, i: number) => (
               <div key={i} className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center hover:bg-white hover:shadow-xl hover:border-blue-100 transition-all">
@@ -266,10 +262,9 @@ const CaseStudyDetail = () => {
             ))}
           </div>
 
-          {/* Project Info Section (New) */}
           {data.projectInfo && (
             <div className="mb-20 p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100">
-              <h3 className="text-2xl font-black mb-8 text-slate-900">Project Info -</h3>
+              <h3 className="text-2xl font-black mb-8 text-slate-900">Project Info</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                 <div>
                   <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest mb-2">Category:</p>
@@ -295,7 +290,6 @@ const CaseStudyDetail = () => {
             </div>
           )}
 
-          {/* Content Blocks */}
           <div className="space-y-12 mb-24">
             {data.blocks.map((block: any, i: number) => (
               <motion.div
@@ -316,7 +310,6 @@ const CaseStudyDetail = () => {
             ))}
           </div>
 
-          {/* Pull Quote */}
           <div className="relative py-20 mb-24 text-center">
             <Quote className="w-20 h-20 text-blue-600/10 absolute top-0 left-1/2 -translate-x-1/2" />
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 italic relative z-10 max-w-3xl mx-auto leading-tight">
@@ -324,11 +317,10 @@ const CaseStudyDetail = () => {
                 ? '"We didn’t just want to scale spend; we wanted to scale profitability. Every bid adjustment was a step towards a 6.5x+ account ROAS."'
                 : data.category === 'Music Marketing' 
                 ? '"We didn\'t just want to release songs; we wanted to build a movement. Every frame, every beat, and every ad rupee was designed to evoke a sense of belonging."'
-                : '"We weren’t just selling a vacation. We were selling trust — and our funnel wasn’t built to support it. In Month 2, we rebuilt everything."'}
+                : '"We weren’t just selling a vacation. We were selling trust: and our funnel wasn’t built to support it. In Month 2, we rebuilt everything."'}
             </h3>
           </div>
 
-          {/* Learnings Section */}
           <section className="py-16 bg-slate-50 rounded-[3rem] px-8 md:px-16 mb-24 border border-slate-100">
             <h2 className="text-3xl font-black mb-12 text-center text-slate-900">What We Learned</h2>
             <div className="grid md:grid-cols-3 gap-8">
@@ -349,7 +341,6 @@ const CaseStudyDetail = () => {
             </div>
           </section>
 
-          {/* Bottom CTA */}
           <section className="py-20">
             <div className="relative p-12 md:p-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3.5rem] overflow-hidden text-center shadow-2xl shadow-blue-500/20">
               <div className="relative z-10">
