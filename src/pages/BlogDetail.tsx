@@ -1,103 +1,126 @@
-import * as React from 'react';
-import { useParams, Link } from 'react-router-dom';
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, Clock, Share2, User } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Share2, User, Loader2, ArrowRight } from 'lucide-react';
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { format } from 'date-fns';
+import { showSuccess } from '@/utils/toast';
 
 const BlogDetail = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
+  const [post, setPost] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Placeholder data - in a real app, fetch from Supabase
-  const post = {
-    title: "The 2024 E-com Attribution Playbook",
-    content: `
-      <p>In the post-iOS 14.5 world, traditional attribution models have crumbled. Brands that rely solely on Meta's 7-day click or Google's last-click attribution are flying blind. At Qala Labs, we've developed a proprietary framework that combines server-side tracking with first-party data modeling to provide a single source of truth.</p>
+  useEffect(() => {
+    const fetchPost = async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('slug', slug)
+        .single();
       
-      <h3>The Death of the Pixel</h3>
-      <p>Browser-based tracking is no longer sufficient. With the rise of ad blockers and privacy-focused browser updates, up to 30% of your conversion data is being lost before it even reaches your dashboard. This leads to inefficient bidding and wasted ad spend.</p>
-      
-      <h3>The Solution: Server-Side GTM</h3>
-      <p>By moving your tracking to a server-side environment, you bypass browser restrictions and ensure 100% data accuracy. This allows for better audience matching and more precise optimization of your scale engine.</p>
-      
-      <blockquote>"Data is the new oil, but only if you have the right refinery. Server-side tracking is that refinery for modern DTC brands."</blockquote>
-      
-      <h3>Key Takeaways for 2024</h3>
-      <ul>
-        <li>Implement CAPI (Conversions API) for all major platforms.</li>
-        <li>Focus on blended ROAS and contribution margin over platform-specific metrics.</li>
-        <li>Build a first-party data moat through high-value lead magnets and retention flows.</li>
-      </ul>
-    `,
-    category: "Strategy",
-    date: "Mar 15, 2024",
-    readTime: "8 min read",
-    author: "Alex Rivera",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"
+      if (error || !data) {
+        navigate('/blog');
+      } else {
+        setPost(data);
+      }
+      setLoading(false);
+    };
+    fetchPost();
+  }, [slug, navigate]);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    showSuccess("Link copied to clipboard!");
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO title={post.title} description="Expert takes on e-commerce scaling and attribution." />
+      <SEO title={post.title} description={post.excerpt} image={post.image_url} />
       <Navbar />
       
       <div className="pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-4">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold mb-12 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Back to Insights
+          <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold mb-12 transition-colors group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Insights
           </Link>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Badge className="bg-blue-600 mb-6 px-4 py-1 rounded-full">{post.category}</Badge>
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
+            <Badge className="bg-blue-600 text-white mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]">
+              {post.category || "Strategy"}
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight tracking-tight">
               {post.title}
             </h1>
 
             <div className="flex flex-wrap items-center gap-6 text-slate-500 mb-12 pb-8 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
                   <User className="w-5 h-5" />
                 </div>
-                <span className="font-bold text-slate-900">{post.author}</span>
+                <span className="font-bold text-slate-900">Qala Strategy Team</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-sm">
                 <Calendar className="w-4 h-4" />
-                <span>{post.date}</span>
+                <span>{format(new Date(post.created_at), 'MMMM dd, yyyy')}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-sm">
                 <Clock className="w-4 h-4" />
-                <span>{post.readTime}</span>
+                <span>8 min read</span>
               </div>
-              <button className="ml-auto p-2 hover:bg-slate-50 rounded-full transition-colors">
+              <button 
+                onClick={handleShare}
+                className="ml-auto p-3 hover:bg-slate-50 rounded-2xl transition-colors border border-slate-100"
+                aria-label="Share article"
+              >
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="rounded-[3rem] overflow-hidden h-[500px] mb-16 shadow-2xl">
-              <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-            </div>
+            {post.image_url && (
+              <div className="rounded-[3rem] overflow-hidden h-[500px] mb-16 shadow-2xl border border-slate-100">
+                <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" />
+              </div>
+            )}
 
             <div 
-              className="prose prose-lg max-w-none prose-slate prose-headings:font-black prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50 prose-blockquote:p-8 prose-blockquote:rounded-2xl prose-blockquote:not-italic prose-a:text-blue-600"
+              className="prose prose-lg max-w-none prose-slate prose-headings:font-black prose-headings:tracking-tight prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50 prose-blockquote:p-8 prose-blockquote:rounded-[2rem] prose-blockquote:not-italic prose-a:text-blue-600 prose-img:rounded-[2rem] prose-img:shadow-xl"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            <div className="mt-20 p-12 bg-slate-900 rounded-[3rem] text-white text-center">
-              <h3 className="text-3xl font-bold mb-4">Ready to fix your attribution?</h3>
-              <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-                Our team can audit your current tracking setup and implement a server-side solution in under 7 days.
-              </p>
-              <Link to="/contact">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 rounded-xl font-bold">
-                  Book Free Audit
-                </Button>
-              </Link>
+            <div className="mt-24 p-12 md:p-20 bg-slate-900 rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl">
+              <div className="relative z-10">
+                <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight">Ready to apply these <br /> frameworks to your brand?</h3>
+                <p className="text-slate-400 mb-10 max-w-xl mx-auto text-lg">
+                  Our team can audit your current strategy and implement an 8-figure scale engine in under 30 days.
+                </p>
+                <Link to="/contact">
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-8 rounded-2xl font-black text-lg shadow-xl shadow-blue-500/20 group">
+                    Book Free Audit <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -mr-32 -mt-32" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -ml-32 -mb-32" />
             </div>
           </motion.div>
         </div>

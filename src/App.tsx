@@ -22,6 +22,7 @@ import Admin from "./pages/Admin";
 import PageList from "./pages/admin/PageList";
 import PageEditor from "./pages/admin/PageEditor";
 import MediaManager from "./pages/admin/MediaManager";
+import Settings from "./pages/admin/Settings";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/admin/pages" element={<PageList />} />
             <Route path="/admin/editor/:id" element={<PageEditor />} />
             <Route path="/admin/media" element={<MediaManager />} />
+            <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/onboarding" element={<Onboarding />} />
