@@ -5,16 +5,20 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Save, Rocket, Eye, ArrowLeft, Plus, 
   Settings, History, ChevronLeft, Loader2,
-  Layout, Type, Image as ImageIcon, Video, BarChart3
+  Layout, Type, Image as ImageIcon, Video, BarChart3,
+  Trash2, Copy, ChevronUp, ChevronDown
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { showSuccess, showError } from '@/utils/toast';
 import BlockWrapper from '@/components/admin/BlockWrapper';
 import BlockPicker from '@/components/admin/BlockPicker';
+import BlockRenderer from '@/components/cms/BlockRenderer';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -26,7 +30,6 @@ const PageEditor = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const fetchPage = useCallback(async () => {
     const { data, error } = await supabase
@@ -69,6 +72,14 @@ const PageEditor = () => {
       showSuccess(status === 'published' ? "Page published live!" : "Draft saved successfully");
       if (status) setPage(prev => prev ? { ...prev, status } : null);
     }
+  };
+
+  const updateBlockProps = (blockId: string, newProps: any) => {
+    if (!page) return;
+    setPage({
+      ...page,
+      content: page.content.map(b => b.id === blockId ? { ...b, props: { ...b.props, ...newProps } } : b)
+    });
   };
 
   const addBlock = (type: BlockType, index?: number) => {
@@ -122,12 +133,15 @@ const PageEditor = () => {
   const getDefaultProps = (type: BlockType) => {
     switch (type) {
       case 'hero': return { title: 'New Hero Section', subtitle: 'Add a compelling subtitle here', ctaText: 'Get Started', ctaUrl: '#' };
-      case 'rich_text': return { content: '<p>Start writing your content here...</p>' };
+      case 'rich_text': return { content: '<h2>New Section</h2><p>Start writing your content here...</p>' };
       case 'kpi_grid': return { items: [{ label: 'Revenue', value: '₹10L' }, { label: 'Growth', value: '25%' }] };
-      case 'cta': return { title: 'Ready to scale?', buttonText: 'Contact Us' };
+      case 'cta': return { title: 'Ready to scale?', description: 'Book your free audit today.', buttonText: 'Contact Us' };
+      case 'image': return { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f', alt: 'Placeholder' };
       default: return {};
     }
   };
+
+  const selectedBlock = page.content.find(b => b.id === selectedBlockId);
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -161,11 +175,8 @@ const PageEditor = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="ghost" className="rounded-xl gap-2 text-slate-600">
-            <History className="w-4 h-4" /> History
-          </Button>
           <Button variant="ghost" className="rounded-xl gap-2 text-slate-600" asChild>
-            <a href={`/${page.slug}?preview=true`} target="_blank" rel="noopener noreferrer">
+            <a href={`/p/${page.slug}?preview=true`} target="_blank" rel="noopener noreferrer">
               <Eye className="w-4 h-4" /> Preview
             </a>
           </Button>
@@ -191,8 +202,8 @@ const PageEditor = () => {
 
       <div className="flex-1 flex overflow-hidden">
         {/* Main Canvas */}
-        <main className="flex-1 overflow-y-auto p-12 bg-slate-100/50">
-          <div className="max-w-4xl mx-auto space-y-4">
+        <main className="flex-1 overflow-y-auto p-12 bg-slate-100/50" onClick={() => setSelectedBlockId(null)}>
+          <div className="max-w-5xl mx-auto space-y-4">
             {/* Add Block Top */}
             <div className="flex justify-center opacity-0 hover:opacity-100 transition-opacity">
               <Popover>
@@ -218,8 +229,8 @@ const PageEditor = () => {
                   onMoveDown={() => moveBlock(index, 'down')}
                   onDuplicate={() => duplicateBlock(block)}
                 >
-                  <div className="min-h-[100px] flex items-center justify-center text-slate-400 italic bg-white rounded-2xl border border-dashed border-slate-200">
-                    {block.type} Block Content Preview
+                  <div className="pointer-events-none scale-[0.8] origin-top transform-gpu">
+                    <BlockRenderer blocks={[block]} />
                   </div>
                 </BlockWrapper>
 
@@ -272,7 +283,7 @@ const PageEditor = () => {
             {!selectedBlockId ? (
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Title</label>
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Title</Label>
                   <Input 
                     value={page.title} 
                     onChange={(e) => setPage({ ...page, title: e.target.value })}
@@ -280,9 +291,9 @@ const PageEditor = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL Slug</label>
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL Slug</Label>
                   <div className="flex items-center gap-2">
-                    <span className="text-slate-400 text-sm">/</span>
+                    <span className="text-slate-400 text-sm">/p/</span>
                     <Input 
                       value={page.slug} 
                       onChange={(e) => setPage({ ...page, slug: e.target.value })}
@@ -291,19 +302,176 @@ const PageEditor = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description</label>
-                  <textarea 
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description</Label>
+                  <Textarea 
                     value={page.description || ''} 
                     onChange={(e) => setPage({ ...page, description: e.target.value })}
-                    className="w-full min-h-[100px] p-4 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none"
+                    className="min-h-[100px] rounded-xl"
                     placeholder="SEO description..."
                   />
                 </div>
               </div>
             ) : (
-              <div className="text-center py-20">
-                <Settings className="w-12 h-12 text-slate-100 mx-auto mb-4" />
-                <p className="text-slate-400 text-sm">Select a block to edit its properties.</p>
+              <div className="space-y-6">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                  <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Editing Block</p>
+                  <p className="font-bold text-slate-900 capitalize">{selectedBlock?.type.replace('_', ' ')}</p>
+                </div>
+
+                {selectedBlock?.type === 'hero' && (
+                  <>
+                    <div className="space-y-2">
+                      <Label>Headline</Label>
+                      <Input 
+                        value={selectedBlock.props.title} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Subtitle</Label>
+                      <Textarea 
+                        value={selectedBlock.props.subtitle} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { subtitle: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label>CTA Text</Label>
+                        <Input 
+                          value={selectedBlock.props.ctaText} 
+                          onChange={(e) => updateBlockProps(selectedBlock.id, { ctaText: e.target.value })}
+                          className="rounded-xl"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>CTA URL</Label>
+                        <Input 
+                          value={selectedBlock.props.ctaUrl} 
+                          onChange={(e) => updateBlockProps(selectedBlock.id, { ctaUrl: e.target.value })}
+                          className="rounded-xl"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {selectedBlock?.type === 'rich_text' && (
+                  <div className="space-y-2">
+                    <Label>HTML Content</Label>
+                    <Textarea 
+                      value={selectedBlock.props.content} 
+                      onChange={(e) => updateBlockProps(selectedBlock.id, { content: e.target.value })}
+                      className="min-h-[300px] font-mono text-xs rounded-xl"
+                    />
+                  </div>
+                )}
+
+                {selectedBlock?.type === 'image' && (
+                  <>
+                    <div className="space-y-2">
+                      <Label>Image URL</Label>
+                      <Input 
+                        value={selectedBlock.props.url} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { url: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Alt Text</Label>
+                      <Input 
+                        value={selectedBlock.props.alt} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { alt: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {selectedBlock?.type === 'cta' && (
+                  <>
+                    <div className="space-y-2">
+                      <Label>Title</Label>
+                      <Input 
+                        value={selectedBlock.props.title} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Description</Label>
+                      <Textarea 
+                        value={selectedBlock.props.description} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { description: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Button Text</Label>
+                      <Input 
+                        value={selectedBlock.props.buttonText} 
+                        onChange={(e) => updateBlockProps(selectedBlock.id, { buttonText: e.target.value })}
+                        className="rounded-xl"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {selectedBlock?.type === 'kpi_grid' && (
+                  <div className="space-y-4">
+                    <Label>KPI Items</Label>
+                    {selectedBlock.props.items?.map((item: any, i: number) => (
+                      <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] font-black text-slate-400 uppercase">Item {i+1}</span>
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-6 w-6 text-red-500"
+                            onClick={() => {
+                              const newItems = [...selectedBlock.props.items];
+                              newItems.splice(i, 1);
+                              updateBlockProps(selectedBlock.id, { items: newItems });
+                            }}
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        </div>
+                        <Input 
+                          placeholder="Label" 
+                          value={item.label} 
+                          onChange={(e) => {
+                            const newItems = [...selectedBlock.props.items];
+                            newItems[i].label = e.target.value;
+                            updateBlockProps(selectedBlock.id, { items: newItems });
+                          }}
+                          className="h-8 text-xs rounded-lg"
+                        />
+                        <Input 
+                          placeholder="Value" 
+                          value={item.value} 
+                          onChange={(e) => {
+                            const newItems = [...selectedBlock.props.items];
+                            newItems[i].value = e.target.value;
+                            updateBlockProps(selectedBlock.id, { items: newItems });
+                          }}
+                          className="h-8 text-xs rounded-lg"
+                        />
+                      </div>
+                    ))}
+                    <Button 
+                      variant="outline" 
+                      className="w-full rounded-xl border-dashed"
+                      onClick={() => {
+                        const newItems = [...(selectedBlock.props.items || []), { label: 'New KPI', value: '0' }];
+                        updateBlockProps(selectedBlock.id, { items: newItems });
+                      }}
+                    >
+                      <Plus className="w-4 h-4 mr-2" /> Add KPI
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
           </div>
