@@ -1,0 +1,64 @@
+"use client";
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Linkedin } from 'lucide-react';
+
+interface TeamMember {
+  name: string;
+  role: string;
+  desc: string;
+  image: string;
+  linkedin?: string;
+}
+
+interface TeamGridBlockProps {
+  title?: string;
+  members: TeamMember[];
+}
+
+const TeamGridBlock = ({ title, members }: TeamGridBlockProps) => {
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        {title && (
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">{title}</h2>
+          </div>
+        )}
+        <div className="grid md:grid-cols-3 gap-8">
+          {members?.map((member, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group"
+            >
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-xl relative">
+                <img 
+                  src={member.image || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"} 
+                  alt={member.name} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                />
+                {member.linkedin && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                      <Linkedin className="w-6 h-6" />
+                    </a>
+                  </div>
+                )}
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">{member.name}</h3>
+              <p className="text-blue-600 font-bold text-sm mb-4">{member.role}</p>
+              <p className="text-slate-500 text-sm leading-relaxed">{member.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TeamGridBlock;

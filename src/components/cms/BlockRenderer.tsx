@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Hero from '@/components/layout/Hero';
-import ServicesGrid from '@/components/services/ServicesGrid';
-import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
+import TeamGridBlock from '@/components/cms/blocks/TeamGridBlock';
+import FAQBlock from '@/components/cms/blocks/FAQBlock';
+import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface BlockRendererProps {
   blocks: Block[];
@@ -21,12 +21,8 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
       {blocks.map((block) => {
         switch (block.type) {
           case 'hero':
-            return (
-              <Hero 
-                key={block.id} 
-                {...block.props} 
-              />
-            );
+            return <Hero key={block.id} {...block.props} />;
+          
           case 'rich_text':
             return (
               <section key={block.id} className="py-20 bg-white">
@@ -35,6 +31,7 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 </div>
               </section>
             );
+
           case 'kpi_grid':
             return (
               <section key={block.id} className="py-20 bg-slate-50">
@@ -50,6 +47,13 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 </div>
               </section>
             );
+
+          case 'team_grid':
+            return <TeamGridBlock key={block.id} {...block.props} />;
+
+          case 'faq':
+            return <FAQBlock key={block.id} {...block.props} />;
+
           case 'cta':
             return (
               <section key={block.id} className="py-24 bg-slate-900 text-white">
@@ -62,6 +66,7 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 </div>
               </section>
             );
+
           case 'image':
             return (
               <section key={block.id} className="py-12 bg-white">
@@ -72,12 +77,52 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 </div>
               </section>
             );
-          default:
+
+          case 'video_upload':
             return (
-              <div key={block.id} className="p-10 text-center bg-slate-100 text-slate-400 italic">
-                Block type "{block.type}" not yet implemented in renderer.
-              </div>
+              <section key={block.id} className="py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-4">
+                  <div className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900 aspect-video">
+                    <video 
+                      src={block.props.url} 
+                      controls 
+                      className="w-full h-full object-cover"
+                      poster={block.props.poster}
+                    />
+                  </div>
+                </div>
+              </section>
             );
+
+          case 'youtube_embed':
+            return (
+              <section key={block.id} className="py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-4">
+                  <div className="aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${block.props.videoId}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </section>
+            );
+
+          case 'instagram_embed':
+            return (
+              <section key={block.id} className="py-12 bg-white">
+                <div className="max-w-xl mx-auto px-4">
+                  <InstagramEmbed url={block.props.url} />
+                </div>
+              </section>
+            );
+
+          default:
+            return null;
         }
       })}
     </div>

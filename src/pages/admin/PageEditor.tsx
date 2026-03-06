@@ -3,10 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
-  Save, Rocket, Eye, ArrowLeft, Plus, 
-  Settings, History, ChevronLeft, Loader2,
-  Layout, Type, Image as ImageIcon, Video, BarChart3,
-  Trash2, Copy, ChevronUp, ChevronDown
+  Save, Rocket, Eye, Plus, 
+  Settings, ChevronLeft, Loader2,
+  Layout, Trash2, Copy
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
@@ -135,8 +134,13 @@ const PageEditor = () => {
       case 'hero': return { title: 'New Hero Section', subtitle: 'Add a compelling subtitle here', ctaText: 'Get Started', ctaUrl: '#' };
       case 'rich_text': return { content: '<h2>New Section</h2><p>Start writing your content here...</p>' };
       case 'kpi_grid': return { items: [{ label: 'Revenue', value: '₹10L' }, { label: 'Growth', value: '25%' }] };
+      case 'team_grid': return { title: 'Our Team', members: [{ name: 'John Doe', role: 'CEO', desc: 'Founder of Qala Labs', image: '' }] };
+      case 'faq': return { title: 'Frequently Asked Questions', items: [{ question: 'What is Qala Labs?', answer: 'A performance marketing agency.' }] };
       case 'cta': return { title: 'Ready to scale?', description: 'Book your free audit today.', buttonText: 'Contact Us' };
       case 'image': return { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f', alt: 'Placeholder' };
+      case 'video_upload': return { url: '', poster: '' };
+      case 'youtube_embed': return { videoId: '' };
+      case 'instagram_embed': return { url: '' };
       default: return {};
     }
   };
@@ -153,7 +157,6 @@ const PageEditor = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Top Bar */}
       <header className="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-50">
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" onClick={() => navigate('/admin/pages')} className="rounded-xl">
@@ -180,7 +183,6 @@ const PageEditor = () => {
               <Eye className="w-4 h-4" /> Preview
             </a>
           </Button>
-          <div className="h-8 w-px bg-slate-200 mx-2" />
           <Button 
             variant="outline" 
             className="rounded-xl gap-2 border-slate-200"
@@ -201,23 +203,8 @@ const PageEditor = () => {
       </header>
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Main Canvas */}
         <main className="flex-1 overflow-y-auto p-12 bg-slate-100/50" onClick={() => setSelectedBlockId(null)}>
           <div className="max-w-5xl mx-auto space-y-4">
-            {/* Add Block Top */}
-            <div className="flex justify-center opacity-0 hover:opacity-100 transition-opacity">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="sm" className="rounded-full bg-white shadow-sm border border-slate-200 gap-2 px-4">
-                    <Plus className="w-4 h-4" /> Add Block
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80 p-0 rounded-3xl shadow-2xl border-none" side="bottom">
-                  <BlockPicker onSelect={(type) => addBlock(type, 0)} />
-                </PopoverContent>
-              </Popover>
-            </div>
-
             {page.content.map((block, index) => (
               <React.Fragment key={block.id}>
                 <BlockWrapper
@@ -234,7 +221,6 @@ const PageEditor = () => {
                   </div>
                 </BlockWrapper>
 
-                {/* Add Block Between */}
                 <div className="flex justify-center opacity-0 hover:opacity-100 transition-opacity py-2">
                   <Popover>
                     <PopoverTrigger asChild>
@@ -254,7 +240,6 @@ const PageEditor = () => {
               <div className="py-32 text-center border-2 border-dashed border-slate-200 rounded-[3rem] bg-white">
                 <Layout className="w-12 h-12 text-slate-200 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-slate-400">Your page is empty</h3>
-                <p className="text-slate-400 mb-8">Start building by adding your first block.</p>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl px-8 py-6 font-black">
@@ -270,9 +255,8 @@ const PageEditor = () => {
           </div>
         </main>
 
-        {/* Right Sidebar: Inspector */}
         <aside className="w-96 bg-white border-l border-slate-200 flex flex-col">
-          <div className="p-6 border-b border-slate-200 flex items-center justify-between">
+          <div className="p-6 border-b border-slate-200">
             <h2 className="font-black text-slate-900 flex items-center gap-2">
               <Settings className="w-4 h-4 text-blue-600" /> 
               {selectedBlockId ? 'Block Settings' : 'Page Settings'}
@@ -284,31 +268,18 @@ const PageEditor = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Title</Label>
-                  <Input 
-                    value={page.title} 
-                    onChange={(e) => setPage({ ...page, title: e.target.value })}
-                    className="rounded-xl h-12"
-                  />
+                  <Input value={page.title} onChange={(e) => setPage({ ...page, title: e.target.value })} className="rounded-xl h-12" />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL Slug</Label>
                   <div className="flex items-center gap-2">
                     <span className="text-slate-400 text-sm">/p/</span>
-                    <Input 
-                      value={page.slug} 
-                      onChange={(e) => setPage({ ...page, slug: e.target.value })}
-                      className="rounded-xl h-12"
-                    />
+                    <Input value={page.slug} onChange={(e) => setPage({ ...page, slug: e.target.value })} className="rounded-xl h-12" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description</Label>
-                  <Textarea 
-                    value={page.description || ''} 
-                    onChange={(e) => setPage({ ...page, description: e.target.value })}
-                    className="min-h-[100px] rounded-xl"
-                    placeholder="SEO description..."
-                  />
+                  <Textarea value={page.description || ''} onChange={(e) => setPage({ ...page, description: e.target.value })} className="min-h-[100px] rounded-xl" />
                 </div>
               </div>
             ) : (
@@ -320,157 +291,105 @@ const PageEditor = () => {
 
                 {selectedBlock?.type === 'hero' && (
                   <>
-                    <div className="space-y-2">
-                      <Label>Headline</Label>
-                      <Input 
-                        value={selectedBlock.props.title} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Subtitle</Label>
-                      <Textarea 
-                        value={selectedBlock.props.subtitle} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { subtitle: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
+                    <div className="space-y-2"><Label>Headline</Label><Input value={selectedBlock.props.title} onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })} className="rounded-xl" /></div>
+                    <div className="space-y-2"><Label>Subtitle</Label><Textarea value={selectedBlock.props.subtitle} onChange={(e) => updateBlockProps(selectedBlock.id, { subtitle: e.target.value })} className="rounded-xl" /></div>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label>CTA Text</Label>
-                        <Input 
-                          value={selectedBlock.props.ctaText} 
-                          onChange={(e) => updateBlockProps(selectedBlock.id, { ctaText: e.target.value })}
-                          className="rounded-xl"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label>CTA URL</Label>
-                        <Input 
-                          value={selectedBlock.props.ctaUrl} 
-                          onChange={(e) => updateBlockProps(selectedBlock.id, { ctaUrl: e.target.value })}
-                          className="rounded-xl"
-                        />
-                      </div>
+                      <div className="space-y-2"><Label>CTA Text</Label><Input value={selectedBlock.props.ctaText} onChange={(e) => updateBlockProps(selectedBlock.id, { ctaText: e.target.value })} className="rounded-xl" /></div>
+                      <div className="space-y-2"><Label>CTA URL</Label><Input value={selectedBlock.props.ctaUrl} onChange={(e) => updateBlockProps(selectedBlock.id, { ctaUrl: e.target.value })} className="rounded-xl" /></div>
                     </div>
                   </>
                 )}
 
                 {selectedBlock?.type === 'rich_text' && (
-                  <div className="space-y-2">
-                    <Label>HTML Content</Label>
-                    <Textarea 
-                      value={selectedBlock.props.content} 
-                      onChange={(e) => updateBlockProps(selectedBlock.id, { content: e.target.value })}
-                      className="min-h-[300px] font-mono text-xs rounded-xl"
-                    />
+                  <div className="space-y-2"><Label>HTML Content</Label><Textarea value={selectedBlock.props.content} onChange={(e) => updateBlockProps(selectedBlock.id, { content: e.target.value })} className="min-h-[300px] font-mono text-xs rounded-xl" /></div>
+                )}
+
+                {selectedBlock?.type === 'team_grid' && (
+                  <div className="space-y-4">
+                    <Label>Section Title</Label>
+                    <Input value={selectedBlock.props.title} onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })} className="rounded-xl" />
+                    <Label>Members</Label>
+                    {selectedBlock.props.members?.map((member: any, i: number) => (
+                      <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] font-black text-slate-400 uppercase">Member {i+1}</span>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500" onClick={() => {
+                            const newMembers = [...selectedBlock.props.members];
+                            newMembers.splice(i, 1);
+                            updateBlockProps(selectedBlock.id, { members: newMembers });
+                          }}><Trash2 className="w-3 h-3" /></Button>
+                        </div>
+                        <Input placeholder="Name" value={member.name} onChange={(e) => {
+                          const newMembers = [...selectedBlock.props.members];
+                          newMembers[i].name = e.target.value;
+                          updateBlockProps(selectedBlock.id, { members: newMembers });
+                        }} className="h-8 text-xs rounded-lg" />
+                        <Input placeholder="Role" value={member.role} onChange={(e) => {
+                          const newMembers = [...selectedBlock.props.members];
+                          newMembers[i].role = e.target.value;
+                          updateBlockProps(selectedBlock.id, { members: newMembers });
+                        }} className="h-8 text-xs rounded-lg" />
+                        <Input placeholder="Image URL" value={member.image} onChange={(e) => {
+                          const newMembers = [...selectedBlock.props.members];
+                          newMembers[i].image = e.target.value;
+                          updateBlockProps(selectedBlock.id, { members: newMembers });
+                        }} className="h-8 text-xs rounded-lg" />
+                      </div>
+                    ))}
+                    <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => {
+                      const newMembers = [...(selectedBlock.props.members || []), { name: 'New Member', role: 'Role', desc: '', image: '' }];
+                      updateBlockProps(selectedBlock.id, { members: newMembers });
+                    }}><Plus className="w-4 h-4 mr-2" /> Add Member</Button>
                   </div>
                 )}
 
-                {selectedBlock?.type === 'image' && (
-                  <>
-                    <div className="space-y-2">
-                      <Label>Image URL</Label>
-                      <Input 
-                        value={selectedBlock.props.url} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { url: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Alt Text</Label>
-                      <Input 
-                        value={selectedBlock.props.alt} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { alt: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                  </>
-                )}
-
-                {selectedBlock?.type === 'cta' && (
-                  <>
-                    <div className="space-y-2">
-                      <Label>Title</Label>
-                      <Input 
-                        value={selectedBlock.props.title} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Description</Label>
-                      <Textarea 
-                        value={selectedBlock.props.description} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { description: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Button Text</Label>
-                      <Input 
-                        value={selectedBlock.props.buttonText} 
-                        onChange={(e) => updateBlockProps(selectedBlock.id, { buttonText: e.target.value })}
-                        className="rounded-xl"
-                      />
-                    </div>
-                  </>
-                )}
-
-                {selectedBlock?.type === 'kpi_grid' && (
+                {selectedBlock?.type === 'faq' && (
                   <div className="space-y-4">
-                    <Label>KPI Items</Label>
+                    <Label>Section Title</Label>
+                    <Input value={selectedBlock.props.title} onChange={(e) => updateBlockProps(selectedBlock.id, { title: e.target.value })} className="rounded-xl" />
+                    <Label>FAQ Items</Label>
                     {selectedBlock.props.items?.map((item: any, i: number) => (
                       <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-[10px] font-black text-slate-400 uppercase">Item {i+1}</span>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-6 w-6 text-red-500"
-                            onClick={() => {
-                              const newItems = [...selectedBlock.props.items];
-                              newItems.splice(i, 1);
-                              updateBlockProps(selectedBlock.id, { items: newItems });
-                            }}
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </Button>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500" onClick={() => {
+                            const newItems = [...selectedBlock.props.items];
+                            newItems.splice(i, 1);
+                            updateBlockProps(selectedBlock.id, { items: newItems });
+                          }}><Trash2 className="w-3 h-3" /></Button>
                         </div>
-                        <Input 
-                          placeholder="Label" 
-                          value={item.label} 
-                          onChange={(e) => {
-                            const newItems = [...selectedBlock.props.items];
-                            newItems[i].label = e.target.value;
-                            updateBlockProps(selectedBlock.id, { items: newItems });
-                          }}
-                          className="h-8 text-xs rounded-lg"
-                        />
-                        <Input 
-                          placeholder="Value" 
-                          value={item.value} 
-                          onChange={(e) => {
-                            const newItems = [...selectedBlock.props.items];
-                            newItems[i].value = e.target.value;
-                            updateBlockProps(selectedBlock.id, { items: newItems });
-                          }}
-                          className="h-8 text-xs rounded-lg"
-                        />
+                        <Input placeholder="Question" value={item.question} onChange={(e) => {
+                          const newItems = [...selectedBlock.props.items];
+                          newItems[i].question = e.target.value;
+                          updateBlockProps(selectedBlock.id, { items: newItems });
+                        }} className="h-8 text-xs rounded-lg" />
+                        <Textarea placeholder="Answer" value={item.answer} onChange={(e) => {
+                          const newItems = [...selectedBlock.props.items];
+                          newItems[i].answer = e.target.value;
+                          updateBlockProps(selectedBlock.id, { items: newItems });
+                        }} className="h-20 text-xs rounded-lg" />
                       </div>
                     ))}
-                    <Button 
-                      variant="outline" 
-                      className="w-full rounded-xl border-dashed"
-                      onClick={() => {
-                        const newItems = [...(selectedBlock.props.items || []), { label: 'New KPI', value: '0' }];
-                        updateBlockProps(selectedBlock.id, { items: newItems });
-                      }}
-                    >
-                      <Plus className="w-4 h-4 mr-2" /> Add KPI
-                    </Button>
+                    <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => {
+                      const newItems = [...(selectedBlock.props.items || []), { question: 'New Question', answer: 'New Answer' }];
+                      updateBlockProps(selectedBlock.id, { items: newItems });
+                    }}><Plus className="w-4 h-4 mr-2" /> Add FAQ</Button>
                   </div>
+                )}
+
+                {selectedBlock?.type === 'youtube_embed' && (
+                  <div className="space-y-2"><Label>YouTube Video ID</Label><Input value={selectedBlock.props.videoId} onChange={(e) => updateBlockProps(selectedBlock.id, { videoId: e.target.value })} className="rounded-xl" placeholder="e.g. dQw4w9WgXcQ" /></div>
+                )}
+
+                {selectedBlock?.type === 'instagram_embed' && (
+                  <div className="space-y-2"><Label>Instagram URL</Label><Input value={selectedBlock.props.url} onChange={(e) => updateBlockProps(selectedBlock.id, { url: e.target.value })} className="rounded-xl" placeholder="https://www.instagram.com/p/..." /></div>
+                )}
+
+                {selectedBlock?.type === 'video_upload' && (
+                  <>
+                    <div className="space-y-2"><Label>Video URL</Label><Input value={selectedBlock.props.url} onChange={(e) => updateBlockProps(selectedBlock.id, { url: e.target.value })} className="rounded-xl" /></div>
+                    <div className="space-y-2"><Label>Poster Image URL</Label><Input value={selectedBlock.props.poster} onChange={(e) => updateBlockProps(selectedBlock.id, { poster: e.target.value })} className="rounded-xl" /></div>
+                  </>
                 )}
               </div>
             )}
