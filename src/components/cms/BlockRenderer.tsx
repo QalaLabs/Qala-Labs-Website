@@ -8,6 +8,7 @@ import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface BlockRendererProps {
   blocks: Block[];
@@ -60,9 +61,11 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 <div className="max-w-4xl mx-auto px-4 text-center">
                   <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">{block.props.title}</h2>
                   <p className="text-slate-400 mb-12 text-xl leading-relaxed">{block.props.description}</p>
-                  <Button className="bg-blue-600 hover:bg-blue-700 px-12 py-8 rounded-2xl text-xl font-black shadow-2xl shadow-blue-500/20">
-                    {block.props.buttonText} <ArrowRight className="ml-2 w-6 h-6" />
-                  </Button>
+                  <Link to={block.props.buttonUrl || "/contact"}>
+                    <Button className="bg-blue-600 hover:bg-blue-700 px-12 py-8 rounded-2xl text-xl font-black shadow-2xl shadow-blue-500/20">
+                      {block.props.buttonText} <ArrowRight className="ml-2 w-6 h-6" />
+                    </Button>
+                  </Link>
                 </div>
               </section>
             );

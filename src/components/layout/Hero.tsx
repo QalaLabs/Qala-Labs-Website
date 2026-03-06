@@ -6,12 +6,31 @@ import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const Hero = () => {
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  secondaryCtaText?: string;
+  secondaryCtaUrl?: string;
+  badgeText?: string;
+}
+
+const Hero = ({ 
+  title = "Scale Your DTC Brand to 8-Figures with Data-Driven Creative.",
+  subtitle = "We combine high-performance paid media with high-converting creative to dominate your niche.",
+  ctaText = "Get Proposal",
+  ctaUrl = "/contact",
+  secondaryCtaText = "See Work",
+  secondaryCtaUrl = "/portfolio",
+  badgeText = "Generated ₹12Cr in 90 days for GlowSkin"
+}: HeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const bgLayerRef = useRef<HTMLDivElement>(null);
@@ -76,7 +95,7 @@ const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
             </span>
-            Generated ₹12Cr in 90 days for GlowSkin
+            {badgeText}
           </motion.div>
 
           <h1 
@@ -84,20 +103,24 @@ const Hero = () => {
             id="hero-heading"
             className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-6 tracking-tight"
           >
-            Scale Your DTC Brand to <span className="text-blue-600">8-Figures</span> with Data-Driven Creative.
+            {title}
           </h1>
 
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            We combine high-performance paid media with high-converting creative to dominate your niche.
+            {subtitle}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="hero-cta bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-500/20">
-              Get Proposal <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="hero-cta px-8 py-7 rounded-2xl text-lg border-2">
-              See Work
-            </Button>
+            <Link to={ctaUrl}>
+              <Button size="lg" className="hero-cta bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-500/20">
+                {ctaText} <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to={secondaryCtaUrl}>
+              <Button size="lg" variant="outline" className="hero-cta px-8 py-7 rounded-2xl text-lg border-2">
+                {secondaryCtaText}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
