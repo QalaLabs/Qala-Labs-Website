@@ -21,6 +21,7 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import PageList from "./pages/admin/PageList";
 import PageEditor from "./pages/admin/PageEditor";
+import MediaManager from "./pages/admin/MediaManager";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
@@ -28,6 +29,7 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import EditorGuide from "./pages/EditorGuide";
 import Onboarding from "./pages/Onboarding";
+import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
 
 const queryClient = new QueryClient();
@@ -56,12 +58,17 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/pages" element={<PageList />} />
             <Route path="/admin/editor/:id" element={<PageEditor />} />
+            <Route path="/admin/media" element={<MediaManager />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+            
+            {/* Dynamic CMS Pages */}
+            <Route path="/p/:slug" element={<DynamicPage />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
           <StickyCTA />
