@@ -1,52 +1,49 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCard from '../portfolio/ProjectCard';
-import { Filter } from 'lucide-react';
+import { Filter, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const caseStudies = [
-  {
-    id: 9,
-    title: "Turning Regional Roots into a Global Soundtrack",
-    category: "Music Marketing",
-    result: "3.4M+ Views in 90 Days",
-    slug: "music-marketing",
-    image: "https://images.unsplash.com/photo-1514525253361-bee8718a740b?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-man-singing-into-a-microphone-42892-large.mp4",
-    metrics: { roas: "N/A", growth: "25.7K Subs" },
-    tags: ["Music Label", "Kashmir", "Digital Strategy"],
-    description: "Building Kashmir's first digital-first music label through staggered storytelling and community-first activations."
-  },
-  {
-    id: 10,
-    title: "Trotr: Founder-Led Storytelling",
-    category: "Meta Lead Generation",
-    result: "28x ROAS & ₹14L Revenue",
-    slug: "meta-lead-generation-trotr",
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-traveler-walking-on-a-mountain-path-42888-large.mp4",
-    metrics: { roas: "28x", growth: "₹14L Rev" },
-    tags: ["Meta Ads", "Lead Gen", "Storytelling"],
-    description: "How we pivoted from failing WhatsApp ads to a founder-led storytelling engine that sold out a high-ticket Spain trip."
-  }
-];
-
-const categories = ["All", "Music Marketing", "Meta Lead Generation"];
+import { supabase } from '@/integrations/supabase/client';
 
 const CaseStudyGrid = () => {
+  const [studies, setStudies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchStudies = async () => {
+      const { data, error } = await supabase
+        .from('case_studies')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (!error) setStudies(data || []);
+      setLoading(false);
+    };
+    fetchStudies();
+  }, []);
+
+  const categories = ["All", ...new Set(studies.map(s => s.category).filter(Boolean))];
+
   const filteredStudies = activeCategory === "All" 
-    ? caseStudies 
-    : caseStudies.filter(s => s.category === activeCategory);
+    ? studies 
+    : studies.filter(s => s.category === activeCategory);
+
+  if (loading) {
+    return (
+      <div className="py-20 flex justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">
       <div className="flex flex-wrap justify-center gap-3 mb-16">
-        {categories.map((cat) => (
+        {categories.map((cat: any) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
@@ -70,12 +67,22 @@ const CaseStudyGrid = () => {
           {filteredStudies.map((study) => (
             <ProjectCard 
               key={study.id} 
-              project={study} 
-              onClick={() => navigate(`/case-studies/${study.slug}`)}
+              project={{
+                ...study,
+                result: study.results?.headline || "View Results",
+                image: study.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+              }} 
+              onClick={() => navigate(`/case-studies/${study.slug || study.id}`)}
             />
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {studies.length === 0 && (
+        <div className="text-center py-20 bg-white rounded-[3rem] border border-slate-100">
+          <p className="text-slate-400 font-bold">No case studies found. Add some in the admin panel.</p>
+        </div>
+      )}
     </div>
   );
 };

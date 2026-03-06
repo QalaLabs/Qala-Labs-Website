@@ -1,76 +1,49 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
-import { Filter } from 'lucide-react';
+import { Filter, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const projects = [
-  {
-    id: 14,
-    title: "It's All Real: #WhistlePodu Army",
-    category: "User Generated Content",
-    result: "5M+ Reach & 35% Conv. Lift",
-    slug: "user-generated-content-chennai-superkings",
-    image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=1200",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-fans-cheering-at-a-stadium-42898-large.mp4",
-    metrics: { roas: "N/A", growth: "5M+ Reach" },
-    tags: ["CSK", "IPL", "UGC", "Fandom"],
-    description: "Turning the raw energy of the #WhistlePodu army into a high-converting content engine for playR."
-  },
-  {
-    id: 15,
-    title: "Capital Keys: Custom Web Development",
-    category: "Web Development",
-    result: "17 Leads & 64.7% Close Rate",
-    slug: "custom-web-developement",
-    image: "dyad-media://media/flying-kraken-wag/.dyad/media/cc06cafddcd9355fc90dce2ae4d30db7.png",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-graphic-designer-working-on-a-tablet-42894-large.mp4",
-    metrics: { roas: "N/A", growth: "64.7% Close" },
-    tags: ["Full-Stack", "Real Estate", "Lead Gen"],
-    description: "Architecting a conversion-optimized digital ecosystem for premium real estate, featuring lead intelligence and property management."
-  },
-  {
-    id: 11,
-    title: "Amazon Ads: Performance Scaling",
-    category: "Ecommerce",
-    result: "11.2x ROAS & ₹2.7L+ Sales",
-    slug: "amazon-ads",
-    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=1200",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-shopping-online-on-a-laptop-42890-large.mp4",
-    metrics: { roas: "11.2x", growth: "₹2.7L+ Sales" },
-    tags: ["Amazon Ads", "E-com", "Scaling"],
-    description: "Scaling Amazon Ads profitably for an apparel brand through structured campaign segmentation and search term mining."
-  },
-  {
-    id: 13,
-    title: "The Try on campaign",
-    category: "Social Media - User Generated Content",
-    result: "1.2M+ Views & 22% Conv. Lift",
-    slug: "try-on-campaign",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-woman-holding-a-smartphone-and-smiling-42896-large.mp4",
-    metrics: { roas: "N/A", growth: "1.2M+ Views" },
-    tags: ["UGC", "Instagram", "Fashion"],
-    description: "A high-velocity UGC campaign for playR that focused on relatability and real-life style integration."
-  }
-];
-
-const categories = ["All", "Ecommerce", "Social Media - User Generated Content", "User Generated Content", "Web Development"];
+import { supabase } from '@/integrations/supabase/client';
 
 const PortfolioGrid = () => {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from('portfolio_projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (!error) setProjects(data || []);
+      setLoading(false);
+    };
+    fetchProjects();
+  }, []);
+
+  const categories = ["All", ...new Set(projects.map(p => p.category).filter(Boolean))];
 
   const filteredProjects = activeCategory === "All" 
     ? projects 
     : projects.filter(p => p.category === activeCategory);
 
+  if (loading) {
+    return (
+      <div className="py-20 flex justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full">
       <div className="flex flex-wrap justify-center gap-3 mb-16">
-        {categories.map((cat) => (
+        {categories.map((cat: any) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
@@ -94,12 +67,22 @@ const PortfolioGrid = () => {
           {filteredProjects.map((project) => (
             <ProjectCard 
               key={project.id} 
-              project={project} 
-              onClick={() => navigate(`/portfolio/${project.slug}`)}
+              project={{
+                ...project,
+                result: project.description?.substring(0, 60) + "...",
+                image: project.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+              }} 
+              onClick={() => navigate(`/portfolio/${project.slug || project.id}`)}
             />
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {projects.length === 0 && (
+        <div className="text-center py-20 bg-white rounded-[3rem] border border-slate-100">
+          <p className="text-slate-400 font-bold">No projects found. Add some in the admin panel.</p>
+        </div>
+      )}
     </div>
   );
 };
