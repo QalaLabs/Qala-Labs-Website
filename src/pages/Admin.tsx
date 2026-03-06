@@ -21,9 +21,11 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
   ResponsiveContainer, Cell 
 } from 'recharts';
+import { useAuth } from '@/context/AuthContext';
 
 const Admin = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [leads, setLeads] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [importing, setImporting] = React.useState(false);
@@ -40,7 +42,11 @@ const Admin = () => {
   }, [navigate]);
 
   const fetchLeads = async () => {
-    const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
     if (!error) setLeads(data || []);
     setLoading(false);
   };
@@ -68,8 +74,23 @@ const Admin = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut();
     navigate('/login');
+  };
+
+  const exportLeads = () => {
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + "Email,Source,Date,Data\n"
+      + leads.map(l => `${l.email},${l.tool_used},${l.created_at},${JSON.stringify(l.data).replace(/,/g, ';')}`).join("\n");
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `qala_leads_${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showSuccess("Leads exported to CSV");
   };
 
   const filteredLeads = leads.filter(lead => 
@@ -89,6 +110,13 @@ const Admin = () => {
     }).reverse();
   }, [leads]);
 
+  const stats = {
+    total: leads.length,
+    today: leads.filter(l => isSameDay(new Date(l.created_at), new Date())).length,
+    conversionRate: "12.4%", // Mocked for now
+    growth: "+18%" // Mocked for now
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full">
@@ -97,12 +125,16 @@ const Admin = () => {
           <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
             <LayoutDashboard className="w-4 h-4" /> Dashboard
           </Button>
-          <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
-            <Users className="w-4 h-4" /> Leads
-          </Button>
-          <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
-            <Database className="w-4 h-4" /> Data Sync
-          </Button>
+          <Link to="/admin/pages">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+              <FileText className="w-4 h-4" /> Pages
+            </Button>
+          </Link>
+          <Link to="/admin/media">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+              <Database className="w-4 h-4" /> Media
+            </Button>
+          </Link>
           <Link to="/admin/guide">
             <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
               <BookOpen className="w-4 h-4" /> Editor Guide
@@ -121,11 +153,14 @@ const Admin = () => {
             <p className="text-slate-500">Manage your growth pipeline and content.</p>
           </div>
           <div className="flex gap-4">
-            <label className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors">
+            <label className="cursor-pointer bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-slate-50 transition-colors">
               <Upload className="w-4 h-4" />
-              {importing ? "Importing..." : "Import Asenkai XML"}
+              {importing ? "Importing..." : "Import XML"}
               <input type="file" accept=".xml" className="hidden" onChange={handleFileUpload} disabled={importing} />
             </label>
+            <Button onClick={exportLeads} className="bg-blue-600 hover:bg-blue-700 rounded-lg gap-2">
+              <Download className="w-4 h-4" /> Export CSV
+            </Button>
           </div>
         </header>
 
@@ -135,13 +170,24 @@ const Admin = () => {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm text-slate-500 font-medium">Total Leads</p>
-                  <h3 className="text-3xl font-bold mt-1">{leads.length}</h3>
+                  <h3 className="text-3xl font-bold mt-1">{stats.total}</h3>
                 </div>
                 <div className="p-2 bg-blue-50 rounded-lg text-blue-600"><Users className="w-5 h-5" /></div>
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-white border-none shadow-sm md:col-span-3">
+          <Card className="bg-white border-none shadow-sm">
+            <CardContent className="pt-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm text-slate-500 font-medium">Leads Today</p>
+                  <h3 className="text-3xl font-bold mt-1">{stats.today}</h3>
+                </div>
+                <div className="p-2 bg-green-50 rounded-lg text-green-600"><TrendingUp className="w-5 h-5" /></div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white border-none shadow-sm md:col-span-2">
             <CardContent className="pt-6">
               <div className="h-[120px] w-full">
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Weekly Acquisition</p>
@@ -166,8 +212,7 @@ const Admin = () => {
         <Tabs defaultValue="leads" className="space-y-6">
           <TabsList className="bg-white p-1 rounded-xl border border-slate-200">
             <TabsTrigger value="leads" className="rounded-lg">Recent Leads</TabsTrigger>
-            <TabsTrigger value="builder" className="rounded-lg">Page Builder</TabsTrigger>
-            <TabsTrigger value="content" className="rounded-lg">Content Library</TabsTrigger>
+            <TabsTrigger value="activity" className="rounded-lg">Activity Log</TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads">
@@ -185,7 +230,6 @@ const Admin = () => {
                     />
                   </div>
                   <Button variant="outline" size="icon"><Filter className="w-4 h-4" /></Button>
-                  <Button variant="outline" size="icon"><Download className="w-4 h-4" /></Button>
                 </div>
               </CardHeader>
               <CardContent className="p-0">
@@ -226,7 +270,7 @@ const Admin = () => {
                       {filteredLeads.length === 0 && (
                         <tr>
                           <td colSpan={5} className="px-6 py-10 text-center text-slate-400">
-                            No leads found. Run the SQL script in Supabase to start collecting data.
+                            No leads found.
                           </td>
                         </tr>
                       )}
@@ -237,66 +281,25 @@ const Admin = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="builder">
-            <div className="grid grid-cols-3 gap-8">
-              <div className="col-span-2 space-y-6">
-                <Card className="border-none shadow-sm">
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle>Active Blocks</CardTitle>
-                    <Button size="sm" className="bg-blue-600"><Plus className="w-4 h-4 mr-2" /> Add Block</Button>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {['Hero Section', 'Services Grid', 'Case Study Portfolio', 'CTA Banner'].map((block, i) => (
-                      <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                        <div className="flex items-center gap-4">
-                          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-xs font-bold text-slate-400">{i+1}</div>
-                          <span className="font-bold text-slate-700">{block}</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="ghost" size="icon"><Settings className="w-4 h-4" /></Button>
-                          <Button variant="ghost" size="icon" className="text-red-500"><X className="w-4 h-4" /></Button>
-                        </div>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </div>
+          <TabsContent value="activity">
+            <Card className="border-none shadow-sm p-8">
+              <h3 className="text-lg font-bold mb-6">Recent System Activity</h3>
               <div className="space-y-6">
-                <Card className="border-none shadow-sm">
-                  <CardHeader><CardTitle>Page Settings</CardTitle></CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase">Page Title</label>
-                      <Input defaultValue="Home Page" />
+                {leads.slice(0, 10).map((lead, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                      <Mail className="w-5 h-5" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase">Slug</label>
-                      <Input defaultValue="/" />
+                    <div>
+                      <p className="text-sm text-slate-900">
+                        New lead submission from <span className="font-bold">{lead.email}</span> via <span className="text-blue-600">{lead.tool_used}</span>
+                      </p>
+                      <p className="text-xs text-slate-400 mt-1">{format(new Date(lead.created_at), 'MMM dd, HH:mm')}</p>
                     </div>
-                    <Button className="w-full bg-slate-900">Save Changes</Button>
-                  </CardContent>
-                </Card>
+                  </div>
+                ))}
               </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="content">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-none shadow-sm">
-                <CardHeader><CardTitle>Blog Posts</CardTitle></CardHeader>
-                <CardContent>
-                  <p className="text-slate-500 text-sm mb-4">Manage articles imported from XML.</p>
-                  <Button variant="outline" className="w-full">View All Posts</Button>
-                </CardContent>
-              </Card>
-              <Card className="border-none shadow-sm">
-                <CardHeader><CardTitle>Case Studies</CardTitle></CardHeader>
-                <CardContent>
-                  <p className="text-slate-500 text-sm mb-4">Manage success stories and ROI data.</p>
-                  <Button variant="outline" className="w-full">View All Case Studies</Button>
-                </CardContent>
-              </Card>
-            </div>
+            </Card>
           </TabsContent>
         </Tabs>
 
