@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
@@ -137,13 +135,13 @@ const ServiceDetail = () => {
   const data = serviceData[slug || 'performance'] || serviceData['performance'];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-white">
       <SEO title={data.title} description={data.description} />
       <Navbar />
       
-      <div className="pt-48 pb-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <Link to="/services" className="inline-flex items-center gap-2 text-zinc-500 hover:text-indigo-400 font-bold mb-12 transition-colors">
+      <div className="pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <Link to="/services" className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold mb-12 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Services
           </Link>
 
@@ -152,24 +150,24 @@ const ServiceDetail = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <Badge className="bg-indigo-600 text-white mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px] border-none">Service Detail</Badge>
-              <h1 className="text-5xl md:text-8xl font-extrabold text-zinc-50 mb-8 leading-[1.05] tracking-tighter">
+              <Badge className="bg-blue-600 mb-6 px-4 py-1 rounded-full">Service Detail</Badge>
+              <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 leading-tight">
                 {data.title}
               </h1>
-              <p className="text-xl text-zinc-400 mb-12 leading-relaxed max-w-xl">
+              <p className="text-xl text-slate-600 mb-10 leading-relaxed">
                 {data.description}
               </p>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-4">
                 <Link to="/contact">
-                  <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-8 rounded-2xl text-lg font-black shadow-2xl shadow-indigo-500/20">
+                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-200">
                     Book Free Audit <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
-                <div className="px-10 py-5 bg-zinc-900 border border-zinc-800 text-white rounded-2xl flex items-center gap-4">
-                  <Target className="w-7 h-7 text-indigo-500" />
+                <div className="px-8 py-4 bg-slate-900 text-white rounded-2xl flex items-center gap-3">
+                  <Target className="w-6 h-6 text-blue-400" />
                   <div>
-                    <p className="text-[10px] uppercase font-black text-zinc-500 tracking-widest">Benchmark</p>
-                    <p className="text-2xl font-black tracking-tight">{data.metric}</p>
+                    <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">Benchmark</p>
+                    <p className="text-xl font-black">{data.metric}</p>
                   </div>
                 </div>
               </div>
@@ -180,42 +178,41 @@ const ServiceDetail = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="relative"
             >
-              <div className="aspect-square bg-zinc-900/40 backdrop-blur-xl rounded-[4rem] border border-zinc-800 flex items-center justify-center relative overflow-hidden group">
-                <div className="text-indigo-500 scale-[3.5] group-hover:scale-[4] transition-transform duration-700">
+              <div className="aspect-square bg-slate-50 rounded-[3rem] border border-slate-100 flex items-center justify-center relative overflow-hidden">
+                <div className="text-blue-600 scale-[3]">
                   {data.icon}
                 </div>
-                <div className="absolute top-10 right-10 w-32 h-32 bg-indigo-600/10 rounded-full blur-[100px]" />
-                <div className="absolute bottom-10 left-10 w-48 h-48 bg-blue-600/5 rounded-full blur-[120px]" />
+                <div className="absolute top-10 right-10 w-20 h-20 bg-blue-100 rounded-full blur-2xl" />
+                <div className="absolute bottom-10 left-10 w-32 h-32 bg-indigo-100 rounded-full blur-3xl" />
               </div>
             </motion.div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-12 mb-32">
             <div className="md:col-span-2">
-              <h2 className="text-3xl md:text-5xl font-black text-zinc-50 mb-10 tracking-tight">What's Included</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8">What's Included</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 {data.features.map((feature: string, i: number) => (
-                  <div key={i} className="flex items-start gap-5 p-8 bg-zinc-900/40 backdrop-blur-xl rounded-[2.5rem] border border-zinc-800 hover:border-indigo-500/30 transition-all">
-                    <CheckCircle2 className="w-6 h-6 text-indigo-500 shrink-0" />
-                    <span className="font-bold text-zinc-300">{feature}</span>
+                  <div key={i} className="flex items-start gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <CheckCircle2 className="w-6 h-6 text-blue-600 shrink-0" />
+                    <span className="font-bold text-slate-700">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-zinc-900 text-white p-12 rounded-[3.5rem] border border-zinc-800 shadow-2xl relative overflow-hidden">
-              <h3 className="text-2xl font-black mb-10 tracking-tight">Our Process</h3>
-              <div className="space-y-10 relative z-10">
+            <div className="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-2xl">
+              <h3 className="text-2xl font-bold mb-8">Our Process</h3>
+              <div className="space-y-8">
                 {data.process.map((step: any, i: number) => (
-                  <div key={i} className="relative pl-12">
-                    <div className="absolute left-0 top-0 w-8 h-8 bg-indigo-600 rounded-2xl flex items-center justify-center text-[10px] font-black shadow-lg">
+                  <div key={i} className="relative pl-10">
+                    <div className="absolute left-0 top-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-black">
                       {i + 1}
                     </div>
-                    <h4 className="font-black text-lg mb-2 text-zinc-100">{step.title}</h4>
-                    <p className="text-sm text-zinc-500 leading-relaxed">{step.desc}</p>
+                    <h4 className="font-bold mb-1">{step.title}</h4>
+                    <p className="text-sm text-slate-400">{step.desc}</p>
                   </div>
                 ))}
               </div>
-              <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-600/5 rounded-full blur-[100px]" />
             </div>
           </div>
         </div>

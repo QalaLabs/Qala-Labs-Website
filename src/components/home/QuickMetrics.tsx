@@ -1,35 +1,48 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
+import { supabase } from '@/integrations/supabase/client';
+import { Loader2 } from 'lucide-react';
 
 const QuickMetrics = () => {
-  const metrics = [
-    {
-      brand: "GlowSkin",
-      stats: [
-        { value: "₹12Cr", label: "90-Day Revenue" },
-        { value: "28x", label: "Peak ROAS" },
-        { value: "42%", label: "CVR Lift" },
-        { value: "35%", label: "Lower CPA" }
-      ]
-    },
-    {
-      brand: "Gaffar India",
-      stats: [
-        { value: "8.4x", label: "Avg. ROAS" },
-        { value: "310%", label: "YoY Growth" },
-        { value: "20+", label: "Automations" },
-        { value: "₹3Cr+", label: "New Revenue" }
-      ]
-    }
-  ];
+  const [metrics, setMetrics] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMetrics = async () => {
+      // Fetching metrics from the latest 2 case studies
+      const { data, error } = await supabase
+        .from('case_studies')
+        .select('title, results')
+        .order('created_at', { ascending: false })
+        .limit(2);
+      
+      if (!error && data) {
+        const formattedMetrics = data.map(study => ({
+          brand: study.title,
+          stats: study.results?.metrics?.slice(0, 4) || []
+        }));
+        setMetrics(formattedMetrics);
+      }
+      setLoading(false);
+    };
+    fetchMetrics();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="py-20 flex justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
-    <section className="py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid gap-10">
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid gap-8">
           {metrics.map((item, i) => (
             <motion.div
               key={i}
@@ -37,21 +50,16 @@ const QuickMetrics = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="border-none shadow-2xl bg-slate-950 text-white rounded-[4rem] overflow-hidden">
-                <CardContent className="p-12 md:p-20">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-12">
-                    <div className="shrink-0">
-                      <h3 className="text-3xl font-black text-blue-400 mb-2">{item.brand}</h3>
-                      <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Scale Intelligence</p>
-                    </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 flex-1">
-                      {item.stats.map((stat: any, j: number) => (
-                        <div key={j} className="space-y-3">
-                          <p className="text-5xl md:text-6xl font-black tracking-tighter text-white">{stat.value}</p>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-none">{stat.label}</p>
-                        </div>
-                      ))}
-                    </div>
+              <Card className="border-none shadow-xl bg-slate-900 text-white rounded-[2.5rem] overflow-hidden">
+                <CardContent className="p-10 md:p-16">
+                  <h3 className="text-xl font-bold mb-12 text-blue-400">{item.brand}</h3>
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                    {item.stats.map((stat: any, j: number) => (
+                      <div key={j} className="space-y-2">
+                        <p className="text-4xl md:text-5xl font-black tracking-tighter">{stat.value}</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>

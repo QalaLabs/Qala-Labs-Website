@@ -37,15 +37,15 @@ const steps = [
 
 const AboutProcess = () => {
   return (
-    <section className="py-24 bg-zinc-900/30 border-y border-zinc-800/50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-24">
-          <h2 className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-4">How We Work</h2>
-          <h3 className="text-4xl md:text-7xl font-extrabold text-zinc-50 tracking-tight">The Scale Roadmap</h3>
+    <section className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-20">
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">How We Work</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900">The Scale Roadmap</h3>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12 relative">
-          <div className="hidden lg:block absolute top-14 left-10 right-10 h-px bg-zinc-800 z-0" />
+        <div className="grid md:grid-cols-4 gap-8 relative">
+          <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-slate-200 z-0" />
           
           {steps.map((step, i) => (
             <motion.div
@@ -53,19 +53,19 @@ const AboutProcess = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
+              transition={{ delay: i * 0.1 }}
               className="relative z-10"
             >
-              <div className="w-20 h-20 bg-zinc-950 rounded-[2rem] border border-zinc-800 flex items-center justify-center text-indigo-500 mb-10 shadow-2xl mx-auto md:mx-0 group hover:border-indigo-500/50 transition-all duration-500">
-                <div className="group-hover:scale-110 transition-transform duration-500">{step.icon}</div>
+              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-blue-600 mb-8 shadow-xl border border-slate-100 mx-auto md:mx-0">
+                {step.icon}
               </div>
               <div className="text-center md:text-left">
-                <p className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-3">{step.range}</p>
-                <h4 className="text-2xl font-black text-zinc-50 mb-6 tracking-tight">{step.title}</h4>
-                <p className="text-zinc-400 text-sm leading-relaxed mb-8">{step.desc}</p>
-                <div className="p-6 bg-zinc-900 rounded-[2rem] border border-zinc-800/50 shadow-inner">
-                  <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-2">Example</p>
-                  <p className="text-xs italic text-zinc-400 leading-relaxed">"{step.example}"</p>
+                <p className="text-xs font-black text-blue-600 uppercase tracking-widest mb-2">{step.range}</p>
+                <h4 className="text-xl font-bold text-slate-900 mb-4">{step.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed mb-6">{step.desc}</p>
+                <div className="p-4 bg-white rounded-2xl border border-slate-100">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Example</p>
+                  <p className="text-xs italic text-slate-600">"{step.example}"</p>
                 </div>
               </div>
             </motion.div>

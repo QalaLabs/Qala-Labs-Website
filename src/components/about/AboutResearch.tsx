@@ -6,45 +6,45 @@ import { BookOpen, ExternalLink } from 'lucide-react';
 
 const AboutResearch = () => {
   return (
-    <section className="py-32 bg-zinc-950">
-      <div className="max-w-5xl mx-auto px-6">
+    <section className="py-24 bg-white">
+      <div className="max-w-5xl mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-16 md:p-24 bg-zinc-900/50 backdrop-blur-xl rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl border border-zinc-800"
+          className="p-12 md:p-20 bg-slate-900 rounded-[4rem] text-white text-center relative overflow-hidden shadow-2xl"
         >
           <div className="relative z-10">
-            <div className="w-20 h-20 bg-indigo-600 rounded-[2rem] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-indigo-500/20">
-              <BookOpen className="w-10 h-10" />
+            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl">
+              <BookOpen className="w-8 h-8" />
             </div>
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-10 leading-tight tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
               Research & Insights
             </h2>
-            <p className="text-xl md:text-2xl text-zinc-400 mb-16 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-400 mb-12 leading-relaxed max-w-3xl mx-auto">
               We believe in doing the right research and finding the perfect insight for your brand to work on. Our approach aligns with current academic thinking on AI-powered marketing.
             </p>
             
-            <div className="flex flex-wrap justify-center gap-10">
+            <div className="flex flex-wrap justify-center gap-6">
               <a 
                 href="https://www.sciencedirect.com/science/article/pii/S0268401224000318" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-indigo-400 font-bold hover:text-indigo-300 transition-colors text-lg"
+                className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-blue-300 transition-colors"
               >
-                Reference: ScienceDirect <ExternalLink className="w-5 h-5" />
+                Reference: ScienceDirect <ExternalLink className="w-4 h-4" />
               </a>
               <a 
                 href="/blog" 
-                className="bg-zinc-50 text-zinc-950 hover:bg-indigo-600 hover:text-white px-10 py-5 rounded-2xl font-black transition-all text-lg shadow-xl"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition-all"
               >
                 Read our approach
               </a>
             </div>
           </div>
           
-          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] -mr-48 -mt-48" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] -ml-48 -mb-48" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -mr-32 -mt-32" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -ml-32 -mb-32" />
         </motion.div>
       </div>
     </section>

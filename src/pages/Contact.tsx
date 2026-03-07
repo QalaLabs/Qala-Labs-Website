@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -44,80 +43,67 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50">
+    <div className="min-h-screen bg-slate-50">
       <SEO title="Book Your Free Audit" description="Get a detailed performance audit and growth strategy for your brand." />
       <Navbar />
       
-      <div className="pt-48 pb-32 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-24 items-start">
+      <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold mb-8 uppercase tracking-widest"
-            >
-              Get in Touch
-            </motion.div>
-            <h1 className="text-5xl md:text-8xl font-extrabold text-zinc-50 mb-10 leading-[1.05] tracking-tighter">
-              Let's Build Your <br /> <span className="text-indigo-500">Scale Engine.</span>
+            <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
+              Let's Build Your <br /> <span className="text-blue-600">Scale Engine.</span>
             </h1>
-            <p className="text-xl text-zinc-400 mb-16 leading-relaxed max-w-xl">
+            <p className="text-xl text-slate-600 mb-12 leading-relaxed">
               We only partner with brands we know we can scale. Fill out the form to see if you're a fit for our 8-figure framework.
             </p>
 
-            <div className="space-y-10">
-              <div className="flex items-start gap-8 group">
-                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-indigo-500/50 transition-colors">
-                  <Mail className="w-6 h-6 text-indigo-500" />
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <Mail className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-black text-zinc-100 uppercase tracking-widest text-xs mb-2">Email Us</h4>
-                  <p className="text-xl font-bold text-zinc-400">hello@qalalabs.com</p>
+                  <h4 className="font-bold text-slate-900">Email Us</h4>
+                  <p className="text-slate-500">hello@qalalabs.com</p>
                 </div>
               </div>
-              <div className="flex items-start gap-8 group">
-                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-indigo-500/50 transition-colors">
-                  <Phone className="w-6 h-6 text-indigo-500" />
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <Phone className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-black text-zinc-100 uppercase tracking-widest text-xs mb-2">Call Us</h4>
-                  <p className="text-xl font-bold text-zinc-400">+44 (0) 20 3835 1234</p>
+                  <h4 className="font-bold text-slate-900">Call Us</h4>
+                  <p className="text-slate-500">+44 (0) 20 3835 1234</p>
                 </div>
               </div>
-              <div className="flex items-start gap-8 group">
-                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-indigo-500/50 transition-colors">
-                  <MapPin className="w-6 h-6 text-indigo-500" />
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <MapPin className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-black text-zinc-100 uppercase tracking-widest text-xs mb-2">Global Offices</h4>
-                  <p className="text-xl font-bold text-zinc-400">London • Dubai • New York</p>
+                  <h4 className="font-bold text-slate-900">Global Offices</h4>
+                  <p className="text-slate-500">London • Dubai • New York</p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-20 p-10 bg-zinc-900/40 backdrop-blur-xl rounded-[3rem] border border-zinc-800/50 shadow-2xl">
-              <h4 className="font-black text-zinc-100 mb-8 uppercase tracking-widest text-xs">What happens next?</h4>
-              <ul className="space-y-6">
-                <li className="flex items-center gap-4 text-zinc-400">
-                  <div className="w-6 h-6 bg-indigo-600/20 rounded-full flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-500" />
-                  </div>
-                  <span className="font-bold">Data analysis of your current performance</span>
+            <div className="mt-16 p-8 bg-white rounded-3xl border border-slate-100 shadow-sm">
+              <h4 className="font-bold text-slate-900 mb-4">What happens next?</h4>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>Data analysis of your current performance</span>
                 </li>
-                <li className="flex items-center gap-4 text-zinc-400">
-                  <div className="w-6 h-6 bg-indigo-600/20 rounded-full flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-500" />
-                  </div>
-                  <span className="font-bold">30-minute strategy call with our founders</span>
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>30-minute strategy call with our founders</span>
                 </li>
-                <li className="flex items-center gap-4 text-zinc-400">
-                  <div className="w-6 h-6 bg-indigo-600/20 rounded-full flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-500" />
-                  </div>
-                  <span className="font-bold">Custom 8-figure scale roadmap</span>
+                <li className="flex items-center gap-3 text-slate-600">
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <span>Custom 8-figure scale roadmap</span>
                 </li>
               </ul>
             </div>
@@ -127,27 +113,27 @@ const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <Card className="border-zinc-800/50 shadow-2xl rounded-[3.5rem] overflow-hidden bg-zinc-900/40 backdrop-blur-xl">
-              <CardHeader className="bg-zinc-950 p-12 border-b border-zinc-800/50">
-                <CardTitle className="text-3xl font-extrabold text-zinc-50 tracking-tight">Request Free Audit</CardTitle>
-                <p className="text-zinc-400 mt-3 text-lg">Get your custom growth strategy in 24 hours.</p>
+            <Card className="border-none shadow-2xl rounded-[2.5rem] overflow-hidden">
+              <CardHeader className="bg-slate-900 text-white p-10">
+                <CardTitle className="text-3xl font-bold">Request Free Audit</CardTitle>
+                <p className="text-slate-400 mt-2">Get your custom growth strategy in 24 hours.</p>
               </CardHeader>
-              <CardContent className="p-12">
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                      <Label htmlFor="name" className="text-zinc-400 font-bold uppercase tracking-widest text-[10px]">Full Name</Label>
+              <CardContent className="p-10 bg-white">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
                       <Input 
                         id="name" 
                         placeholder="John Doe" 
                         required 
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="bg-zinc-950 border-zinc-800 rounded-2xl h-16 focus:ring-indigo-500 text-zinc-100"
+                        className="rounded-xl py-6"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="email" className="text-zinc-400 font-bold uppercase tracking-widest text-[10px]">Work Email</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Work Email</Label>
                       <Input 
                         id="email" 
                         type="email" 
@@ -155,27 +141,27 @@ const Contact = () => {
                         required 
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="bg-zinc-950 border-zinc-800 rounded-2xl h-16 focus:ring-indigo-500 text-zinc-100"
+                        className="rounded-xl py-6"
                       />
                     </div>
                   </div>
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                      <Label htmlFor="website" className="text-zinc-400 font-bold uppercase tracking-widest text-[10px]">Website URL</Label>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="website">Website URL</Label>
                       <Input 
                         id="website" 
                         placeholder="brand.com" 
                         required 
                         value={formData.website}
                         onChange={(e) => setFormData({...formData, website: e.target.value})}
-                        className="bg-zinc-950 border-zinc-800 rounded-2xl h-16 focus:ring-indigo-500 text-zinc-100"
+                        className="rounded-xl py-6"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="revenue" className="text-zinc-400 font-bold uppercase tracking-widest text-[10px]">Monthly Revenue</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="revenue">Monthly Revenue</Label>
                       <select 
                         id="revenue"
-                        className="w-full h-16 px-4 rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-300 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                        className="w-full h-12 px-3 rounded-xl border border-input bg-background text-sm"
                         required
                         value={formData.revenue}
                         onChange={(e) => setFormData({...formData, revenue: e.target.value})}
@@ -188,24 +174,24 @@ const Contact = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <Label htmlFor="message" className="text-zinc-400 font-bold uppercase tracking-widest text-[10px]">Growth Goals</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Growth Goals</Label>
                     <Textarea 
                       id="message" 
                       placeholder="Tell us about your current challenges and goals..." 
-                      className="min-h-[160px] bg-zinc-950 border-zinc-800 rounded-2xl focus:ring-indigo-500 text-zinc-100 p-6"
+                      className="min-h-[120px] rounded-xl"
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full py-10 rounded-[2rem] bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-black shadow-2xl shadow-indigo-500/20 group"
+                    className="w-full py-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xl font-black shadow-xl shadow-blue-500/20"
                     disabled={loading}
                   >
-                    {loading ? <Loader2 className="w-8 h-8 animate-spin" /> : (
-                      <span className="flex items-center gap-3">
-                        Send Audit Request <Send className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : (
+                      <span className="flex items-center gap-2">
+                        Send Audit Request <Send className="w-5 h-5" />
                       </span>
                     )}
                   </Button>
@@ -215,7 +201,6 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

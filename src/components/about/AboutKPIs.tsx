@@ -38,20 +38,19 @@ const Counter = ({ value, suffix = "" }: { value: string, suffix?: string }) => 
 
 const KPICard = ({ value, label, icon }: any) => (
   <motion.div
-    whileHover={{ y: -8 }}
-    className="bg-zinc-900/40 backdrop-blur-xl p-10 rounded-[3rem] border border-zinc-800 shadow-2xl hover:border-indigo-500/30 transition-all group relative overflow-hidden"
+    whileHover={{ y: -5 }}
+    className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all group relative overflow-hidden"
   >
-    <div className="flex justify-between items-start mb-8">
-      <div className="w-14 h-14 bg-zinc-950 rounded-2xl flex items-center justify-center text-indigo-500 group-hover:bg-indigo-600 group-hover:text-white transition-colors border border-zinc-800">
+    <div className="flex justify-between items-start mb-6">
+      <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
         {icon}
       </div>
     </div>
-    <p className="text-5xl font-black text-zinc-50 mb-3 tracking-tighter">
+    <p className="text-4xl font-black text-slate-900 mb-2 tracking-tighter">
       <Counter value={value} />
     </p>
-    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest leading-none">{label}</p>
-    <div className="absolute bottom-0 left-0 h-1 bg-indigo-600 w-0 group-hover:w-full transition-all duration-700" />
-    <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-600/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
+    <div className="absolute bottom-0 left-0 h-1 bg-blue-600 w-0 group-hover:w-full transition-all duration-500" />
   </motion.div>
 );
 
@@ -64,14 +63,14 @@ const AboutKPIs = () => {
   ];
 
   return (
-    <section className="py-24 bg-zinc-950">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-20">
-          <h2 className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-4">Performance Benchmarks</h2>
-          <h3 className="text-4xl md:text-6xl font-extrabold text-zinc-50 tracking-tight">Engineered for Scale.</h3>
+    <section className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="mb-16">
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">Performance Benchmarks</h2>
+          <h3 className="text-4xl font-black text-slate-900">Engineered for Scale.</h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {metrics.map((m, i) => (
             <KPICard key={i} {...m} />
           ))}

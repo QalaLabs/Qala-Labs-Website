@@ -1,94 +1,93 @@
-"use client";
-
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import * as React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Link } from 'react-router-dom';
+import Logo from './Logo';
+import { useUser } from '@/hooks/useUser';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const { user } = useUser();
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Work', href: '#work' },
-    { name: 'Approach', href: '#approach' },
+    { name: 'Services', href: '/services' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Tools', href: '/tools' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Pricing', href: '/pricing' },
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-zinc-950/70 backdrop-blur-md border-b border-zinc-800 py-4' : 'bg-transparent py-6'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold tracking-tighter text-zinc-50">
-          QALA <span className="text-indigo-500">LABS</span>
-        </Link>
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-20 items-center">
+          <Link to="/">
+            <Logo />
+          </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className="text-sm font-medium text-zinc-400 hover:text-indigo-400 transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-          <Button 
-            className="bg-zinc-50 text-zinc-950 hover:bg-zinc-200 rounded-full px-6 py-2 text-sm font-bold transition-all"
-            asChild
-          >
-            <a href="#contact">Book a Call</a>
-          </Button>
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                to={link.href}
+                className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+            
+            {user ? (
+              <Button 
+                onClick={() => navigate('/admin')}
+                variant="outline"
+                className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold px-6 rounded-full flex items-center gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4" /> Dashboard
+              </Button>
+            ) : (
+              <Button 
+                onClick={() => navigate('/contact')}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full"
+              >
+                Free Audit
+              </Button>
+            )}
+          </div>
+
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900" aria-label="Toggle menu">
+              {isOpen ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
-
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-zinc-400"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-zinc-950 border-b border-zinc-800 p-6 md:hidden"
+      {isOpen && (
+        <div className="md:hidden bg-white border-b border-gray-100 p-4 space-y-4">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              to={link.href}
+              className="block text-lg font-semibold text-slate-900"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Button 
+            onClick={() => {
+              navigate(user ? '/admin' : '/contact');
+              setIsOpen(false);
+            }}
+            className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl"
           >
-            <div className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href}
-                  className="text-lg font-medium text-zinc-400"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <Button 
-                className="bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl py-6 font-bold"
-                asChild
-              >
-                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Book a Call</a>
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {user ? 'Dashboard' : 'Free Audit'}
+          </Button>
+        </div>
+      )}
     </nav>
   );
 };
