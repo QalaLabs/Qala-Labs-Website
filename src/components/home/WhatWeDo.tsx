@@ -34,10 +34,10 @@ const WhatWeDo = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">What we do</h2>
+    <section className="py-32 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tight">What we do</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
@@ -47,13 +47,13 @@ const WhatWeDo = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-10 bg-white rounded-[2rem] border border-slate-100 hover:shadow-2xl transition-all group"
+              className="p-12 bg-white rounded-[3rem] border border-slate-100 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group"
             >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-8 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+              <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-blue-600 mb-10 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">{service.title}</h3>
-              <p className="text-slate-500 leading-relaxed">{service.desc}</p>
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 tracking-tight">{service.title}</h3>
+              <p className="text-slate-500 leading-relaxed font-medium">{service.desc}</p>
             </motion.div>
           ))}
         </div>

@@ -29,12 +29,14 @@ const HowWeWork = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">How we work</h2>
+    <section className="py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-24">
+          <h2 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tight">How we work</h2>
         </div>
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
+          <div className="hidden lg:block absolute top-14 left-10 right-10 h-[2px] bg-slate-100 z-0" />
+          
           {steps.map((step, i) => (
             <motion.div
               key={i}
@@ -42,16 +44,13 @@ const HowWeWork = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="relative"
+              className="relative z-10"
             >
-              <div className="mb-8 p-6 bg-slate-50 rounded-3xl w-fit text-blue-600">
+              <div className="mb-10 w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center text-blue-600 shadow-xl border border-white">
                 {step.icon}
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-4">{step.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
-              {i < 3 && (
-                <div className="hidden lg:block absolute top-12 left-full w-full h-[2px] bg-slate-100 -ml-4 z-0" />
-              )}
+              <h3 className="text-xl font-black text-slate-900 mb-4 leading-tight">{step.title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">{step.desc}</p>
             </motion.div>
           ))}
         </div>
