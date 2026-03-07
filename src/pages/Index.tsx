@@ -3,6 +3,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import SEO from '../components/layout/SEO';
 import Hero from '../components/layout/Hero';
+import TechStackRibbon from '../components/home/TechStackRibbon';
 import WhyDifferent from '../components/home/WhyDifferent';
 import ClientLogos from '../components/home/ClientLogos';
 import QuickMetrics from '../components/home/QuickMetrics';
@@ -20,20 +21,14 @@ const Index = () => {
     <div className="min-h-screen bg-slate-50">
       <SEO 
         title="Qala Labs: Performance Marketing · AI Automation · Ecommerce Growth · Creator Programs"
-        description="Qala Labs helps DTC & ecommerce brands scale with performance marketing, AI automation, conversion-first web development and creator-led growth. Book a 15-minute growth audit."
+        description="Qala Labs helps DTC & ecommerce brands scale with performance marketing, AI automation, conversion-first web development and creator-led growth. Book a 15-min growth audit."
       />
       <Navbar />
       
-      {/* Scroll 1: Hero */}
       <Hero />
-
-      {/* Scroll 2: Why we're different */}
+      <TechStackRibbon />
       <WhyDifferent />
-
-      {/* Scroll 3: Client Logos */}
       <ClientLogos />
-
-      {/* Scroll 4+: The rest of the flow */}
       <QuickMetrics />
       <WhatWeDo />
       <HowWeWork />
