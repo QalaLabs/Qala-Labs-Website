@@ -10,6 +10,7 @@ import AboutPrinciples from '@/components/about/AboutPrinciples';
 import AboutProcess from '@/components/about/AboutProcess';
 import AboutResearch from '@/components/about/AboutResearch';
 import AboutModals from '@/components/about/AboutModals';
+import PlatformStack from '@/components/about/PlatformStack';
 import FAQ from '@/components/home/FAQ';
 import Team from '@/components/home/Team';
 import ClosingCTA from '@/components/home/ClosingCTA';
@@ -43,6 +44,7 @@ const About = () => {
 
         <AboutKPIs />
         <AboutPrinciples />
+        <PlatformStack />
         <AboutProcess />
         <AboutResearch />
         <Team />
