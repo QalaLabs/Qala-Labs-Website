@@ -11,6 +11,7 @@ const Navbar = () => {
   const { user } = useUser();
 
   const navLinks = [
+    { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Portfolio', href: '/portfolio' },
     { name: 'Case Studies', href: '/case-studies' },
