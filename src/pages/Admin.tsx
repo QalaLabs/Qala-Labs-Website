@@ -5,7 +5,7 @@ import {
   LayoutDashboard, Users, FileText, Settings, LogOut, 
   TrendingUp, Mail, Eye, CheckCircle2, Clock, Upload, Database,
   Search, Filter, MoreVertical, Download, X, BookOpen, Plus,
-  BarChart as BarChartIcon
+  BarChart as BarChartIcon, Globe, Edit
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,11 +22,13 @@ import {
   ResponsiveContainer, Cell 
 } from 'recharts';
 import { useAuth } from '@/context/AuthContext';
+import { cn } from '@/lib/utils';
 
 const Admin = () => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const [leads, setLeads] = React.useState<any[]>([]);
+  const [pages, setPages] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [importing, setImporting] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -36,18 +38,19 @@ const Admin = () => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate('/login'); return; }
-      fetchLeads();
+      fetchData();
     };
     checkAuth();
   }, [navigate]);
 
-  const fetchLeads = async () => {
-    const { data, error } = await supabase
-      .from('leads')
-      .select('*')
-      .order('created_at', { ascending: false });
+  const fetchData = async () => {
+    const [leadsRes, pagesRes] = await Promise.all([
+      supabase.from('leads').select('*').order('created_at', { ascending: false }),
+      supabase.from('pages').select('*').order('updated_at', { ascending: false })
+    ]);
     
-    if (!error) setLeads(data || []);
+    if (!leadsRes.error) setLeads(leadsRes.data || []);
+    if (!pagesRes.error) setPages(pagesRes.data || []);
     setLoading(false);
   };
 
@@ -63,7 +66,7 @@ const Admin = () => {
         const parsedData = await parseAsenkaiXML(text);
         const results = await uploadToSupabase(parsedData);
         showSuccess(`Import Complete: ${results.success} items synced, ${results.errors} errors.`);
-        fetchLeads();
+        fetchData();
       } catch (err) {
         showError("Failed to parse XML file.");
       } finally {
@@ -113,8 +116,8 @@ const Admin = () => {
   const stats = {
     total: leads.length,
     today: leads.filter(l => isSameDay(new Date(l.created_at), new Date())).length,
-    conversionRate: "12.4%", // Mocked for now
-    growth: "+18%" // Mocked for now
+    pages: pages.length,
+    publishedPages: pages.filter(p => p.status === 'published').length
   };
 
   return (
@@ -122,7 +125,7 @@ const Admin = () => {
       <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full">
         <div className="mb-10"><Logo variant="white" /></div>
         <nav className="space-y-2 flex-1">
-          <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+          <Button variant="ghost" className="w-full justify-start gap-3 bg-blue-600/10 text-blue-400">
             <LayoutDashboard className="w-4 h-4" /> Dashboard
           </Button>
           <Link to="/admin/pages">
@@ -180,10 +183,10 @@ const Admin = () => {
             <CardContent className="pt-6">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-sm text-slate-500 font-medium">Leads Today</p>
-                  <h3 className="text-3xl font-bold mt-1">{stats.today}</h3>
+                  <p className="text-sm text-slate-500 font-medium">Active Pages</p>
+                  <h3 className="text-3xl font-bold mt-1">{stats.pages}</h3>
                 </div>
-                <div className="p-2 bg-green-50 rounded-lg text-green-600"><TrendingUp className="w-5 h-5" /></div>
+                <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600"><FileText className="w-5 h-5" /></div>
               </div>
             </CardContent>
           </Card>
@@ -209,99 +212,144 @@ const Admin = () => {
           </Card>
         </div>
 
-        <Tabs defaultValue="leads" className="space-y-6">
-          <TabsList className="bg-white p-1 rounded-xl border border-slate-200">
-            <TabsTrigger value="leads" className="rounded-lg">Recent Leads</TabsTrigger>
-            <TabsTrigger value="activity" className="rounded-lg">Activity Log</TabsTrigger>
-          </TabsList>
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <Tabs defaultValue="leads" className="space-y-6">
+              <TabsList className="bg-white p-1 rounded-xl border border-slate-200">
+                <TabsTrigger value="leads" className="rounded-lg">Recent Leads</TabsTrigger>
+                <TabsTrigger value="activity" className="rounded-lg">Activity Log</TabsTrigger>
+              </TabsList>
 
-          <TabsContent value="leads">
-            <Card className="border-none shadow-sm overflow-hidden">
-              <CardHeader className="bg-white border-b border-slate-100 flex flex-row items-center justify-between">
-                <CardTitle>Lead Management</CardTitle>
-                <div className="flex gap-3">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                    <Input 
-                      placeholder="Search leads..." 
-                      className="pl-10 w-64 h-10 rounded-lg"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+              <TabsContent value="leads">
+                <Card className="border-none shadow-sm overflow-hidden">
+                  <CardHeader className="bg-white border-b border-slate-100 flex flex-row items-center justify-between">
+                    <CardTitle>Lead Management</CardTitle>
+                    <div className="flex gap-3">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Input 
+                          placeholder="Search leads..." 
+                          className="pl-10 w-64 h-10 rounded-lg"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left">
+                        <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-widest font-bold">
+                          <tr>
+                            <th className="px-6 py-4">Email</th>
+                            <th className="px-6 py-4">Source</th>
+                            <th className="px-6 py-4 text-right">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {filteredLeads.map((lead) => (
+                            <tr key={lead.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => setSelectedLead(lead)}>
+                              <td className="px-6 py-4 font-medium text-slate-900">{lead.email}</td>
+                              <td className="px-6 py-4">
+                                <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-none">
+                                  {lead.tool_used.replace('_', ' ')}
+                                </Badge>
+                              </td>
+                              <td className="px-6 py-4 text-right">
+                                <Button variant="ghost" size="icon"><Eye className="w-4 h-4" /></Button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="activity">
+                <Card className="border-none shadow-sm p-8">
+                  <h3 className="text-lg font-bold mb-6">Recent System Activity</h3>
+                  <div className="space-y-6">
+                    {leads.slice(0, 10).map((lead, i) => (
+                      <div key={i} className="flex gap-4 items-start">
+                        <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                          <Mail className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-sm text-slate-900">
+                            New lead submission from <span className="font-bold">{lead.email}</span>
+                          </p>
+                          <p className="text-xs text-slate-400 mt-1">{format(new Date(lead.created_at), 'MMM dd, HH:mm')}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <Button variant="outline" size="icon"><Filter className="w-4 h-4" /></Button>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          <div className="space-y-8">
+            <Card className="border-none shadow-sm bg-white overflow-hidden rounded-[2.5rem]">
+              <CardHeader className="bg-slate-900 text-white p-8">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-xl font-bold">Content Pages</CardTitle>
+                  <Link to="/admin/pages">
+                    <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">View All</Button>
+                  </Link>
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left">
-                    <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-widest font-bold">
-                      <tr>
-                        <th className="px-6 py-4">Email</th>
-                        <th className="px-6 py-4">Source</th>
-                        <th className="px-6 py-4">Date</th>
-                        <th className="px-6 py-4">Status</th>
-                        <th className="px-6 py-4 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {filteredLeads.map((lead) => (
-                        <tr key={lead.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => setSelectedLead(lead)}>
-                          <td className="px-6 py-4 font-medium text-slate-900">{lead.email}</td>
-                          <td className="px-6 py-4">
-                            <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-none">
-                              {lead.tool_used.replace('_', ' ')}
-                            </Badge>
-                          </td>
-                          <td className="px-6 py-4 text-slate-500 text-sm">
-                            {format(new Date(lead.created_at), 'MMM dd, yyyy')}
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="flex items-center gap-2">
-                              <div className="w-2 h-2 rounded-full bg-green-500" />
-                              <span className="text-sm text-slate-600">New</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <Button variant="ghost" size="icon"><Eye className="w-4 h-4" /></Button>
-                          </td>
-                        </tr>
-                      ))}
-                      {filteredLeads.length === 0 && (
-                        <tr>
-                          <td colSpan={5} className="px-6 py-10 text-center text-slate-400">
-                            No leads found.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                <div className="divide-y divide-slate-100">
+                  {pages.slice(0, 5).map((page) => (
+                    <div key={page.id} className="p-6 hover:bg-slate-50 transition-colors group">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <p className="font-bold text-slate-900">{page.title}</p>
+                          <p className="text-xs text-slate-400">/{page.slug}</p>
+                        </div>
+                        <Badge className={cn(
+                          "text-[10px] font-black uppercase tracking-widest border-none",
+                          page.status === 'published' ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+                        )}>
+                          {page.status}
+                        </Badge>
+                      </div>
+                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button variant="ghost" size="sm" className="h-8 rounded-lg text-xs" onClick={() => navigate(`/admin/editor/${page.id}`)}>
+                          <Edit className="w-3 h-3 mr-1" /> Edit
+                        </Button>
+                        <Button variant="ghost" size="sm" className="h-8 rounded-lg text-xs" asChild>
+                          <a href={`/p/${page.slug}`} target="_blank"><Globe className="w-3 h-3 mr-1" /> View</a>
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="p-4">
+                    <Button onClick={() => navigate('/admin/pages')} className="w-full bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-xl font-bold">
+                      <Plus className="w-4 h-4 mr-2" /> Create New Page
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
 
-          <TabsContent value="activity">
-            <Card className="border-none shadow-sm p-8">
-              <h3 className="text-lg font-bold mb-6">Recent System Activity</h3>
-              <div className="space-y-6">
-                {leads.slice(0, 10).map((lead, i) => (
-                  <div key={i} className="flex gap-4 items-start">
-                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-900">
-                        New lead submission from <span className="font-bold">{lead.email}</span> via <span className="text-blue-600">{lead.tool_used}</span>
-                      </p>
-                      <p className="text-xs text-slate-400 mt-1">{format(new Date(lead.created_at), 'MMM dd, HH:mm')}</p>
-                    </div>
-                  </div>
-                ))}
+            <Card className="border-none shadow-sm bg-white p-8 rounded-[2.5rem]">
+              <h3 className="text-lg font-bold mb-6">Quick Links</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <Link to="/admin/media" className="p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-blue-50 hover:border-blue-100 transition-all text-center">
+                  <Database className="w-6 h-6 text-blue-600 mx-auto mb-2" />
+                  <span className="text-xs font-bold text-slate-600">Media</span>
+                </Link>
+                <Link to="/admin/guide" className="p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-blue-50 hover:border-blue-100 transition-all text-center">
+                  <BookOpen className="w-6 h-6 text-blue-600 mx-auto mb-2" />
+                  <span className="text-xs font-bold text-slate-600">Guide</span>
+                </Link>
               </div>
             </Card>
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
 
         {/* Lead Detail Dialog */}
         <Dialog open={!!selectedLead} onOpenChange={() => setSelectedLead(null)}>

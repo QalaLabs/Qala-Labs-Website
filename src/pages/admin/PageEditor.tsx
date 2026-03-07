@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Save, Rocket, Eye, Plus, 
   Settings, ChevronLeft, Loader2,
-  Layout, Trash2, Copy
+  Layout, Trash2, Copy, Layers, X
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
@@ -41,7 +41,11 @@ const PageEditor = () => {
       showError("Failed to load page");
       navigate('/admin/pages');
     } else {
-      setPage(data);
+      // Ensure content is always an array
+      setPage({
+        ...data,
+        content: Array.isArray(data.content) ? data.content : []
+      });
     }
     setLoading(false);
   }, [id, navigate]);
@@ -208,19 +212,21 @@ const PageEditor = () => {
           <div className="max-w-5xl mx-auto space-y-4">
             {page.content.map((block, index) => (
               <React.Fragment key={block.id}>
-                <BlockWrapper
-                  type={block.type}
-                  isSelected={selectedBlockId === block.id}
-                  onSelect={() => setSelectedBlockId(block.id)}
-                  onDelete={() => deleteBlock(block.id)}
-                  onMoveUp={() => moveBlock(index, 'up')}
-                  onMoveDown={() => moveBlock(index, 'down')}
-                  onDuplicate={() => duplicateBlock(block)}
-                >
-                  <div className="pointer-events-none scale-[0.8] origin-top transform-gpu">
-                    <BlockRenderer blocks={[block]} />
-                  </div>
-                </BlockWrapper>
+                <div id={`block-${block.id}`}>
+                  <BlockWrapper
+                    type={block.type}
+                    isSelected={selectedBlockId === block.id}
+                    onSelect={() => setSelectedBlockId(block.id)}
+                    onDelete={() => deleteBlock(block.id)}
+                    onMoveUp={() => moveBlock(index, 'up')}
+                    onMoveDown={() => moveBlock(index, 'down')}
+                    onDuplicate={() => duplicateBlock(block)}
+                  >
+                    <div className="pointer-events-none scale-[0.8] origin-top transform-gpu">
+                      <BlockRenderer blocks={[block]} />
+                    </div>
+                  </BlockWrapper>
+                </div>
 
                 <div className="flex justify-center opacity-0 hover:opacity-100 transition-opacity py-2">
                   <Popover>
@@ -266,28 +272,57 @@ const PageEditor = () => {
           
           <div className="flex-1 overflow-y-auto p-6 space-y-8">
             {!selectedBlockId ? (
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Title</Label>
-                  <Input value={page.title} onChange={(e) => setPage({ ...page, title: e.target.value })} className="rounded-xl h-12" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL Slug</Label>
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400 text-sm">/p/</span>
-                    <Input value={page.slug} onChange={(e) => setPage({ ...page, slug: e.target.value })} className="rounded-xl h-12" />
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Page Title</Label>
+                    <Input value={page.title} onChange={(e) => setPage({ ...page, title: e.target.value })} className="rounded-xl h-12" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL Slug</Label>
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400 text-sm">/p/</span>
+                      <Input value={page.slug} onChange={(e) => setPage({ ...page, slug: e.target.value })} className="rounded-xl h-12" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description</Label>
+                    <Textarea value={page.description || ''} onChange={(e) => setPage({ ...page, description: e.target.value })} className="min-h-[100px] rounded-xl" />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Description</Label>
-                  <Textarea value={page.description || ''} onChange={(e) => setPage({ ...page, description: e.target.value })} className="min-h-[100px] rounded-xl" />
+
+                <div className="pt-8 border-t border-slate-100">
+                  <h3 className="text-sm font-black text-slate-900 mb-4 flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-blue-600" /> Page Structure
+                  </h3>
+                  <div className="space-y-2">
+                    {page.content.map((b, i) => (
+                      <button
+                        key={b.id}
+                        onClick={() => {
+                          setSelectedBlockId(b.id);
+                          document.getElementById(`block-${b.id}`)?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
+                      >
+                        <span className="text-xs font-bold text-slate-600 capitalize">{b.type.replace('_', ' ')}</span>
+                        <span className="text-[10px] font-black text-slate-300">#{i + 1}</span>
+                      </button>
+                    ))}
+                    {page.content.length === 0 && <p className="text-xs text-slate-400 italic">No blocks added yet.</p>}
+                  </div>
                 </div>
               </div>
             ) : (
               <div className="space-y-6">
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
-                  <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Editing Block</p>
-                  <p className="font-bold text-slate-900 capitalize">{selectedBlock?.type.replace('_', ' ')}</p>
+                <div className="flex items-center justify-between p-4 bg-slate-900 text-white rounded-2xl mb-6 shadow-xl">
+                  <div>
+                    <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">Editing Block</p>
+                    <p className="font-bold text-sm capitalize">{selectedBlock?.type.replace('_', ' ')}</p>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setSelectedBlockId(null)} className="h-8 w-8 hover:bg-white/10 text-white">
+                    <X className="w-4 h-4" />
+                  </Button>
                 </div>
 
                 {selectedBlock?.type === 'hero' && (
@@ -314,7 +349,6 @@ const PageEditor = () => {
                   </>
                 )}
 
-                {/* Keep existing block settings... */}
                 {selectedBlock?.type === 'team_grid' && (
                   <div className="space-y-4">
                     <Label>Section Title</Label>
@@ -338,11 +372,6 @@ const PageEditor = () => {
                         <Input placeholder="Role" value={member.role} onChange={(e) => {
                           const newMembers = [...selectedBlock.props.members];
                           newMembers[i].role = e.target.value;
-                          updateBlockProps(selectedBlock.id, { members: newMembers });
-                        }} className="h-8 text-xs rounded-lg" />
-                        <Input placeholder="Image URL" value={member.image} onChange={(e) => {
-                          const newMembers = [...selectedBlock.props.members];
-                          newMembers[i].image = e.target.value;
                           updateBlockProps(selectedBlock.id, { members: newMembers });
                         }} className="h-8 text-xs rounded-lg" />
                       </div>
