@@ -1,128 +1,90 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion, Variants } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const Hero = () => {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-interface HeroProps {
-  title?: string;
-  subtitle?: string;
-  ctaText?: string;
-  ctaUrl?: string;
-  secondaryCtaText?: string;
-  secondaryCtaUrl?: string;
-  badgeText?: string;
-}
-
-const Hero = ({ 
-  title = "Scale Your DTC Brand to 8-Figures with Data-Driven Creative.",
-  subtitle = "We combine high-performance paid media with high-converting creative to dominate your niche.",
-  ctaText = "Get Proposal",
-  ctaUrl = "/contact",
-  secondaryCtaText = "See Work",
-  secondaryCtaUrl = "/portfolio",
-  badgeText = "Generated ₹12Cr in 90 days for GlowSkin"
-}: HeroProps) => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const bgLayerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-    
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      
-      tl.from(headlineRef.current, {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        delay: 0.2
-      })
-      .from(".hero-cta", {
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8
-      }, "-=0.8");
-
-      gsap.to(bgLayerRef.current, {
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        },
-        y: 150,
-        ease: "none"
-      });
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
 
   return (
-    <section 
-      ref={heroRef}
-      className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden bg-slate-50"
-      aria-labelledby="hero-heading"
-    >
-      <div 
-        ref={bgLayerRef}
-        className="absolute inset-0 z-0 pointer-events-none"
-      >
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-indigo-100/30 rounded-full blur-3xl" />
+    <section className="relative pt-48 pb-32 overflow-hidden bg-zinc-950">
+      {/* Background Gradients */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-4 z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10 text-blue-700 text-sm font-bold mb-6"
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-400 text-xs font-medium mb-8"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-            </span>
-            {badgeText}
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+            AI. Simplified. Scaled.
           </motion.div>
 
-          <h1 
-            ref={headlineRef}
-            id="hero-heading"
-            className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-6 tracking-tight"
+          <motion.h1 
+            variants={itemVariants}
+            className="text-5xl md:text-8xl font-extrabold text-zinc-50 leading-[1.05] mb-8 tracking-tighter text-balance"
           >
-            {title}
-          </h1>
+            Systems That Scale <br /> 
+            <span className="text-indigo-500">E-commerce Brands.</span>
+          </motion.h1>
 
-          <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            {subtitle}
-          </p>
+          <motion.p 
+            variants={itemVariants}
+            className="text-lg md:text-xl text-zinc-400 mb-12 max-w-2xl leading-relaxed"
+          >
+            We build the workflows, run the campaigns, and automate the manual tasks that turn your brand into a high-performance revenue engine.
+          </motion.p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to={ctaUrl}>
-              <Button size="lg" className="hero-cta bg-blue-600 hover:bg-blue-700 text-white px-8 py-7 rounded-2xl text-lg shadow-xl shadow-blue-500/20">
-                {ctaText} <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </Link>
-            <Link to={secondaryCtaUrl}>
-              <Button size="lg" variant="outline" className="hero-cta px-8 py-7 rounded-2xl text-lg border-2">
-                {secondaryCtaText}
-              </Button>
-            </Link>
-          </div>
-        </div>
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-wrap justify-center gap-4"
+          >
+            <Button 
+              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-7 rounded-2xl text-lg font-bold shadow-2xl shadow-indigo-500/20 group"
+              asChild
+            >
+              <a href="#contact">
+                Scale Your Brand <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 px-8 py-7 rounded-2xl text-lg font-bold"
+              asChild
+            >
+              <a href="#work">Explore Our Work</a>
+            </Button>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

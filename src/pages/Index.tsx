@@ -1,48 +1,46 @@
-import * as React from 'react';
-import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
-import SEO from '../components/layout/SEO';
-import Hero from '../components/layout/Hero';
-import WhyDifferent from '../components/home/WhyDifferent';
-import ClientLogos from '../components/home/ClientLogos';
-import QuickMetrics from '../components/home/QuickMetrics';
-import WhatWeDo from '../components/home/WhatWeDo';
-import HowWeWork from '../components/home/HowWeWork';
-import CaseStudySnapshots from '../components/home/CaseStudySnapshots';
-import ResearchInsights from '../components/home/ResearchInsights';
-import Testimonial from '../components/home/Testimonial';
-import Team from '../components/home/Team';
-import FAQ from '../components/home/FAQ';
-import ClosingCTA from '../components/home/ClosingCTA';
+"use client";
+
+import React from 'react';
+import Navbar from '@/components/layout/Navbar';
+import Hero from '@/components/layout/Hero';
+import TechMarquee from '@/components/home/TechMarquee';
+import ServicesGrid from '@/components/home/ServicesGrid';
+import Portfolio from '@/components/home/Portfolio';
+import AboutFounder from '@/components/home/AboutFounder';
+import LeadForm from '@/components/home/LeadForm';
+import Footer from '@/components/layout/Footer';
+import SEO from '@/components/layout/SEO';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 selection:bg-indigo-500/30 selection:text-indigo-200">
       <SEO 
-        title="Qala Labs: Performance Marketing · AI Automation · Ecommerce Growth · Creator Programs"
-        description="Qala Labs helps DTC & ecommerce brands scale with performance marketing, AI automation, conversion-first web development and creator-led growth. Book a 15-minute growth audit."
+        title="Qala Labs | Scale Your E-commerce. Automate The Rest."
+        description="Qala Labs builds custom n8n workflows, deploys Python-driven data analytics, and executes performance marketing to turn your brand into a seamless revenue engine."
       />
+      
       <Navbar />
       
-      {/* Scroll 1: Hero */}
-      <Hero />
-
-      {/* Scroll 2: Why we're different */}
-      <WhyDifferent />
-
-      {/* Scroll 3: Client Logos */}
-      <ClientLogos />
-
-      {/* Scroll 4+: The rest of the flow */}
-      <QuickMetrics />
-      <WhatWeDo />
-      <HowWeWork />
-      <CaseStudySnapshots />
-      <ResearchInsights />
-      <Testimonial />
-      <Team />
-      <FAQ />
-      <ClosingCTA />
+      <main>
+        <Hero />
+        <TechMarquee />
+        
+        <div id="services">
+          <ServicesGrid />
+        </div>
+        
+        <div id="work">
+          <Portfolio />
+        </div>
+        
+        <div id="approach">
+          <AboutFounder />
+        </div>
+        
+        <div id="contact">
+          <LeadForm />
+        </div>
+      </main>
 
       <Footer />
     </div>
