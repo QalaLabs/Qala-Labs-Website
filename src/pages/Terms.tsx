@@ -1,30 +1,41 @@
+"use client";
+
 import * as React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
+import { motion } from 'framer-motion';
 
 const Terms = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-zinc-950 text-zinc-50">
       <SEO title="Terms of Service" />
       <Navbar />
-      <div className="pt-32 pb-20 px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-slate-900 mb-8">Terms of Service</h1>
-        <div className="prose prose-slate max-w-none">
-          <p className="text-lg text-slate-600 mb-6">Last updated: March 20, 2024</p>
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Acceptance of Terms</h2>
-            <p>By accessing or using the Qala Labs website, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
-          </section>
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Use License</h2>
-            <p>Permission is granted to temporarily download one copy of the materials on Qala Labs' website for personal, non-commercial transitory viewing only.</p>
-          </section>
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Disclaimer</h2>
-            <p>The materials on Qala Labs' website are provided on an 'as is' basis. Qala Labs makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
-          </section>
-        </div>
+      <div className="pt-48 pb-32 px-6 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h1 className="text-5xl md:text-7xl font-extrabold text-zinc-50 mb-12 tracking-tighter">Terms of <span className="text-indigo-500">Service.</span></h1>
+          <div className="prose prose-invert prose-lg max-w-none prose-p:text-zinc-400 prose-headings:text-zinc-50 prose-headings:font-black prose-headings:tracking-tight">
+            <p className="text-xl text-indigo-400 mb-16 font-bold">Last updated: March 20, 2026</p>
+            
+            <section className="mb-20">
+              <h2 className="text-3xl mb-6">1. Acceptance of Terms</h2>
+              <p>By accessing or using the Qala Labs platform, calculators, or growth services, you agree to be bound by these Terms of Service. Our services are designed for businesses seeking aggressive ecommerce scale and require full compliance with ad platform policies (Meta, Google, etc.).</p>
+            </section>
+
+            <section className="mb-20">
+              <h2 className="text-3xl mb-6">2. Use License</h2>
+              <p>Permission is granted to use our public growth tools and calculators for internal business planning. You may not reverse-engineer our proprietary ROI models or automation frameworks for resale or competing agency operations.</p>
+            </section>
+
+            <section className="mb-20">
+              <h2 className="text-3xl mb-6">3. Performance Disclaimer</h2>
+              <p>While our scale engines are built on proven 8-figure frameworks, ecommerce growth involves market variables beyond our control. Audit projections are estimates based on historical benchmarks and do not constitute a legal guarantee of specific revenue outcomes.</p>
+            </section>
+          </div>
+        </motion.div>
       </div>
       <Footer />
     </div>
