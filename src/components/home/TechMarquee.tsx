@@ -5,16 +5,12 @@ import { motion } from 'framer-motion';
 
 const TechMarquee = () => {
   const items = [
-    "E-commerce Growth",
-    "Performance Marketing",
-    "Workflow Automation",
-    "n8n Experts",
-    "Python Data Analytics",
-    "Conversion Optimization",
     "WooCommerce Catalog Hygiene",
     "Custom n8n Workflows",
     "Make.com Migrations",
-    "Meta & Google Ads"
+    "Python Data Processing",
+    "Meta & Google Ads",
+    "Conversion Rate Optimization"
   ];
 
   return (
@@ -25,13 +21,13 @@ const TechMarquee = () => {
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 30,
+            duration: 25,
             ease: "linear",
           },
         }}
         className="flex gap-12 items-center"
       >
-        {[...Array(3)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <React.Fragment key={i}>
             {items.map((item, index) => (
               <div key={index} className="flex items-center gap-4">

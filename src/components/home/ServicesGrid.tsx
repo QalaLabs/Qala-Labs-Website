@@ -9,29 +9,32 @@ const services = [
     id: 1, 
     title: 'Performance Marketing', 
     icon: TrendingUp, 
-    description: 'Data-driven ad strategies and media buying to scale e-commerce brands and maximize ROAS.', 
+    description: 'Data-driven media buying and targeted ad strategies designed to aggressively scale e-commerce ROAS.', 
     tags: ['PPC', 'Meta Ads', 'Google Ads'] 
   },
   { 
     id: 2, 
-    title: 'E-commerce Growth', 
+    title: 'E-commerce Catalog & Data Ops', 
     icon: Database, 
-    description: 'End-to-end catalog management, conversion rate optimization, and deep data hygiene to build scalable storefronts.', 
-    tags: ['CRO', 'Data Analytics', 'Catalog Ops'] 
+    description: 'Deep data hygiene, duplicate product identification, and automated CSV processing for massive WooCommerce storefronts.', 
+    tags: ['WooCommerce', 'Data Hygiene', 'Automation'] 
   },
   { 
     id: 3, 
     title: 'AI & Workflow Automation', 
     icon: Bot, 
-    description: 'Custom automated systems using n8n and Make, coupled with Python-driven data analysis to eliminate manual bottlenecks.', 
-    tags: ['n8n', 'Python', 'Process Automation'] 
+    description: 'Eliminate manual bottlenecks. We build custom integrations, migrate Make.com setups to n8n, and deploy Python scripts for seamless operations.', 
+    tags: ['n8n', 'Python', 'Make.com'] 
   }
 ];
 
 const ServicesGrid = () => {
   return (
-    <section className="py-32 bg-zinc-950">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-32 bg-zinc-950 relative overflow-hidden">
+      {/* Subtle Radial Gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-900/50 to-zinc-950 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="mb-20">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -60,10 +63,10 @@ const ServicesGrid = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group p-10 bg-zinc-900/40 border border-zinc-800/50 rounded-[2.5rem] hover:border-indigo-500/50 transition-all duration-500 flex flex-col h-full"
+              whileHover={{ y: -4 }}
+              className="group p-10 bg-zinc-900/40 backdrop-blur-lg border border-zinc-800 rounded-[2.5rem] hover:border-indigo-500/50 transition-all duration-300 flex flex-col h-full"
             >
-              <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center text-indigo-500 mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-500">
+              <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center text-indigo-500 mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
                 <service.icon className="w-7 h-7" />
               </div>
               

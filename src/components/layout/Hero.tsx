@@ -46,22 +46,22 @@ const Hero = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-400 text-xs font-medium mb-8"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-            AI. Simplified. Scaled.
+            AI Automation • Performance • Growth
           </motion.div>
 
           <motion.h1 
             variants={itemVariants}
             className="text-5xl md:text-8xl font-extrabold text-zinc-50 leading-[1.05] mb-8 tracking-tighter text-balance"
           >
-            Systems That Scale <br /> 
-            <span className="text-indigo-500">E-commerce Brands.</span>
+            Scale Your E-commerce. <br /> 
+            <span className="text-indigo-500">Automate The Rest.</span>
           </motion.h1>
 
           <motion.p 
             variants={itemVariants}
-            className="text-lg md:text-xl text-zinc-400 mb-12 max-w-2xl leading-relaxed"
+            className="text-lg md:text-xl text-zinc-400 mb-12 max-w-3xl leading-relaxed"
           >
-            We build the workflows, run the campaigns, and automate the manual tasks that turn your brand into a high-performance revenue engine.
+            Qala Labs builds custom n8n workflows, deploys Python-driven data analytics, and executes performance marketing to turn your brand into a seamless revenue engine.
           </motion.p>
 
           <motion.div 
@@ -73,7 +73,7 @@ const Hero = () => {
               asChild
             >
               <a href="#contact">
-                Scale Your Brand <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Book a Strategy Call <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
             <Button 
@@ -81,7 +81,7 @@ const Hero = () => {
               className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 px-8 py-7 rounded-2xl text-lg font-bold"
               asChild
             >
-              <a href="#work">Explore Our Work</a>
+              <a href="#tech-stack">View Our Tech Stack</a>
             </Button>
           </motion.div>
         </motion.div>

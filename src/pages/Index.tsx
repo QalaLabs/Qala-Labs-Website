@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Hero from '@/components/layout/Hero';
 import TechMarquee from '@/components/home/TechMarquee';
 import ServicesGrid from '@/components/home/ServicesGrid';
+import TechStack from '@/components/home/TechStack';
 import Portfolio from '@/components/home/Portfolio';
 import AboutFounder from '@/components/home/AboutFounder';
 import LeadForm from '@/components/home/LeadForm';
@@ -28,6 +29,8 @@ const Index = () => {
         <div id="services">
           <ServicesGrid />
         </div>
+
+        <TechStack />
         
         <div id="work">
           <Portfolio />
