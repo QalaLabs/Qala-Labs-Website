@@ -5,9 +5,10 @@ import Navbar from '@/components/layout/Navbar';
 import SEO from '@/components/layout/SEO';
 import ROICalculator from '@/components/tools/ROICalculator';
 import ProfitabilityEstimator from '@/components/tools/ProfitabilityEstimator';
+import LTVCalculator from '@/components/tools/LTVCalculator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
-import { Calculator, Target } from 'lucide-react';
+import { Calculator, Target, TrendingUp } from 'lucide-react';
 
 const Tools = () => {
   return (
@@ -29,33 +30,34 @@ const Tools = () => {
 
         <Tabs defaultValue="roi" className="w-full">
           <div className="flex justify-center mb-12">
-            <TabsList className="bg-white p-1 rounded-2xl border border-slate-200 shadow-sm h-auto">
-              <TabsTrigger value="roi" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2">
+            <TabsList className="bg-white p-1 rounded-2xl border border-slate-200 shadow-sm h-auto flex flex-wrap justify-center">
+              <TabsTrigger value="roi" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2 transition-all">
                 <Target className="w-4 h-4" /> ROI Calculator
               </TabsTrigger>
-              <TabsTrigger value="profit" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2">
+              <TabsTrigger value="profit" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2 transition-all">
                 <Calculator className="w-4 h-4" /> Profitability Estimator
+              </TabsTrigger>
+              <TabsTrigger value="ltv" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2 transition-all">
+                <TrendingUp className="w-4 h-4" /> LTV:CAC Unit Economics
               </TabsTrigger>
             </TabsList>
           </div>
 
           <TabsContent value="roi">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
               <ROICalculator />
             </motion.div>
           </TabsContent>
 
           <TabsContent value="profit">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
               <ProfitabilityEstimator />
+            </motion.div>
+          </TabsContent>
+
+          <TabsContent value="ltv">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <LTVCalculator />
             </motion.div>
           </TabsContent>
         </Tabs>

@@ -136,6 +136,7 @@ const PageEditor = () => {
       case 'kpi_grid': return { items: [{ label: 'Revenue', value: '₹10L' }, { label: 'Growth', value: '25%' }] };
       case 'team_grid': return { title: 'Our Team', members: [{ name: 'John Doe', role: 'CEO', desc: 'Founder of Qala Labs', image: '' }] };
       case 'faq': return { title: 'Frequently Asked Questions', items: [{ question: 'What is Qala Labs?', answer: 'A performance marketing agency.' }] };
+      case 'testimonial': return { quote: 'Qala Labs changed our business.', author: 'Happy Client', role: 'CEO, Founder' };
       case 'cta': return { title: 'Ready to scale?', description: 'Book your free audit today.', buttonText: 'Contact Us' };
       case 'image': return { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f', alt: 'Placeholder' };
       case 'video_upload': return { url: '', poster: '' };
@@ -304,6 +305,16 @@ const PageEditor = () => {
                   <div className="space-y-2"><Label>HTML Content</Label><Textarea value={selectedBlock.props.content} onChange={(e) => updateBlockProps(selectedBlock.id, { content: e.target.value })} className="min-h-[300px] font-mono text-xs rounded-xl" /></div>
                 )}
 
+                {selectedBlock?.type === 'testimonial' && (
+                  <>
+                    <div className="space-y-2"><Label>Quote</Label><Textarea value={selectedBlock.props.quote} onChange={(e) => updateBlockProps(selectedBlock.id, { quote: e.target.value })} className="rounded-xl" /></div>
+                    <div className="space-y-2"><Label>Author</Label><Input value={selectedBlock.props.author} onChange={(e) => updateBlockProps(selectedBlock.id, { author: e.target.value })} className="rounded-xl" /></div>
+                    <div className="space-y-2"><Label>Role</Label><Input value={selectedBlock.props.role} onChange={(e) => updateBlockProps(selectedBlock.id, { role: e.target.value })} className="rounded-xl" /></div>
+                    <div className="space-y-2"><Label>Avatar URL</Label><Input value={selectedBlock.props.avatar} onChange={(e) => updateBlockProps(selectedBlock.id, { avatar: e.target.value })} className="rounded-xl" /></div>
+                  </>
+                )}
+
+                {/* Keep existing block settings... */}
                 {selectedBlock?.type === 'team_grid' && (
                   <div className="space-y-4">
                     <Label>Section Title</Label>

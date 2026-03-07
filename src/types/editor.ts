@@ -8,7 +8,8 @@ export type BlockType =
   | 'kpi_grid' 
   | 'team_grid' 
   | 'faq' 
-  | 'cta';
+  | 'cta'
+  | 'testimonial';
 
 export interface Block {
   id: string;

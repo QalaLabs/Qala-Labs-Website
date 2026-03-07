@@ -3,7 +3,7 @@
 import React from 'react';
 import { 
   Type, Image as ImageIcon, Video, Youtube, Instagram, 
-  Layout, Users, HelpCircle, MousePointer2, BarChart3 
+  Layout, Users, HelpCircle, MousePointer2, BarChart3, Quote
 } from 'lucide-react';
 import { BlockType } from '@/types/editor';
 
@@ -20,6 +20,7 @@ const blockOptions = [
   { type: 'instagram_embed', label: 'Instagram Embed', icon: Instagram, category: 'Embeds' },
   { type: 'kpi_grid', label: 'KPI Grid', icon: BarChart3, category: 'Data' },
   { type: 'team_grid', label: 'Team Grid', icon: Users, category: 'Data' },
+  { type: 'testimonial', label: 'Testimonial', icon: Quote, category: 'Content' },
   { type: 'faq', label: 'FAQ Accordion', icon: HelpCircle, category: 'Content' },
   { type: 'cta', label: 'Call to Action', icon: MousePointer2, category: 'Layout' },
 ];

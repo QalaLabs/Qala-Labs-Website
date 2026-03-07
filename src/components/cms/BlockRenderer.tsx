@@ -4,6 +4,7 @@ import React from 'react';
 import Hero from '@/components/layout/Hero';
 import TeamGridBlock from '@/components/cms/blocks/TeamGridBlock';
 import FAQBlock from '@/components/cms/blocks/FAQBlock';
+import TestimonialBlock from '@/components/cms/blocks/TestimonialBlock';
 import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
@@ -54,6 +55,9 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
 
           case 'faq':
             return <FAQBlock key={block.id} {...block.props} />;
+
+          case 'testimonial':
+            return <TestimonialBlock key={block.id} {...block.props} />;
 
           case 'cta':
             return (
