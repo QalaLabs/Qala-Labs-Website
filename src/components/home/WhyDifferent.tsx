@@ -17,7 +17,7 @@ const WhyDifferent = () => {
             Why we're different
           </h2>
           <p className="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
-            We’re revenue engineers, not growth hackers. We pair rigorous research with hands-on execution so every experiment has a clear hypothesis, an attribution plan, and measurable revenue impact.
+            We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution so every experiment has a clear hypothesis, an attribution plan, and measurable revenue impact.
           </p>
         </motion.div>
       </div>

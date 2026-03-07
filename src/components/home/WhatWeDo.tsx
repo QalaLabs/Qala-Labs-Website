@@ -37,7 +37,10 @@ const WhatWeDo = () => {
     <section className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-16">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">What we do</h2>
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
+            What we do
+          </h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">What we do</h3>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (

@@ -32,7 +32,8 @@ const HowWeWork = () => {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">How we work</h2>
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">How We Work</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900">How we work</h3>
         </div>
         <div className="grid md:grid-cols-4 gap-8">
           {steps.map((step, i) => (

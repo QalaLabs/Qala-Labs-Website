@@ -20,7 +20,7 @@ const ClosingCTA = () => {
               Ready to scale without burning cash?
             </h2>
             <p className="text-xl text-blue-100 mb-12 leading-relaxed">
-              Book a 15-minute growth audit: we’ll send a custom 90-day opportunity plan with prioritized experiments.
+              Book a 15-minute growth audit: we'll send a custom 90-day opportunity plan with prioritized experiments.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button className="bg-white text-blue-600 hover:bg-slate-100 px-10 py-8 rounded-2xl text-xl font-black shadow-xl">

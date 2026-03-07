@@ -17,7 +17,7 @@ const Testimonial = () => {
           <Quote className="w-20 h-20 text-blue-600/5 absolute top-10 left-1/2 -translate-x-1/2" />
           <div className="relative z-10">
             <p className="text-2xl md:text-4xl font-black text-slate-900 mb-10 leading-tight">
-              “Qala Labs helped us scale to a six-figure monthly run-rate: fast, strategic, and data-driven.”
+              "Qala Labs helped us scale to a six-figure monthly run-rate: fast, strategic, and data-driven."
             </p>
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-slate-200 rounded-full mb-4 overflow-hidden">

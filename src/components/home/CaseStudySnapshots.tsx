@@ -37,7 +37,10 @@ const CaseStudySnapshots = () => {
     <section className="py-24 bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-6xl font-black mb-6">Case study snapshots</h2>
+          <h2 className="text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-4">
+            Case study snapshots
+          </h2>
+          <h3 className="text-4xl md:text-6xl font-black mb-6">Case study snapshots</h3>
         </div>
         <div className="grid lg:grid-cols-2 gap-12">
           {studies.map((study, i) => (

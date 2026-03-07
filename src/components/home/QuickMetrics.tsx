@@ -42,6 +42,12 @@ const QuickMetrics = () => {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
+        <div className="mb-16">
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
+            Recent Results
+          </h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">Recent Results</h3>
+        </div>
         <div className="grid gap-8">
           {metrics.map((item, i) => (
             <motion.div
@@ -62,7 +68,7 @@ const QuickMetrics = () => {
                     ))}
                   </div>
                 </CardContent>
-              </Card>
+ </Card>
             </motion.div>
           ))}
         </div>

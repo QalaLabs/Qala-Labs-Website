@@ -33,7 +33,8 @@ const FAQ = () => {
     <section className="py-24 bg-slate-50">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900">FAQ</h2>
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">FAQ</h2>
+          <h3 className="text-4xl font-black text-slate-900">FAQ</h3>
         </div>
         <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, i) => (

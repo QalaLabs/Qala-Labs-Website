@@ -33,7 +33,8 @@ const Team = () => {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">The Team</h2>
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">The Team</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">The Team</h3>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {members.map((member, i) => (
