@@ -1,9 +1,12 @@
+"use client";
+
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Check, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
+import SEO from '@/components/layout/SEO';
 
 const Pricing = () => {
   const tiers = [
@@ -55,21 +58,33 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-zinc-950 text-zinc-50">
+      <SEO title="Investment in Scale" description="No hidden fees. No fluff. Just performance-based pricing designed to align our success with your revenue growth." />
       <Navbar />
       
-      <main className="pt-32 pb-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight">
-              Investment in <span className="text-blue-600">Scale</span>.
+      <main className="pt-48 pb-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center max-w-3xl mx-auto mb-24"
+          >
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold mb-8 uppercase tracking-widest mx-auto"
+            >
+              Pricing
+            </motion.div>
+            <h1 className="text-5xl md:text-8xl font-extrabold text-zinc-50 mb-10 tracking-tighter leading-[1.05]">
+              Investment in <span className="text-indigo-500">Scale</span>.
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-zinc-400 leading-relaxed">
               No hidden fees. No fluff. Just performance-based pricing designed to align our success with your revenue growth.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
             {tiers.map((tier, i) => (
               <motion.div
                 key={i}
@@ -77,41 +92,43 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className={`relative p-10 rounded-[3rem] border ${
+                className={`relative p-12 rounded-[3.5rem] border transition-all duration-500 flex flex-col ${
                   tier.highlight 
-                    ? "bg-slate-900 text-white border-blue-600 shadow-2xl shadow-blue-200" 
-                    : "bg-white text-slate-900 border-slate-200"
+                    ? "bg-zinc-900 text-white border-indigo-500 shadow-2xl shadow-indigo-500/10 scale-105 z-10" 
+                    : "bg-zinc-900/40 text-zinc-50 border-zinc-800/50 hover:border-zinc-700"
                 }`}
               >
                 {tier.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-5xl font-black">{tier.price}</span>
-                  <span className={tier.highlight ? "text-slate-400" : "text-slate-500"}>{tier.period}</span>
+                <h3 className="text-2xl font-bold mb-4">{tier.name}</h3>
+                <div className="flex items-baseline gap-2 mb-8">
+                  <span className="text-6xl font-black tracking-tighter">{tier.price}</span>
+                  <span className={tier.highlight ? "text-zinc-400" : "text-zinc-500"}>{tier.period}</span>
                 </div>
-                <p className={`mb-8 leading-relaxed ${tier.highlight ? "text-slate-400" : "text-slate-600"}`}>
+                <p className={`mb-10 leading-relaxed text-lg ${tier.highlight ? "text-zinc-300" : "text-zinc-400"}`}>
                   {tier.description}
                 </p>
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-5 mb-12 flex-1">
                   {tier.features.map((feature, j) => (
-                    <li key={j} className="flex items-center gap-3">
-                      <Check className={`w-5 h-5 ${tier.highlight ? "text-blue-400" : "text-blue-600"}`} />
-                      <span className="font-medium">{feature}</span>
+                    <li key={j} className="flex items-center gap-4">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${tier.highlight ? "bg-indigo-500/20 text-indigo-400" : "bg-zinc-800 text-zinc-500"}`}>
+                        <Check className="w-4 h-4" />
+                      </div>
+                      <span className="font-bold text-zinc-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button 
-                  className={`w-full py-8 rounded-2xl text-lg font-bold ${
+                  className={`w-full py-10 rounded-2xl text-xl font-black transition-all group ${
                     tier.highlight 
-                      ? "bg-blue-600 hover:bg-blue-700 text-white" 
-                      : "bg-slate-100 hover:bg-slate-200 text-slate-900"
+                      ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-2xl shadow-indigo-500/20" 
+                      : "bg-zinc-800 hover:bg-zinc-700 text-zinc-100"
                   }`}
                 >
-                  {tier.cta} <ArrowRight className="ml-2 w-5 h-5" />
+                  {tier.cta} <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>
             ))}
