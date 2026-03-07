@@ -5,7 +5,7 @@ import {
   LayoutDashboard, Users, FileText, Settings, LogOut, 
   TrendingUp, Mail, Eye, CheckCircle2, Clock, Upload, Database,
   Search, Filter, MoreVertical, Download, X, BookOpen, Plus,
-  BarChart as BarChartIcon, Globe, Edit, Trash2
+  BarChart as BarChartIcon, Globe, Edit, Trash2, RefreshCcw
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -26,24 +26,15 @@ import { cn } from '@/lib/utils';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const [leads, setLeads] = React.useState<any[]>([]);
   const [pages, setPages] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [importing, setImporting] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedLead, setSelectedLead] = React.useState<any>(null);
 
-  React.useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate('/login'); return; }
-      fetchData();
-    };
-    checkAuth();
-  }, [navigate]);
-
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
+    setLoading(true);
     const [leadsRes, pagesRes] = await Promise.all([
       supabase.from('leads').select('*').order('created_at', { ascending: false }),
       supabase.from('pages').select('*').order('updated_at', { ascending: false })
@@ -52,7 +43,16 @@ const Admin = () => {
     if (!leadsRes.error) setLeads(leadsRes.data || []);
     if (!pagesRes.error) setPages(pagesRes.data || []);
     setLoading(false);
-  };
+  }, []);
+
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { navigate('/login'); return; }
+      fetchData();
+    };
+    checkAuth();
+  }, [navigate, fetchData]);
 
   const deletePage = async (id: string) => {
     if (!confirm("Are you sure you want to delete this page?")) return;
@@ -99,7 +99,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
-      <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full">
+      <aside className="w-64 bg-slate-900 text-white p-6 flex flex-col fixed h-full z-20">
         <div className="mb-10"><Logo variant="white" /></div>
         <nav className="space-y-2 flex-1">
           <Button variant="ghost" className="w-full justify-start gap-3 bg-blue-600/10 text-blue-400">
@@ -136,8 +136,8 @@ const Admin = () => {
             <Button onClick={() => navigate('/admin/pages')} variant="outline" className="bg-white border-slate-200 text-slate-600 rounded-lg gap-2">
               <Plus className="w-4 h-4" /> New Page
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-lg gap-2">
-              <TrendingUp className="w-4 h-4" /> View Analytics
+            <Button onClick={fetchData} variant="outline" className="bg-white border-slate-200 text-slate-600 rounded-lg">
+              <RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} />
             </Button>
           </div>
         </header>
@@ -233,6 +233,11 @@ const Admin = () => {
                         </td>
                       </tr>
                     ))}
+                    {filteredLeads.length === 0 && (
+                      <tr>
+                        <td colSpan={4} className="px-6 py-20 text-center text-slate-400">No leads found.</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -280,6 +285,18 @@ const Admin = () => {
                         </td>
                       </tr>
                     ))}
+                    {filteredPages.length === 0 && (
+                      <tr>
+                        <td colSpan={4} className="px-6 py-20 text-center">
+                          <div className="max-w-sm mx-auto">
+                            <p className="text-slate-400 font-medium mb-4">No dynamic pages found.</p>
+                            <Button onClick={() => navigate('/admin/pages')} size="sm" variant="outline" className="rounded-xl">
+                              Sync Site Routes
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
