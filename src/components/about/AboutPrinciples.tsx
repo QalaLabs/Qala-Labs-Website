@@ -45,34 +45,36 @@ const principles = [
 
 const AboutPrinciples = () => {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-16 text-center">
-          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">Our Culture</h2>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900">The Qala Principles</h3>
+    <section className="py-24 bg-zinc-950">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-20 text-center">
+          <h2 className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-4">Our Culture</h2>
+          <h3 className="text-4xl md:text-7xl font-extrabold text-zinc-50 tracking-tight">The Qala Principles</h3>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {principles.map((p, i) => (
             <motion.div
               key={i}
-              whileHover={{ y: -10 }}
-              className="group p-10 bg-slate-50 rounded-[3rem] border border-slate-100 hover:bg-slate-900 hover:text-white transition-all duration-500 relative overflow-hidden"
+              whileHover={{ y: -12 }}
+              className="group p-12 bg-zinc-900/40 backdrop-blur-xl rounded-[4rem] border border-zinc-800 hover:border-indigo-500/30 hover:bg-zinc-900 transition-all duration-500 relative overflow-hidden"
             >
-              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-blue-600 mb-8 group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
+              <div className="w-16 h-16 bg-zinc-950 rounded-2xl flex items-center justify-center text-indigo-500 mb-10 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-lg border border-zinc-800">
                 {p.icon}
               </div>
-              <h4 className="text-2xl font-bold mb-4">{p.title}</h4>
-              <p className="text-slate-500 group-hover:text-slate-400 leading-relaxed mb-8">
+              <h4 className="text-2xl font-black text-zinc-50 mb-6 tracking-tight">{p.title}</h4>
+              <p className="text-zinc-400 group-hover:text-zinc-300 leading-relaxed mb-10">
                 {p.desc}
               </p>
               
-              <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
-                  <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Insight</p>
-                  <p className="text-sm italic">{p.snippet}</p>
+              <div className="opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500">
+                <div className="p-6 bg-zinc-950 rounded-[2rem] border border-zinc-800 group-hover:border-indigo-500/20">
+                  <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2">Insight</p>
+                  <p className="text-sm italic text-zinc-400 leading-relaxed">"{p.snippet}"</p>
                 </div>
               </div>
+              
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-indigo-600/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
           ))}
         </div>
