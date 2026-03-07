@@ -145,8 +145,6 @@ const PageEditor = () => {
     }
   };
 
-  const selectedBlock = page.content.find(b => b.id === selectedBlockId);
-
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
@@ -154,6 +152,8 @@ const PageEditor = () => {
   );
 
   if (!page) return null;
+
+  const selectedBlock = page.content.find(b => b.id === selectedBlockId);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
