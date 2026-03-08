@@ -198,16 +198,13 @@ const PageEditor = () => {
         return { videoId: '' };
       case 'instagram_embed': 
         return { url: '' };
-      case 'tech_stack_ribbon':
-      case 'why_different':
-      case 'client_logos':
-      case 'quick_metrics':
-      case 'what_we_do':
-      case 'how_we_work':
-      case 'case_study_snapshots':
-      case 'research_insights':
       case 'closing_cta':
-        return {};
+        return {
+          title: "Ready to scale without burning cash?",
+          description: "Book a 15-minute growth audit: we'll send a custom 90-day opportunity plan with prioritized experiments.",
+          primaryCtaText: "Book Growth Audit",
+          secondaryCtaText: "Request Case Pack"
+        };
       default: 
         return {};
     }
@@ -610,88 +607,43 @@ const renderBlockSettings = (block: Block, onUpdate: (newProps: any) => void) =>
         </div>
       );
     
-    case 'kpi_grid':
-      return (
-        <div className="space-y-2">
-          <Label className="text-xs font-bold text-slate-500 uppercase">Metrics (JSON Array)</Label>
-          <Textarea 
-            value={JSON.stringify(props.items || [], null, 2)} 
-            onChange={(e) => {
-              try {
-                const parsed = JSON.parse(e.target.value);
-                onUpdate({ ...props, items: parsed });
-              } catch (err) {
-                // Invalid JSON, don't update
-              }
-            }}
-            className="rounded-xl min-h-[200px] font-mono text-xs"
-          />
-        </div>
-      );
-    
-    case 'youtube_embed':
-      return (
-        <div className="space-y-2">
-          <Label className="text-xs font-bold text-slate-500 uppercase">YouTube Video ID</Label>
-          <Input 
-            value={props.videoId || ''} 
-            onChange={(e) => onUpdate({ ...props, videoId: e.target.value })}
-            className="rounded-xl h-10"
-            placeholder="e.g., dQw4w9WgXcQ"
-          />
-        </div>
-      );
-    
-    case 'instagram_embed':
-      return (
-        <div className="space-y-2">
-          <Label className="text-xs font-bold text-slate-500 uppercase">Instagram Post URL</Label>
-          <Input 
-            value={props.url || ''} 
-            onChange={(e) => onUpdate({ ...props, url: e.target.value })}
-            className="rounded-xl h-10"
-            placeholder="https://www.instagram.com/p/..."
-          />
-        </div>
-      );
-    
-    case 'video_upload':
+    case 'closing_cta':
       return (
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-slate-500 uppercase">Video URL</Label>
+            <Label className="text-xs font-bold text-slate-500 uppercase">Headline</Label>
             <Input 
-              value={props.url || ''} 
-              onChange={(e) => onUpdate({ ...props, url: e.target.value })}
+              value={props.title || ''} 
+              onChange={(e) => onUpdate({ ...props, title: e.target.value })}
               className="rounded-xl h-10"
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-slate-500 uppercase">Poster Image URL (optional)</Label>
-            <Input 
-              value={props.poster || ''} 
-              onChange={(e) => onUpdate({ ...props, poster: e.target.value })}
-              className="rounded-xl h-10"
+            <Label className="text-xs font-bold text-slate-500 uppercase">Description</Label>
+            <Textarea 
+              value={props.description || ''} 
+              onChange={(e) => onUpdate({ ...props, description: e.target.value })}
+              className="rounded-xl min-h-[80px]"
             />
           </div>
-        </div>
-      );
-    
-    // For blocks that don't have editable props yet
-    case 'tech_stack_ribbon':
-    case 'why_different':
-    case 'client_logos':
-    case 'quick_metrics':
-    case 'what_we_do':
-    case 'how_we_work':
-    case 'case_study_snapshots':
-    case 'research_insights':
-    case 'closing_cta':
-      return (
-        <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
-          <p className="text-sm text-amber-800">
-            This block uses default content. To make it editable, we need to add custom props to the component.
-          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Primary CTA</Label>
+              <Input 
+                value={props.primaryCtaText || ''} 
+                onChange={(e) => onUpdate({ ...props, primaryCtaText: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Secondary CTA</Label>
+              <Input 
+                value={props.secondaryCtaText || ''} 
+                onChange={(e) => onUpdate({ ...props, secondaryCtaText: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+          </div>
         </div>
       );
     

@@ -167,7 +167,7 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
             return <ResearchInsights key={block.id} />;
           
           case 'closing_cta':
-            return <ClosingCTA key={block.id} />;
+            return <ClosingCTA key={block.id} {...block.props} />;
 
           default:
             return null;
