@@ -2,28 +2,43 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FileText, Image as ImageIcon, Settings, LogOut, BookOpen } from 'lucide-react';
+import { 
+  LayoutDashboard, 
+  FileText, 
+  Image as ImageIcon, 
+  Settings, 
+  LogOut, 
+  BookOpen,
+  Briefcase,
+  Trophy,
+  PenTool
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/layout/Logo';
+import { useAuth } from '@/context/AuthContext';
 
 const AdminSidebar = () => {
   const location = useLocation();
+  const { signOut } = useAuth();
   
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
-    { icon: FileText, label: 'Pages', href: '/admin/pages' },
-    { icon: ImageIcon, label: 'Media', href: '/admin/media' },
+    { icon: FileText, label: 'CMS Pages', href: '/admin/pages' },
+    { icon: Trophy, label: 'Case Studies', href: '/admin/case-studies' },
+    { icon: Briefcase, label: 'Portfolio', href: '/admin/portfolio' },
+    { icon: PenTool, label: 'Blog Posts', href: '/admin/blog' },
+    { icon: ImageIcon, label: 'Media Library', href: '/admin/media' },
     { icon: BookOpen, label: 'Editor Guide', href: '/admin/guide' },
     { icon: Settings, label: 'Settings', href: '/admin/settings' },
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen sticky top-0">
+    <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen sticky top-0 shrink-0">
       <div className="p-6 mb-6">
         <Logo variant="white" />
       </div>
       
-      <nav className="flex-1 px-4 space-y-1">
+      <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
           <Link
             key={item.href}
@@ -31,7 +46,7 @@ const AdminSidebar = () => {
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all",
               location.pathname === item.href 
-                ? "bg-blue-600 text-white" 
+                ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" 
                 : "text-slate-400 hover:text-white hover:bg-slate-800"
             )}
           >
@@ -42,7 +57,10 @@ const AdminSidebar = () => {
       </nav>
 
       <div className="p-4 border-t border-slate-800">
-        <button className="flex items-center gap-3 px-4 py-3 w-full text-sm font-bold text-red-400 hover:bg-red-900/20 rounded-xl transition-all">
+        <button 
+          onClick={() => signOut()}
+          className="flex items-center gap-3 px-4 py-3 w-full text-sm font-bold text-red-400 hover:bg-red-900/20 rounded-xl transition-all"
+        >
           <LogOut className="w-5 h-5" />
           Logout
         </button>

@@ -23,6 +23,9 @@ import PageList from "./pages/admin/PageList";
 import PageEditor from "./pages/admin/PageEditor";
 import MediaManager from "./pages/admin/MediaManager";
 import Settings from "./pages/admin/Settings";
+import CaseStudyManager from "./pages/admin/CaseStudyManager";
+import PortfolioManager from "./pages/admin/PortfolioManager";
+import BlogManager from "./pages/admin/BlogManager";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
@@ -56,12 +59,18 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/login" element={<Login />} />
+            
+            {/* Admin Routes */}
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/pages" element={<PageList />} />
             <Route path="/admin/editor/:id" element={<PageEditor />} />
+            <Route path="/admin/case-studies" element={<CaseStudyManager />} />
+            <Route path="/admin/portfolio" element={<PortfolioManager />} />
+            <Route path="/admin/blog" element={<BlogManager />} />
             <Route path="/admin/media" element={<MediaManager />} />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
+            
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/about" element={<About />} />
