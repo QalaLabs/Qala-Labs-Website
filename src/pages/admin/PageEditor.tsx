@@ -6,7 +6,7 @@ import {
   Save, Rocket, Eye, Plus, 
   Settings, ChevronLeft, Loader2,
   Layout, Trash2, Copy, Layers, X, List,
-  GripVertical
+  GripVertical, Check
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
@@ -27,20 +27,35 @@ const PageEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [page, setPage] = useState<Page | null>(null);
+  const [allCaseStudies, setAllCaseStudies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
 
-  const fetchPage = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     if (!id || id === 'new') { setLoading(false); return; }
     setLoading(true);
-    const { data, error } = await supabase.from('pages').select('*').eq('id', id).single();
-    if (error) { showError("Failed to load page"); navigate('/admin/pages'); }
-    else { setPage({ ...data, content: Array.isArray(data.content) ? data.content : [] }); }
+    
+    const [pageRes, studiesRes] = await Promise.all([
+      supabase.from('pages').select('*').eq('id', id).single(),
+      supabase.from('case_studies').select('id, title, category').order('created_at', { ascending: false })
+    ]);
+
+    if (pageRes.error) { 
+      showError("Failed to load page"); 
+      navigate('/admin/pages'); 
+    } else { 
+      setPage({ ...pageRes.data, content: Array.isArray(pageRes.data.content) ? pageRes.data.content : [] }); 
+    }
+
+    if (!studiesRes.error) {
+      setAllCaseStudies(studiesRes.data || []);
+    }
+    
     setLoading(false);
   }, [id, navigate]);
 
-  useEffect(() => { fetchPage(); }, [fetchPage]);
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const savePage = async (status?: 'draft' | 'published') => {
     if (!page) return;
@@ -98,7 +113,62 @@ const PageEditor = () => {
       case 'team_grid': return { title: 'Our Team', members: [{ name: 'Member', role: 'Role', desc: 'Desc', image: '' }] };
       case 'faq': return { title: 'FAQ', items: [{ question: 'Q?', answer: 'A.' }] };
       case 'testimonial': return { quote: 'Quote', author: 'Author', role: 'Role' };
+      case 'case_study_snapshots': return { studyIds: [] };
       default: return {};
+    }
+  };
+
+  const renderBlockSettings = (block: Block, onUpdate: (newProps: any) => void) => {
+    const props = block.props;
+    switch (block.type) {
+      case 'hero': return (
+        <div className="space-y-4">
+          <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Headline</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Subtitle</Label><Textarea value={props.subtitle || ''} onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">CTA Text</Label><Input value={props.ctaText || ''} onChange={(e) => onUpdate({ ...props, ctaText: e.target.value })} className="rounded-xl" /></div>
+        </div>
+      );
+      case 'team_grid': return (
+        <div className="space-y-4">
+          <div className="space-y-2"><Label className="text-xs font-bold">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold">Members (JSON Array)</Label><Textarea value={JSON.stringify(props.members || [], null, 2)} onChange={(e) => { try { onUpdate({ ...props, members: JSON.parse(e.target.value) }); } catch (e) {} }} className="font-mono text-[10px] min-h-[300px]" /></div>
+        </div>
+      );
+      case 'case_study_snapshots': return (
+        <div className="space-y-6">
+          <div>
+            <Label className="text-xs font-bold text-slate-400 uppercase mb-4 block">Select Case Studies</Label>
+            <p className="text-[10px] text-slate-400 mb-4 leading-tight italic">Pick specific stories to display. If none are selected, the latest 2 will show automatically.</p>
+            <div className="space-y-2">
+              {allCaseStudies.map(study => (
+                <button
+                  key={study.id}
+                  onClick={() => {
+                    const currentIds = props.studyIds || [];
+                    const newIds = currentIds.includes(study.id)
+                      ? currentIds.filter((id: string) => id !== study.id)
+                      : [...currentIds, study.id].slice(0, 2); // Max 2 for snapshots
+                    onUpdate({ ...props, studyIds: newIds });
+                  }}
+                  className={cn(
+                    "w-full text-left p-4 rounded-2xl border transition-all flex items-center justify-between group",
+                    props.studyIds?.includes(study.id) 
+                      ? "bg-blue-50 border-blue-200" 
+                      : "bg-white border-slate-100 hover:border-blue-100"
+                  )}
+                >
+                  <div>
+                    <p className="text-xs font-bold text-slate-900">{study.title}</p>
+                    <p className="text-[10px] text-slate-400">{study.category}</p>
+                  </div>
+                  {props.studyIds?.includes(study.id) && <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-white"><Check className="w-3 h-3" /></div>}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+      default: return <div className="p-6 bg-slate-50 rounded-2xl text-center"><p className="text-xs text-slate-400 font-bold">This section is automated based on global data or uses standard styling.</p></div>;
     }
   };
 
@@ -185,26 +255,6 @@ const PageEditor = () => {
       </div>
     </div>
   );
-};
-
-const renderBlockSettings = (block: Block, onUpdate: (newProps: any) => void) => {
-  const props = block.props;
-  switch (block.type) {
-    case 'hero': return (
-      <div className="space-y-4">
-        <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Headline</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
-        <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Subtitle</Label><Textarea value={props.subtitle || ''} onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })} className="rounded-xl" /></div>
-        <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">CTA Text</Label><Input value={props.ctaText || ''} onChange={(e) => onUpdate({ ...props, ctaText: e.target.value })} className="rounded-xl" /></div>
-      </div>
-    );
-    case 'team_grid': return (
-      <div className="space-y-4">
-        <div className="space-y-2"><Label className="text-xs font-bold">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} /></div>
-        <div className="space-y-2"><Label className="text-xs font-bold">Members (JSON Array)</Label><Textarea value={JSON.stringify(props.members || [], null, 2)} onChange={(e) => { try { onUpdate({ ...props, members: JSON.parse(e.target.value) }); } catch (e) {} }} className="font-mono text-[10px] min-h-[300px]" /></div>
-      </div>
-    );
-    default: return <div className="p-6 bg-slate-50 rounded-2xl text-center"><p className="text-xs text-slate-400 font-bold">This section is automated based on global data (Case Studies, Blog, etc.) or uses standard styling.</p></div>;
-  }
 };
 
 export default PageEditor;

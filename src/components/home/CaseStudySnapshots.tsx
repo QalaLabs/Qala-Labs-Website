@@ -7,23 +7,42 @@ import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
-const CaseStudySnapshots = () => {
+interface CaseStudySnapshotsProps {
+  studyIds?: string[];
+}
+
+const CaseStudySnapshots = ({ studyIds }: CaseStudySnapshotsProps) => {
   const [studies, setStudies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLatestStudies = async () => {
-      const { data, error } = await supabase
-        .from('case_studies')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(2);
+      setLoading(true);
+      let query = supabase.from('case_studies').select('*');
       
-      if (!error) setStudies(data || []);
+      if (studyIds && studyIds.length > 0) {
+        query = query.in('id', studyIds);
+      } else {
+        query = query.order('created_at', { ascending: false }).limit(2);
+      }
+      
+      const { data, error } = await query;
+      
+      if (!error && data) {
+        // If we have specific IDs, preserve the order they were provided in
+        if (studyIds && studyIds.length > 0) {
+          const orderedData = studyIds
+            .map(id => data.find(s => s.id === id))
+            .filter(Boolean);
+          setStudies(orderedData);
+        } else {
+          setStudies(data);
+        }
+      }
       setLoading(false);
     };
     fetchLatestStudies();
-  }, []);
+  }, [studyIds]);
 
   if (loading) {
     return (
@@ -40,12 +59,12 @@ const CaseStudySnapshots = () => {
           <h2 className="text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-4">
             Case study snapshots
           </h2>
-          <h3 className="text-4xl md:text-6xl font-black mb-6">Case study snapshots</h3>
+          <h3 className="text-4xl md:text-6xl font-black mb-6">Proven results</h3>
         </div>
         <div className="grid lg:grid-cols-2 gap-12">
           {studies.map((study, i) => (
             <motion.div
-              key={i}
+              key={study.id}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
