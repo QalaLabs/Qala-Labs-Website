@@ -8,7 +8,7 @@ import {
   TrendingUp, Mail, Eye, CheckCircle2, Database,
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
-  Loader2, FilterX, Star, Zap, ShieldAlert
+  Loader2, FilterX, Star, Zap, ShieldAlert, DatabaseBackup
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -45,12 +45,53 @@ const Admin = () => {
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
 
+  const seedDemoData = async () => {
+    const demoLeads = [
+      {
+        email: "john@glowskin.com",
+        tool_used: "roi_calculator",
+        data: {
+          name: "John Doe",
+          phone: "+919876543210",
+          service: "eCommerce Growth",
+          revenue: "50L+",
+          source_url: "https://qalalabs.com/tools",
+          status: "qualified",
+          utm_campaign: "google_search_brand",
+          timestamp: new Date().toISOString()
+        }
+      },
+      {
+        email: "jane@minimalist.in",
+        tool_used: "sticky_cta_microform",
+        data: {
+          name: "Jane Smith",
+          phone: "+919000000001",
+          service: "Performance Marketing",
+          budget: "15L-50L",
+          source_url: "https://qalalabs.com/case-studies/glowskin",
+          status: "new",
+          utm_campaign: "retargeting_meta",
+          timestamp: new Date().toISOString()
+        }
+      }
+    ];
+
+    const { error } = await supabase.from('leads').insert(demoLeads);
+    if (error) showError("Failed to seed data");
+    else {
+      showSuccess("Demo leads added to CRM!");
+      fetchData();
+    }
+  };
+
   const calculateScore = (lead: any) => {
     let score = 0;
-    const rev = lead.data?.revenue || lead.data?.budget || '';
+    const data = lead.data || {};
+    const rev = data.revenue || data.budget || '';
     if (rev.includes('50L+') || rev.includes('25L+')) score += 50;
     if (rev.includes('15L-50L') || rev.includes('5-25L')) score += 30;
-    if (lead.data?.service === 'eCommerce Growth' || lead.data?.service === 'Performance Marketing') score += 20;
+    if (data.service === 'eCommerce Growth' || data.service === 'Performance Marketing') score += 20;
     return score;
   };
 
@@ -61,6 +102,12 @@ const Admin = () => {
     const matchesStatus = filterStatus === 'all' || data.status === filterStatus;
     return matchesSearch && matchesService && matchesStatus;
   });
+
+  const sendWhatsApp = (phone: string) => {
+    if (!phone) return;
+    const cleanPhone = phone.replace(/\D/g, '');
+    window.open(`https://wa.me/${cleanPhone}?text=Hi! I'm from Qala Labs. Regarding your growth audit request...`, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
@@ -76,6 +123,19 @@ const Admin = () => {
       </aside>
 
       <main className="flex-1 ml-64 p-10">
+        <header className="flex justify-between items-center mb-10">
+          <div>
+            <h1 className="text-3xl font-black text-slate-900">CRM Intelligence</h1>
+            <p className="text-slate-500">Managing {leads.length} leads across your scale ecosystem.</p>
+          </div>
+          <div className="flex gap-4">
+            <Button onClick={seedDemoData} variant="outline" className="rounded-xl border-blue-200 text-blue-600 gap-2 font-bold">
+              <DatabaseBackup className="w-4 h-4" /> Seed Demo Data
+            </Button>
+            <Button onClick={fetchData} variant="outline" className="rounded-xl"><RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} /></Button>
+          </div>
+        </header>
+
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Total Prospects</p>
@@ -97,8 +157,15 @@ const Admin = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input placeholder="Search prospects..." className="pl-10 h-12 rounded-xl" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
-            <div className="flex gap-3">
-              <Button variant="outline" className="rounded-xl h-12" onClick={fetchData}><RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} /></Button>
+            <div className="flex gap-4">
+              <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterService} onChange={e => setFilterService(e.target.value)}>
+                <option value="all">All Services</option>
+                {services.map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+              <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+                <option value="all">All Statuses</option>
+                {statuses.map(s => <option key={s} value={s}>{s.toUpperCase()}</option>)}
+              </select>
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -121,6 +188,7 @@ const Admin = () => {
                         <div className="flex flex-col">
                           <span className="font-bold text-slate-900">{lead.data?.name || 'Anonymous'}</span>
                           <span className="text-xs text-slate-400">{lead.email}</span>
+                          <span className="text-[10px] text-blue-600 font-bold mt-1">{lead.data?.phone}</span>
                         </div>
                       </td>
                       <td className="px-8 py-6">
@@ -140,8 +208,8 @@ const Admin = () => {
                       </td>
                       <td className="px-8 py-6 text-right">
                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Button size="icon" variant="ghost" className="text-green-600"><MessageSquare className="w-4 h-4" /></Button>
-                          <Button size="icon" variant="ghost" className="text-blue-600"><Mail className="w-4 h-4" /></Button>
+                          <Button size="icon" variant="ghost" onClick={(e) => {e.stopPropagation(); sendWhatsApp(lead.data?.phone)}} className="text-green-600 hover:bg-green-50"><MessageSquare className="w-4 h-4" /></Button>
+                          <Button size="icon" variant="ghost" className="text-blue-600 hover:bg-blue-50"><Mail className="w-4 h-4" /></Button>
                         </div>
                       </td>
                     </tr>
@@ -164,7 +232,7 @@ const Admin = () => {
                     <Badge className="mt-2 bg-blue-600">ID: {selectedLead.id.split('-')[0]}</Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button className="bg-green-600 hover:bg-green-700 gap-2 px-6 rounded-xl h-12"><Phone className="w-4 h-4" /> WhatsApp</Button>
+                    <Button onClick={() => sendWhatsApp(selectedLead.data?.phone)} className="bg-green-600 hover:bg-green-700 gap-2 px-6 rounded-xl h-12"><Phone className="w-4 h-4" /> WhatsApp</Button>
                     <Button className="bg-blue-600 hover:bg-blue-700 gap-2 px-6 rounded-xl h-12"><Send className="w-4 h-4" /> Email</Button>
                   </div>
                 </div>
