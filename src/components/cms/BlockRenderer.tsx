@@ -7,6 +7,16 @@ import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import TechStackRibbon from '@/components/home/TechStackRibbon';
+import WhyDifferent from '@/components/home/WhyDifferent';
+import ClientLogos from '@/components/home/ClientLogos';
+import QuickMetrics from '@/components/home/QuickMetrics';
+import WhatWeDo from '@/components/home/WhatWeDo';
+import HowWeWork from '@/components/home/HowWeWork';
+import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
+import ResearchInsights from '@/components/home/ResearchInsights';
+import ClosingCTA from '@/components/home/ClosingCTA';
 
 export interface BlockRendererProps {
   blocks: Block[];
@@ -39,7 +49,7 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                     {block.props.items?.map((item: any, i: number) => (
                       <div key={i} className="p-8 bg-white rounded-[2rem] border border-slate-100 text-center shadow-sm">
                         <p className="text-4xl font-black text-slate-900 mb-2">{item.value}</p>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.label}</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest">{item.label}</p>
                       </div>
                     ))}
                   </div>
@@ -48,14 +58,20 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
             );
 
           case 'team_grid':
-            return <TeamGridBlock key={block.id} {...block.props} />;
-
+            return <TeamGridBlock key={block.id} title={block.props.title} members={block.props.members || []} />;
+          
           case 'faq':
-            return <FAQBlock key={block.id} {...block.props} />;
-
+            return <FAQBlock key={block.id} title={block.props.title} items={block.props.items || []} />;
+          
           case 'testimonial':
-            return <TestimonialBlock key={block.id} {...block.props} />;
-
+            return <TestimonialBlock 
+              key={block.id} 
+              quote={block.props.quote || ''} 
+              author={block.props.author || ''} 
+              role={block.props.role || ''} 
+              avatar={block.props.avatar} 
+            />;
+          
           case 'cta':
             return (
               <section key={block.id} className="py-24 bg-slate-900 text-white">
@@ -159,5 +175,6 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
       })}
     </div>
   );
+};
 
-  export default BlockRenderer;
+export default BlockRenderer;
