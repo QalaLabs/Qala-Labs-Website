@@ -70,19 +70,20 @@ const PageList = () => {
       { title: 'Pricing', slug: 'pricing', description: 'Flexible scaling plans.', content: [{ id: 'pr1', type: 'hero', props: { title: 'Pricing' } }] }
     ];
 
-    const toInsert = initialPages.map(p => ({
+    const toUpsert = initialPages.map(p => ({
       ...p,
       user_id: user.id,
       status: 'published',
       updated_at: new Date().toISOString()
     }));
 
-    const { error } = await supabase.from('pages').insert(toInsert);
+    // Using upsert with onConflict: 'slug' to avoid duplicate key errors
+    const { error } = await supabase.from('pages').upsert(toUpsert, { onConflict: 'slug' });
 
     if (error) {
       showError("Sync failed: " + error.message);
     } else {
-      showSuccess("All core routes synced to CMS");
+      showSuccess("All core routes synced successfully!");
       fetchPages();
     }
     setSyncing(false);
@@ -229,6 +230,13 @@ const PageList = () => {
                       </td>
                     </tr>
                   ))}
+                  {filteredPages.length === 0 && !loading && (
+                    <tr>
+                      <td colSpan={4} className="px-8 py-20 text-center text-slate-400 italic">
+                        No pages found. Click "Sync Core Routes" to import your site architecture.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
