@@ -10,10 +10,15 @@ import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-interface BlockRendererProps {
-  blocks: Block[];
-}
+import TechStackRibbon from '@/components/home/TechStackRibbon';
+import WhyDifferent from '@/components/home/WhyDifferent';
+import ClientLogos from '@/components/home/ClientLogos';
+import QuickMetrics from '@/components/home/QuickMetrics';
+import WhatWeDo from '@/components/home/WhatWeDo';
+import HowWeWork from '@/components/home/HowWeWork';
+import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
+import ResearchInsights from '@/components/home/ResearchInsights';
+import ClosingCTA from '@/components/home/ClosingCTA';
 
 const BlockRenderer = ({ blocks }: BlockRendererProps) => {
   if (!blocks || blocks.length === 0) return null;
@@ -127,6 +132,34 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
                 </div>
               </section>
             );
+
+          // New block types for full page editing
+          case 'tech_stack_ribbon':
+            return <TechStackRibbon key={block.id} />;
+          
+          case 'why_different':
+            return <WhyDifferent key={block.id} />;
+          
+          case 'client_logos':
+            return <ClientLogos key={block.id} />;
+          
+          case 'quick_metrics':
+            return <QuickMetrics key={block.id} />;
+          
+          case 'what_we_do':
+            return <WhatWeDo key={block.id} />;
+          
+          case 'how_we_work':
+            return <HowWeWork key={block.id} />;
+          
+          case 'case_study_snapshots':
+            return <CaseStudySnapshots key={block.id} />;
+          
+          case 'research_insights':
+            return <ResearchInsights key={block.id} />;
+          
+          case 'closing_cta':
+            return <ClosingCTA key={block.id} />;
 
           default:
             return null;

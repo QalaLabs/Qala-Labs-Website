@@ -9,20 +9,13 @@ export type BlockType =
   | 'team_grid' 
   | 'faq' 
   | 'cta'
-  | 'testimonial';
-
-export interface Block {
-  id: string;
-  type: BlockType;
-  props: any;
-}
-
-export interface Page {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  content: Block[];
-  status: 'draft' | 'published';
-  updated_at: string;
-}
+  | 'testimonial'
+  | 'tech_stack_ribbon'
+  | 'why_different'
+  | 'client_logos'
+  | 'quick_metrics'
+  | 'what_we_do'
+  | 'how_we_work'
+  | 'case_study_snapshots'
+  | 'research_insights'
+  | 'closing_cta';

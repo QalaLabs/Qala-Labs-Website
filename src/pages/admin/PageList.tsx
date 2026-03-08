@@ -54,36 +54,339 @@ const PageList = () => {
     if (!user) return;
     setSyncing(true);
     
-    const initialPages = [
-      { 
-        title: 'Home Page', 
-        slug: 'home', 
-        description: 'The main landing page for Qala Labs.',
+    // Define ALL pages with their complete block structure
+    const allPages = [
+      {
+        title: 'Home Page',
+        slug: 'home',
+        description: 'The main landing page for Qala Labs - full page builder with all sections.',
+        status: 'published',
         content: [
-          { id: 'h1', type: 'hero', props: { title: 'Scale Your DTC Brand to 8-Figures', subtitle: 'Performance marketing engineered for growth.' } }
+          // Hero Section
+          {
+            id: 'hero-1',
+            type: 'hero',
+            props: {
+              title: "Scale Your DTC Brand to 8-Figures with Data-Driven Creative.",
+              subtitle: "We combine high-performance paid media with high-converting creative to dominate your niche.",
+              ctaText: "Get Proposal",
+              ctaUrl: "/contact",
+              secondaryCtaText: "See Work",
+              secondaryCtaUrl: "/portfolio",
+              badgeText: "Generated ₹12Cr in 90 days for GlowSkin"
+            }
+          },
+          // Tech Stack Ribbon
+          {
+            id: 'tech-ribbon-1',
+            type: 'tech_stack_ribbon',
+            props: {}
+          },
+          // Why Different
+          {
+            id: 'why-diff-1',
+            type: 'why_different',
+            props: {}
+          },
+          // Client Logos
+          {
+            id: 'client-logos-1',
+            type: 'client_logos',
+            props: {}
+          },
+          // Quick Metrics
+          {
+            id: 'quick-metrics-1',
+            type: 'quick_metrics',
+            props: {}
+          },
+          // What We Do
+          {
+            id: 'what-we-do-1',
+            type: 'what_we_do',
+            props: {}
+          },
+          // How We Work
+          {
+            id: 'how-we-work-1',
+            type: 'how_we_work',
+            props: {}
+          },
+          // Case Study Snapshots
+          {
+            id: 'case-snapshots-1',
+            type: 'case_study_snapshots',
+            props: {}
+          },
+          // Research Insights
+          {
+            id: 'research-1',
+            type: 'research_insights',
+            props: {}
+          },
+          // Testimonial
+          {
+            id: 'testimonial-1',
+            type: 'testimonial',
+            props: {
+              quote: "Qala Labs helped us scale to a six-figure monthly run-rate: fast, strategic, and data-driven.",
+              author: "CEO, Gaffar India",
+              role: "CEO",
+              avatar: "https://i.pravatar.cc/100?img=12"
+            }
+          },
+          // Team Grid
+          {
+            id: 'team-1',
+            type: 'team_grid',
+            props: {
+              title: "The Team",
+              members: [
+                {
+                  name: "Aashirwad",
+                  role: "Performance Marketing & Growth Strategy",
+                  desc: "Data-first paid media, experiment design, and scaling playbooks.",
+                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+                  linkedin: "#"
+                },
+                {
+                  name: "Dipika",
+                  role: "Ecommerce Scaling",
+                  desc: "Listing optimization, retention engineering, and lifecycle flows.",
+                  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+                  linkedin: "#"
+                },
+                {
+                  name: "Aryaman",
+                  role: "Creator & Creative Management",
+                  desc: "Creator programs, UGC production, and cross-platform distribution.",
+                  image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+                  linkedin: "#"
+                }
+              ]
+            }
+          },
+          // FAQ
+          {
+            id: 'faq-1',
+            type: 'faq',
+            props: {
+              title: "FAQ",
+              items: [
+                { question: "Who do you work with?", answer: "DTC and ecommerce brands ready to scale with ad spend and product-market fit." },
+                { question: "How quickly can we see results?", answer: "Signals in 30 days; meaningful scale in 60–120 days." },
+                { question: "Do you run Amazon & Shopify?", answer: "Yes: we run marketplace and direct-to-consumer growth programs." },
+                { question: "What do you measure?", answer: "Revenue, CAC, ROAS, AOV, LTV and retention velocity." }
+              ]
+            }
+          },
+          // Closing CTA
+          {
+            id: 'closing-cta-1',
+            type: 'closing_cta',
+            props: {}
+          }
         ]
       },
-      { title: 'About Us', slug: 'about', description: 'Our team, principles, and roadmap.', content: [{ id: 'a1', type: 'hero', props: { title: 'About Qala Labs' } }] },
-      { title: 'Services', slug: 'services', description: 'Our growth capabilities.', content: [{ id: 's1', type: 'hero', props: { title: 'Our Services' } }] },
-      { title: 'Portfolio', slug: 'portfolio', description: 'Our creative work.', content: [{ id: 'p1', type: 'hero', props: { title: 'Our Work' } }] },
-      { title: 'Case Studies', slug: 'case-studies', description: 'Our proven results.', content: [{ id: 'c1', type: 'hero', props: { title: 'Case Studies' } }] },
-      { title: 'Pricing', slug: 'pricing', description: 'Flexible scaling plans.', content: [{ id: 'pr1', type: 'hero', props: { title: 'Pricing' } }] }
+      {
+        title: 'About Us',
+        slug: 'about',
+        description: 'Our team, principles, and roadmap.',
+        status: 'published',
+        content: [
+          {
+            id: 'about-hero',
+            type: 'hero',
+            props: {
+              title: 'About Qala Labs',
+              subtitle: 'We build predictable revenue engines for ecommerce.',
+              ctaText: 'Book Audit',
+              ctaUrl: '/contact',
+              badgeText: 'Performance marketing, AI automation, conversion-first sites and creator programs.'
+            }
+          },
+          {
+            id: 'about-kpis',
+            type: 'quick_metrics',
+            props: {}
+          },
+          {
+            id: 'about-principles',
+            type: 'why_different',
+            props: {
+              title: 'The Qala Principles',
+              content: 'Our core values that drive every decision.'
+            }
+          },
+          {
+            id: 'about-process',
+            type: 'how_we_work',
+            props: {
+              title: 'How We Work',
+              steps: [
+                { title: "Audit & Hypothesis", range: "Week 0", desc: "Deep stack audit: measurement, creative, funnels, and ops.", example: "Identified 30% data loss in browser-based tracking.", icon: "Search" },
+                { title: "Rapid Experiments", range: "Weeks 1–4", desc: "Creative, funnel, and pricing tests to find scalable winners.", example: "Tested 12 hooks; found 2 that lowered CPA by 35%.", icon: "Zap" },
+                { title: "Automation & Scale", range: "Weeks 4–12", desc: "Build AI flows, server events, and scale predictable winners.", example: "Deployed server-side GTM and automated bid rules.", icon: "Rocket" },
+                { title: "Retention & Ops", range: "Ongoing", desc: "Lock in LTV gains through lifecycle and creator programs.", example: "Increased repeat purchase rate by 22% via AI flows.", icon: "ShieldCheck" }
+              ]
+            }
+          },
+          {
+            id: 'about-platform',
+            type: 'tech_stack_ribbon',
+            props: {}
+          },
+          {
+            id: 'about-research',
+            type: 'research_insights',
+            props: {}
+          },
+          {
+            id: 'about-team',
+            type: 'team_grid',
+            props: {}
+          },
+          {
+            id: 'about-faq',
+            type: 'faq',
+            props: {}
+          },
+          {
+            id: 'about-cta',
+            type: 'closing_cta',
+            props: {}
+          }
+        ]
+      },
+      {
+        title: 'Services',
+        slug: 'services',
+        description: 'Our growth capabilities.',
+        status: 'published',
+        content: [
+          {
+            id: 'services-hero',
+            type: 'hero',
+            props: {
+              title: 'Precision Growth Infrastructure.',
+              subtitle: 'We don\'t just "run ads." We build end-to-end revenue engines that combine high-velocity creative testing with server-side tracking and aggressive media buying.',
+              ctaText: 'Book Audit',
+              ctaUrl: '/contact'
+            }
+          },
+          {
+            id: 'services-grid',
+            type: 'what_we_do',
+            props: {}
+          }
+        ]
+      },
+      {
+        title: 'Portfolio',
+        slug: 'portfolio',
+        description: 'Our creative work.',
+        status: 'published',
+        content: [
+          {
+            id: 'portfolio-hero',
+            type: 'hero',
+            props: {
+              title: 'The Creative Edge.',
+              subtitle: 'From the #WhistlePodu army for CSK to high-ticket real estate lead generation, we deploy creative that doesn\'t just look good—it converts.',
+              ctaText: 'View Our Work',
+              ctaUrl: '/portfolio'
+            }
+          },
+          {
+            id: 'portfolio-grid',
+            type: 'case_study_snapshots',
+            props: {}
+          }
+        ]
+      },
+      {
+        title: 'Case Studies',
+        slug: 'case-studies',
+        description: 'Our proven results.',
+        status: 'published',
+        content: [
+          {
+            id: 'case-hero',
+            type: 'hero',
+            props: {
+              title: 'Proven Results.',
+              subtitle: 'We don\'t just promise growth. We deliver it. Explore our 8-figure success stories and the data behind them.',
+              ctaText: 'Book Your Free Audit',
+              ctaUrl: '/contact'
+            }
+          },
+          {
+            id: 'case-grid',
+            type: 'case_study_snapshots',
+            props: {}
+          },
+          {
+            id: 'case-cta',
+            type: 'closing_cta',
+            props: {
+              title: 'Ready for these results?',
+              description: 'Join the 1% of brands that dominate their niche with data-driven performance.'
+            }
+          }
+        ]
+      },
+      {
+        title: 'Pricing',
+        slug: 'pricing',
+        description: 'Flexible scaling plans.',
+        status: 'published',
+        content: [
+          {
+            id: 'pricing-hero',
+            type: 'hero',
+            props: {
+              title: 'Investment in Scale.',
+              subtitle: 'No hidden fees. No fluff. Just performance-based pricing designed to align our success with your revenue growth.',
+              ctaText: 'Get Started',
+              ctaUrl: '/contact'
+            }
+          },
+          {
+            id: 'pricing-grid',
+            type: 'kpi_grid',
+            props: {
+              items: [
+                { label: 'Growth Engine', value: '₹1.5L/mo' },
+                { label: 'Market Dominator', value: '₹3.5L/mo' },
+                { label: 'Enterprise', value: 'Custom' }
+              ]
+            }
+          },
+          {
+            id: 'pricing-cta',
+            type: 'closing_cta',
+            props: {
+              title: 'Ready to invest in scale?',
+              description: 'Choose the plan that matches your growth ambition.'
+            }
+          }
+        ]
+      }
     ];
 
-    const toUpsert = initialPages.map(p => ({
+    const toUpsert = allPages.map(p => ({
       ...p,
       user_id: user.id,
-      status: 'published',
       updated_at: new Date().toISOString()
     }));
 
-    // Using upsert with onConflict: 'slug' to avoid duplicate key errors
+    // Use upsert to avoid duplicate key errors
     const { error } = await supabase.from('pages').upsert(toUpsert, { onConflict: 'slug' });
 
     if (error) {
       showError("Sync failed: " + error.message);
     } else {
-      showSuccess("All core routes synced successfully!");
+      showSuccess("All core pages synced with full block structure!");
       fetchPages();
     }
     setSyncing(false);
@@ -146,7 +449,7 @@ const PageList = () => {
                 className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 hover:bg-blue-50 font-bold"
               >
                 <RefreshCcw className={cn("w-5 h-5 mr-2", syncing && "animate-spin")} />
-                Sync Core Routes
+                Sync All Pages
               </Button>
             )}
             <Button onClick={createPage} disabled={tableMissing} className="bg-blue-600 hover:bg-blue-700 rounded-xl px-6 py-6 font-black">
@@ -189,6 +492,7 @@ const PageList = () => {
                   <tr>
                     <th className="px-8 py-4">Page Title</th>
                     <th className="px-8 py-4">Slug</th>
+                    <th className="px-8 py-4">Blocks</th>
                     <th className="px-8 py-4">Status</th>
                     <th className="px-8 py-4 text-right">Actions</th>
                   </tr>
@@ -206,6 +510,11 @@ const PageList = () => {
                         <code className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">/p/{page.slug}</code>
                       </td>
                       <td className="px-8 py-6">
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-600 border-none">
+                          {page.content?.length || 0} blocks
+                        </Badge>
+                      </td>
+                      <td className="px-8 py-6">
                         <Badge className={cn(
                           "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest border-none",
                           page.status === 'published' ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
@@ -220,7 +529,7 @@ const PageList = () => {
                           </Button>
                           <Button variant="ghost" size="icon" asChild>
                             <a href={`/p/${page.slug}`} target="_blank" rel="noopener noreferrer">
-                              <Globe className="w-4 h-4" />
+                              <Eye className="w-4 h-4" />
                             </a>
                           </Button>
                           <Button variant="ghost" size="icon" className="text-red-500" onClick={() => deletePage(page.id)}>
@@ -232,8 +541,8 @@ const PageList = () => {
                   ))}
                   {filteredPages.length === 0 && !loading && (
                     <tr>
-                      <td colSpan={4} className="px-8 py-20 text-center text-slate-400 italic">
-                        No pages found. Click "Sync Core Routes" to import your site architecture.
+                      <td colSpan={5} className="px-8 py-20 text-center text-slate-400 italic">
+                        No pages found. Click "Sync All Pages" to import your site architecture.
                       </td>
                     </tr>
                   )}
