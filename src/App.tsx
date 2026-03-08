@@ -24,8 +24,11 @@ import PageEditor from "./pages/admin/PageEditor";
 import MediaManager from "./pages/admin/MediaManager";
 import Settings from "./pages/admin/Settings";
 import CaseStudyManager from "./pages/admin/CaseStudyManager";
+import CaseStudyEditor from "./pages/admin/CaseStudyEditor";
 import PortfolioManager from "./pages/admin/PortfolioManager";
+import PortfolioEditor from "./pages/admin/PortfolioEditor";
 import BlogManager from "./pages/admin/BlogManager";
+import BlogEditor from "./pages/admin/BlogEditor";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
@@ -64,9 +67,19 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/pages" element={<PageList />} />
             <Route path="/admin/editor/:id" element={<PageEditor />} />
+            
             <Route path="/admin/case-studies" element={<CaseStudyManager />} />
+            <Route path="/admin/case-studies/new" element={<CaseStudyEditor />} />
+            <Route path="/admin/case-studies/edit/:id" element={<CaseStudyEditor />} />
+            
             <Route path="/admin/portfolio" element={<PortfolioManager />} />
+            <Route path="/admin/portfolio/new" element={<PortfolioEditor />} />
+            <Route path="/admin/portfolio/edit/:id" element={<PortfolioEditor />} />
+            
             <Route path="/admin/blog" element={<BlogManager />} />
+            <Route path="/admin/blog/new" element={<BlogEditor />} />
+            <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
+            
             <Route path="/admin/media" element={<MediaManager />} />
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
