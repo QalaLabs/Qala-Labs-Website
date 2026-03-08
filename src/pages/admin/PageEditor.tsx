@@ -6,7 +6,7 @@ import {
   Save, Rocket, Eye, Plus, 
   Settings, ChevronLeft, Loader2,
   Layout, Trash2, Copy, Layers, X, List,
-  GripVertical, Check
+  GripVertical, Check, Linkedin, User, Globe, MessageSquare
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
@@ -110,9 +110,12 @@ const PageEditor = () => {
     switch (type) {
       case 'hero': return { title: 'New Hero', subtitle: 'Subtitle', ctaText: 'Get Started', ctaUrl: '#' };
       case 'rich_text': return { content: '<h2>New Section</h2><p>Content...</p>' };
-      case 'team_grid': return { title: 'Our Team', members: [{ name: 'Member', role: 'Role', desc: 'Desc', image: '' }] };
+      case 'team_grid': return { title: 'Our Team', members: [] };
+      case 'how_we_work': return { title: 'How we work', steps: [] };
+      case 'what_we_do': return { title: 'What we do', services: [] };
       case 'faq': return { title: 'FAQ', items: [{ question: 'Q?', answer: 'A.' }] };
       case 'testimonial': return { quote: 'Quote', author: 'Author', role: 'Role' };
+      case 'closing_cta': return { title: 'Ready to scale?', description: 'Let\'s talk strategy.' };
       case 'case_study_snapshots': return { studyIds: [] };
       default: return {};
     }
@@ -129,9 +132,94 @@ const PageEditor = () => {
         </div>
       );
       case 'team_grid': return (
+        <div className="space-y-6">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-4">
+            <Label className="text-xs font-bold uppercase">Team Members</Label>
+            {(props.members || []).map((m: any, i: number) => (
+              <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3 relative group">
+                <button onClick={() => {
+                  const newMembers = props.members.filter((_: any, idx: number) => idx !== i);
+                  onUpdate({ ...props, members: newMembers });
+                }} className="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="w-4 h-4" /></button>
+                <div className="space-y-1"><Label className="text-[10px]">Name</Label><Input value={m.name} onChange={e => {
+                  const newMembers = [...props.members]; newMembers[i].name = e.target.value; onUpdate({...props, members: newMembers});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">Role</Label><Input value={m.role} onChange={e => {
+                  const newMembers = [...props.members]; newMembers[i].role = e.target.value; onUpdate({...props, members: newMembers});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">Image URL</Label><Input value={m.image} onChange={e => {
+                  const newMembers = [...props.members]; newMembers[i].image = e.target.value; onUpdate({...props, members: newMembers});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">LinkedIn</Label><Input value={m.linkedin} onChange={e => {
+                  const newMembers = [...props.members]; newMembers[i].linkedin = e.target.value; onUpdate({...props, members: newMembers});
+                }} className="h-8 text-xs rounded-lg" /></div>
+              </div>
+            ))}
+            <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => onUpdate({ ...props, members: [...(props.members || []), { name: 'New Name', role: 'Founder', desc: '', image: '', linkedin: '#' }] })}><Plus className="w-4 h-4 mr-2" /> Add Member</Button>
+          </div>
+        </div>
+      );
+      case 'how_we_work': return (
+        <div className="space-y-6">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase text-slate-400">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-4">
+            <Label className="text-xs font-bold uppercase text-slate-400">Roadmap Steps</Label>
+            {(props.steps || []).map((s: any, i: number) => (
+              <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3 relative group">
+                <button onClick={() => {
+                  const newSteps = props.steps.filter((_: any, idx: number) => idx !== i);
+                  onUpdate({ ...props, steps: newSteps });
+                }} className="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="w-4 h-4" /></button>
+                <div className="space-y-1"><Label className="text-[10px]">Step Title</Label><Input value={s.title} onChange={e => {
+                  const newSteps = [...props.steps]; newSteps[i].title = e.target.value; onUpdate({...props, steps: newSteps});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">Description</Label><Textarea value={s.desc} onChange={e => {
+                  const newSteps = [...props.steps]; newSteps[i].desc = e.target.value; onUpdate({...props, steps: newSteps});
+                }} className="text-xs rounded-lg min-h-[60px]" /></div>
+              </div>
+            ))}
+            <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => onUpdate({ ...props, steps: [...(props.steps || []), { title: 'New Phase', desc: 'Description of the process.' }] })}><Plus className="w-4 h-4 mr-2" /> Add Step</Button>
+          </div>
+        </div>
+      );
+      case 'what_we_do': return (
+        <div className="space-y-6">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase text-slate-400">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-4">
+            <Label className="text-xs font-bold uppercase text-slate-400">Services</Label>
+            {(props.services || []).map((s: any, i: number) => (
+              <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3 relative group">
+                <button onClick={() => {
+                  const newS = props.services.filter((_: any, idx: number) => idx !== i);
+                  onUpdate({ ...props, services: newS });
+                }} className="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="w-4 h-4" /></button>
+                <div className="space-y-1"><Label className="text-[10px]">Service Title</Label><Input value={s.title} onChange={e => {
+                  const newS = [...props.services]; newS[i].title = e.target.value; onUpdate({...props, services: newS});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">Description</Label><Textarea value={s.desc} onChange={e => {
+                  const newS = [...props.services]; newS[i].desc = e.target.value; onUpdate({...props, services: newS});
+                }} className="text-xs rounded-lg min-h-[60px]" /></div>
+              </div>
+            ))}
+            <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => onUpdate({ ...props, services: [...(props.services || []), { title: 'Service Name', desc: 'Explanation.' }] })}><Plus className="w-4 h-4 mr-2" /> Add Service</Button>
+          </div>
+        </div>
+      );
+      case 'closing_cta': return (
         <div className="space-y-4">
-          <div className="space-y-2"><Label className="text-xs font-bold">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} /></div>
-          <div className="space-y-2"><Label className="text-xs font-bold">Members (JSON Array)</Label><Textarea value={JSON.stringify(props.members || [], null, 2)} onChange={(e) => { try { onUpdate({ ...props, members: JSON.parse(e.target.value) }); } catch (e) {} }} className="font-mono text-[10px] min-h-[300px]" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Headline</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Description</Label><Textarea value={props.description || ''} onChange={(e) => onUpdate({ ...props, description: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Primary Button</Label><Input value={props.primaryCtaText || ''} onChange={(e) => onUpdate({ ...props, primaryCtaText: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Secondary Button</Label><Input value={props.secondaryCtaText || ''} onChange={(e) => onUpdate({ ...props, secondaryCtaText: e.target.value })} className="rounded-xl" /></div>
+        </div>
+      );
+      case 'testimonial': return (
+        <div className="space-y-4">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Quote</Label><Textarea value={props.quote || ''} onChange={(e) => onUpdate({ ...props, quote: e.target.value })} className="rounded-xl min-h-[100px]" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Author</Label><Input value={props.author || ''} onChange={(e) => onUpdate({ ...props, author: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Role</Label><Input value={props.role || ''} onChange={(e) => onUpdate({ ...props, role: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Avatar URL</Label><Input value={props.avatar || ''} onChange={(e) => onUpdate({ ...props, avatar: e.target.value })} className="rounded-xl" /></div>
         </div>
       );
       case 'case_study_snapshots': return (
@@ -168,7 +256,7 @@ const PageEditor = () => {
           </div>
         </div>
       );
-      default: return <div className="p-6 bg-slate-50 rounded-2xl text-center"><p className="text-xs text-slate-400 font-bold">This section is automated based on global data or uses standard styling.</p></div>;
+      default: return <div className="p-6 bg-slate-50 rounded-2xl text-center"><p className="text-xs text-slate-400 font-bold">This section is standard or uses automated styling.</p></div>;
     }
   };
 

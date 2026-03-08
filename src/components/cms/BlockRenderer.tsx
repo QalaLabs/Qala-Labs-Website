@@ -17,6 +17,8 @@ import HowWeWork from '@/components/home/HowWeWork';
 import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
 import ResearchInsights from '@/components/home/ResearchInsights';
 import ClosingCTA from '@/components/home/ClosingCTA';
+import Team from '@/components/home/Team';
+import FAQ from '@/components/home/FAQ';
 
 export interface BlockRendererProps {
   blocks: Block[];
@@ -58,10 +60,10 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
             );
 
           case 'team_grid':
-            return <TeamGridBlock key={block.id} title={block.props.title} members={block.props.members || []} />;
+            return <Team key={block.id} {...block.props} />;
           
           case 'faq':
-            return <FAQBlock key={block.id} title={block.props.title} items={block.props.items || []} />;
+            return <FAQ key={block.id} {...block.props} />;
           
           case 'testimonial':
             return <TestimonialBlock 
@@ -129,10 +131,10 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
             return <QuickMetrics key={block.id} />;
           
           case 'what_we_do':
-            return <WhatWeDo key={block.id} />;
+            return <WhatWeDo key={block.id} {...block.props} />;
           
           case 'how_we_work':
-            return <HowWeWork key={block.id} />;
+            return <HowWeWork key={block.id} {...block.props} />;
           
           case 'case_study_snapshots':
             return <CaseStudySnapshots key={block.id} studyIds={block.props.studyIds} />;
