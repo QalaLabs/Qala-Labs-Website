@@ -3,7 +3,9 @@
 import React from 'react';
 import { 
   Type, Image as ImageIcon, Video, Youtube, Instagram, 
-  Layout, Users, HelpCircle, MousePointer2, BarChart3, Quote
+  Layout, Users, HelpCircle, MousePointer2, BarChart3, Quote,
+  Zap, Target, Globe2, Search, Database, Rocket,
+  BookOpen, FileText, Layers, Eye, ShieldCheck
 } from 'lucide-react';
 import { BlockType } from '@/types/editor';
 
@@ -12,6 +14,7 @@ interface BlockPickerProps {
 }
 
 const blockOptions = [
+  // Core blocks
   { type: 'hero', label: 'Hero Section', icon: Layout, category: 'Layout' },
   { type: 'rich_text', label: 'Rich Text', icon: Type, category: 'Content' },
   { type: 'image', label: 'Single Image', icon: ImageIcon, category: 'Media' },
@@ -23,6 +26,17 @@ const blockOptions = [
   { type: 'testimonial', label: 'Testimonial', icon: Quote, category: 'Content' },
   { type: 'faq', label: 'FAQ Accordion', icon: HelpCircle, category: 'Content' },
   { type: 'cta', label: 'Call to Action', icon: MousePointer2, category: 'Layout' },
+  
+  // Homepage-specific blocks
+  { type: 'tech_stack_ribbon', label: 'Tech Stack Ribbon', icon: Layers, category: 'Home' },
+  { type: 'why_different', label: 'Why Different', icon: Eye, category: 'Home' },
+  { type: 'client_logos', label: 'Client Logos', icon: Globe2, category: 'Home' },
+  { type: 'quick_metrics', label: 'Quick Metrics', icon: BarChart3, category: 'Home' },
+  { type: 'what_we_do', label: 'What We Do', icon: Zap, category: 'Home' },
+  { type: 'how_we_work', label: 'How We Work', icon: Search, category: 'Home' },
+  { type: 'case_study_snapshots', label: 'Case Study Snapshots', icon: Target, category: 'Home' },
+  { type: 'research_insights', label: 'Research Insights', icon: BookOpen, category: 'Home' },
+  { type: 'closing_cta', label: 'Closing CTA', icon: FileText, category: 'Home' },
 ];
 
 const BlockPicker = ({ onSelect }: BlockPickerProps) => {
