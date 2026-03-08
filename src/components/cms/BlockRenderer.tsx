@@ -98,22 +98,6 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
               </section>
             );
 
-          case 'video_upload':
-            return (
-              <section key={block.id} className="py-12 bg-white">
-                <div className="max-w-7xl mx-auto px-4">
-                  <div className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900 aspect-video">
-                    <video 
-                      src={block.props.url} 
-                      controls 
-                      className="w-full h-full object-cover"
-                      poster={block.props.poster}
-                    />
-                  </div>
-                </div>
-              </section>
-            );
-
           case 'youtube_embed':
             return (
               <section key={block.id} className="py-12 bg-white">
@@ -132,16 +116,6 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
               </section>
             );
 
-          case 'instagram_embed':
-            return (
-              <section key={block.id} className="py-12 bg-white">
-                <div className="max-w-xl mx-auto px-4">
-                  <InstagramEmbed url={block.props.url} />
-                </div>
-              </section>
-            );
-
-          // New block types for full page editing
           case 'tech_stack_ribbon':
             return <TechStackRibbon key={block.id} />;
           
