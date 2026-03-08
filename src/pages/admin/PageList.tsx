@@ -34,9 +34,10 @@ const PageList = () => {
     
     if (error) {
       console.error("Fetch Error:", error);
-      if (error.code === 'PGRST116' || error.message.includes('not found')) {
+      // Code 42P01 means 'relation does not exist' in Postgres
+      if (error.code === '42P01' || error.message.includes('not found')) {
         setTableMissing(true);
-        showError("The 'pages' table is missing. Please run the SQL migration.");
+        showError("The 'pages' table is missing. Ensure you ran the SQL migration.");
       } else {
         showError("Failed to fetch pages: " + error.message);
       }
@@ -55,18 +56,29 @@ const PageList = () => {
     setSyncing(true);
     
     const initialPages = [
-      { title: 'Home Page', slug: 'home', description: 'The main landing page for Qala Labs.' },
-      { title: 'Services', slug: 'services-cms', description: 'Dynamic list of our growth capabilities.' },
-      { title: 'Case Studies', slug: 'case-studies-cms', description: 'Our proven 8-figure results.' }
+      { 
+        title: 'Home Page', 
+        slug: 'home', 
+        description: 'The main landing page for Qala Labs.',
+        content: [
+          { id: 'h1', type: 'hero', props: { title: 'Scale Your DTC Brand', subtitle: 'Performance marketing engineered for growth.' } }
+        ]
+      },
+      { 
+        title: 'Strategy Deep-Dive', 
+        slug: 'strategy-framework', 
+        description: 'How we build 8-figure scale engines.',
+        content: [
+          { id: 'h2', type: 'hero', props: { title: 'The Framework', subtitle: 'Data over hype.' } }
+        ]
+      }
     ];
 
     const toInsert = initialPages.map(p => ({
       ...p,
       user_id: user.id,
-      status: 'draft',
-      content: [
-        { id: Math.random().toString(36).substr(2, 9), type: 'hero', props: { title: p.title, subtitle: p.description } }
-      ]
+      status: 'published',
+      updated_at: new Date().toISOString()
     }));
 
     const { error } = await supabase.from('pages').insert(toInsert);
@@ -136,8 +148,8 @@ const PageList = () => {
                 variant="outline" 
                 className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 hover:bg-blue-50"
               >
-                {syncing ? <RefreshCcw className="w-5 h-5 animate-spin mr-2" /> : <RefreshCcw className="w-5 h-5 mr-2" />}
-                Sync Default Routes
+                <RefreshCcw className={cn("w-5 h-5 mr-2", syncing && "animate-spin")} />
+                Sync Core Routes
               </Button>
             )}
             <Button onClick={createPage} disabled={tableMissing} className="bg-blue-600 hover:bg-blue-700 rounded-xl px-6 py-6 font-black">
@@ -151,8 +163,8 @@ const PageList = () => {
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
             <h2 className="text-2xl font-black text-slate-900 mb-4">Database Table Missing</h2>
             <p className="text-slate-500 max-w-lg mx-auto mb-8">
-              The <code className="bg-slate-100 px-2 py-1 rounded text-red-600">pages</code> table was not found in your Supabase project. 
-              Please run the SQL migration provided in the chat to initialize the CMS.
+              The <code className="bg-slate-100 px-2 py-1 rounded text-red-600">pages</code> table was not found. 
+              Run the SQL migration in Supabase to continue.
             </p>
             <Button onClick={fetchPages} variant="outline" className="rounded-xl px-8 h-12">
               <RefreshCcw className="w-4 h-4 mr-2" /> Retry Connection
@@ -231,16 +243,16 @@ const PageList = () => {
                       <td colSpan={5} className="px-8 py-32 text-center">
                         <div className="max-w-md mx-auto">
                           <Globe className="w-12 h-12 text-slate-200 mx-auto mb-4" />
-                          <h3 className="text-lg font-bold text-slate-900 mb-2">No pages found in CMS</h3>
+                          <h3 className="text-lg font-bold text-slate-900 mb-2">No pages found</h3>
                           <p className="text-slate-500 text-sm mb-8">
-                            The CMS only manages dynamic pages. Create a new one or sync your default routes to start using the block editor.
+                            Create your first dynamic page or sync core routes to get started.
                           </p>
                           <div className="flex flex-col gap-2">
                             <Button onClick={createPage} className="w-full bg-blue-600 rounded-xl font-black py-6">
-                              Create First Dynamic Page
+                              Create New Page
                             </Button>
                             <Button onClick={syncExistingRoutes} variant="ghost" className="w-full text-blue-600 font-bold">
-                              Sync Core Routes to CMS
+                              Sync Initial Data
                             </Button>
                           </div>
                         </div>
