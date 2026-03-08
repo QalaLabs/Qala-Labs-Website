@@ -5,10 +5,11 @@ import Navbar from '@/components/layout/Navbar';
 import { useUser } from '@/hooks/useUser';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigate } from 'react-router-dom';
-import { Loader2, TrendingUp, Users, Target, MessageSquare, Bell } from 'lucide-react';
+import { Loader2, TrendingUp, Users, Target, MessageSquare, Bell, ArrowUpRight } from 'lucide-react';
 import ProjectTimeline from '@/components/dashboard/ProjectTimeline';
 import TaskBoard from '@/components/dashboard/TaskBoard';
 import AssetManager from '@/components/dashboard/AssetManager';
+import RevenueChart from '@/components/dashboard/RevenueChart';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -50,43 +51,50 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Chart Section */}
+        <Card className="border-none shadow-sm bg-white p-8 rounded-[2.5rem] mb-10">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h3 className="text-xl font-bold text-slate-900">Revenue Performance</h3>
+              <p className="text-sm text-slate-500">Visualizing your scale velocity.</p>
+            </div>
+            <div className="text-right">
+              <p className="text-2xl font-black text-blue-600">₹12.45L</p>
+              <p className="text-xs text-green-500 font-bold flex items-center justify-end gap-1">
+                <ArrowUpRight className="w-3 h-3" /> 12.5% vs Last Month
+              </p>
+            </div>
+          </div>
+          <RevenueChart />
+        </Card>
+
         {/* Stats Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-10">
-          <Card className="border-none shadow-sm bg-white">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-slate-500 uppercase tracking-widest">Total Revenue</CardTitle>
-              <TrendingUp className="w-4 h-4 text-green-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-slate-900">₹12,45,000</div>
-              <p className="text-xs text-green-500 font-bold mt-1">+12.5% from last month</p>
-            </CardContent>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400">Total Spend</span>
+              <TrendingUp className="w-4 h-4 text-blue-500" />
+            </div>
+            <div className="text-2xl font-black text-slate-900">₹2,96,000</div>
           </Card>
-          <Card className="border-none shadow-sm bg-white">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-slate-500 uppercase tracking-widest">Active Leads</CardTitle>
-              <Users className="w-4 h-4 text-blue-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-slate-900">48</div>
-              <p className="text-xs text-blue-500 font-bold mt-1">+4 this week</p>
-            </CardContent>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400">CPA (Target: ₹400)</span>
+              <Users className="w-4 h-4 text-orange-500" />
+            </div>
+            <div className="text-2xl font-black text-slate-900">₹382</div>
           </Card>
-          <Card className="border-none shadow-sm bg-white">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-slate-500 uppercase tracking-widest">Avg. ROAS</CardTitle>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400">Avg. ROAS</span>
               <Target className="w-4 h-4 text-purple-500" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-slate-900">4.2x</div>
-              <p className="text-xs text-slate-500 font-bold mt-1">Target: 4.0x</p>
-            </CardContent>
+            </div>
+            <div className="text-2xl font-black text-slate-900">4.2x</div>
           </Card>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column: Timeline & Tasks */}
           <div className="lg:col-span-2 space-y-8">
             <Card className="border-none shadow-sm bg-white p-8 rounded-[2.5rem]">
               <ProjectTimeline />
@@ -95,8 +103,6 @@ const Dashboard = () => {
               <TaskBoard />
             </Card>
           </div>
-
-          {/* Right Column: Assets & Activity */}
           <div className="space-y-8">
             <Card className="border-none shadow-sm bg-white p-8 rounded-[2.5rem]">
               <AssetManager />

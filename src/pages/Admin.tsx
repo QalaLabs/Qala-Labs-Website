@@ -8,14 +8,16 @@ import {
   TrendingUp, Mail, Eye, CheckCircle2, Database,
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
-  Loader2, FilterX, Star, Zap, ShieldAlert, DatabaseBackup
+  Loader2, FilterX, Star, Zap, ShieldAlert, DatabaseBackup,
+  History, StickyNote
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { format } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
@@ -35,6 +37,7 @@ const Admin = () => {
   const [filterStatus, setFilterStatus] = React.useState("all");
   const [selectedLead, setSelectedLead] = React.useState<any>(null);
   const [campaignModal, setCampaignModal] = React.useState(false);
+  const [internalNote, setInternalNote] = React.useState("");
 
   const fetchData = React.useCallback(async () => {
     setLoading(true);
@@ -44,46 +47,6 @@ const Admin = () => {
   }, []);
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
-
-  const seedDemoData = async () => {
-    const demoLeads = [
-      {
-        email: "john@glowskin.com",
-        tool_used: "roi_calculator",
-        data: {
-          name: "John Doe",
-          phone: "+919876543210",
-          service: "eCommerce Growth",
-          revenue: "50L+",
-          source_url: "https://qalalabs.com/tools",
-          status: "qualified",
-          utm_campaign: "google_search_brand",
-          timestamp: new Date().toISOString()
-        }
-      },
-      {
-        email: "jane@minimalist.in",
-        tool_used: "sticky_cta_microform",
-        data: {
-          name: "Jane Smith",
-          phone: "+919000000001",
-          service: "Performance Marketing",
-          budget: "15L-50L",
-          source_url: "https://qalalabs.com/case-studies/glowskin",
-          status: "new",
-          utm_campaign: "retargeting_meta",
-          timestamp: new Date().toISOString()
-        }
-      }
-    ];
-
-    const { error } = await supabase.from('leads').insert(demoLeads);
-    if (error) showError("Failed to seed data");
-    else {
-      showSuccess("Demo leads added to CRM!");
-      fetchData();
-    }
-  };
 
   const calculateScore = (lead: any) => {
     let score = 0;
@@ -103,10 +66,17 @@ const Admin = () => {
     return matchesSearch && matchesService && matchesStatus;
   });
 
-  const sendWhatsApp = (phone: string) => {
-    if (!phone) return;
-    const cleanPhone = phone.replace(/\D/g, '');
-    window.open(`https://wa.me/${cleanPhone}?text=Hi! I'm from Qala Labs. Regarding your growth audit request...`, '_blank');
+  const saveNote = async () => {
+    if (!selectedLead || !internalNote) return;
+    const { error } = await supabase.from('leads').update({
+      data: { ...selectedLead.data, internal_note: internalNote }
+    }).eq('id', selectedLead.id);
+    
+    if (!error) {
+      showSuccess("Note saved to lead profile");
+      fetchData();
+      setInternalNote("");
+    }
   };
 
   return (
@@ -126,12 +96,9 @@ const Admin = () => {
         <header className="flex justify-between items-center mb-10">
           <div>
             <h1 className="text-3xl font-black text-slate-900">CRM Intelligence</h1>
-            <p className="text-slate-500">Managing {leads.length} leads across your scale ecosystem.</p>
+            <p className="text-slate-500">Managing {leads.length} leads across your ecosystem.</p>
           </div>
           <div className="flex gap-4">
-            <Button onClick={seedDemoData} variant="outline" className="rounded-xl border-blue-200 text-blue-600 gap-2 font-bold">
-              <DatabaseBackup className="w-4 h-4" /> Seed Demo Data
-            </Button>
             <Button onClick={fetchData} variant="outline" className="rounded-xl"><RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} /></Button>
           </div>
         </header>
@@ -157,14 +124,10 @@ const Admin = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input placeholder="Search prospects..." className="pl-10 h-12 rounded-xl" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterService} onChange={e => setFilterService(e.target.value)}>
                 <option value="all">All Services</option>
                 {services.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-              <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
-                <option value="all">All Statuses</option>
-                {statuses.map(s => <option key={s} value={s}>{s.toUpperCase()}</option>)}
               </select>
             </div>
           </div>
@@ -188,7 +151,6 @@ const Admin = () => {
                         <div className="flex flex-col">
                           <span className="font-bold text-slate-900">{lead.data?.name || 'Anonymous'}</span>
                           <span className="text-xs text-slate-400">{lead.email}</span>
-                          <span className="text-[10px] text-blue-600 font-bold mt-1">{lead.data?.phone}</span>
                         </div>
                       </td>
                       <td className="px-8 py-6">
@@ -196,7 +158,6 @@ const Admin = () => {
                           "rounded-full px-3 py-1 font-black text-[10px]",
                           score >= 50 ? "bg-green-100 text-green-700" : score >= 30 ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-500"
                         )}>
-                          {score >= 50 ? <Star className="w-3 h-3 mr-1 fill-current" /> : null}
                           SCORE: {score}
                         </Badge>
                       </td>
@@ -208,8 +169,8 @@ const Admin = () => {
                       </td>
                       <td className="px-8 py-6 text-right">
                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Button size="icon" variant="ghost" onClick={(e) => {e.stopPropagation(); sendWhatsApp(lead.data?.phone)}} className="text-green-600 hover:bg-green-50"><MessageSquare className="w-4 h-4" /></Button>
-                          <Button size="icon" variant="ghost" className="text-blue-600 hover:bg-blue-50"><Mail className="w-4 h-4" /></Button>
+                          <Button size="icon" variant="ghost" className="text-green-600"><MessageSquare className="w-4 h-4" /></Button>
+                          <Button size="icon" variant="ghost" className="text-blue-600"><Mail className="w-4 h-4" /></Button>
                         </div>
                       </td>
                     </tr>
@@ -222,7 +183,7 @@ const Admin = () => {
 
         {/* Lead Detail Panel */}
         <Dialog open={!!selectedLead} onOpenChange={() => setSelectedLead(null)}>
-          <DialogContent className="max-w-3xl bg-white rounded-[3rem] p-10">
+          <DialogContent className="max-w-4xl bg-white rounded-[3rem] p-10 overflow-y-auto max-h-[90vh]">
             {selectedLead && (
               <div className="space-y-8">
                 <div className="flex justify-between items-start">
@@ -232,38 +193,90 @@ const Admin = () => {
                     <Badge className="mt-2 bg-blue-600">ID: {selectedLead.id.split('-')[0]}</Badge>
                   </div>
                   <div className="flex gap-2">
-                    <Button onClick={() => sendWhatsApp(selectedLead.data?.phone)} className="bg-green-600 hover:bg-green-700 gap-2 px-6 rounded-xl h-12"><Phone className="w-4 h-4" /> WhatsApp</Button>
+                    <Button className="bg-green-600 hover:bg-green-700 gap-2 px-6 rounded-xl h-12"><Phone className="w-4 h-4" /> WhatsApp</Button>
                     <Button className="bg-blue-600 hover:bg-blue-700 gap-2 px-6 rounded-xl h-12"><Send className="w-4 h-4" /> Email</Button>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
-                  <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
-                    <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Source Context</Label>
-                    <div className="mt-4 space-y-4">
-                      <div><p className="text-xs text-slate-400">Captured on</p><p className="font-bold text-slate-900 truncate">{selectedLead.data?.source_url || 'Direct'}</p></div>
-                      <div><p className="text-xs text-slate-400">Date/Time</p><p className="font-bold text-slate-900">{format(new Date(selectedLead.created_at), 'MMM dd, yyyy HH:mm')}</p></div>
-                      <div><p className="text-xs text-slate-400">Campaign UTM</p><p className="font-bold text-blue-600">{selectedLead.data?.utm_campaign || 'Organic'}</p></div>
+                  <div className="space-y-6">
+                    <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
+                      <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><History className="w-3 h-3" /> Context</Label>
+                      <div className="mt-4 space-y-4">
+                        <div><p className="text-xs text-slate-400">Captured on</p><p className="font-bold text-slate-900 truncate">{selectedLead.data?.source_url || 'Direct'}</p></div>
+                        <div><p className="text-xs text-slate-400">Campaign</p><p className="font-bold text-blue-600">{selectedLead.data?.utm_campaign || 'Organic'}</p></div>
+                        <div><p className="text-xs text-slate-400">Budget/Rev</p><p className="font-bold text-slate-900">{selectedLead.data?.revenue || selectedLead.data?.budget || 'N/A'}</p></div>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-8 bg-blue-50 rounded-[2.5rem] border border-blue-100">
-                    <Label className="text-[10px] font-black text-blue-400 uppercase tracking-widest">Lead Intelligence</Label>
-                    <div className="mt-4 space-y-4">
-                      <div><p className="text-xs text-blue-400/70">Phone Number</p><p className="font-bold text-slate-900">{selectedLead.data?.phone || 'N/A'}</p></div>
-                      <div><p className="text-xs text-blue-400/70">Requested Service</p><p className="font-bold text-slate-900">{selectedLead.data?.service || 'N/A'}</p></div>
-                      <div><p className="text-xs text-blue-400/70">Budget/Revenue</p><p className="font-bold text-slate-900">{selectedLead.data?.revenue || selectedLead.data?.budget || 'N/A'}</p></div>
+
+                  <div className="space-y-6">
+                    <div className="p-8 bg-blue-50 rounded-[2.5rem] border border-blue-100">
+                      <Label className="text-[10px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-2"><StickyNote className="w-3 h-3" /> Internal Notes</Label>
+                      <div className="mt-4 space-y-4">
+                        {selectedLead.data?.internal_note && (
+                          <div className="p-3 bg-white rounded-xl text-xs text-slate-600 border border-blue-100 italic">
+                            "{selectedLead.data.internal_note}"
+                          </div>
+                        )}
+                        <Textarea 
+                          placeholder="Add internal context..." 
+                          className="min-h-[100px] rounded-xl text-sm"
+                          value={internalNote}
+                          onChange={e => setInternalNote(e.target.value)}
+                        />
+                        <Button className="w-full bg-blue-600 rounded-xl font-bold" onClick={saveNote}>Save Note</Button>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-8 bg-slate-900 rounded-[2.5rem] text-white">
-                  <h4 className="font-black mb-6 flex items-center gap-2"><Database className="w-4 h-4 text-blue-400" /> raw_json_payload</h4>
+                  <h4 className="font-black mb-6 flex items-center gap-2"><Database className="w-4 h-4 text-blue-400" /> Lead Metadata</h4>
                   <pre className="text-[10px] font-mono text-slate-400 overflow-auto max-h-40 bg-black/20 p-4 rounded-xl">
                     {JSON.stringify(selectedLead.data, null, 2)}
                   </pre>
                 </div>
               </div>
             )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Bulk Campaign Builder */}
+        <Dialog open={campaignModal} onOpenChange={setCampaignModal}>
+          <DialogContent className="max-w-2xl bg-white rounded-[3rem] p-10">
+            <DialogHeader>
+              <DialogTitle className="text-3xl font-black text-slate-900">Campaign Builder</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 py-6">
+              <div className="space-y-2">
+                <Label>Campaign Audience</Label>
+                <select className="w-full h-12 rounded-xl border border-slate-200 px-4 font-bold text-sm">
+                  <option>All Leads ({leads.length})</option>
+                  <option>High Intent Only ({leads.filter(l => calculateScore(l) >= 50).length})</option>
+                  <option>Service: Performance Marketing</option>
+                  <option>Service: eCommerce Growth</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label>Email Subject</Label>
+                <Input placeholder="e.g. Your 90-Day Scale Roadmap" className="rounded-xl h-12" />
+              </div>
+              <div className="space-y-2">
+                <Label>Message Content (Markdown Supported)</Label>
+                <Textarea placeholder="Hi {{name}}, I noticed your brand GlowSkin is prime for scale..." className="min-h-[200px] rounded-xl" />
+              </div>
+              <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-center gap-4">
+                <ShieldAlert className="w-6 h-6 text-amber-600" />
+                <p className="text-xs text-amber-800">Campaigns will be delivered via the SMTP settings configured in your integration panel.</p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" className="rounded-xl h-12" onClick={() => setCampaignModal(false)}>Discard</Button>
+              <Button className="bg-blue-600 hover:bg-blue-700 rounded-xl h-12 px-8 font-black gap-2">
+                <Zap className="w-4 h-4" /> Queue Campaign
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </main>
