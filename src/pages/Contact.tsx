@@ -13,12 +13,23 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Send, CheckCircle2, Mail, Phone, MapPin } from 'lucide-react';
 import { motion } from "framer-motion";
 
+const services = [
+  "Performance Marketing",
+  "Creative Production",
+  "Web Development",
+  "Conversion Optimization",
+  "Analytics & Data",
+  "eCommerce Growth"
+];
+
 const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     website: '',
+    service: '',
     revenue: '',
     message: ''
   });
@@ -30,7 +41,12 @@ const Contact = () => {
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
       tool_used: 'contact_form',
-      data: formData
+      data: {
+        ...formData,
+        source_url: window.location.href,
+        timestamp: new Date().toISOString(),
+        status: 'new'
+      }
     });
 
     setLoading(false);
@@ -38,7 +54,7 @@ const Contact = () => {
       showError("Something went wrong. Please try again.");
     } else {
       showSuccess("Audit request received! We'll be in touch within 24 hours.");
-      setFormData({ name: '', email: '', website: '', revenue: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', website: '', service: '', revenue: '', message: '' });
     }
   };
 
@@ -79,33 +95,6 @@ const Contact = () => {
                   <p className="text-slate-500">+44 (0) 20 3835 1234</p>
                 </div>
               </div>
-              <div className="flex items-start gap-6">
-                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
-                  <MapPin className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Global Offices</h4>
-                  <p className="text-slate-500">London • Dubai • New York</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-16 p-8 bg-white rounded-3xl border border-slate-100 shadow-sm">
-              <h4 className="font-bold text-slate-900 mb-4">What happens next?</h4>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-slate-600">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <span>Data analysis of your current performance</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-600">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <span>30-minute strategy call with our founders</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-600">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <span>Custom 8-figure scale roadmap</span>
-                </li>
-              </ul>
             </div>
           </motion.div>
 
@@ -125,11 +114,10 @@ const Contact = () => {
                       <Label htmlFor="name">Full Name</Label>
                       <Input 
                         id="name" 
-                        placeholder="John Doe" 
                         required 
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="rounded-xl py-6"
+                        className="rounded-xl h-12"
                       />
                     </div>
                     <div className="space-y-2">
@@ -137,25 +125,52 @@ const Contact = () => {
                       <Input 
                         id="email" 
                         type="email" 
-                        placeholder="john@brand.com" 
                         required 
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="rounded-xl py-6"
+                        className="rounded-xl h-12"
                       />
                     </div>
                   </div>
+                  
                   <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input 
+                        id="phone" 
+                        type="tel" 
+                        placeholder="+91..."
+                        required 
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        className="rounded-xl h-12"
+                      />
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="website">Website URL</Label>
                       <Input 
                         id="website" 
-                        placeholder="brand.com" 
                         required 
                         value={formData.website}
                         onChange={(e) => setFormData({...formData, website: e.target.value})}
-                        className="rounded-xl py-6"
+                        className="rounded-xl h-12"
                       />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="service">Primary Need</Label>
+                      <select 
+                        id="service"
+                        className="w-full h-12 px-3 rounded-xl border border-input bg-background text-sm"
+                        required
+                        value={formData.service}
+                        onChange={(e) => setFormData({...formData, service: e.target.value})}
+                      >
+                        <option value="">Select service</option>
+                        {services.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="revenue">Monthly Revenue</Label>
@@ -167,33 +182,30 @@ const Contact = () => {
                         onChange={(e) => setFormData({...formData, revenue: e.target.value})}
                       >
                         <option value="">Select range</option>
-                        <option value="<50k">{"< $50k/mo"}</option>
-                        <option value="50k-150k">$50k - $150k/mo</option>
-                        <option value="150k-500k">$150k - $500k/mo</option>
-                        <option value="500k+">$500k+/mo</option>
+                        <option value="<5L">{"< ₹5L/mo"}</option>
+                        <option value="5L-15L">₹5L - ₹15L/mo</option>
+                        <option value="15L-50L">₹15L - ₹50L/mo</option>
+                        <option value="50L+">₹50L+/mo</option>
                       </select>
                     </div>
                   </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="message">Growth Goals</Label>
                     <Textarea 
                       id="message" 
-                      placeholder="Tell us about your current challenges and goals..." 
-                      className="min-h-[120px] rounded-xl"
+                      placeholder="Tell us about your current challenges..." 
+                      className="min-h-[100px] rounded-xl"
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full py-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xl font-black shadow-xl shadow-blue-500/20"
+                    className="w-full py-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xl font-black"
                     disabled={loading}
                   >
-                    {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : (
-                      <span className="flex items-center gap-2">
-                        Send Audit Request <Send className="w-5 h-5" />
-                      </span>
-                    )}
+                    {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Send Audit Request"}
                   </Button>
                 </form>
               </CardContent>
