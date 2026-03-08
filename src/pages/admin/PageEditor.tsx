@@ -31,6 +31,13 @@ const PageEditor = () => {
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
 
   const fetchPage = useCallback(async () => {
+    // Don't fetch if this is a 'new' page marker (though new pages are usually created via insert first)
+    if (!id || id === 'new') {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     const { data, error } = await supabase
       .from('pages')
       .select('*')
@@ -38,10 +45,10 @@ const PageEditor = () => {
       .single();
     
     if (error) {
-      showError("Failed to load page");
+      console.error("Editor Fetch Error:", error);
+      showError("Failed to load page: " + error.message);
       navigate('/admin/pages');
     } else {
-      // Ensure content is always an array
       setPage({
         ...data,
         content: Array.isArray(data.content) ? data.content : []
@@ -70,8 +77,9 @@ const PageEditor = () => {
       .eq('id', id);
 
     setSaving(false);
-    if (error) showError("Failed to save changes");
-    else {
+    if (error) {
+      showError("Failed to save changes: " + error.message);
+    } else {
       showSuccess(status === 'published' ? "Page published live!" : "Draft saved successfully");
       if (status) setPage(prev => prev ? { ...prev, status } : null);
     }
