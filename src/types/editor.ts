@@ -19,3 +19,25 @@ export type BlockType =
   | 'case_study_snapshots'
   | 'research_insights'
   | 'closing_cta';
+
+export interface Block {
+  id: string;
+  type: BlockType;
+  props: Record<string, any>;
+}
+
+export interface Page {
+  id?: string;
+  title: string;
+  slug: string;
+  description?: string;
+  content: Block[];
+  status: 'draft' | 'published';
+  user_id?: string;
+  created_at?: string;
+  updated_at: string;
+}
+
+export interface BlockRendererProps {
+  blocks: Block[];
+}

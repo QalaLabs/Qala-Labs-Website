@@ -198,7 +198,6 @@ const PageEditor = () => {
         return { videoId: '' };
       case 'instagram_embed': 
         return { url: '' };
-      // New block types
       case 'tech_stack_ribbon':
       case 'why_different':
       case 'client_logos':
@@ -336,141 +335,375 @@ const PageEditor = () => {
           </div>
           
           <div className="flex-1 overflow-y-auto p-6 space-y-8">
-            {!selectedBlockId ?I've made a comprehensive update to give you full Elementor-style editing:
+            {!selectedBlockId ? (
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-slate-700">Page Title</Label>
+                  <Input 
+                    value={page.title} 
+                    onChange={(e) => setPage({...page, title: e.target.value})}
+                    className="rounded-xl h-12"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-slate-700">URL Slug</Label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-400 text-sm">/p/</span>
+                    <Input 
+                      value={page.slug} 
+                      onChange={(e) => setPage({...page, slug: e.target.value})}
+                      className="rounded-xl h-12"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-slate-700">Description (SEO)</Label>
+                  <Textarea 
+                    value={page.description || ''} 
+                    onChange={(e) => setPage({...page, description: e.target.value})}
+                    className="rounded-xl min-h-[80px]"
+                    placeholder="Brief description for SEO..."
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-blue-100 text-blue-700 border-none">
+                    {selectedBlock.type.replace('_', ' ')}
+                  </Badge>
+                  <div className="flex gap-2">
+                    <Button variant="ghost" size="icon" onClick={() => duplicateBlock(selectedBlock)}>
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="text-red-500" onClick={() => deleteBlock(selectedBlockId)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
 
-## What I Fixed:
+                {/* Dynamic block settings based on type */}
+                {renderBlockSettings(selectedBlock, (newProps) => updateBlockProps(selectedBlockId, newProps))}
+              </div>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+};
 
-1. **All pages now sync with their complete structure** - Home, About, Services, Portfolio, Case Studies, and Pricing all include every section as editable blocks
-2. **Added 9 new block types** to cover every unique section on your site
-3. **Block count visible** in the pages table so you can see how many blocks each page has
-4. **Full page builder experience** - you can now add, remove, reorder, and edit ANY section
+// Helper function to render settings for each block type
+const renderBlockSettings = (block: Block, onUpdate: (newProps: any) => void) => {
+  const props = block.props;
+  
+  switch (block.type) {
+    case 'hero':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Headline</Label>
+            <Input 
+              value={props.title || ''} 
+              onChange={(e) => onUpdate({ ...props, title: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Subtitle</Label>
+            <Textarea 
+              value={props.subtitle || ''} 
+              onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })}
+              className="rounded-xl min-h-[80px]"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">CTA Text</Label>
+              <Input 
+                value={props.ctaText || ''} 
+                onChange={(e) => onUpdate({ ...props, ctaText: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">CTA URL</Label>
+              <Input 
+                value={props.ctaUrl || ''} 
+                onChange={(e) => onUpdate({ ...props, ctaUrl: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+          </div>
+        </div>
+      );
+    
+    case 'rich_text':
+      return (
+        <div className="space-y-2">
+          <Label className="text-xs font-bold text-slate-500 uppercase">HTML Content</Label>
+          <Textarea 
+            value={props.content || ''} 
+            onChange={(e) => onUpdate({ ...props, content: e.target.value })}
+            className="rounded-xl min-h-[300px] font-mono text-sm"
+          />
+        </div>
+      );
+    
+    case 'image':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Image URL</Label>
+            <Input 
+              value={props.url || ''} 
+              onChange={(e) => onUpdate({ ...props, url: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Alt Text</Label>
+            <Input 
+              value={props.alt || ''} 
+              onChange={(e) => onUpdate({ ...props, alt: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+        </div>
+      );
+    
+    case 'cta':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Title</Label>
+            <Input 
+              value={props.title || ''} 
+              onChange={(e) => onUpdate({ ...props, title: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Description</Label>
+            <Textarea 
+              value={props.description || ''} 
+              onChange={(e) => onUpdate({ ...props, description: e.target.value })}
+              className="rounded-xl min-h-[80px]"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Button Text</Label>
+              <Input 
+                value={props.buttonText || ''} 
+                onChange={(e) => onUpdate({ ...props, buttonText: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Button URL</Label>
+              <Input 
+                value={props.buttonUrl || ''} 
+                onChange={(e) => onUpdate({ ...props, buttonUrl: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+          </div>
+        </div>
+      );
+    
+    case 'team_grid':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Section Title</Label>
+            <Input 
+              value={props.title || ''} 
+              onChange={(e) => onUpdate({ ...props, title: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Team Members (JSON)</Label>
+            <Textarea 
+              value={JSON.stringify(props.members || [], null, 2)} 
+              onChange={(e) => {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  onUpdate({ ...props, members: parsed });
+                } catch (err) {
+                  // Invalid JSON, don't update
+                }
+              }}
+              className="rounded-xl min-h-[200px] font-mono text-xs"
+            />
+          </div>
+        </div>
+      );
+    
+    case 'faq':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Section Title</Label>
+            <Input 
+              value={props.title || ''} 
+              onChange={(e) => onUpdate({ ...props, title: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">FAQ Items (JSON)</Label>
+            <Textarea 
+              value={JSON.stringify(props.items || [], null, 2)} 
+              onChange={(e) => {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  onUpdate({ ...props, items: parsed });
+                } catch (err) {
+                  // Invalid JSON, don't update
+                }
+              }}
+              className="rounded-xl min-h-[200px] font-mono text-xs"
+            />
+          </div>
+        </div>
+      );
+    
+    case 'testimonial':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Quote</Label>
+            <Textarea 
+              value={props.quote || ''} 
+              onChange={(e) => onUpdate({ ...props, quote: e.target.value })}
+              className="rounded-xl min-h-[80px]"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Author</Label>
+              <Input 
+                value={props.author || ''} 
+                onChange={(e) => onUpdate({ ...props, author: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-xs font-bold text-slate-500 uppercase">Role</Label>
+              <Input 
+                value={props.role || ''} 
+                onChange={(e) => onUpdate({ ...props, role: e.target.value })}
+                className="rounded-xl h-10"
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Avatar URL</Label>
+            <Input 
+              value={props.avatar || ''} 
+              onChange={(e) => onUpdate({ ...props, avatar: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+        </div>
+      );
+    
+    case 'kpi_grid':
+      return (
+        <div className="space-y-2">
+          <Label className="text-xs font-bold text-slate-500 uppercase">Metrics (JSON Array)</Label>
+          <Textarea 
+            value={JSON.stringify(props.items || [], null, 2)} 
+            onChange={(e) => {
+              try {
+                const parsed = JSON.parse(e.target.value);
+                onUpdate({ ...props, items: parsed });
+              } catch (err) {
+                // Invalid JSON, don't update
+              }
+            }}
+            className="rounded-xl min-h-[200px] font-mono text-xs"
+          />
+        </div>
+      );
+    
+    case 'youtube_embed':
+      return (
+        <div className="space-y-2">
+          <Label className="text-xs font-bold text-slate-500 uppercase">YouTube Video ID</Label>
+          <Input 
+            value={props.videoId || ''} 
+            onChange={(e) => onUpdate({ ...props, videoId: e.target.value })}
+            className="rounded-xl h-10"
+            placeholder="e.g., dQw4w9WgXcQ"
+          />
+        </div>
+      );
+    
+    case 'instagram_embed':
+      return (
+        <div className="space-y-2">
+          <Label className="text-xs font-bold text-slate-500 uppercase">Instagram Post URL</Label>
+          <Input 
+            value={props.url || ''} 
+            onChange={(e) => onUpdate({ ...props, url: e.target.value })}
+            className="rounded-xl h-10"
+            placeholder="https://www.instagram.com/p/..."
+          />
+        </div>
+      );
+    
+    case 'video_upload':
+      return (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Video URL</Label>
+            <Input 
+              value={props.url || ''} 
+              onChange={(e) => onUpdate({ ...props, url: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-500 uppercase">Poster Image URL (optional)</Label>
+            <Input 
+              value={props.poster || ''} 
+              onChange={(e) => onUpdate({ ...props, poster: e.target.value })}
+              className="rounded-xl h-10"
+            />
+          </div>
+        </div>
+      );
+    
+    // For blocks that don't have editable props yet
+    case 'tech_stack_ribbon':
+    case 'why_different':
+    case 'client_logos':
+    case 'quick_metrics':
+    case 'what_we_do':
+    case 'how_we_work':
+    case 'case_study_snapshots':
+    case 'research_insights':
+    case 'closing_cta':
+      return (
+        <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
+          <p className="text-sm text-amber-800">
+            This block uses default content. To make it editable, we need to add custom props to the component.
+          </p>
+        </div>
+      );
+    
+    default:
+      return (
+        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+          <p className="text-sm text-slate-500">
+            No editable settings for this block type yet.
+          </p>
+        </div>
+      );
+  }
+};
 
-## How to Use:
-
-1. **Go to Admin Dashboard** → Click **"Sync All Pages"** button
-   - This will populate ALL your core pages with their complete block structure
-   - Home page will have 13 blocks (Hero, Tech Stack, Why Different, Client Logos, Metrics, What We Do, How We Work, Case Snapshots, Research, Testimonial, Team, FAQ, CTA)
-   - About page will have 9 blocks
-   - Services, Portfolio, Case Studies, and Pricing pages will also be fully populated
-
-2. **Edit any page**:
-   - Click "Edit" on any page in the list
-   - You'll see ALL blocks in the page structure (not just hero)
-   - Click any block to select it and edit its properties in the right sidebar
-   - Add new blocks with the "Add Block" button between sections
-   - Drag to reorder (using the up/down arrows)
-   - Delete or duplicate blocks
-
-3. **Available block types** (you'll see these in the block picker):
-   - Hero, Rich Text, Image, Video, YouTube, Instagram
-   - KPI Grid, Team Grid, FAQ, Testimonial, CTA
-   - **NEW**: Tech Stack Ribbon, Why Different, Client Logos, Quick Metrics, What We Do, How We Work, Case Study Snapshots, Research Insights, Closing CTA
-
-4. **Editing blocks**:
-   - Some blocks like "Tech Stack Ribbon" or "Client Logos" currently use static data from your components
-   - I've set them up so you can edit their props in the JSON editor in the settings panel
-   - Over time, we can make these more user-friendly with custom forms
-
-## Next Steps:
-
-1. Click **"Sync All Pages"** in your admin panel
-2. Go to **Pages** → Click **Edit** on the Home Page
-3. You should now see all 13 blocks in the structure
-4. Click any block to see its settings on the right
-5. For blocks like "Client Logos" or "Team Grid", you can edit the JSON props directly in the settings panel
-
-The page on the frontend will now render exactly as before, but you have full control to modify every section. Try it out and let me know if you need any adjustments!<dyad-chat-summary>Added full block support for all pages, expanded block types, and enabled full page editing with add/remove/reorder functionality</dyad-chat-summary><dyad-problem-report summary="6 problems">
-<problem file="src/pages/admin/PageList.tsx" line="7" column="10" code="2305">Module '"@/types/editor"' has no exported member 'Page'.</problem>
-<problem file="src/components/cms/BlockRenderer.tsx" line="9" column="10" code="2305">Module '"@/types/editor"' has no exported member 'Block'.</problem>
-<problem file="src/components/cms/BlockRenderer.tsx" line="23" column="36" code="2304">Cannot find name 'BlockRendererProps'.</problem>
-<problem file="src/pages/admin/PageEditor.tsx" line="11" column="10" code="2305">Module '"@/types/editor"' has no exported member 'Page'.</problem>
-<problem file="src/pages/admin/PageEditor.tsx" line="11" column="16" code="2305">Module '"@/types/editor"' has no exported member 'Block'.</problem>
-<problem file="src/pages/DynamicPage.tsx" line="6" column="10" code="2305">Module '"@/types/editor"' has no exported member 'Page'.</problem>
-</dyad-problem-report><think>The user is reporting TypeScript compile-time errors related to missing type exports from `@/types/editor`. The errors indicate that the types `Page`, `Block`, and `BlockRendererProps` are not being exported from that file.
-
-Looking at the provided codebase, I can see that there is a file `src/types/editor.ts` that defines these types. However, the errors suggest that the imports are failing. This could be because:
-
-1. The file doesn't exist or the path is wrong
-2. The types are not exported properly
-3. There's a mismatch between what's defined and what's being imported
-
-Let me check the `src/types/editor.ts` file content from the provided codebase:
-
-```typescript
-export type BlockType = 
-  | 'hero' 
-  | 'rich_text' 
-  | 'image' 
-  | 'video_upload' 
-  | 'youtube_embed' 
-  | 'instagram_embed' 
-  | 'kpi_grid' 
-  | 'team_grid' 
-  | 'faq' 
-  | 'cta'
-  | 'testimonial'
-  | 'tech_stack_ribbon'
-  | 'why_different'
-  | 'client_logos'
-  | 'quick_metrics'
-  | 'what_we_do'
-  | 'how_we_work'
-  | 'case_study_snapshots'
-  | 'research_insights'
-  | 'closing_cta';
-```
-
-I notice that the file only exports `BlockType` but not `Page`, `Block`, or `BlockRendererProps`. This is the root cause of the errors.
-
-I need to define these additional types and export them. Based on the usage in the code:
-
-1. `Block` should be an interface with `id`, `type`, and `props`
-2. `Page` should be an interface with `id`, `title`, `slug`, `description`, `content` (array of Blocks), `status`, `updated_at`
-3. `BlockRendererProps` should be an interface with `blocks` property
-
-Let me add these definitions to the `editor.ts` file and export them.</think>The issue is that the `@/types/editor.ts` file only exports `BlockType` but not the other types. I'll add the missing type definitions and exports.
-
-<dyad-write path="src/types/editor.ts" description="Adding missing type exports: Page, Block, and BlockRendererProps">
-export type BlockType = 
-  | 'hero' 
-  | 'rich_text' 
-  | 'image' 
-  | 'video_upload' 
-  | 'youtube_embed' 
-  | 'instagram_embed' 
-  | 'kpi_grid' 
-  | 'team_grid' 
-  | 'faq' 
-  | 'cta'
-  | 'testimonial'
-  | 'tech_stack_ribbon'
-  | 'why_different'
-  | 'client_logos'
-  | 'quick_metrics'
-  | 'what_we_do'
-  | 'how_we_work'
-  | 'case_study_snapshots'
-  | 'research_insights'
-  | 'closing_cta';
-
-export interface Block {
-  id: string;
-  type: BlockType;
-  props: Record<string, any>;
-}
-
-export interface Page {
-  id?: string;
-  title: string;
-  slug: string;
-  description?: string;
-  content: Block[];
-  status: 'draft' | 'published';
-  user_id?: string;
-  created_at?: string;
-  updated_at: string;
-}
-
-export interface BlockRendererProps {
-  blocks: Block[];
-}
+export default PageEditor;

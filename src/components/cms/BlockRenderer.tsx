@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import Hero from '@/components/layout/Hero';
 import TeamGridBlock from '@/components/cms/blocks/TeamGridBlock';
@@ -9,16 +7,10 @@ import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import TechStackRibbon from '@/components/home/TechStackRibbon';
-import WhyDifferent from '@/components/home/WhyDifferent';
-import ClientLogos from '@/components/home/ClientLogos';
-import QuickMetrics from '@/components/home/QuickMetrics';
-import WhatWeDo from '@/components/home/WhatWeDo';
-import HowWeWork from '@/components/home/HowWeWork';
-import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
-import ResearchInsights from '@/components/home/ResearchInsights';
-import ClosingCTA from '@/components/home/ClosingCTA';
+
+export interface BlockRendererProps {
+  blocks: Block[];
+}
 
 const BlockRenderer = ({ blocks }: BlockRendererProps) => {
   if (!blocks || blocks.length === 0) return null;
@@ -167,6 +159,5 @@ const BlockRenderer = ({ blocks }: BlockRendererProps) => {
       })}
     </div>
   );
-};
 
-export default BlockRenderer;
+  export default BlockRenderer;
