@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, Link } from 'react-router-dom';
@@ -54,39 +56,82 @@ const Admin = () => {
     if (!user) return;
     setSeeding(true);
     
-    // Seed Case Study
-    const caseStudy = {
-      title: "Scaling GlowSkin to ₹12Cr",
-      slug: "glowskin-case-study",
-      category: "DTC Beauty",
-      image_url: "https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?auto=format&fit=crop&q=80&w=800",
-      results: {
-        headline: "₹12Cr in 90 Days",
-        metrics: [
-          { label: "ROAS", value: "5.2x" },
-          { label: "CPA Reduction", value: "42%" }
-        ]
-      },
-      user_id: user.id
-    };
-
-    const blogPost = {
-      title: "The 8-Figure Scale Engine Framework",
-      slug: "scale-engine-framework",
-      category: "Strategy",
-      excerpt: "How to decouple creative from media buying to achieve predictable growth.",
-      content: "<p>The secret to modern scale isn't bidding hacks...</p>",
-      status: "published",
-      user_id: user.id
-    };
-
     try {
-      await supabase.from('case_studies').upsert(caseStudy);
-      await supabase.from('blog_posts').upsert(blogPost);
-      showSuccess("Demo data seeded! Check Case Studies and Blog sections.");
+      // 1. Seed Case Studies
+      const caseStudies = [
+        {
+          title: "Scaling GlowSkin to ₹12Cr",
+          slug: "glowskin-scaling",
+          category: "DTC Beauty",
+          image_url: "https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?auto=format&fit=crop&q=80&w=800",
+          results: {
+            headline: "₹12Cr in 90 Days",
+            metrics: [
+              { label: "ROAS", value: "5.2x" },
+              { label: "CPA Reduction", value: "42%" }
+            ]
+          },
+          user_id: user.id
+        },
+        {
+          title: "CSK #WhistlePodu Campaign",
+          slug: "csk-social-scale",
+          category: "Sports & Media",
+          image_url: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800",
+          results: {
+            headline: "250M+ Impressions",
+            metrics: [
+              { label: "Engagement Rate", value: "18%" },
+              { label: "Follower Growth", value: "1.2M" }
+            ]
+          },
+          user_id: user.id
+        }
+      ];
+
+      // 2. Seed Blog Posts
+      const blogPosts = [
+        {
+          title: "The 8-Figure Scale Engine Framework",
+          slug: "scale-engine-framework",
+          category: "Strategy",
+          excerpt: "How to decouple creative from media buying to achieve predictable growth.",
+          content: "<p>The secret to modern scale isn't bidding hacks, it's high-velocity creative testing combined with server-side attribution.</p>",
+          status: "published",
+          user_id: user.id
+        },
+        {
+          title: "Why ROAS is a Vanity Metric",
+          slug: "beyond-roas",
+          category: "Analytics",
+          excerpt: "Focusing on Contribution Margin instead of ROAS to build a sustainable brand.",
+          content: "<p>If your ROAS is high but your bank account is empty, you have a measurement problem.</p>",
+          status: "published",
+          user_id: user.id
+        }
+      ];
+
+      // 3. Seed Portfolio
+      const portfolioItems = [
+        {
+          title: "Luxe Furnish Headless Build",
+          slug: "luxe-furnish-tech",
+          category: "Web Tech",
+          image_url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800",
+          description: "Full headless Shopify migration for a premium furniture brand.",
+          project_info: { client: "Luxe Furnish", dated: "2024", platform: "Hydrogen" },
+          user_id: user.id
+        }
+      ];
+
+      await supabase.from('case_studies').upsert(caseStudies);
+      await supabase.from('blog_posts').upsert(blogPosts);
+      await supabase.from('portfolio_projects').upsert(portfolioItems);
+
+      showSuccess("Global data seeded! Blogs, Case Studies, and Portfolio are now populated.");
       fetchData();
-    } catch (e) {
-      showError("Seed failed. Ensure all tables are created.");
+    } catch (e: any) {
+      showError("Seed failed: " + e.message);
     }
     setSeeding(false);
   };
@@ -125,22 +170,27 @@ const Admin = () => {
         <div className="mb-10"><Logo variant="white" /></div>
         <nav className="space-y-2 flex-1">
           <Link to="/admin">
-            <Button variant="ghost" className="w-full justify-start gap-3 bg-blue-600/10 text-blue-400">
+            <Button variant="ghost" className="w-full justify-start gap-3 bg-blue-600/10 text-blue-400 font-bold">
               <LayoutDashboard className="w-4 h-4" /> Dashboard
             </Button>
           </Link>
           <Link to="/admin/pages">
-            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800 font-bold">
               <FileText className="w-4 h-4" /> Pages
             </Button>
           </Link>
           <Link to="/admin/case-studies">
-            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800 font-bold">
               <TrendingUp className="w-4 h-4" /> Case Studies
             </Button>
           </Link>
+          <Link to="/admin/portfolio">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800 font-bold">
+              <BarChartIcon className="w-4 h-4" /> Portfolio
+            </Button>
+          </Link>
           <Link to="/admin/blog">
-            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 hover:text-white hover:bg-slate-800 font-bold">
               <BookOpen className="w-4 h-4" /> Blog
             </Button>
           </Link>
@@ -161,10 +211,10 @@ const Admin = () => {
               onClick={handleSeedData} 
               disabled={seeding}
               variant="outline" 
-              className="bg-indigo-50 border-indigo-100 text-indigo-600 rounded-xl gap-2 font-bold"
+              className="bg-indigo-50 border-indigo-100 text-indigo-600 rounded-xl gap-2 font-black shadow-sm"
             >
               {seeding ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-              Seed Demo Data
+              Seed Sample Work
             </Button>
             <Button onClick={fetchData} variant="outline" className="bg-white border-slate-200 text-slate-600 rounded-xl">
               <RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} />

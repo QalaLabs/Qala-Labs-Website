@@ -34,7 +34,6 @@ const PageList = () => {
     
     if (error) {
       console.error("Fetch Error:", error);
-      // Code 42P01 means 'relation does not exist' in Postgres
       if (error.code === '42P01' || error.message.includes('not found')) {
         setTableMissing(true);
         showError("The 'pages' table is missing. Ensure you ran the SQL migration.");
@@ -61,17 +60,14 @@ const PageList = () => {
         slug: 'home', 
         description: 'The main landing page for Qala Labs.',
         content: [
-          { id: 'h1', type: 'hero', props: { title: 'Scale Your DTC Brand', subtitle: 'Performance marketing engineered for growth.' } }
+          { id: 'h1', type: 'hero', props: { title: 'Scale Your DTC Brand to 8-Figures', subtitle: 'Performance marketing engineered for growth.' } }
         ]
       },
-      { 
-        title: 'Strategy Deep-Dive', 
-        slug: 'strategy-framework', 
-        description: 'How we build 8-figure scale engines.',
-        content: [
-          { id: 'h2', type: 'hero', props: { title: 'The Framework', subtitle: 'Data over hype.' } }
-        ]
-      }
+      { title: 'About Us', slug: 'about', description: 'Our team, principles, and roadmap.', content: [{ id: 'a1', type: 'hero', props: { title: 'About Qala Labs' } }] },
+      { title: 'Services', slug: 'services', description: 'Our growth capabilities.', content: [{ id: 's1', type: 'hero', props: { title: 'Our Services' } }] },
+      { title: 'Portfolio', slug: 'portfolio', description: 'Our creative work.', content: [{ id: 'p1', type: 'hero', props: { title: 'Our Work' } }] },
+      { title: 'Case Studies', slug: 'case-studies', description: 'Our proven results.', content: [{ id: 'c1', type: 'hero', props: { title: 'Case Studies' } }] },
+      { title: 'Pricing', slug: 'pricing', description: 'Flexible scaling plans.', content: [{ id: 'pr1', type: 'hero', props: { title: 'Pricing' } }] }
     ];
 
     const toInsert = initialPages.map(p => ({
@@ -86,7 +82,7 @@ const PageList = () => {
     if (error) {
       showError("Sync failed: " + error.message);
     } else {
-      showSuccess("Routes synced to CMS");
+      showSuccess("All core routes synced to CMS");
       fetchPages();
     }
     setSyncing(false);
@@ -108,7 +104,7 @@ const PageList = () => {
       .single();
 
     if (error) {
-      showError("Failed to create page. Ensure the table exists.");
+      showError("Failed to create page.");
     } else {
       showSuccess("Page created");
       navigate(`/admin/editor/${data.id}`);
@@ -141,12 +137,12 @@ const PageList = () => {
             <p className="text-slate-500">Manage your dynamic site content and landing pages.</p>
           </div>
           <div className="flex gap-3">
-            {!tableMissing && pages.length === 0 && (
+            {!tableMissing && (
               <Button 
                 onClick={syncExistingRoutes} 
                 disabled={syncing}
                 variant="outline" 
-                className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 hover:bg-blue-50"
+                className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 hover:bg-blue-50 font-bold"
               >
                 <RefreshCcw className={cn("w-5 h-5 mr-2", syncing && "animate-spin")} />
                 Sync Core Routes
@@ -164,7 +160,6 @@ const PageList = () => {
             <h2 className="text-2xl font-black text-slate-900 mb-4">Database Table Missing</h2>
             <p className="text-slate-500 max-w-lg mx-auto mb-8">
               The <code className="bg-slate-100 px-2 py-1 rounded text-red-600">pages</code> table was not found. 
-              Run the SQL migration in Supabase to continue.
             </p>
             <Button onClick={fetchPages} variant="outline" className="rounded-xl px-8 h-12">
               <RefreshCcw className="w-4 h-4 mr-2" /> Retry Connection
@@ -176,7 +171,7 @@ const PageList = () => {
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input 
-                  placeholder="Search pages by title or slug..." 
+                  placeholder="Search pages..." 
                   className="pl-12 h-12 rounded-xl border-slate-100"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -194,7 +189,6 @@ const PageList = () => {
                     <th className="px-8 py-4">Page Title</th>
                     <th className="px-8 py-4">Slug</th>
                     <th className="px-8 py-4">Status</th>
-                    <th className="px-8 py-4">Last Updated</th>
                     <th className="px-8 py-4 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -218,9 +212,6 @@ const PageList = () => {
                           {page.status}
                         </Badge>
                       </td>
-                      <td className="px-8 py-6 text-sm text-slate-500">
-                        {format(new Date(page.updated_at), 'MMM dd, yyyy')}
-                      </td>
                       <td className="px-8 py-6 text-right">
                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button variant="ghost" size="icon" onClick={() => navigate(`/admin/editor/${page.id}`)}>
@@ -238,27 +229,6 @@ const PageList = () => {
                       </td>
                     </tr>
                   ))}
-                  {filteredPages.length === 0 && !loading && (
-                    <tr>
-                      <td colSpan={5} className="px-8 py-32 text-center">
-                        <div className="max-w-md mx-auto">
-                          <Globe className="w-12 h-12 text-slate-200 mx-auto mb-4" />
-                          <h3 className="text-lg font-bold text-slate-900 mb-2">No pages found</h3>
-                          <p className="text-slate-500 text-sm mb-8">
-                            Create your first dynamic page or sync core routes to get started.
-                          </p>
-                          <div className="flex flex-col gap-2">
-                            <Button onClick={createPage} className="w-full bg-blue-600 rounded-xl font-black py-6">
-                              Create New Page
-                            </Button>
-                            <Button onClick={syncExistingRoutes} variant="ghost" className="w-full text-blue-600 font-bold">
-                              Sync Initial Data
-                            </Button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </div>
