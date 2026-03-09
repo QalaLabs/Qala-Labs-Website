@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -38,6 +40,7 @@ import EditorGuide from "./pages/EditorGuide";
 import Onboarding from "./pages/Onboarding";
 import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
+import MusicMarketingCaseStudy from "./pages/MusicMarketingCaseStudy";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +57,7 @@ const App = () => (
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+            <Route path="/case-studies/music-marketing" element={<MusicMarketingCaseStudy />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
             <Route path="/blog" element={<Blog />} />
