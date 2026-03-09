@@ -19,6 +19,7 @@ import BlogDetail from "./pages/BlogDetail";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import Tools from "./pages/Tools";
+import Quiz from "./pages/Quiz";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import PageList from "./pages/admin/PageList";
@@ -65,6 +66,7 @@ const App = () => (
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/tools" element={<Tools />} />
+            <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={<Login />} />
             
             {/* Admin Routes */}
