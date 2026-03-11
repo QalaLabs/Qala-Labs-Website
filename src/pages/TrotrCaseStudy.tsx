@@ -7,19 +7,15 @@ import SEO from '@/components/layout/SEO';
 import { motion } from 'framer-motion';
 import { 
   TrendingUp, 
-  Users, 
   Target, 
   CheckCircle2, 
   ArrowRight,
-  Globe,
-  Instagram,
-  MousePointer2,
-  XCircle,
-  Zap,
-  MessageSquare,
-  ShieldCheck,
   IndianRupee,
-  Loader2
+  ShieldCheck,
+  Zap,
+  BarChart3,
+  XCircle,
+  Briefcase
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,17 +24,17 @@ import InstagramEmbed from '@/components/social/InstagramEmbed';
 
 const TrotrCaseStudy = () => {
   const metrics = [
-    { label: "CPA Reduction", value: "42%", icon: <TrendingUp className="w-6 h-6" /> },
-    { label: "Lead Quality", value: "High", icon: <CheckCircle2 className="w-6 h-6" /> },
-    { label: "Trust Factor", value: "10x", icon: <ShieldCheck className="w-6 h-6" /> },
-    { label: "ROAS Impact", value: "Positive", icon: <IndianRupee className="w-6 h-6" /> }
+    { label: "Total Revenue", value: "₹14 Lakhs", icon: <TrendingUp className="w-6 h-6" /> },
+    { label: "CPA", value: "₹6,700", icon: <Target className="w-6 h-6" /> },
+    { label: "ROAS", value: "28x", icon: <Zap className="w-6 h-6" /> },
+    { label: "Avg. Order Value", value: "₹1,90,000", icon: <IndianRupee className="w-6 h-6" /> }
   ];
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO 
         title="Trotr Meta Lead Generation Case Study | Founder-Led Marketing" 
-        description="How we pivoted Trotr's travel campaign from zero conversions to a revenue-generating engine using founder-led storytelling."
+        description="How we generated ₹14L in revenue with a 28x ROAS using founder-led storytelling and a high-ticket conversion funnel."
       />
       <Navbar />
       
@@ -192,23 +188,6 @@ const TrotrCaseStudy = () => {
               <div className="rounded-[3rem] overflow-hidden shadow-xl border-8 border-white bg-white">
                 <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2024/11/about-img2.jpg" className="w-full h-auto" alt="Learning Experience" />
               </div>
-            </div>
-          </section>
-
-          {/* Proof Grid */}
-          <section className="mb-24">
-            <h2 className="text-3xl font-black text-slate-900 mb-12 text-center">Campaign Proof</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                "https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/1.webp",
-                "https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/2.webp",
-                "https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/4.webp",
-                "https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/3.webp"
-              ].map((src, i) => (
-                <div key={i} className="aspect-square rounded-[2rem] overflow-hidden shadow-lg border border-slate-100">
-                  <img src={src} className="w-full h-full object-cover" alt={`Proof ${i+1}`} />
-                </div>
-              ))}
             </div>
           </section>
 
