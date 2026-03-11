@@ -22,13 +22,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) => (
-  <div className="relative w-full aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl mb-12 border border-slate-100 bg-slate-900">
+  <div className="relative w-full aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl mb-8 border border-slate-100 bg-slate-900">
     <iframe
       className="absolute top-0 left-0 w-full h-full"
       src={`https://www.youtube.com/embed/${videoId}`}
       title={title || "YouTube video player"}
       frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
       loading="lazy"
     ></iframe>
@@ -69,7 +69,7 @@ const KashmiriMusicCaseStudy = () => {
             </p>
           </motion.div>
 
-          {/* Featured Video */}
+          {/* Main Featured Video */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -96,6 +96,29 @@ const KashmiriMusicCaseStudy = () => {
             ))}
           </div>
 
+          {/* Secondary Videos Section */}
+          <section className="mb-24">
+            <h2 className="text-3xl font-black text-slate-900 mb-10 text-center">The Cultural Catalog</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <YouTubeEmbed videoId="1OSNtuisQPk" title="Wadakh Wariyah | Kashmiri Rock" />
+                <p className="text-sm font-bold text-slate-900 mt-2">Wadakh Wariyah — Breaking boundaries in Kashmiri Rock.</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <YouTubeEmbed videoId="m1K5-eBFt74" title="Panin Gunnah | Cultural Soul" />
+                <p className="text-sm font-bold text-slate-900 mt-2">Panin Gunnah — Fusion of traditional soul and modern production.</p>
+              </motion.div>
+            </div>
+          </section>
+
           {/* Content Sections */}
           <div className="space-y-16 mb-24">
             <section className="grid md:grid-cols-2 gap-12 items-center">
@@ -121,9 +144,9 @@ const KashmiriMusicCaseStudy = () => {
                   </ul>
                 </div>
               </div>
-              <div className="bg-slate-900 rounded-[3rem] p-8 aspect-square flex items-center justify-center relative overflow-hidden">
+              <div className="bg-slate-900 rounded-[3rem] p-8 aspect-square flex items-center justify-center relative overflow-hidden text-center">
                 <Music className="w-32 h-32 text-blue-600 absolute opacity-20" />
-                <div className="relative z-10 text-center">
+                <div className="relative z-10">
                   <p className="text-blue-400 font-black text-6xl mb-2">0</p>
                   <p className="text-white font-bold uppercase tracking-widest text-xs">Initial Viral Infrastructure</p>
                 </div>
@@ -133,22 +156,22 @@ const KashmiriMusicCaseStudy = () => {
             <section className="p-12 bg-slate-50 rounded-[3rem] border border-slate-100">
               <h2 className="text-3xl font-black mb-10 text-center">The Qala Strategy</h2>
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                <div className="space-y-4 text-center md:text-left">
+                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto md:mx-0">
                     <BarChart3 className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-xl">Data-Led Drops</h4>
                   <p className="text-slate-500 text-sm">We used Spotify for Artists data to identify geographic clusters and timed releases for maximum algorithmic momentum.</p>
                 </div>
-                <div className="space-y-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                <div className="space-y-4 text-center md:text-left">
+                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto md:mx-0">
                     <Users className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-xl">Creator Seeding</h4>
                   <p className="text-slate-500 text-sm">Partnered with 200+ micro-creators to build "audio-identity" on TikTok, leading to 850k+ user-generated videos.</p>
                 </div>
-                <div className="space-y-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                <div className="space-y-4 text-center md:text-left">
+                  <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto md:mx-0">
                     <TrendingUp className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-xl">Viral Loop Tuning</h4>
