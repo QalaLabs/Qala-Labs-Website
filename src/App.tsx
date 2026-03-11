@@ -43,6 +43,7 @@ import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
 import MusicMarketingCaseStudy from "./pages/MusicMarketingCaseStudy";
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
+import TrotrCaseStudy from "./pages/TrotrCaseStudy";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ const App = () => (
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
             <Route path="/case-studies/music-marketing" element={<MusicMarketingCaseStudy />} />
             <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
+            <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
             <Route path="/blog" element={<Blog />} />
