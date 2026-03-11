@@ -75,7 +75,7 @@ const KashmiriMusicCaseStudy = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <YouTubeEmbed videoId="xvB29P6hNGo" title="Kashmiri Music Movement Showcase" />
+            <YouTubeEmbed videoId="UOu0IIMDC3g" title="Doud Dilas | Ishfaq kawa | Sakshi holkar | Sufi AF" />
           </motion.div>
 
           {/* Metrics Grid */}
