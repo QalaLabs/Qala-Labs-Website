@@ -28,7 +28,7 @@ const CapitalKeysPortfolio = () => {
   const metrics = [
     { label: "Leads (30 Days)", value: "17+", icon: <Users className="w-6 h-6" /> },
     { label: "Conversion Rate", value: "64.7%", icon: <TrendingUp className="w-6 h-6" /> },
-    { label: "Market Focus", value: "India/Luxury", icon: <Globe className="w-6 h-6" /> },
+    { label: "Market Focus", value: "India/Real-Estate", icon: <Globe className="w-6 h-6" /> },
     { label: "System", value: "Full CMS", icon: <ShieldCheck className="w-6 h-6" /> }
   ];
 
@@ -180,7 +180,7 @@ const CapitalKeysPortfolio = () => {
                     <div className="flex items-start gap-4">
                       <CheckCircle2 className="w-6 h-6 text-green-500 shrink-0 mt-1" />
                       <div>
-                        <p className="font-bold text-lg">India Market Focus</p>
+                        <p className="font-bold text-lg">Real-Estate Market Focus</p>
                         <p className="text-slate-400 text-sm">Optimized for luxury sector search patterns.</p>
                       </div>
                     </div>
