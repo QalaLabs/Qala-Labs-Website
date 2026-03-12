@@ -16,6 +16,15 @@ const PortfolioGrid = () => {
   // Hardcoded featured projects to ensure they are always visible
   const featuredProjects = [
     {
+      id: 'capital-keys-featured',
+      title: "Capital Keys: Real Estate Platform",
+      slug: "real-estate-website-development",
+      category: "Web Development",
+      result: "17+ Leads • 64.7% Conversion",
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
       id: 'amazon-ads-featured',
       title: "Amazon Ads: Performance Scaling",
       slug: "Amazon-ads",
@@ -86,6 +95,7 @@ const PortfolioGrid = () => {
 
   return (
     <div className="w-full">
+      {/* Filter Controls */}
       <div className="flex flex-wrap justify-center gap-3 mb-16">
         {categories.map((cat: any) => (
           <button

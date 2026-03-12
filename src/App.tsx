@@ -46,6 +46,7 @@ import TrotrCaseStudy from "./pages/TrotrCaseStudy";
 import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
 import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
+import CapitalKeysPortfolio from "./pages/CapitalKeysPortfolio";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const App = () => (
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
+            <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/pricing" element={<Pricing />} />
