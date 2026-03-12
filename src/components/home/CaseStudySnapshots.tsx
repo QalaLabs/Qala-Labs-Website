@@ -2,47 +2,40 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Loader2, XCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
 interface CaseStudySnapshotsProps {
   studyIds?: string[];
+  slugs?: string[];
 }
 
-const CaseStudySnapshots = ({ studyIds }: CaseStudySnapshotsProps) => {
+const CaseStudySnapshots = ({ slugs }: CaseStudySnapshotsProps) => {
   const [studies, setStudies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLatestStudies = async () => {
+    const fetchCaseStudies = async () => {
       setLoading(true);
       let query = supabase.from('case_studies').select('*');
-      
-      if (studyIds && studyIds.length > 0) {
-        query = query.in('id', studyIds);
+
+      if (slugs && slugs.length > 0) {
+        query = query.in('slug', slugs);
       } else {
         query = query.order('created_at', { ascending: false }).limit(2);
       }
-      
+
       const { data, error } = await query;
       
       if (!error && data) {
-        // If we have specific IDs, preserve the order they were provided in
-        if (studyIds && studyIds.length > 0) {
-          const orderedData = studyIds
-            .map(id => data.find(s => s.id === id))
-            .filter(Boolean);
-          setStudies(orderedData);
-        } else {
-          setStudies(data);
-        }
+        setStudies(data);
       }
       setLoading(false);
     };
-    fetchLatestStudies();
-  }, [studyIds]);
+    fetchCaseStudies();
+  }, [slugs]);
 
   if (loading) {
     return (
@@ -83,15 +76,38 @@ const CaseStudySnapshots = ({ studyIds }: CaseStudySnapshotsProps) => {
                     <p className="text-xl font-bold">{study.results.headline}</p>
                   </div>
                 )}
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-1" />
-                  <p className="text-sm italic text-slate-400">Rapid, measurable growth that turned cost centers into profitable acquisition machines.</p>
-                </div>
+                {study.results?.learnings && study.results?.learnings.length > 0 ? (
+                  <div className="flex items-start gap-3">
+                    {(() => {
+                      const learning = study.results?.learnings[0];
+                      if (!learning) return null;
+                      return (
+                        <>
+                          <div className="flex items-center gap-2 text-red-600">
+                            <XCircle className="w-4 h-4" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">Myth</span>
+                          </div>
+                          <p className="text-sm font-bold text-slate-800">"{learning.myth}"</p>
+                          <div className="flex items-center gap-2 text-green-600 pt-2">
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">Reality</span>
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed">{learning.reality}</p>
+                        </>
+                      );
+                    })()}
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-1" />
+                    <p className="text-sm italic text-slate-400">Rapid, measurable growth that turned cost centers into profitable acquisition machines.</p>
+                  </div>
+                )}
               </div>
 
               <Link to={`/case-studies/${study.slug || study.id}`} className="mt-12">
                 <Button variant="outline" className="w-full py-6 rounded-xl border-white/20 text-white hover:bg-white hover:text-slate-900">
-                  View Full Case Study <ArrowRight className="ml-2 w-4 h-4" />
+                  View Full Case Study <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
             </motion.div>
