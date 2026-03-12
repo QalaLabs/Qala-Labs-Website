@@ -8,6 +8,7 @@ import BlockRenderer from '@/components/cms/BlockRenderer';
 import { supabase } from '@/integrations/supabase/client';
 import { Page } from '@/types/editor';
 import { Loader2 } from 'lucide-react';
+import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
 
 const Index = () => {
   const [page, setPage] = useState<Page | null>(null);
@@ -55,13 +56,19 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title={page.title} 
+      <SEO         title={page.title} 
         description={page.description} 
       />
       <Navbar />
       <main>
         <BlockRenderer blocks={page.content} />
+        {/* Add the case study snapshots section with specific slugs */}
+        <CaseStudySnapshots 
+          slugs={[
+            'Trotr-Meta-Lead-Generation',
+            'kashmiri-movement'
+          ]} 
+        />
       </main>
       <Footer />
     </div>
