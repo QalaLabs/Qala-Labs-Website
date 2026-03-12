@@ -32,6 +32,15 @@ const PortfolioGrid = () => {
       result: "Relatability Converts Better",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
+    },
+    {
+      id: 'csk-influencer-featured',
+      title: "CSK: Real Fans, Real Roar",
+      slug: "influencer-marketing-campaign-chennai-super-kings",
+      category: "User Generated Content",
+      result: "Viral Fandom Momentum",
+      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
     }
   ];
 
