@@ -13,6 +13,28 @@ const PortfolioGrid = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const navigate = useNavigate();
 
+  // Hardcoded featured projects to ensure they are always visible
+  const featuredProjects = [
+    {
+      id: 'amazon-ads-featured',
+      title: "Amazon Ads: Performance Scaling",
+      slug: "Amazon-ads",
+      category: "Performance Marketing",
+      result: "11.2x ROAS • ₹2.7L Sales",
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'instagram-ugc-featured',
+      title: "Instagram UGC: Style Meets Real Life",
+      slug: "Instagram-user-generated-content",
+      category: "Content Creation",
+      result: "Relatability Converts Better",
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    }
+  ];
+
   useEffect(() => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
@@ -20,7 +42,20 @@ const PortfolioGrid = () => {
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (!error) setProjects(data || []);
+      const dbProjects = data || [];
+      // Merge hardcoded with DB projects, avoiding duplicates by slug
+      const merged = [...featuredProjects];
+      dbProjects.forEach(dbP => {
+        if (!merged.find(m => m.slug === dbP.slug)) {
+          merged.push({
+            ...dbP,
+            result: dbP.description?.substring(0, 60) + "...",
+            image: dbP.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+          });
+        }
+      });
+      
+      setProjects(merged);
       setLoading(false);
     };
     fetchProjects();
@@ -67,22 +102,12 @@ const PortfolioGrid = () => {
           {filteredProjects.map((project) => (
             <ProjectCard 
               key={project.id} 
-              project={{
-                ...project,
-                result: project.description?.substring(0, 60) + "...",
-                image: project.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-              }} 
-              onClick={() => navigate(`/portfolio/${project.slug || project.id}`)}
+              project={project} 
+              onClick={() => navigate(`/portfolio/${project.slug}`)}
             />
           ))}
         </AnimatePresence>
       </motion.div>
-
-      {projects.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-[3rem] border border-slate-100">
-          <p className="text-slate-400 font-bold">No projects found. Add some in the admin panel.</p>
-        </div>
-      )}
     </div>
   );
 };

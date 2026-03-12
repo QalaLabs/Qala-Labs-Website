@@ -43,6 +43,8 @@ import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
 import TrotrCaseStudy from "./pages/TrotrCaseStudy";
+import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
+import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +65,8 @@ const App = () => (
             <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+            <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+            <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/pricing" element={<Pricing />} />
