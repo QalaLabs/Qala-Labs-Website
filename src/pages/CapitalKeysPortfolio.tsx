@@ -28,7 +28,7 @@ const CapitalKeysPortfolio = () => {
   const metrics = [
     { label: "Leads (30 Days)", value: "17+", icon: <Users className="w-6 h-6" /> },
     { label: "Conversion Rate", value: "64.7%", icon: <TrendingUp className="w-6 h-6" /> },
-    { label: "Market Focus", value: "Dubai/Luxury", icon: <Globe className="w-6 h-6" /> },
+    { label: "Market Focus", value: "India/Luxury", icon: <Globe className="w-6 h-6" /> },
     { label: "System", value: "Full CMS", icon: <ShieldCheck className="w-6 h-6" /> }
   ];
 
@@ -58,7 +58,7 @@ const CapitalKeysPortfolio = () => {
               Capital Keys: Premium <span className="text-blue-600">Real Estate</span> Engine.
             </h1>
             <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl">
-              We developed a complete digital ecosystem for Capital Keys, a premium Dubai-based real estate platform. From high-converting listings to advanced lead intelligence dashboards.
+              We developed a complete digital ecosystem for Capital Keys, a premium India-based real estate platform. From high-converting listings to advanced lead intelligence dashboards.
             </p>
             
             <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-12 border border-slate-100 bg-slate-50">
@@ -180,7 +180,7 @@ const CapitalKeysPortfolio = () => {
                     <div className="flex items-start gap-4">
                       <CheckCircle2 className="w-6 h-6 text-green-500 shrink-0 mt-1" />
                       <div>
-                        <p className="font-bold text-lg">Dubai Market Focus</p>
+                        <p className="font-bold text-lg">India Market Focus</p>
                         <p className="text-slate-400 text-sm">Optimized for luxury sector search patterns.</p>
                       </div>
                     </div>
@@ -199,7 +199,7 @@ const CapitalKeysPortfolio = () => {
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Location</p>
-                    <p className="font-bold text-slate-700">Dubai, UAE</p>
+                    <p className="font-bold text-slate-700">India</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Software</p>
