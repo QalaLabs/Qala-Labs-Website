@@ -14,7 +14,9 @@ import {
   ArrowLeft,
   Sparkles,
   Trophy,
-  TrendingUp
+  TrendingUp,
+  Share2,
+  Play
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +32,13 @@ const CSKInfluencerPortfolio = () => {
     "https://www.instagram.com/reel/DHfiGEXp5se/",
     "https://www.instagram.com/reel/DHsf-47SCIC/",
     "https://www.instagram.com/reel/DJRZ4zpqEjJ/"
+  ];
+
+  const metrics = [
+    { label: "Viral Reach", value: "5M+", icon: <Share2 className="w-5 h-5" /> },
+    { label: "Engagement", value: "12%", icon: <Heart className="w-5 h-5" /> },
+    { label: "Conv. Lift", value: "35%", icon: <TrendingUp className="w-5 h-5" /> },
+    { label: "Fan Reels", value: "500+", icon: <Play className="w-5 h-5" /> }
   ];
 
   return (
@@ -62,7 +71,7 @@ const CSKInfluencerPortfolio = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {reels.map((url, i) => (
               <motion.div
                 key={i}
@@ -72,6 +81,24 @@ const CSKInfluencerPortfolio = () => {
                 transition={{ delay: i * 0.05 }}
               >
                 <InstagramEmbed url={url} />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Results Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
+            {metrics.map((metric, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 text-center hover:bg-white hover:shadow-xl hover:border-yellow-100 transition-all group"
+              >
+                <div className="text-yellow-600 mb-4 flex justify-center group-hover:scale-110 transition-transform">{metric.icon}</div>
+                <p className="text-3xl font-black mb-1 text-slate-900">{metric.value}</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{metric.label}</p>
               </motion.div>
             ))}
           </div>
