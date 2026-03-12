@@ -14,7 +14,8 @@ import {
   Zap,
   BarChart3,
   ShoppingBag,
-  ArrowLeft
+  ArrowLeft,
+  Image as ImageIcon
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -80,6 +81,48 @@ const AmazonAdsPortfolio = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* Dashboard Screenshots Section */}
+          <section className="mb-24 space-y-12">
+            <div className="text-center max-w-2xl mx-auto">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">Performance Proof</h2>
+              <p className="text-slate-500">Direct screenshots from the Amazon Advertising console showing our scaling velocity and ROAS efficiency.</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-2"
+              >
+                <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
+                  {/* Replace the src with your actual screenshot URL */}
+                  <img src="/src/assets/amazon-ads-1.jpeg" alt="Dashboard Screenshot 1" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6">
+                  <p className="text-sm font-bold text-slate-900">Campaign Performance Overview</p>
+                  <p className="text-xs text-slate-500 mt-1">Visualizing the correlation between spend and revenue growth.</p>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-2"
+              >
+                <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
+                  {/* Replace the src with your actual screenshot URL */}
+                  <img src="/src/assets/amazon-ads-2.jpeg" alt="Dashboard Screenshot 2" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6">
+                  <p className="text-sm font-bold text-slate-900">Keyword Level ROAS Analysis</p>
+                  <p className="text-xs text-slate-500 mt-1">Deep dive into high-converting search terms and bid efficiency.</p>
+                </div>
+              </motion.div>
+            </div>
+          </section>
 
           <section className="grid lg:grid-cols-3 gap-16 mb-24">
             <div className="lg:col-span-2 space-y-12">
@@ -151,23 +194,23 @@ const AmazonAdsPortfolio = () => {
                 <div className="space-y-6">
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Category</p>
-                    <p className="font-bold text-slate-700">Artwork / Performance Marketing</p>
+                    <p className="font-bold text-slate-700">Amazon Ads/ Ecommerce</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Location</p>
-                    <p className="font-bold text-slate-700">United Kingdom</p>
+                    <p className="font-bold text-slate-700">India</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Software</p>
-                    <p className="font-bold text-slate-700">Adobe Illustrator, Amazon Ads Console</p>
+                    <p className="font-bold text-slate-700">Amazon Vendor Central, Amazon Campaign Manager</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Dated</p>
-                    <p className="font-bold text-slate-700">14-Aug-2022</p>
+                    <p className="font-bold text-slate-700">1 April 2024</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Client</p>
-                    <p className="font-bold text-slate-700">Andreo Bowla</p>
+                    <p className="font-bold text-slate-700">playR</p>
                   </div>
                 </div>
               </Card>
