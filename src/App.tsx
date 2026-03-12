@@ -41,7 +41,6 @@ import EditorGuide from "./pages/EditorGuide";
 import Onboarding from "./pages/Onboarding";
 import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
-import MusicMarketingCaseStudy from "./pages/MusicMarketingCaseStudy";
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
 import TrotrCaseStudy from "./pages/TrotrCaseStudy";
 
@@ -60,7 +59,6 @@ const App = () => (
             <Route path="/services/:slug" element={<ServiceDetail />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
-            <Route path="/case-studies/music-marketing" element={<MusicMarketingCaseStudy />} />
             <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
             <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
             <Route path="/portfolio" element={<Portfolio />} />

@@ -71,38 +71,12 @@ const CaseStudies = () => {
         </motion.div>
 
         {/* Featured Case Studies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-          {/* Music Marketing Case Study */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1514525253361-bee8718a740d?auto=format&fit=crop&q=80&w=800" 
-              alt="Music Marketing" 
-              className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
-            <div className="absolute bottom-10 left-10 right-10">
-              <Badge className="bg-blue-600 text-white mb-4">Music Marketing</Badge>
-              <h3 className="text-3xl font-black text-white mb-2">Rhythm Records</h3>
-              <p className="text-blue-400 font-bold mb-6">3.4M+ Organic Views</p>
-              <Link to="/case-studies/music-marketing">
-                <button className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-600 hover:text-white transition-all">
-                  View Case Study <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 max-w-5xl mx-auto">
           {/* Trotr Case Study */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
             className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
           >
             <img 
@@ -128,7 +102,7 @@ const CaseStudies = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
           >
             <img 
