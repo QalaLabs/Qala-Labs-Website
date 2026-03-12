@@ -35,23 +35,23 @@ const ClientLogos = () => {
       <div className="relative flex">
         {/* The moving track */}
         <motion.div 
-          className="flex whitespace-nowrap gap-16 md:gap-24 items-center py-4"
+          className="flex whitespace-nowrap gap-20 md:gap-32 items-center py-6"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ 
             ease: "linear", 
-            duration: 30, 
+            duration: 35, 
             repeat: Infinity 
           }}
         >
           {duplicatedLogos.map((logo, idx) => (
             <div 
               key={idx} 
-              className="flex items-center justify-center group shrink-0"
+              className="flex items-center justify-center group shrink-0 px-4"
             >
               <img 
                 src={logo.src} 
                 alt={logo.alt} 
-                className="h-8 md:h-10 w-auto object-contain transition-all duration-500 filter grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+                className="h-12 md:h-16 w-auto object-contain transition-all duration-500 filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
                 loading="lazy"
               />
             </div>
@@ -59,8 +59,8 @@ const ClientLogos = () => {
         </motion.div>
 
         {/* Gradient overlays for smooth fade edges */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
       </div>
     </section>
   );
