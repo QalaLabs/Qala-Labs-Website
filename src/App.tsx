@@ -41,6 +41,7 @@ import EditorGuide from "./pages/EditorGuide";
 import Onboarding from "./pages/Onboarding";
 import DynamicPage from "./pages/DynamicPage";
 import StickyCTA from "./components/layout/StickyCTA";
+import WhatsAppButton from "./components/layout/WhatsAppButton";
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
 import TrotrCaseStudy from "./pages/TrotrCaseStudy";
 import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
@@ -112,6 +113,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <StickyCTA />
+          <WhatsAppButton />
         </BrowserRouter>
       </TooltipProvider>
     </HelmetProvider>
