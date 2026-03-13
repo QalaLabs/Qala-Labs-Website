@@ -44,6 +44,7 @@ import StickyCTA from "./components/layout/StickyCTA";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
 import TrotrCaseStudy from "./pages/TrotrCaseStudy";
+import GaffarCaseStudy from "./pages/GaffarCaseStudy";
 import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
 import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
             <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
             <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
+            <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />

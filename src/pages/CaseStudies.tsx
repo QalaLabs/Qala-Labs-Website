@@ -10,6 +10,7 @@ import { Loader2, ArrowRight, Play, Target, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import { supabase } from "@/integrations/supabase/client";
+import GaffarLogo from '@/assets/gaffar-new-logo.webp';
 
 const CaseStudies = () => {
   const [studies, setStudies] = React.useState<any[]>([]);
@@ -65,7 +66,7 @@ const CaseStudies = () => {
         </motion.div>
 
         {/* Featured Case Studies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 max-w-7xl mx-auto">
           {/* Trotr Case Study */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -91,12 +92,40 @@ const CaseStudies = () => {
             </div>
           </motion.div>
 
-          {/* Kashmiri Movement Case Study */}
+          {/* Gaffar India Case Study */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-white"
+          >
+            <div className="absolute inset-0 flex items-center justify-center p-12 bg-blue-50/30">
+              <img 
+                src={GaffarLogo} 
+                alt="Gaffar India" 
+                className="w-full h-auto object-contain group-hover:scale-110 transition-transform duration-700"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute bottom-10 left-10 right-10">
+              <Badge className="bg-blue-600 text-white mb-4">Brand Identity</Badge>
+              <h3 className="text-3xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors">Gaffar India</h3>
+              <p className="text-blue-600 group-hover:text-blue-400 font-bold mb-6 transition-colors">Marketplace Rebrand</p>
+              <Link to="/case-studies/gaffar-india-rebrand">
+                <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-600 transition-all">
+                  View Case Study <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Kashmiri Movement Case Study */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
             className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
           >
             <img 
