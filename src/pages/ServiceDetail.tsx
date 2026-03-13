@@ -18,6 +18,7 @@ import {
   Rocket
 } from 'lucide-react';
 import { motion } from "framer-motion";
+import { generateJsonLd } from '@/lib/seo';
 
 const serviceData: Record<string, any> = {
   'performance': {
@@ -134,9 +135,34 @@ const ServiceDetail = () => {
   const { slug } = useParams();
   const data = serviceData[slug || 'performance'] || serviceData['performance'];
 
+  const serviceJsonLd = generateJsonLd('Service', {
+    name: data.title,
+    description: data.description,
+    provider: {
+      "@type": "Organization",
+      "name": "Qala Labs"
+    },
+    areaServed: "Worldwide",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      "name": "Growth Services",
+      "itemListElement": data.features.map((f: string) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": f
+        }
+      }))
+    }
+  });
+
   return (
     <div className="min-h-screen bg-white">
-      <SEO title={data.title} description={data.description} />
+      <SEO 
+        title={data.title} 
+        description={data.description} 
+        jsonLd={JSON.parse(serviceJsonLd)}
+      />
       <Navbar />
       
       <div className="pt-32 pb-20">
