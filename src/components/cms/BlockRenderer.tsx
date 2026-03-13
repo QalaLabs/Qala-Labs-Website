@@ -137,8 +137,8 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks }) => {
             return <HowWeWork key={block.id} {...block.props} />;
           
           case 'case_study_snapshots':
-            return <CaseStudySnapshots key={block.id} studyIds={block.props.studyIds} />;
-          
+            return <CaseStudySnapshots key={block.id} />;
+
           case 'research_insights':
             return <ResearchInsights key={block.id} />;
           
