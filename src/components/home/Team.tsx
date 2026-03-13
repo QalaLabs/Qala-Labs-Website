@@ -19,11 +19,11 @@ interface TeamProps {
 
 const defaultMembers = [
   {
-    name: "Aashirwad",
-    role: "Performance Marketing & Growth Strategy",
-    desc: "Data-first paid media, experiment design, and scaling playbooks.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
-    linkedin: "#"
+    name: "Aashirwad Bhansali",
+    role: "Founder & Performance Lead",
+    desc: "Data-first paid media, experiment design, and scaling playbooks for 8-figure DTC brands.",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+    linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
   },
   {
     name: "Dipika",
