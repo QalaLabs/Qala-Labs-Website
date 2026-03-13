@@ -23,13 +23,13 @@ interface HeroProps {
 }
 
 const Hero = ({ 
-  title = "Scale Your DTC Brand to 8-Figures with Data-Driven Creative.",
-  subtitle = "We combine high-performance paid media with high-converting creative to dominate your niche.",
+  title = "Scale Your Brand to 8-Figures with Revenue Engineering.",
+  subtitle = "We combine high-performance paid media with high-velocity creative to build predictable scale engines for DTC & B2B.",
   ctaText = "Get Proposal",
   ctaUrl = "/contact",
   secondaryCtaText = "See Work",
   secondaryCtaUrl = "/portfolio",
-  badgeText = "Generated ₹12Cr in 90 days for GlowSkin"
+  badgeText = "Generated ₹20L in 30 Days for Trotr via Meta B2B Lead Gen"
 }: HeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
