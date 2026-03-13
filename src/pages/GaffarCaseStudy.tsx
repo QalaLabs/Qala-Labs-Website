@@ -271,7 +271,7 @@ const GaffarCaseStudy = () => {
                   “Qala Labs helped us turn a local market legacy into a modern marketplace identity. Their strategy balanced our Gaffar Market roots with digital usability — our sellers felt seen, buyers trusted the site more, and the brand is finally ready to scale.”
                 </p>
                 <div className="flex flex-col items-center">
-                  <p className="font-bold text-blue-400 text-xl">Sejal Jain</p>
+                  <p className="font-bold text-blue-400 text-xl">Akaash Maskeen</p>
                   <p className="text-slate-400">Founder — Gaffar India</p>
                 </div>
               </div>
