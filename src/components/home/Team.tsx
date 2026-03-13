@@ -3,6 +3,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
+import AashirwadImg from '@/assets/Aashirwad.jpg';
+import DipikaImg from '@/assets/Dipika.jpg';
+import AryamanImg from '@/assets/Aryaman.jpg';
 
 interface TeamMember {
   name: string;
@@ -22,21 +25,21 @@ const defaultMembers = [
     name: "Aashirwad Bhansali",
     role: "Founder & Performance Lead",
     desc: "Data-first paid media, experiment design, and scaling playbooks for 8-figure DTC brands.",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+    image: AashirwadImg,
     linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
   },
   {
     name: "Dipika",
     role: "Ecommerce Scaling",
     desc: "Listing optimization, retention engineering, and lifecycle flows.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+    image: DipikaImg,
     linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/"
   },
   {
     name: "Aryaman",
     role: "Creator & Creative Management",
     desc: "Creator programs, UGC production, and cross-platform distribution.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+    image: AryamanImg,
     linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/"
   }
 ];
