@@ -11,6 +11,7 @@ import { Calendar, Clock, ArrowRight, Loader2 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import BNPLFeatured from '@/assets/bnpl-featured.png';
 
 const Blog = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -23,7 +24,23 @@ const Blog = () => {
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (!error) setPosts(data || []);
+      const dbPosts = data || [];
+      
+      // Hardcoded featured post for BNPL
+      const bnplPost = {
+        id: 'bnpl-strategy-post',
+        title: "Why BNPL should be every D2C founder's core payment strategy in India",
+        slug: "why-bnpl-core-payment-strategy-india",
+        excerpt: "Discover why Buy Now Pay Later (BNPL) is transforming conversion, AOV, and operational health for D2C brands in India.",
+        category: "Strategy",
+        created_at: "2026-02-16T00:00:00Z",
+        image_url: BNPLFeatured,
+        isHardcoded: true
+      };
+
+      // Merge and ensure BNPL is first if it's not already in DB
+      const merged = [bnplPost, ...dbPosts.filter(p => p.slug !== bnplPost.slug)];
+      setPosts(merged);
       setLoading(false);
     };
     fetchPosts();

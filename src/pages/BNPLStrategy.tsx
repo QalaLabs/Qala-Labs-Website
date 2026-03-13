@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
+import BNPLFeatured from '@/assets/bnpl-featured.png';
+import BNPLContent from '@/assets/bnpl-content.png';
 
 const BNPLStrategy = () => {
   const benefits = [
@@ -66,6 +68,10 @@ const BNPLStrategy = () => {
               </div>
             </div>
 
+            <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-12 border border-slate-100">
+              <img src={BNPLFeatured} alt="BNPL Strategy Featured" className="w-full h-auto" />
+            </div>
+
             <p className="text-xl text-slate-600 leading-relaxed mb-12">
               Buy Now Pay Later or BNPL is not a fad. In India, it is fast becoming the payment method that changes conversion, AOV, and operational health for D2C brands. If your checkout still treats BNPL as optional and not cart recovery, you are leaving growth and margin on the table.
             </p>
@@ -99,6 +105,10 @@ const BNPLStrategy = () => {
               </p>
             </motion.div>
           </section>
+
+          <div className="rounded-[3rem] overflow-hidden shadow-xl mb-24 border border-slate-100">
+            <img src={BNPLContent} alt="BNPL Strategy Content" className="w-full h-auto" />
+          </div>
 
           {/* Benefits Grid */}
           <section className="mb-24">
