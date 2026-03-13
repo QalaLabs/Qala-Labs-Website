@@ -14,7 +14,6 @@ import { supabase } from "@/integrations/supabase/client";
 const CaseStudies = () => {
   const [studies, setStudies] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [searchTerm, setSearchTerm] = React.useState("");
   const navigate = useNavigate();
 
   const fetchStudies = async () => {
@@ -31,11 +30,6 @@ const CaseStudies = () => {
   useEffect(() => {
     fetchStudies();
   }, []);
-
-  const filteredStudies = studies.filter((study) =>
-    study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    study.category?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -122,50 +116,6 @@ const CaseStudies = () => {
               </Link>
             </div>
           </motion.div>
-        </div>
-
-        {/* Dynamic Grid from Supabase */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl font-black text-slate-900">More Success Stories</h2>
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="Search stories..." 
-                  className="pl-10 pr-4 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-600 outline-none"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Target className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              </div>
-            </div>
-          </div>
-
-          <motion.div 
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredStudies.map((study) => (
-                <ProjectCard 
-                  key={study.id} 
-                  project={{
-                    ...study,
-                    result: study.results?.headline || "View Results",
-                    image: study.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-                  }} 
-                  onClick={() => navigate(`/case-studies/${study.slug || study.id}`)}
-                />
-              ))}
-            </AnimatePresence>
-          </motion.div>
-
-          {filteredStudies.length === 0 && (
-            <div className="text-center py-20 bg-slate-50 rounded-[3rem] border border-dashed border-slate-200">
-              <p className="text-slate-400 font-bold">No additional case studies found matching your search.</p>
-            </div>
-          )}
         </div>
 
         {/* Scale Quiz CTA */}
