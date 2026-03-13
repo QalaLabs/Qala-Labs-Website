@@ -5,7 +5,7 @@ export const siteConfig = {
   ogImage: "https://qalalabs.com/og.jpg",
   links: {
     twitter: "https://twitter.com/qalalabs",
-    github: "https://github.com/qalalabs",
+    linkedin: "https://www.linkedin.com/company/qalalabs/",
   },
 };
 
@@ -21,12 +21,14 @@ export function constructMetadata({
   noIndex?: boolean;
 } = {}) {
   return {
-    title: `${title} | Qala Labs`,
+    title: title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`,
     description,
     openGraph: {
       title,
       description,
       images: [{ url: image }],
+      type: "website",
+      siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
@@ -46,7 +48,38 @@ export function constructMetadata({
   };
 }
 
-export const generateJsonLd = (type: 'Organization' | 'Website' | 'CaseStudy', data: any) => {
+export const getBaseJsonLd = () => {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${siteConfig.url}/favicon.png`
+        },
+        "sameAs": [
+          siteConfig.links.twitter,
+          siteConfig.links.linkedin
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+        "url": siteConfig.url,
+        "name": siteConfig.name,
+        "publisher": {
+          "@id": `${siteConfig.url}/#organization`
+        }
+      }
+    ]
+  };
+};
+
+export const generateJsonLd = (type: 'Organization' | 'Website' | 'CaseStudy' | 'Service' | 'BreadcrumbList', data: any) => {
   const base = {
     "@context": "https://schema.org",
     "@type": type,
