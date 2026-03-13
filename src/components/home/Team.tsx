@@ -23,7 +23,7 @@ interface TeamProps {
 const defaultMembers = [
   {
     name: "Aashirwad Bhansali",
-    role: "Founder & Performance Lead",
+    role: "Growth & Performance Strategy",
     desc: "Data-first paid media, experiment design, and scaling playbooks for 8-figure DTC brands.",
     image: AashirwadImg,
     linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
@@ -51,39 +51,41 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-20">
-          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">The Team</h2>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">{title}</h3>
+          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.3em] mb-4">The Team</h2>
+          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{title}</h3>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-12">
           {displayMembers.map((member, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
               className="group"
             >
-              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-xl relative">
+              <div className="aspect-[4/5] rounded-[3rem] overflow-hidden mb-8 shadow-2xl relative bg-slate-50 border border-slate-100">
                 <img 
                   src={member.image || "https://via.placeholder.com/400x500"} 
                   alt={member.name} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out group-hover:scale-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
                   <a 
                     href={member.linkedin || "#"} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
+                    className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white hover:bg-blue-700 transition-all shadow-xl hover:scale-110"
                   >
                     <Linkedin className="w-6 h-6" />
                   </a>
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">{member.name}</h3>
-              <p className="text-blue-600 font-bold text-sm mb-4">{member.role}</p>
-              <p className="text-slate-500 text-sm leading-relaxed">{member.desc}</p>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-slate-900 tracking-tight">{member.name}</h3>
+                <p className="text-blue-600 font-black text-[10px] uppercase tracking-[0.2em]">{member.role}</p>
+                <p className="text-slate-500 text-sm leading-relaxed pt-2 border-t border-slate-100">{member.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
