@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import AashirwadImg from '@/assets/Aashirwad.jpg';
 import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.jpg';
+import AryamanImg from '@/assets/Aryaman.png';
 
 interface TeamMember {
   name: string;
