@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
-import AashirwadImg from '@/assets/Aashirwad.jpg';
+import AashirwadImg from '@/assets/Aashirwad.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 
