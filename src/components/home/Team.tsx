@@ -30,14 +30,14 @@ const defaultMembers = [
     role: "Ecommerce Scaling",
     desc: "Listing optimization, retention engineering, and lifecycle flows.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/"
   },
   {
     name: "Aryaman",
     role: "Creator & Creative Management",
     desc: "Creator programs, UGC production, and cross-platform distribution.",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/"
   }
 ];
 
