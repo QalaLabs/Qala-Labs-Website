@@ -5,7 +5,8 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 import { 
   User, Shield, Bell, Globe, 
   Save, Loader2, Camera, Key,
-  Mail, Phone, MapPin, Zap, Database, Link as LinkIcon
+  Mail, Phone, MapPin, Zap, Database, Link as LinkIcon,
+  CreditCard, ShoppingCart, ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +27,10 @@ const Settings = () => {
     smtp_user: '',
     smtp_pass: '',
     notifications: true,
-    marketing_emails: false
+    marketing_emails: false,
+    bnpl_enabled: true,
+    partial_token_enabled: false,
+    rto_protection: true
   });
 
   const handleSave = async () => {
@@ -56,6 +60,9 @@ const Settings = () => {
           <TabsList className="bg-white p-1 rounded-2xl border border-slate-100 shadow-sm h-auto">
             <TabsTrigger value="integrations" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2">
               <Zap className="w-4 h-4" /> Integrations
+            </TabsTrigger>
+            <TabsTrigger value="checkout" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2">
+              <ShoppingCart className="w-4 h-4" /> Checkout & Payments
             </TabsTrigger>
             <TabsTrigger value="smtp" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2">
               <Mail className="w-4 h-4" /> SMTP Config
@@ -94,6 +101,50 @@ const Settings = () => {
                       <p className="text-sm text-blue-700/70">Enable this to automatically push qualified leads into your HubSpot or Salesforce instance via the webhook above.</p>
                     </div>
                     <Switch className="ml-auto" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="checkout">
+            <Card className="border-none shadow-sm rounded-[2.5rem] bg-white">
+              <CardHeader className="p-10 pb-0">
+                <CardTitle className="text-2xl font-black">Payment Strategy</CardTitle>
+              </CardHeader>
+              <CardContent className="p-10 space-y-8">
+                <div className="grid gap-6">
+                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                        <CreditCard className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">BNPL Core Strategy</h4>
+                        <p className="text-xs text-slate-500">Enable Buy Now Pay Later as a primary payment option.</p>
+                      </div>
+                    </div>
+                    <Switch checked={formData.bnpl_enabled} onCheckedChange={v => setFormData({...formData, bnpl_enabled: v})} />
+                  </div>
+
+                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                        <ShieldCheck className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">RTO Protection (High-Risk Pincodes)</h4>
+                        <p className="text-xs text-slate-500">Automatically require partial tokens for high-risk areas.</p>
+                      </div>
+                    </div>
+                    <Switch checked={formData.rto_protection} onCheckedChange={v => setFormData({...formData, rto_protection: v})} />
+                  </div>
+
+                  <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                    <h4 className="font-black text-blue-900 mb-2">Strategy Insight</h4>
+                    <p className="text-sm text-blue-700/70 leading-relaxed">
+                      Based on our recent tests, enabling BNPL can lift prepaid orders by up to 45%. Ensure your checkout messaging highlights "Interest-Free Instalments" to maximize conversion.
+                    </p>
                   </div>
                 </div>
               </CardContent>

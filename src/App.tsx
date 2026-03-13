@@ -49,6 +49,7 @@ import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
 import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
 import CapitalKeysPortfolio from "./pages/CapitalKeysPortfolio";
+import BNPLStrategy from "./pages/BNPLStrategy";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/tools" element={<Tools />} />
