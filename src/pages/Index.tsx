@@ -56,13 +56,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO         title={page.title} 
+      <SEO 
+        title={page.title} 
         description={page.description} 
       />
       <Navbar />
       <main>
         <BlockRenderer blocks={page.content} />
-        {/* Add the case study snapshots section with specific slugs */}
+        {/* 
+          The CaseStudySnapshots is now correctly configured to show 
+          Trotr and Kashmiri Sound by default if no slugs are passed, 
+          or we can pass them explicitly here.
+        */}
         <CaseStudySnapshots 
           slugs={[
             'Trotr-Meta-Lead-Generation',
