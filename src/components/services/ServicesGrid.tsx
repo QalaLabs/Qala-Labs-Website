@@ -10,7 +10,8 @@ import {
   Search, 
   Database, 
   Rocket,
-  Filter
+  Filter,
+  Bot
 } from 'lucide-react';
 
 const services = [
@@ -21,6 +22,14 @@ const services = [
     metric: "ROAS 28x",
     icon: <BarChart3 className="w-7 h-7" />,
     href: "/services/performance"
+  },
+  {
+    title: "AI Agents & Automation",
+    category: "Tech",
+    description: "We build autonomous AI agents that handle customer support, lead qualification, and internal operations. By integrating LLMs with your existing stack via n8n and Make, we reduce manual overhead by up to 80%.",
+    metric: "80% Less Manual Work",
+    icon: <Bot className="w-7 h-7" />,
+    href: "/services/ai-automation"
   },
   {
     title: "Creative Production",

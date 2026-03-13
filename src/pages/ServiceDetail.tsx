@@ -15,12 +15,33 @@ import {
   Globe2,
   Search,
   Database,
-  Rocket
+  Rocket,
+  Bot,
+  Workflow,
+  Cpu
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
 
 const serviceData: Record<string, any> = {
+  'ai-automation': {
+    title: "AI Agents & Automation",
+    description: "We build autonomous AI agents that handle customer support, lead qualification, and internal operations. By integrating LLMs with your existing stack, we reduce manual overhead by up to 80%.",
+    icon: <Bot className="w-12 h-12" />,
+    metric: "80% Efficiency Lift",
+    features: [
+      "Custom AI Support Agents",
+      "Automated Lead Qualification",
+      "n8n & Make.com Workflows",
+      "LLM Integration (OpenAI/Claude)",
+      "Internal Process Automation"
+    ],
+    process: [
+      { title: "Audit", desc: "Mapping your manual bottlenecks and data flows." },
+      { title: "Build", desc: "Developing custom agents and workflow logic." },
+      { title: "Deploy", desc: "Seamless integration into your existing stack." }
+    ]
+  },
   'performance': {
     title: "Performance Marketing",
     description: "We dominate paid social and search by combining aggressive bidding strategies with proprietary attribution models.",

@@ -13,27 +13,30 @@ const Footer = () => {
       { name: 'Services', href: '/services' },
       { name: 'Portfolio', href: '/portfolio' },
       { name: 'Case Studies', href: '/case-studies' },
+      { name: 'Careers', href: '/career' },
+    ],
+    network: [
+      { name: 'Agency Network', href: '/agency-network' },
+      { name: 'Creator Collective', href: '/creator-collective' },
       { name: 'Pricing', href: '/pricing' },
     ],
     resources: [
       { name: 'Blog', href: '/blog' },
       { name: 'Growth Tools', href: '/tools' },
-      { name: 'ROI Calculator', href: '/tools' },
       { name: 'Contact', href: '/contact' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '/privacy' },
       { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
     ]
   };
 
   return (
     <footer className="bg-slate-900 text-white pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
           {/* Brand Column */}
-          <div className="space-y-8">
+          <div className="lg:col-span-2 space-y-8">
             <Logo variant="white" />
             <p className="text-slate-400 leading-relaxed max-w-xs">
               The performance marketing agency for brands that refuse to settle for average growth. We build scale engines.
@@ -73,9 +76,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold mb-8">Resources</h4>
+            <h4 className="text-lg font-bold mb-8">Collaborate</h4>
             <ul className="space-y-4">
-              {links.resources.map((link) => (
+              {links.network.map((link) => (
                 <li key={link.name}>
                   <Link to={link.href} className="text-slate-400 hover:text-white transition-colors">{link.name}</Link>
                 </li>
@@ -83,26 +86,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Column */}
           <div>
-            <h4 className="text-lg font-bold mb-8">Get in Touch</h4>
-            <ul className="space-y-6">
-              <li className="flex items-start gap-4">
-                <Mail className="w-5 h-5 text-blue-500 shrink-0" />
-                <span className="text-slate-400">hello@qalalabs.com</span>
-              </li>
-              <li className="flex items-start gap-4">
-                <Phone className="w-5 h-5 text-blue-500 shrink-0" />
-                <div className="flex flex-col gap-1">
-                  <span className="text-slate-400">+91 6006760151</span>
-                  <span className="text-slate-400">+91 98716 22292</span>
-                  <span className="text-slate-400">+91 821 976 6071</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-blue-500 shrink-0" />
-                <span className="text-slate-400">Delhi, Gurugram, Bengaluru</span>
-              </li>
+            <h4 className="text-lg font-bold mb-8">Resources</h4>
+            <ul className="space-y-4">
+              {links.resources.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-slate-400 hover:text-white transition-colors">{link.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -124,14 +115,6 @@ const Footer = () => {
               Join <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
-
-        {/* Motion Note */}
-        <div className="mt-8 p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 flex items-center gap-4">
-          <Zap className="w-6 h-6 text-blue-500 shrink-0" />
-          <p className="text-xs text-slate-400 leading-relaxed">
-            <span className="font-bold text-white">Why motion matters:</span> We use purposeful animation to guide your focus and clarify complex data. Our motion system respects your system preferences and reduces intensity if "Reduced Motion" is enabled.
-          </p>
         </div>
 
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">

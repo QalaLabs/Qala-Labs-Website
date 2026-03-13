@@ -50,6 +50,9 @@ import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
 import CapitalKeysPortfolio from "./pages/CapitalKeysPortfolio";
 import BNPLStrategy from "./pages/BNPLStrategy";
+import Career from "./pages/Career";
+import AgencyNetwork from "./pages/AgencyNetwork";
+import CreatorCollective from "./pages/CreatorCollective";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +86,9 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/career" element={<Career />} />
+            <Route path="/agency-network" element={<AgencyNetwork />} />
+            <Route path="/creator-collective" element={<CreatorCollective />} />
             
             {/* Admin Routes */}
             <Route path="/admin" element={<Admin />} />
