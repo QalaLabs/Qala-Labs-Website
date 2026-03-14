@@ -43,10 +43,10 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="fixed top-0 w-full z-[100] bg-white/90 backdrop-blur-xl border-b border-slate-100">
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="relative z-[110]">
+          <Link to="/" className="relative z-[110] flex items-center">
             <Logo className="h-8 md:h-10" />
           </Link>
 
@@ -86,10 +86,10 @@ const Navbar = () => {
           {/* Mobile Toggle */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            className="lg:hidden relative z-[110] p-2 text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+            className="lg:hidden relative z-[110] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </div>
@@ -98,13 +98,13 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed inset-0 z-[105] lg:hidden bg-white flex flex-col pt-24 px-6 pb-10 overflow-y-auto"
           >
-            <div className="space-y-2">
+            <div className="space-y-1">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
@@ -115,7 +115,7 @@ const Navbar = () => {
                   <Link 
                     to={link.href}
                     className={cn(
-                      "block py-4 text-2xl font-black border-b border-slate-50",
+                      "block py-4 text-2xl font-black border-b border-slate-50 transition-colors",
                       location.pathname === link.href ? "text-blue-600" : "text-slate-900"
                     )}
                   >

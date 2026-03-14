@@ -95,6 +95,11 @@
     @apply border-border;
   }
 
+  html, body {
+    @apply overflow-x-hidden w-full;
+    position: relative;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
