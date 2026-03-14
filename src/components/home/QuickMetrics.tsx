@@ -63,16 +63,16 @@ const QuickMetrics = ({
   results = defaultResults 
 }: QuickMetricsProps) => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-16">
+        <div className="mb-12 md:mb-16">
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
             {title}
           </h2>
-          <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{subtitle}</h3>
+          <h3 className="text-3xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{subtitle}</h3>
         </div>
         
-        <div className="grid gap-8">
+        <div className="grid gap-6 md:gap-8">
           {results.map((item, i) => (
             <motion.div
               key={i}
@@ -81,25 +81,25 @@ const QuickMetrics = ({
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="border-none shadow-2xl bg-slate-900 text-white rounded-[3rem] overflow-hidden relative group">
+              <Card className="border-none shadow-2xl bg-slate-900 text-white rounded-[2rem] md:rounded-[3rem] overflow-hidden relative group">
                 <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                 
-                <CardContent className="p-10 md:p-16 relative z-10">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
-                    <h3 className="text-2xl font-black tracking-tight">{item.brand}</h3>
+                <CardContent className="p-8 md:p-16 relative z-10">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4">
+                    <h3 className="text-xl md:text-2xl font-black tracking-tight">{item.brand}</h3>
                     <div className="px-4 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-widest">
                       Verified Result
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {item.stats.map((stat, j) => (
-                      <div key={j} className="space-y-3">
+                      <div key={j} className="space-y-2 md:space-y-3">
                         <div className="flex items-center gap-2">
                           {iconMap[stat.iconType] || <Zap className="w-4 h-4" />}
                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
                         </div>
-                        <p className="text-4xl md:text-5xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-500 origin-left">
+                        <p className="text-3xl md:text-5xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-500 origin-left">
                           {stat.value}
                         </p>
                       </div>
