@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Send, CheckCircle2, Mail, Phone, MapPin } from 'lucide-react';
+import { Loader2, Send, CheckCircle2, Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react';
 import { motion } from "framer-motion";
 
 const services = [
@@ -92,7 +92,29 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Call Us</h4>
-                  <p className="text-slate-500">+44 (0) 20 3835 1234</p>
+                  <p className="text-slate-500">+91 60067 60151</p>
+                </div>
+              </div>
+              
+              <div className="pt-8 border-t border-slate-200">
+                <h4 className="font-bold text-slate-900 mb-4">Follow Our Frameworks</h4>
+                <div className="flex gap-4">
+                  <a 
+                    href="https://www.linkedin.com/company/qalalabs/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/qalalabs/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600 hover:border-pink-600 transition-all"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </a>
                 </div>
               </div>
             </div>
