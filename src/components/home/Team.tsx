@@ -74,7 +74,7 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
             >
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden mb-8 shadow-2xl relative bg-slate-50 border border-slate-100">
                 <img 
-                  src={member.image || "https://via.placeholder.com/400x500"} 
+                  src={member.image} 
                   alt={member.name} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out group-hover:scale-105" 
                   loading="lazy"
