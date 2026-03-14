@@ -26,6 +26,7 @@ import PageList from "./pages/admin/PageList";
 import PageEditor from "./pages/admin/PageEditor";
 import MediaManager from "./pages/admin/MediaManager";
 import Settings from "./pages/admin/Settings";
+import SiteManagement from "./pages/admin/SiteManagement";
 import CaseStudyManager from "./pages/admin/CaseStudyManager";
 import CaseStudyEditor from "./pages/admin/CaseStudyEditor";
 import PortfolioManager from "./pages/admin/PortfolioManager";
@@ -109,6 +110,7 @@ const App = () => (
             
             <Route path="/admin/media" element={<MediaManager />} />
             <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/admin/site-management" element={<SiteManagement />} />
             <Route path="/admin/guide" element={<EditorGuide />} />
             
             <Route path="/dashboard" element={<Dashboard />} />
