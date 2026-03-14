@@ -8,9 +8,6 @@ import BlockRenderer from '@/components/cms/BlockRenderer';
 import { supabase } from '@/integrations/supabase/client';
 import { Page } from '@/types/editor';
 import { Loader2 } from 'lucide-react';
-import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
-import TechStackRibbon from '@/components/home/TechStackRibbon';
-import Hero from '@/components/layout/Hero';
 
 const Index = () => {
   const [page, setPage] = useState<Page | null>(null);
@@ -40,7 +37,6 @@ const Index = () => {
     );
   }
 
-  // Fallback to default sections if no CMS page exists yet
   if (!page) {
     return (
       <div className="min-h-screen bg-slate-50">
@@ -64,13 +60,7 @@ const Index = () => {
       />
       <Navbar />
       <main>
-        {/* We render the Hero and Ribbon first, then the Snapshots, then the rest of the CMS content */}
-        <Hero />
-        <TechStackRibbon />
-        <CaseStudySnapshots />
-        
-        {/* Filter out the hero and ribbon from the CMS content if they are already there to avoid duplicates */}
-        <BlockRenderer blocks={page.content.filter(b => b.type !== 'hero' && b.type !== 'tech_stack_ribbon' && b.type !== 'case_study_snapshots')} />
+        <BlockRenderer blocks={page.content} />
       </main>
       <Footer />
     </div>

@@ -18,16 +18,13 @@ const PageList = () => {
   const [loading, setLoading] = React.useState(true);
   const [syncing, setSyncing] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [tableMissing, setTableMissing] = React.useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const fetchPages = React.useCallback(async () => {
     setLoading(true);
-    setTableMissing(false);
     const { data, error } = await supabase.from('pages').select('*').order('updated_at', { ascending: false });
-    if (error) setTableMissing(true);
-    else setPages(data || []);
+    if (!error) setPages(data || []);
     setLoading(false);
   }, []);
 
@@ -46,30 +43,19 @@ const PageList = () => {
         content: [
           { id: 'h1', type: 'hero', props: { title: "Scale Your DTC Brand to 8-Figures.", subtitle: "Data-driven creative for high-growth brands.", ctaText: "Get Proposal", ctaUrl: "/contact" } },
           { id: 'h2', type: 'tech_stack_ribbon', props: {} },
-          { id: 'h3', type: 'why_different', props: {} },
+          { id: 'h3', type: 'why_different', props: { title: "Why we're different", description: "We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution." } },
           { id: 'h4', type: 'client_logos', props: {} },
-          { id: 'h5', type: 'quick_metrics', props: {} },
-          { id: 'h6', type: 'what_we_do', props: {} },
-          { id: 'h7', type: 'how_we_work', props: {} },
-          { id: 'h8', type: 'case_study_snapshots', props: {} },
-          { id: 'h9', type: 'research_insights', props: {} },
+          { id: 'h5', type: 'quick_metrics', props: { title: "Recent Results", subtitle: "Proven Performance.", results: [
+            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }], color: "from-blue-600/20 to-indigo-600/20" }
+          ] } },
+          { id: 'h6', type: 'what_we_do', props: { title: "What we do" } },
+          { id: 'h7', type: 'how_we_work', props: { title: "How we work" } },
+          { id: 'h8', type: 'case_study_snapshots', props: { studyIds: [] } },
+          { id: 'h9', type: 'research_insights', props: { title: "Research & Insights", description: "We believe in doing the right research..." } },
           { id: 'h10', type: 'testimonial', props: { quote: "Qala Labs helped us scale fast and data-driven.", author: "CEO, Gaffar India" } },
           { id: 'h11', type: 'team_grid', props: { title: "The Team" } },
           { id: 'h12', type: 'faq', props: { title: "FAQ" } },
           { id: 'h13', type: 'closing_cta', props: {} }
-        ]
-      },
-      {
-        title: 'About Qala',
-        slug: 'about',
-        description: 'Company mission and roadmap.',
-        status: 'published',
-        content: [
-          { id: 'a1', type: 'hero', props: { title: "About Qala Labs", subtitle: "We build predictable revenue engines.", ctaText: "Book Audit", ctaUrl: "/contact" } },
-          { id: 'a2', type: 'quick_metrics', props: {} },
-          { id: 'a3', type: 'how_we_work', props: { title: "The Scale Roadmap" } },
-          { id: 'a4', type: 'team_grid', props: { title: "Our Founders" } },
-          { id: 'a5', type: 'closing_cta', props: { title: "Ready to start your journey?" } }
         ]
       }
     ];

@@ -117,6 +117,9 @@ const PageEditor = () => {
       case 'testimonial': return { quote: 'Quote', author: 'Author', role: 'Role' };
       case 'closing_cta': return { title: 'Ready to scale?', description: 'Let\'s talk strategy.' };
       case 'case_study_snapshots': return { studyIds: [] };
+      case 'why_different': return { title: "Why we're different", description: "We're revenue engineers..." };
+      case 'research_insights': return { title: "Research & Insights", description: "We believe in doing the right research..." };
+      case 'quick_metrics': return { title: "Recent Results", subtitle: "Proven Performance.", results: [] };
       default: return {};
     }
   };
@@ -129,6 +132,37 @@ const PageEditor = () => {
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Headline</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Subtitle</Label><Textarea value={props.subtitle || ''} onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })} className="rounded-xl" /></div>
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">CTA Text</Label><Input value={props.ctaText || ''} onChange={(e) => onUpdate({ ...props, ctaText: e.target.value })} className="rounded-xl" /></div>
+        </div>
+      );
+      case 'why_different':
+      case 'research_insights': return (
+        <div className="space-y-4">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Description</Label><Textarea value={props.description || ''} onChange={(e) => onUpdate({ ...props, description: e.target.value })} className="rounded-xl min-h-[150px]" /></div>
+        </div>
+      );
+      case 'quick_metrics': return (
+        <div className="space-y-6">
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Section Title</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-2"><Label className="text-xs font-bold uppercase">Subtitle</Label><Input value={props.subtitle || ''} onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-4">
+            <Label className="text-xs font-bold uppercase">Metric Cards</Label>
+            {(props.results || []).map((r: any, i: number) => (
+              <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3 relative group">
+                <button onClick={() => {
+                  const newR = props.results.filter((_: any, idx: number) => idx !== i);
+                  onUpdate({ ...props, results: newR });
+                }} className="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="w-4 h-4" /></button>
+                <div className="space-y-1"><Label className="text-[10px]">Brand Name</Label><Input value={r.brand} onChange={e => {
+                  const newR = [...props.results]; newR[i].brand = e.target.value; onUpdate({...props, results: newR});
+                }} className="h-8 text-xs rounded-lg" /></div>
+                <div className="space-y-1"><Label className="text-[10px]">Color (Tailwind from-to)</Label><Input value={r.color} onChange={e => {
+                  const newR = [...props.results]; newR[i].color = e.target.value; onUpdate({...props, results: newR});
+                }} className="h-8 text-xs rounded-lg" placeholder="from-blue-600/20 to-indigo-600/20" /></div>
+              </div>
+            ))}
+            <Button variant="outline" className="w-full rounded-xl border-dashed" onClick={() => onUpdate({ ...props, results: [...(props.results || []), { brand: 'New Brand', stats: [], color: 'from-blue-600/20 to-indigo-600/20' }] })}><Plus className="w-4 h-4 mr-2" /> Add Result Card</Button>
+          </div>
         </div>
       );
       case 'team_grid': return (
@@ -284,7 +318,6 @@ const PageEditor = () => {
       </header>
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Structure Sidebar */}
         <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
           <div className="p-4 border-b border-slate-200 bg-slate-50/50"><h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><List className="w-3 h-3" /> Page Structure</h3></div>
           <div className="flex-1 overflow-y-auto p-2 space-y-1">
