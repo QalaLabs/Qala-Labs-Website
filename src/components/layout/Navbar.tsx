@@ -1,13 +1,18 @@
+"use client";
+
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, LayoutDashboard } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, LayoutDashboard, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Logo from './Logo';
 import { useUser } from '@/hooks/useUser';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useUser();
 
   const navLinks = [
@@ -20,20 +25,41 @@ const Navbar = () => {
     { name: 'Pricing', href: '/pricing' },
   ];
 
+  // Close menu on route change
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
+  // Prevent scroll when menu is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <nav className="fixed top-0 w-full z-[100] bg-white/90 backdrop-blur-xl border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <Link to="/">
-            <Logo />
+          <Link to="/" className="relative z-[110]">
+            <Logo className="h-8 md:h-10" />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 to={link.href}
-                className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
+                className={cn(
+                  "text-sm font-bold transition-colors",
+                  location.pathname === link.href ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
+                )}
               >
                 {link.name}
               </Link>
@@ -43,52 +69,76 @@ const Navbar = () => {
               <Button 
                 onClick={() => navigate('/admin')}
                 variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50 font-bold px-6 rounded-full flex items-center gap-2"
+                className="border-blue-600 text-blue-600 hover:bg-blue-50 font-black px-6 rounded-xl flex items-center gap-2"
               >
                 <LayoutDashboard className="w-4 h-4" /> Dashboard
               </Button>
             ) : (
               <Button 
                 onClick={() => navigate('/contact')}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 rounded-full"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
               >
                 Free Audit
               </Button>
             )}
           </div>
 
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-900" aria-label="Toggle menu">
-              {isOpen ? <X /> : <Menu />}
-            </button>
-          </div>
+          {/* Mobile Toggle */}
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="lg:hidden relative z-[110] p-2 text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-b border-gray-100 p-4 space-y-4">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              to={link.href}
-              className="block text-lg font-semibold text-slate-900"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <Button 
-            onClick={() => {
-              navigate(user ? '/admin' : '/contact');
-              setIsOpen(false);
-            }}
-            className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl"
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[105] lg:hidden bg-white flex flex-col pt-24 px-6 pb-10 overflow-y-auto"
           >
-            {user ? 'Dashboard' : 'Free Audit'}
-          </Button>
-        </div>
-      )}
+            <div className="space-y-2">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  <Link 
+                    to={link.href}
+                    className={cn(
+                      "block py-4 text-2xl font-black border-b border-slate-50",
+                      location.pathname === link.href ? "text-blue-600" : "text-slate-900"
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-auto pt-10 space-y-4">
+              <Button 
+                onClick={() => navigate(user ? '/admin' : '/contact')}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-xl shadow-xl shadow-blue-500/20"
+              >
+                {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              <p className="text-center text-slate-400 text-sm font-medium">
+                Ready to build your scale engine?
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
