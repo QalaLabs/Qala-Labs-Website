@@ -13,6 +13,12 @@ import { showSuccess, showError } from '@/utils/toast';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
 
+// Import images for the default import
+import AashirwadImg from '@/assets/Aashirwad.png';
+import DipikaImg from '@/assets/Dipika.jpg';
+import AryamanImg from '@/assets/Aryaman.png';
+import ManpreetImg from '@/assets/Manpreet.png';
+
 const PageList = () => {
   const [pages, setPages] = React.useState<Page[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -46,14 +52,23 @@ const PageList = () => {
           { id: 'h3', type: 'why_different', props: { title: "Why we're different", description: "We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution." } },
           { id: 'h4', type: 'client_logos', props: {} },
           { id: 'h5', type: 'quick_metrics', props: { title: "Recent Results", subtitle: "Proven Performance.", results: [
-            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }], color: "from-blue-600/20 to-indigo-600/20" }
+            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }], color: "from-blue-600/20 to-indigo-600/20" },
+            { brand: "CSK: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }], color: "from-yellow-600/20 to-orange-600/20" }
           ] } },
           { id: 'h6', type: 'what_we_do', props: { title: "What we do" } },
           { id: 'h7', type: 'how_we_work', props: { title: "How we work" } },
           { id: 'h8', type: 'case_study_snapshots', props: { studyIds: [] } },
           { id: 'h9', type: 'research_insights', props: { title: "Research & Insights", description: "We believe in doing the right research..." } },
           { id: 'h10', type: 'testimonial', props: { quote: "Qala Labs helped us scale fast and data-driven.", author: "CEO, Gaffar India" } },
-          { id: 'h11', type: 'team_grid', props: { title: "The Team" } },
+          { id: 'h11', type: 'team_grid', props: { 
+            title: "The Team",
+            members: [
+              { name: "Aashirwad Bhansali", role: "Growth & Performance Strategy", desc: "Data-first paid media, experiment design, and scaling playbooks.", image: AashirwadImg, linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/" },
+              { name: "Dipika", role: "Ecommerce Scaling", desc: "Listing optimization, retention engineering, and lifecycle flows.", image: DipikaImg, linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/" },
+              { name: "Aryaman", role: "Social Media and Talent Management", desc: "Creator programs, UGC production, and cross-platform distribution.", image: AryamanImg, linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/" },
+              { name: "Manpreet Singh", role: "Visualiser", desc: "Visual storytelling, brand aesthetics, and high-impact design.", image: ManpreetImg, linkedin: "https://www.linkedin.com/in/manpreet-singh-020549237" }
+            ]
+          } },
           { id: 'h12', type: 'faq', props: { title: "FAQ" } },
           { id: 'h13', type: 'closing_cta', props: {} }
         ]
