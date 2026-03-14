@@ -11,7 +11,8 @@ import {
   Database, 
   Rocket,
   Filter,
-  Bot
+  Bot,
+  Users
 } from 'lucide-react';
 
 const services = [
@@ -22,6 +23,14 @@ const services = [
     metric: "ROAS 28x",
     icon: <BarChart3 className="w-7 h-7" />,
     href: "/services/performance"
+  },
+  {
+    title: "Social Media Management",
+    category: "Creative",
+    description: "We manage your brand's social presence across all platforms. From content strategy and community management to viral trend hijacking, we ensure your brand stays relevant and engaged with your core audience.",
+    metric: "12% Avg. Engagement",
+    icon: <Users className="w-7 h-7" />,
+    href: "/services/social-media"
   },
   {
     title: "AI Agents & Automation",

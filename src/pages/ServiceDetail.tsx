@@ -18,12 +18,32 @@ import {
   Rocket,
   Bot,
   Workflow,
-  Cpu
+  Cpu,
+  Users
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
 
 const serviceData: Record<string, any> = {
+  'social-media': {
+    title: "Social Media Management",
+    description: "We manage your brand's social presence across all platforms. From content strategy and community management to viral trend hijacking, we ensure your brand stays relevant and engaged with your core audience.",
+    icon: <Users className="w-12 h-12" />,
+    metric: "12% Avg. Engagement",
+    features: [
+      "Content Strategy & Planning",
+      "Community Management",
+      "Trend Hijacking & Viral Tactics",
+      "Platform-Specific Optimization",
+      "Influencer Coordination",
+      "Monthly Performance Audits"
+    ],
+    process: [
+      { title: "Strategy", desc: "Defining your brand voice and content pillars." },
+      { title: "Creation", desc: "Producing high-impact posts, reels, and stories." },
+      { title: "Engagement", desc: "Active community management and growth tactics." }
+    ]
+  },
   'ai-automation': {
     title: "AI Agents & Automation",
     description: "We build autonomous AI agents that handle customer support, lead qualification, and internal operations. By integrating LLMs with your existing stack, we reduce manual overhead by up to 80%.",
