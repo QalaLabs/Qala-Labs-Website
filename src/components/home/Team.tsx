@@ -6,6 +6,7 @@ import { Linkedin } from 'lucide-react';
 import AashirwadImg from '@/assets/Aashirwad.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
+import ManpreetImg from '@/assets/Manpreet.png';
 
 interface TeamMember {
   name: string;
@@ -37,10 +38,17 @@ const defaultMembers = [
   },
   {
     name: "Aryaman",
-    role: "Creator & Creative Management",
+    role: "Social Media and Talent Management",
     desc: "Creator programs, UGC production, and cross-platform distribution.",
     image: AryamanImg,
     linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/"
+  },
+  {
+    name: "Manpreet Singh",
+    role: "Visualiser",
+    desc: "Visual storytelling, brand aesthetics, and high-impact design for digital-first brands.",
+    image: ManpreetImg,
+    linkedin: "https://www.linkedin.com/in/manpreet-singh-020549237?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   }
 ];
 
@@ -54,7 +62,7 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.3em] mb-4">The Team</h2>
           <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{title}</h3>
         </div>
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {displayMembers.map((member, i) => (
             <motion.div
               key={i}
