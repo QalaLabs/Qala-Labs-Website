@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 
 // Import actual assets
 import WPLHero from '@/assets/pickleball/wpl-hero.png';
+import CSCBanner from '@/assets/pickleball/csc-banner.png';
+import CSCStaffCollection from '@/assets/pickleball/csc-staff-collection.png';
 import CSCYellowTee from '@/assets/pickleball/csc-yellow-tee.png';
 import CSCBlackTee from '@/assets/pickleball/csc-black-tee.png';
 import CSCYellowPolo from '@/assets/pickleball/csc-yellow-polo.png';
@@ -28,9 +30,6 @@ import CSCTracksuit from '@/assets/pickleball/csc-tracksuit.png';
 import BJLogoLockup from '@/assets/pickleball/bj-logo-lockup.png';
 import BJCamoTee from '@/assets/pickleball/bj-camo-tee.png';
 import BJCaps from '@/assets/pickleball/bj-caps.png';
-
-// Placeholder for missing logo asset
-const CSCLogoLockup = "https://placehold.co/1200x400/600000/white?text=playR+x+SUPER+CHAMPS";
 
 const PickleballPortfolio = () => {
   const metrics = [
@@ -86,7 +85,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100"
             >
-              <img src={CSCLogoLockup} alt="playR x Super Champs" className="w-full h-auto" />
+              <img src={CSCBanner} alt="Chennai Super Champs Merchandise Banner" className="w-full h-auto" />
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -102,11 +101,8 @@ const PickleballPortfolio = () => {
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
                 <img src={CSCYellowPolo} alt="CSC Yellow Polo" className="w-full h-auto" />
               </div>
-              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 flex items-center justify-center p-8">
-                <div className="text-center">
-                  <Badge className="bg-slate-900 text-white mb-4">Staff Collection</Badge>
-                  <p className="text-slate-500 font-medium">Performance Polos & Staff Wear</p>
-                </div>
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
+                <img src={CSCStaffCollection} alt="CSC Staff Collection" className="w-full h-auto" />
               </div>
             </div>
 
