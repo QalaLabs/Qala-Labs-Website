@@ -11,23 +11,28 @@ import {
   ArrowLeft,
   ShoppingBag,
   Layers,
-  Trophy
+  Trophy,
+  Shirt,
+  Palette
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from 'react-router-dom';
 
-// Placeholder assets to replace missing local files
+// Assets matching the Behance screenshot vibe
 const WPLHero = "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=1200";
-const CSCLogo = "https://placehold.co/600x400/0B66FF/white?text=CSC+Logo";
-const CSCYellowTee = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Tee";
-const CSCBlackTee = "https://placehold.co/600x800/1a1a1a/white?text=Black+Tee";
-const CSCBlackPolo = "https://placehold.co/600x800/1a1a1a/white?text=Black+Polo";
-const CSCYellowPolo = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Polo";
-const CSCCap = "https://placehold.co/600x600/0B66FF/white?text=CSC+Cap";
-const CSCTeamKit = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800";
-const BJLogo = "https://placehold.co/600x400/333333/white?text=BJ+Logo";
-const BJTee = "https://placehold.co/600x800/333333/white?text=BJ+Tee";
+const CSCLogoLockup = "https://placehold.co/1200x400/600000/white?text=playR+x+SUPER+CHAMPS";
+const CSCBlackTee = "https://placehold.co/600x800/1a1a1a/FFD700?text=CSC+Black+Tee";
+const CSCYellowTee = "https://placehold.co/600x800/FFD700/1a1a1a?text=CSC+Yellow+Tee";
+const CSCBlackPolo = "https://placehold.co/600x800/1a1a1a/FFD700?text=CSC+Black+Polo";
+const CSCYellowPolo = "https://placehold.co/600x800/FFD700/1a1a1a?text=CSC+Yellow+Polo";
+const CSCCaps = "https://placehold.co/800x600/1a1a1a/FFD700?text=CSC+Headwear+Collection";
+const CSCTeamKits = "https://placehold.co/1200x800/FFD700/800000?text=CSC+Official+Team+Kits";
+const CSCTracksuit = "https://placehold.co/800x800/1a1a1a/FFD700?text=CSC+Performance+Tracksuit";
+
+const BJLogoLockup = "https://placehold.co/1200x400/111111/white?text=playR+x+BENGALURU+JAWANS";
+const BJCaps = "https://placehold.co/800x600/cc0000/white?text=BJ+Headwear+Collection";
+const BJCamoTee = "https://placehold.co/800x800/cc0000/white?text=BJ+Camo+Performance+Tee";
 
 const PickleballPortfolio = () => {
   const metrics = [
@@ -51,113 +56,122 @@ const PickleballPortfolio = () => {
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Portfolio
           </Link>
 
+          {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-16 text-center"
+            className="mb-24 text-center"
           >
-            <Badge className="bg-blue-600 text-white mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]">
-              Apparel Design & Art Direction
-            </Badge>
-            <h1 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 leading-tight tracking-tight">
-              World Pickleball League: <br /> <span className="text-blue-600">Apparel & Merchandise.</span>
-            </h1>
-            
-            <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-12 border border-slate-100 bg-slate-50">
+            <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-16 border border-slate-100 bg-slate-50">
               <img 
                 src={WPLHero} 
                 alt="World Pickleball League Branding" 
                 className="w-full h-auto"
               />
             </div>
+
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-8">
+                World Pickleball League – Apparel & Merchandise Design
+              </h1>
+              <p className="text-lg text-slate-600 leading-relaxed">
+                Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players. Ensured each design was both functional and stylish, enhancing the overall identity of the league.
+              </p>
+            </div>
           </motion.div>
 
-          <section className="mb-24 max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-black text-slate-900 mb-6">World Pickleball League – Apparel & Merchandise Design</h2>
-            <p className="text-xl text-slate-600 leading-relaxed">
-              Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players.
-            </p>
-          </section>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-32">
-            {metrics.map((metric, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 text-center hover:bg-white hover:shadow-xl hover:border-blue-100 transition-all group"
-              >
-                <div className="text-blue-600 mb-4 flex justify-center group-hover:scale-110 transition-transform">{metric.icon}</div>
-                <p className="text-3xl font-black mb-1 text-slate-900">{metric.value}</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{metric.label}</p>
-              </motion.div>
-            ))}
-          </div>
-
           {/* Chennai Super Champs Section */}
-          <section className="space-y-12 mb-32">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px flex-1 bg-slate-100" />
-              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-widest">Chennai Super Champs</h2>
-              <div className="h-px flex-1 bg-slate-100" />
-            </div>
+          <section className="space-y-16 mb-32">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100"
+            >
+              <img src={CSCLogoLockup} alt="playR x Super Champs" className="w-full h-auto" />
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
-                <img src={CSCLogo} alt="Chennai Super Champs Logo" className="max-h-64 w-auto object-contain" />
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
+                <img src={CSCBlackTee} alt="CSC Black Tee" className="w-full h-auto" />
               </div>
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCTeamKit} alt="CSC Team Kit" className="w-full h-full object-cover" />
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
+                <img src={CSCYellowTee} alt="CSC Yellow Tee" className="w-full h-auto" />
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { img: CSCYellowTee, title: "Fan Tee", sub: "Yellow Edition" },
-                { img: CSCBlackTee, title: "Fan Tee", sub: "Black Edition" },
-                { img: CSCBlackPolo, title: "Staff Polo", sub: "Black/Gold" },
-                { img: CSCYellowPolo, title: "Staff Polo", sub: "Yellow/White" }
-              ].map((item, i) => (
-                <div key={i} className="group bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
-                  <div className="aspect-square rounded-2xl overflow-hidden mb-4 bg-slate-50">
-                    <img src={item.img} alt={item.title} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
-                  </div>
-                  <h3 className="text-sm font-bold text-slate-900">{item.title}</h3>
-                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{item.sub}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-12 flex items-center justify-center">
-              <img src={CSCCap} alt="CSC Headwear" className="max-h-96 w-auto object-contain" />
-            </div>
-          </section>
-
-          {/* Bengaluru Jawans Section */}
-          <section className="space-y-12 mb-32">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-px flex-1 bg-slate-100" />
-              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-widest">Bengaluru Jawans</h2>
-              <div className="h-px flex-1 bg-slate-100" />
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
-                <img src={BJLogo} alt="BJ Logo Lockup" className="max-h-64 w-auto object-contain" />
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
+                <img src={CSCBlackPolo} alt="CSC Black Polo" className="w-full h-auto" />
               </div>
-              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
-                <img src={BJTee} alt="BJ Team Tee" className="max-h-96 w-auto object-contain" />
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
+                <img src={CSCYellowPolo} alt="CSC Yellow Polo" className="w-full h-auto" />
               </div>
             </div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
+            >
+              <img src={CSCCaps} alt="CSC Caps Collection" className="w-full h-auto" />
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
+            >
+              <img src={CSCTeamKits} alt="CSC Team Kits" className="w-full h-auto" />
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
+            >
+              <img src={CSCTracksuit} alt="CSC Tracksuit" className="w-full h-auto" />
+            </motion.div>
+          </section>
+
+          {/* Bengaluru Jawans Section */}
+          <section className="space-y-16 mb-32">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100"
+            >
+              <img src={BJLogoLockup} alt="playR x Bengaluru Jawans" className="w-full h-auto" />
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
+            >
+              <img src={BJCaps} alt="BJ Caps Collection" className="w-full h-auto" />
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
+            >
+              <img src={BJCamoTee} alt="BJ Camo Tee" className="w-full h-auto" />
+            </motion.div>
           </section>
 
           {/* CTA Section */}
           <section className="py-20">
             <div className="relative p-12 md:p-24 bg-slate-900 rounded-[5rem] overflow-hidden text-center shadow-2xl">
               <div className="relative z-10">
-                <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-white">
+                <h2 className="text-4xl md:text-6xl font-black mb-10 leading-tight text-white">
                   Want this look <br /> for your <i>brand?</i>
                 </h2>
                 <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
