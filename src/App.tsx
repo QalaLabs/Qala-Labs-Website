@@ -51,6 +51,7 @@ import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
 import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
 import CapitalKeysPortfolio from "./pages/CapitalKeysPortfolio";
 import PickleballPortfolio from "./pages/PickleballPortfolio";
+import IPLMerchPortfolio from "./pages/IPLMerchPortfolio";
 import BNPLStrategy from "./pages/BNPLStrategy";
 import Career from "./pages/Career";
 import AgencyNetwork from "./pages/AgencyNetwork";
@@ -81,6 +82,7 @@ const App = () => (
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
+            <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />

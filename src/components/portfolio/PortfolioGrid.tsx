@@ -16,6 +16,15 @@ const PortfolioGrid = () => {
   // Hardcoded featured projects to ensure they are always visible
   const featuredProjects = [
     {
+      id: 'ipl-merch-featured',
+      title: "playR: IPL Merchandise Partner",
+      slug: "ipl-merchandise-partner-playr",
+      category: "Merchandise Design",
+      result: "Full Ecosystem • 8 Franchises",
+      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
       id: 'pickleball-featured',
       title: "World Pickleball League: Apparel",
       slug: "merchandise-design-apparel",
