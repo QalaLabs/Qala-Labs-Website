@@ -17,17 +17,17 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from 'react-router-dom';
 
-// Import assets
-import WPLHero from '@/assets/pickleball/wpl-hero.png';
-import CSCLogo from '@/assets/pickleball/csc-logo-lockup.png';
-import CSCYellowTee from '@/assets/pickleball/csc-yellow-tee.png';
-import CSCBlackTee from '@/assets/pickleball/csc-black-tee.png';
-import CSCBlackPolo from '@/assets/pickleball/csc-black-polo.png';
-import CSCYellowPolo from '@/assets/pickleball/csc-yellow-polo.png';
-import CSCCap from '@/assets/pickleball/csc-cap.png';
-import CSCTeamKit from '@/assets/pickleball/csc-team-kit.png';
-import BJLogo from '@/assets/pickleball/bj-logo-lockup.png';
-import BJTee from '@/assets/pickleball/bj-tee.png';
+// Placeholder assets to replace missing local files
+const WPLHero = "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=1200";
+const CSCLogo = "https://placehold.co/600x400/0B66FF/white?text=CSC+Logo";
+const CSCYellowTee = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Tee";
+const CSCBlackTee = "https://placehold.co/600x800/1a1a1a/white?text=Black+Tee";
+const CSCBlackPolo = "https://placehold.co/600x800/1a1a1a/white?text=Black+Polo";
+const CSCYellowPolo = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Polo";
+const CSCCap = "https://placehold.co/600x600/0B66FF/white?text=CSC+Cap";
+const CSCTeamKit = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800";
+const BJLogo = "https://placehold.co/600x400/333333/white?text=BJ+Logo";
+const BJTee = "https://placehold.co/600x800/333333/white?text=BJ+Tee";
 
 const PickleballPortfolio = () => {
   const metrics = [
@@ -75,7 +75,7 @@ const PickleballPortfolio = () => {
           <section className="mb-24 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-black text-slate-900 mb-6">World Pickleball League – Apparel & Merchandise Design</h2>
             <p className="text-xl text-slate-600 leading-relaxed">
-              Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players. Ensured each design was both functional and stylish, enhancing the overall identity of the league.
+              Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players.
             </p>
           </section>
 
@@ -98,41 +98,57 @@ const PickleballPortfolio = () => {
 
           {/* Chennai Super Champs Section */}
           <section className="space-y-12 mb-32">
-            <div className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-              <img src={CSCLogo} alt="Chennai Super Champs Banner" className="w-full h-auto" />
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px flex-1 bg-slate-100" />
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-widest">Chennai Super Champs</h2>
+              <div className="h-px flex-1 bg-slate-100" />
             </div>
 
-            <div className="grid gap-12">
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCBlackTee} alt="CSC Black Fan Tee" className="w-full h-auto" />
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
+                <img src={CSCLogo} alt="Chennai Super Champs Logo" className="max-h-64 w-auto object-contain" />
               </div>
               <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCYellowTee} alt="CSC Yellow Fan Tee" className="w-full h-auto" />
+                <img src={CSCTeamKit} alt="CSC Team Kit" className="w-full h-full object-cover" />
               </div>
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCBlackPolo} alt="CSC Black Staff Polo" className="w-full h-auto" />
-              </div>
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCYellowPolo} alt="CSC Yellow Staff Polo" className="w-full h-auto" />
-              </div>
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCCap} alt="CSC Headwear Collection" className="w-full h-auto" />
-              </div>
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCTeamKit} alt="CSC Match Jerseys" className="w-full h-auto" />
-              </div>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { img: CSCYellowTee, title: "Fan Tee", sub: "Yellow Edition" },
+                { img: CSCBlackTee, title: "Fan Tee", sub: "Black Edition" },
+                { img: CSCBlackPolo, title: "Staff Polo", sub: "Black/Gold" },
+                { img: CSCYellowPolo, title: "Staff Polo", sub: "Yellow/White" }
+              ].map((item, i) => (
+                <div key={i} className="group bg-white p-4 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                  <div className="aspect-square rounded-2xl overflow-hidden mb-4 bg-slate-50">
+                    <img src={item.img} alt={item.title} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-900">{item.title}</h3>
+                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{item.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-12 flex items-center justify-center">
+              <img src={CSCCap} alt="CSC Headwear" className="max-h-96 w-auto object-contain" />
             </div>
           </section>
 
           {/* Bengaluru Jawans Section */}
           <section className="space-y-12 mb-32">
-            <div className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100">
-              <img src={BJLogo} alt="Bengaluru Jawans Banner" className="w-full h-auto" />
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px flex-1 bg-slate-100" />
+              <h2 className="text-3xl font-black text-slate-900 uppercase tracking-widest">Bengaluru Jawans</h2>
+              <div className="h-px flex-1 bg-slate-100" />
             </div>
 
-            <div className="grid gap-12">
-              <div className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={BJTee} alt="BJ Camo Team Tee" className="w-full h-auto" />
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
+                <img src={BJLogo} alt="BJ Logo Lockup" className="max-h-64 w-auto object-contain" />
+              </div>
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-8 flex items-center justify-center">
+                <img src={BJTee} alt="BJ Team Tee" className="max-h-96 w-auto object-contain" />
               </div>
             </div>
           </section>
