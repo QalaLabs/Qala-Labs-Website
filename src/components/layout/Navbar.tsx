@@ -43,10 +43,10 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-xl border-b border-slate-100">
+    <nav className="fixed top-0 left-0 right-0 z-[500] bg-white/95 backdrop-blur-xl border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="relative z-[120] flex items-center">
+          <Link to="/" className="relative z-[520] flex items-center">
             <Logo className="h-8 md:h-10" />
           </Link>
 
@@ -86,7 +86,7 @@ const Navbar = () => {
           {/* Mobile Toggle */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            className="lg:hidden relative z-[120] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
+            className="lg:hidden relative z-[520] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
@@ -104,7 +104,7 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[110] lg:hidden bg-slate-900/60 backdrop-blur-sm"
+              className="fixed inset-0 z-[510] lg:hidden bg-slate-900/60 backdrop-blur-sm"
             />
             
             {/* Side Panel */}
@@ -113,7 +113,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] sm:w-[60%] z-[115] lg:hidden bg-white shadow-2xl flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[75%] sm:w-[60%] z-[515] lg:hidden bg-white shadow-2xl flex flex-col"
             >
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
