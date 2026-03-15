@@ -11,28 +11,26 @@ import {
   ArrowLeft,
   ShoppingBag,
   Layers,
-  Trophy,
-  Shirt,
-  Palette
+  Trophy
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from 'react-router-dom';
 
-// Assets matching the Behance screenshot vibe
+// Import actual assets
+import CSCYellowTee from '@/assets/pickleball/csc-yellow-tee.png';
+import CSCBlackTee from '@/assets/pickleball/csc-black-tee.png';
+import CSCYellowPolo from '@/assets/pickleball/csc-yellow-polo.png';
+import CSCCaps from '@/assets/pickleball/csc-caps.png';
+import CSCTeamKits from '@/assets/pickleball/csc-team-kits.png';
+import CSCTracksuit from '@/assets/pickleball/csc-tracksuit.png';
+import BJLogoLockup from '@/assets/pickleball/bj-logo-lockup.png';
+import BJCamoTee from '@/assets/pickleball/bj-camo-tee.png';
+import BJCaps from '@/assets/pickleball/bj-caps.png';
+
+// Placeholders for missing hero/logo assets
 const WPLHero = "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=1200";
 const CSCLogoLockup = "https://placehold.co/1200x400/600000/white?text=playR+x+SUPER+CHAMPS";
-const CSCBlackTee = "https://placehold.co/600x800/1a1a1a/FFD700?text=CSC+Black+Tee";
-const CSCYellowTee = "https://placehold.co/600x800/FFD700/1a1a1a?text=CSC+Yellow+Tee";
-const CSCBlackPolo = "https://placehold.co/600x800/1a1a1a/FFD700?text=CSC+Black+Polo";
-const CSCYellowPolo = "https://placehold.co/600x800/FFD700/1a1a1a?text=CSC+Yellow+Polo";
-const CSCCaps = "https://placehold.co/800x600/1a1a1a/FFD700?text=CSC+Headwear+Collection";
-const CSCTeamKits = "https://placehold.co/1200x800/FFD700/800000?text=CSC+Official+Team+Kits";
-const CSCTracksuit = "https://placehold.co/800x800/1a1a1a/FFD700?text=CSC+Performance+Tracksuit";
-
-const BJLogoLockup = "https://placehold.co/1200x400/111111/white?text=playR+x+BENGALURU+JAWANS";
-const BJCaps = "https://placehold.co/800x600/cc0000/white?text=BJ+Headwear+Collection";
-const BJCamoTee = "https://placehold.co/800x800/cc0000/white?text=BJ+Camo+Performance+Tee";
 
 const PickleballPortfolio = () => {
   const metrics = [
@@ -75,7 +73,7 @@ const PickleballPortfolio = () => {
                 World Pickleball League – Apparel & Merchandise Design
               </h1>
               <p className="text-lg text-slate-600 leading-relaxed">
-                Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players. Ensured each design was both functional and stylish, enhancing the overall identity of the league.
+                Worked closely with the World Pickleball League to design and develop their apparel, jerseys, equipment, caps, and merchandise. Focused on selecting the right color combinations, adhering to brand guidelines, and creating visually appealing, high-performance designs that inspire players.
               </p>
             </div>
           </motion.div>
@@ -102,10 +100,13 @@ const PickleballPortfolio = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCBlackPolo} alt="CSC Black Polo" className="w-full h-auto" />
-              </div>
-              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
                 <img src={CSCYellowPolo} alt="CSC Yellow Polo" className="w-full h-auto" />
+              </div>
+              <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 flex items-center justify-center p-8">
+                <div className="text-center">
+                  <Badge className="bg-slate-900 text-white mb-4">Staff Collection</Badge>
+                  <p className="text-slate-500 font-medium">Performance Polos & Staff Wear</p>
+                </div>
               </div>
             </div>
 
