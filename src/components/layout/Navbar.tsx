@@ -97,68 +97,80 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[110] lg:hidden bg-white flex flex-col"
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:20px_20px]" />
-            </div>
-
-            <div className="flex-1 flex flex-col pt-28 px-8 pb-10 overflow-y-auto relative z-10">
-              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
-                {navLinks.map((link, i) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 + 0.1 }}
-                  >
-                    <Link 
-                      to={link.href}
-                      className={cn(
-                        "flex items-center justify-between py-4 text-3xl font-black transition-all group",
-                        location.pathname === link.href ? "text-blue-600" : "text-slate-900"
-                      )}
-                    >
-                      <span>{link.name}</span>
-                      <ChevronRight className={cn(
-                        "w-6 h-6 transition-transform group-hover:translate-x-2",
-                        location.pathname === link.href ? "text-blue-600" : "text-slate-200"
-                      )} />
-                    </Link>
-                  </motion.div>
-                ))}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[110] lg:hidden bg-slate-900/60 backdrop-blur-sm"
+            />
+            
+            {/* Side Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] sm:w-[60%] z-[115] lg:hidden bg-white shadow-2xl flex flex-col"
+            >
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:20px_20px]" />
               </div>
 
-              <div className="mt-auto pt-12 space-y-6">
-                <div className="h-px bg-slate-100 w-full" />
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <Button 
-                    onClick={() => navigate(user ? '/admin' : '/contact')}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-xl shadow-2xl shadow-blue-500/20"
+              <div className="flex-1 flex flex-col pt-28 px-8 pb-10 overflow-y-auto relative z-10">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
+                  {navLinks.map((link, i) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.03 + 0.1 }}
+                    >
+                      <Link 
+                        to={link.href}
+                        className={cn(
+                          "flex items-center justify-between py-3 text-2xl font-black transition-all group",
+                          location.pathname === link.href ? "text-blue-600" : "text-slate-900"
+                        )}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronRight className={cn(
+                          "w-5 h-5 transition-transform group-hover:translate-x-2",
+                          location.pathname === link.href ? "text-blue-600" : "text-slate-200"
+                        )} />
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-10 space-y-6">
+                  <div className="h-px bg-slate-100 w-full" />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
                   >
-                    {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-6 h-6" />
-                  </Button>
-                </motion.div>
-                
-                <div className="flex justify-center gap-8">
-                  <a href="https://instagram.com/qalalabs" target="_blank" rel="noreferrer" className="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors">Instagram</a>
-                  <a href="https://linkedin.com/company/qalalabs" target="_blank" rel="noreferrer" className="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors">LinkedIn</a>
-                  <a href="mailto:hello@qalalabs.com" className="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors">Email</a>
+                    <Button 
+                      onClick={() => navigate(user ? '/admin' : '/contact')}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-7 rounded-2xl text-lg shadow-2xl shadow-blue-500/20"
+                    >
+                      {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </motion.div>
+                  
+                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                    <a href="https://instagram.com/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Instagram</a>
+                    <a href="https://linkedin.com/company/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">LinkedIn</a>
+                    <a href="mailto:hello@qalalabs.com" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Email</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
