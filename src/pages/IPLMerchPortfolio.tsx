@@ -13,11 +13,10 @@ import {
   Layers,
   Trophy,
   Image as ImageIcon,
-  CreditCard
+  Tag
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 
 // Import actual assets
@@ -43,7 +42,7 @@ const IPLMerchPortfolio = () => {
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO 
         title="playR: IPL 2024-25 Merchandise Partner | Qala Labs" 
-        description="Full merchandising ecosystem for the IPL season — from packaging and hangtags to membership cards and matchday banners."
+        description="Full merchandising ecosystem for the IPL season — from packaging and hangtags to stadium assets and matchday banners."
       />
       <Navbar />
       
@@ -76,7 +75,7 @@ const IPLMerchPortfolio = () => {
                     playR — IPL 2024–2025 <br /> Merchandise System.
                   </h1>
                   <p className="text-xl text-blue-100/80 max-w-2xl leading-relaxed">
-                    Brand systems, packaging dielines, ID & membership cards, posters and player-facing social assets — designed for retail, stadium activations and digital campaigns.
+                    Brand systems, packaging dielines, product hangtags, posters and player-facing social assets — designed for retail, stadium activations and digital campaigns.
                   </p>
                 </div>
               </div>
@@ -118,7 +117,7 @@ const IPLMerchPortfolio = () => {
             <div className="p-10 md:p-16 bg-white rounded-[3rem] border border-slate-100 shadow-sm">
               <h2 className="text-3xl font-black text-slate-900 mb-8">Project Brief</h2>
               <p className="text-xl text-slate-600 leading-relaxed max-w-4xl">
-                QalaLabs partnered with playR to produce a full merchandising ecosystem for the IPL season — from packaging and hangtags to membership cards and matchday banners. The focus was fast-turn production, consistent brand application across eight franchises, and creating assets that work for e-commerce, in-venue retail and social campaigns.
+                QalaLabs partnered with playR to produce a full merchandising ecosystem for the IPL season — from packaging and hangtags to stadium collateral and matchday banners. The focus was fast-turn production, consistent brand application across eight franchises, and creating assets that work for e-commerce, in-venue retail and social campaigns.
               </p>
             </div>
           </section>
@@ -181,16 +180,16 @@ const IPLMerchPortfolio = () => {
             </div>
           </section>
 
-          {/* ID Cards */}
+          {/* Hangtags */}
           <section className="mb-24">
             <h3 className="text-2xl font-black text-slate-900 mb-10 flex items-center gap-3">
-              <CreditCard className="text-blue-600" /> Membership & ID Cards
+              <Tag className="text-blue-600" /> Product Hangtags
             </h3>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { img: SRHID, title: "SRH ID Card" },
-                { img: GTID, title: "GT ID Card" },
-                { img: CSKID, title: "CSK ID Card" }
+                { img: SRHID, title: "SRH Hangtag" },
+                { img: GTID, title: "GT Hangtag" },
+                { img: CSKID, title: "CSK Hangtag" }
               ].map((card, i) => (
                 <motion.div 
                   key={i}
