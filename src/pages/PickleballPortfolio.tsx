@@ -19,17 +19,17 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from 'react-router-dom';
 
-// Import assets
-import WPLHero from '@/assets/pickleball/wpl-hero.png';
-import CSCLogo from '@/assets/pickleball/csc-logo-lockup.png';
-import CSCYellowTee from '@/assets/pickleball/csc-yellow-tee.png';
-import CSCBlackTee from '@/assets/pickleball/csc-black-tee.png';
-import CSCBlackPolo from '@/assets/pickleball/csc-black-polo.png';
-import CSCYellowPolo from '@/assets/pickleball/csc-yellow-polo.png';
-import CSCCap from '@/assets/pickleball/csc-cap.png';
-import CSCTeamKit from '@/assets/pickleball/csc-team-kit.png';
-import BJLogo from '@/assets/pickleball/bj-logo-lockup.png';
-import BJTee from '@/assets/pickleball/bj-tee.png';
+// Placeholder assets to replace missing local files
+const WPLHero = "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=1200";
+const CSCLogo = "https://placehold.co/400x400/0B66FF/white?text=CSC+Logo";
+const CSCYellowTee = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Tee";
+const CSCBlackTee = "https://placehold.co/600x800/1a1a1a/white?text=Black+Tee";
+const CSCBlackPolo = "https://placehold.co/600x800/1a1a1a/white?text=Black+Polo";
+const CSCYellowPolo = "https://placehold.co/600x800/FFD700/333333?text=Yellow+Polo";
+const CSCCap = "https://placehold.co/600x600/0B66FF/white?text=CSC+Cap";
+const CSCTeamKit = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800";
+const BJLogo = "https://placehold.co/400x400/333333/white?text=BJ+Logo";
+const BJTee = "https://placehold.co/600x800/333333/white?text=BJ+Tee";
 
 const PickleballPortfolio = () => {
   const metrics = [
