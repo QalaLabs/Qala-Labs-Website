@@ -16,6 +16,15 @@ const PortfolioGrid = () => {
   // Hardcoded featured projects to ensure they are always visible
   const featuredProjects = [
     {
+      id: 'pickleball-featured',
+      title: "World Pickleball League: Apparel",
+      slug: "merchandise-design-apparel",
+      category: "Merchandise Design",
+      result: "Full Kit & Retail System",
+      image: "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
       id: 'capital-keys-featured',
       title: "Capital Keys: Real Estate Platform",
       slug: "real-estate-website-development",
