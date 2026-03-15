@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from 'react-router-dom';
 
 // Import actual assets
+import WPLHero from '@/assets/pickleball/wpl-hero.png';
 import CSCYellowTee from '@/assets/pickleball/csc-yellow-tee.png';
 import CSCBlackTee from '@/assets/pickleball/csc-black-tee.png';
 import CSCYellowPolo from '@/assets/pickleball/csc-yellow-polo.png';
@@ -28,8 +29,7 @@ import BJLogoLockup from '@/assets/pickleball/bj-logo-lockup.png';
 import BJCamoTee from '@/assets/pickleball/bj-camo-tee.png';
 import BJCaps from '@/assets/pickleball/bj-caps.png';
 
-// Placeholders for missing hero/logo assets
-const WPLHero = "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=1200";
+// Placeholder for missing logo asset
 const CSCLogoLockup = "https://placehold.co/1200x400/600000/white?text=playR+x+SUPER+CHAMPS";
 
 const PickleballPortfolio = () => {
