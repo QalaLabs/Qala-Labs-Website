@@ -43,68 +43,70 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[500] bg-white/95 backdrop-blur-xl border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="relative z-[520] flex items-center">
-            <Logo className="h-8 md:h-10" />
-          </Link>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white/95 backdrop-blur-xl border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20 items-center">
+            <Link to="/" className="relative z-[1020] flex items-center">
+              <Logo className="h-8 md:h-10" />
+            </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                to={link.href}
-                className={cn(
-                  "text-sm font-bold transition-colors",
-                  location.pathname === link.href ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
-            
-            {user ? (
-              <Button 
-                onClick={() => navigate('/admin')}
-                variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50 font-black px-6 rounded-xl flex items-center gap-2"
-              >
-                <LayoutDashboard className="w-4 h-4" /> Dashboard
-              </Button>
-            ) : (
-              <Button 
-                onClick={() => navigate('/contact')}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
-              >
-                Free Audit
-              </Button>
-            )}
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name} 
+                  to={link.href}
+                  className={cn(
+                    "text-sm font-bold transition-colors",
+                    location.pathname === link.href ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              
+              {user ? (
+                <Button 
+                  onClick={() => navigate('/admin')}
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50 font-black px-6 rounded-xl flex items-center gap-2"
+                >
+                  <LayoutDashboard className="w-4 h-4" /> Dashboard
+                </Button>
+              ) : (
+                <Button 
+                  onClick={() => navigate('/contact')}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
+                >
+                  Free Audit
+                </Button>
+              )}
+            </div>
+
+            {/* Mobile Toggle */}
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="lg:hidden relative z-[1020] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            </button>
           </div>
-
-          {/* Mobile Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="lg:hidden relative z-[520] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Moved outside main nav for better stacking */}
       <AnimatePresence>
         {isOpen && (
-          <>
+          <div className="fixed inset-0 z-[1100] lg:hidden">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[510] lg:hidden bg-slate-900/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             />
             
             {/* Side Panel */}
@@ -113,33 +115,33 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[75%] sm:w-[60%] z-[515] lg:hidden bg-white shadow-2xl flex flex-col"
+              className="absolute top-0 right-0 bottom-0 w-[80%] sm:w-[60%] bg-white shadow-2xl flex flex-col border-l border-slate-100"
             >
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
                 <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:20px_20px]" />
               </div>
 
-              <div className="flex-1 flex flex-col pt-28 px-8 pb-10 overflow-y-auto relative z-10">
-                <div className="space-y-1">
+              <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
+                <div className="space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
                   {navLinks.map((link, i) => (
                     <motion.div
                       key={link.name}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.03 + 0.1 }}
+                      transition={{ delay: i * 0.05 }}
                     >
                       <Link 
                         to={link.href}
                         className={cn(
-                          "flex items-center justify-between py-3 text-2xl font-black transition-all group",
+                          "flex items-center justify-between py-4 text-2xl font-black transition-all group",
                           location.pathname === link.href ? "text-blue-600" : "text-slate-900"
                         )}
                       >
                         <span>{link.name}</span>
                         <ChevronRight className={cn(
-                          "w-5 h-5 transition-transform group-hover:translate-x-2",
+                          "w-6 h-6 transition-transform group-hover:translate-x-2",
                           location.pathname === link.href ? "text-blue-600" : "text-slate-200"
                         )} />
                       </Link>
@@ -147,22 +149,17 @@ const Navbar = () => {
                   ))}
                 </div>
 
-                <div className="mt-auto pt-10 space-y-6">
+                <div className="mt-auto pt-10 space-y-8">
                   <div className="h-px bg-slate-100 w-full" />
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <Button 
-                      onClick={() => navigate(user ? '/admin' : '/contact')}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-7 rounded-2xl text-lg shadow-2xl shadow-blue-500/20"
-                    >
-                      {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
-                  </motion.div>
                   
-                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                  <Button 
+                    onClick={() => navigate(user ? '/admin' : '/contact')}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-lg shadow-2xl shadow-blue-500/20"
+                  >
+                    {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                  
+                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-4">
                     <a href="https://instagram.com/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Instagram</a>
                     <a href="https://linkedin.com/company/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">LinkedIn</a>
                     <a href="mailto:hello@qalalabs.com" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Email</a>
@@ -170,10 +167,10 @@ const Navbar = () => {
                 </div>
               </div>
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 
