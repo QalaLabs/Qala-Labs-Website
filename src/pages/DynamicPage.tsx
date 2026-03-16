@@ -28,39 +28,56 @@ const DynamicPage = () => {
       setLoading(true);
       
       try {
-        // Fetch SEO and Page Content in parallel
-        const [seoData, pageRes] = await Promise.all([
-          fetchPageSEO(slug),
-          supabase.from('pages').select('*').eq('slug', slug).single()
-        ]);
-
+        // 1. Fetch SEO data
+        const seoData = await fetchPageSEO(slug);
         setSeo(seoData);
 
-        if (pageRes.error || !pageRes.data) {
-          setError(true);
-          return;
+        // 2. Fetch Page Content via Edge Function
+        const { data, error: apiError } = await supabase.functions.invoke('content-api', {
+          method: 'GET',
+          queryParams: { slug, type: 'page' }
+        });
+
+        if (apiError || !data) {
+          // Fallback to direct DB fetch if Edge Function fails or is not deployed
+          const { data: dbPage, error: dbError } = await supabase
+            .from('pages')
+            .select('*, page_blocks(*)')
+            .eq('slug', slug)
+            .single();
+
+          if (dbError || !dbPage) {
+            setError(true);
+            return;
+          }
+          
+          const blocks: Block[] = (dbPage.page_blocks || []).map((b: any) => ({
+            id: b.id,
+            type: b.block_type as BlockType,
+            props: b.content_data,
+            sort_order: b.sort_order
+          })).sort((a: any, b: any) => a.sort_order - b.sort_order);
+
+          setPage({ ...dbPage, content: blocks });
+        } else {
+          // Use data from Edge Function
+          const blocks: Block[] = (data.page_blocks || []).map((b: any) => ({
+            id: b.id,
+            type: b.block_type as BlockType,
+            props: b.content_data,
+            sort_order: b.sort_order
+          })).sort((a: any, b: any) => a.sort_order - b.sort_order);
+
+          setPage({ ...data, content: blocks });
         }
 
-        if (!isPreview && pageRes.data.status !== 'published') {
-          setError(true);
-          return;
+        if (!isPreview && page?.status !== 'published' && page) {
+          // Double check status if not in preview
+          if (data?.status !== 'published') setError(true);
         }
 
-        const { data: blocksData } = await supabase
-          .from('page_blocks')
-          .select('*')
-          .eq('page_id', pageRes.data.id)
-          .order('sort_order', { ascending: true });
-
-        const blocks: Block[] = (blocksData || []).map(b => ({
-          id: b.id,
-          type: b.block_type as BlockType,
-          props: b.content_data,
-          sort_order: b.sort_order
-        }));
-
-        setPage({ ...pageRes.data, content: blocks });
       } catch (err) {
+        console.error("Error loading dynamic page:", err);
         setError(true);
       } finally {
         setLoading(false);

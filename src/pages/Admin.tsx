@@ -25,19 +25,24 @@ import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 
 const services = ["Performance Marketing", "Creative Production", "Web Development", "Conversion Optimization", "Analytics & Data", "eCommerce Growth"];
-const statuses = ["new", "contacted", "qualified", "closed"];
 
 const Admin = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const [leads, setLeads] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [sending, setSending] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [filterService, setFilterService] = React.useState("all");
-  const [filterStatus, setFilterStatus] = React.useState("all");
   const [selectedLead, setSelectedLead] = React.useState<any>(null);
   const [campaignModal, setCampaignModal] = React.useState(false);
   const [internalNote, setInternalNote] = React.useState("");
+  
+  const [campaignData, setCampaignData] = React.useState({
+    subject: '',
+    content: '',
+    segment: 'all'
+  });
 
   const fetchData = React.useCallback(async () => {
     setLoading(true);
@@ -58,26 +63,36 @@ const Admin = () => {
     return score;
   };
 
+  const handleSendCampaign = async () => {
+    if (!campaignData.subject || !campaignData.content) {
+      showError("Please fill in all fields");
+      return;
+    }
+
+    setSending(true);
+    const { data, error } = await supabase.functions.invoke('bulk-email', {
+      body: {
+        ...campaignData,
+        user_id: user?.id
+      }
+    });
+
+    setSending(false);
+    if (error) {
+      showError("Failed to queue campaign");
+    } else {
+      showSuccess(data.message);
+      setCampaignModal(false);
+      setCampaignData({ subject: '', content: '', segment: 'all' });
+    }
+  };
+
   const filteredLeads = leads.filter(lead => {
     const data = lead.data || {};
     const matchesSearch = lead.email.toLowerCase().includes(searchTerm.toLowerCase()) || (data.name || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesService = filterService === 'all' || data.service === filterService;
-    const matchesStatus = filterStatus === 'all' || data.status === filterStatus;
-    return matchesSearch && matchesService && matchesStatus;
+    return matchesSearch && matchesService;
   });
-
-  const saveNote = async () => {
-    if (!selectedLead || !internalNote) return;
-    const { error } = await supabase.from('leads').update({
-      data: { ...selectedLead.data, internal_note: internalNote }
-    }).eq('id', selectedLead.id);
-    
-    if (!error) {
-      showSuccess("Note saved to lead profile");
-      fetchData();
-      setInternalNote("");
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
@@ -225,7 +240,12 @@ const Admin = () => {
                           value={internalNote}
                           onChange={e => setInternalNote(e.target.value)}
                         />
-                        <Button className="w-full bg-blue-600 rounded-xl font-bold" onClick={saveNote}>Save Note</Button>
+                        <Button className="w-full bg-blue-600 rounded-xl font-bold" onClick={async () => {
+                          const { error } = await supabase.from('leads').update({
+                            data: { ...selectedLead.data, internal_note: internalNote }
+                          }).eq('id', selectedLead.id);
+                          if (!error) { showSuccess("Note saved"); fetchData(); setInternalNote(""); }
+                        }}>Save Note</Button>
                       </div>
                     </div>
                   </div>
@@ -251,20 +271,33 @@ const Admin = () => {
             <div className="space-y-6 py-6">
               <div className="space-y-2">
                 <Label>Campaign Audience</Label>
-                <select className="w-full h-12 rounded-xl border border-slate-200 px-4 font-bold text-sm">
-                  <option>All Leads ({leads.length})</option>
-                  <option>High Intent Only ({leads.filter(l => calculateScore(l) >= 50).length})</option>
-                  <option>Service: Performance Marketing</option>
-                  <option>Service: eCommerce Growth</option>
+                <select 
+                  className="w-full h-12 rounded-xl border border-slate-200 px-4 font-bold text-sm"
+                  value={campaignData.segment}
+                  onChange={e => setCampaignData({...campaignData, segment: e.target.value})}
+                >
+                  <option value="all">All Leads ({leads.length})</option>
+                  <option value="high_intent">High Intent Only ({leads.filter(l => calculateScore(l) >= 50).length})</option>
+                  {services.map(s => <option key={s} value={`service:${s}`}>Service: {s}</option>)}
                 </select>
               </div>
               <div className="space-y-2">
                 <Label>Email Subject</Label>
-                <Input placeholder="e.g. Your 90-Day Scale Roadmap" className="rounded-xl h-12" />
+                <Input 
+                  placeholder="e.g. Your 90-Day Scale Roadmap" 
+                  className="rounded-xl h-12" 
+                  value={campaignData.subject}
+                  onChange={e => setCampaignData({...campaignData, subject: e.target.value})}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Message Content (Markdown Supported)</Label>
-                <Textarea placeholder="Hi {{name}}, I noticed your brand GlowSkin is prime for scale..." className="min-h-[200px] rounded-xl" />
+                <Textarea 
+                  placeholder="Hi {{name}}, I noticed your brand is prime for scale..." 
+                  className="min-h-[200px] rounded-xl" 
+                  value={campaignData.content}
+                  onChange={e => setCampaignData({...campaignData, content: e.target.value})}
+                />
               </div>
               <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-center gap-4">
                 <ShieldAlert className="w-6 h-6 text-amber-600" />
@@ -273,8 +306,13 @@ const Admin = () => {
             </div>
             <DialogFooter>
               <Button variant="outline" className="rounded-xl h-12" onClick={() => setCampaignModal(false)}>Discard</Button>
-              <Button className="bg-blue-600 hover:bg-blue-700 rounded-xl h-12 px-8 font-black gap-2">
-                <Zap className="w-4 h-4" /> Queue Campaign
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 rounded-xl h-12 px-8 font-black gap-2"
+                onClick={handleSendCampaign}
+                disabled={sending}
+              >
+                {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+                Queue Campaign
               </Button>
             </DialogFooter>
           </DialogContent>
