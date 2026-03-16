@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { CheckCircle2, Loader2, IndianRupee, Plus, Trash2 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
+import { cn } from '@/lib/utils';
 
 const expertiseOptions: Record<string, string[]> = {
   "Performance Marketing": ["Meta Ads", "Google Ads", "TikTok Ads", "Amazon Ads", "Snapchat Ads"],
@@ -73,17 +74,15 @@ const NetworkForm = () => {
       }
     });
 
-    setLoading(true);
+    setLoading(false);
     if (error) {
       showError("Something went wrong. Please try again.");
-      setLoading(false);
     } else {
       setSuccess(true);
       showSuccess("Application received!");
       setTimeout(() => {
         setSuccess(false);
         setFormData({ name: '', email: '', expertise: '', selectedNiches: {}, portfolio: '', message: '' });
-        setLoading(false);
       }, 5000);
     }
   };
