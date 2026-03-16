@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Send, CheckCircle2, Mail, Phone, MapPin, Instagram, Linkedin } from 'lucide-react';
+import { Loader2, Mail, Phone, Instagram, Linkedin } from 'lucide-react';
 import { motion } from "framer-motion";
 
 const services = [
@@ -39,14 +39,16 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.from('leads').insert({
-      email: formData.email,
-      tool_used: 'contact_form',
-      data: {
-        ...formData,
-        source_url: window.location.href,
-        timestamp: new Date().toISOString(),
-        status: 'new'
+    // Using the dynamic API route (Edge Function)
+    const { data, error } = await supabase.functions.invoke('lead-engine', {
+      body: {
+        email: formData.email,
+        tool_used: 'contact_form_v2',
+        data: {
+          ...formData,
+          source_url: window.location.href,
+          timestamp: new Date().toISOString()
+        }
       }
     });
 
