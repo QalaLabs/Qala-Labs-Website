@@ -6,7 +6,7 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import BlockRenderer from '@/components/cms/BlockRenderer';
 import { supabase } from '@/integrations/supabase/client';
-import { Page } from '@/types/editor';
+import { Page, Block, BlockType } from '@/types/editor';
 import { Loader2 } from 'lucide-react';
 
 const Index = () => {
@@ -15,15 +15,40 @@ const Index = () => {
 
   useEffect(() => {
     const fetchHome = async () => {
-      const { data, error } = await supabase
+      setLoading(true);
+      
+      // 1. Fetch homepage metadata
+      const { data: pageData, error: pageError } = await supabase
         .from('pages')
         .select('*')
         .eq('slug', 'home')
         .single();
       
-      if (!error && data) {
-        setPage(data);
+      if (pageError || !pageData) {
+        setLoading(false);
+        return;
       }
+
+      // 2. Fetch blocks for homepage
+      const { data: blocksData, error: blocksError } = await supabase
+        .from('page_blocks')
+        .select('*')
+        .eq('page_id', pageData.id)
+        .order('sort_order', { ascending: true });
+
+      if (blocksError) {
+        setLoading(false);
+        return;
+      }
+
+      const blocks: Block[] = (blocksData || []).map(b => ({
+        id: b.id,
+        type: b.block_type as BlockType,
+        props: b.content_data,
+        sort_order: b.sort_order
+      }));
+
+      setPage({ ...pageData, content: blocks });
       setLoading(false);
     };
     fetchHome();

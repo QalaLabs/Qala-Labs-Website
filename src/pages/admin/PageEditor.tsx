@@ -23,6 +23,12 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 
+// Import images for the default import
+import AashirwadImg from '@/assets/Aashirwad.png';
+import DipikaImg from '@/assets/Dipika.jpg';
+import AryamanImg from '@/assets/Aryaman.png';
+import ManpreetImg from '@/assets/Manpreet.png';
+
 const PageEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,16 +42,24 @@ const PageEditor = () => {
     if (!id || id === 'new') { setLoading(false); return; }
     setLoading(true);
     
-    const [pageRes, studiesRes] = await Promise.all([
+    const [pageRes, studiesRes, blocksRes] = await Promise.all([
       supabase.from('pages').select('*').eq('id', id).single(),
-      supabase.from('case_studies').select('id, title, category').order('created_at', { ascending: false })
+      supabase.from('case_studies').select('id, title, category').order('created_at', { ascending: false }),
+      supabase.from('page_blocks').select('*').eq('page_id', id).order('sort_order', { ascending: true })
     ]);
 
     if (pageRes.error) { 
       showError("Failed to load page"); 
       navigate('/admin/pages'); 
     } else { 
-      setPage({ ...pageRes.data, content: Array.isArray(pageRes.data.content) ? pageRes.data.content : [] }); 
+      const blocks = (blocksRes.data || []).map(b => ({
+        id: b.id,
+        type: b.block_type as BlockType,
+        props: b.content_data,
+        sort_order: b.sort_order
+      }));
+      
+      setPage({ ...pageRes.data, content: blocks }); 
     }
 
     if (!studiesRes.error) {
@@ -58,13 +72,55 @@ const PageEditor = () => {
   useEffect(() => { fetchData(); }, [fetchData]);
 
   const savePage = async (status?: 'draft' | 'published') => {
-    if (!page) return;
+    if (!page || !id) return;
     setSaving(true);
-    const updates = { ...page, status: status || page.status, updated_at: new Date().toISOString() };
-    const { error } = await supabase.from('pages').update(updates).eq('id', id);
+    
+    const updates = { 
+      title: page.title,
+      slug: page.slug,
+      description: page.description,
+      status: status || page.status, 
+      updated_at: new Date().toISOString() 
+    };
+
+    // 1. Update page metadata
+    const { error: pageError } = await supabase.from('pages').update(updates).eq('id', id);
+    
+    if (pageError) {
+      showError("Failed to save page metadata");
+      setSaving(false);
+      return;
+    }
+
+    // 2. Sync blocks (Delete all and re-insert for simplicity and reliability)
+    const { error: deleteError } = await supabase.from('page_blocks').delete().eq('page_id', id);
+    
+    if (deleteError) {
+      showError("Failed to sync blocks");
+      setSaving(false);
+      return;
+    }
+
+    const blocksToInsert = page.content.map((block, index) => ({
+      page_id: id,
+      block_type: block.type,
+      content_data: block.props,
+      sort_order: index
+    }));
+
+    if (blocksToInsert.length > 0) {
+      const { error: insertError } = await supabase.from('page_blocks').insert(blocksToInsert);
+      if (insertError) {
+        showError("Failed to save blocks");
+        setSaving(false);
+        return;
+      }
+    }
+
     setSaving(false);
-    if (error) showError("Failed to save");
-    else { showSuccess("Saved!"); if (status) setPage(prev => prev ? { ...prev, status } : null); }
+    showSuccess("Saved!");
+    if (status) setPage(prev => prev ? { ...prev, status } : null);
+    fetchData(); // Refresh to get new block IDs
   };
 
   const updateBlockProps = (blockId: string, newProps: any) => {
@@ -74,7 +130,12 @@ const PageEditor = () => {
 
   const addBlock = (type: BlockType, index?: number) => {
     if (!page) return;
-    const newBlock: Block = { id: Math.random().toString(36).substr(2, 9), type, props: getDefaultProps(type) };
+    const newBlock: Block = { 
+      id: 'temp-' + Math.random().toString(36).substr(2, 9), 
+      type, 
+      props: getDefaultProps(type),
+      sort_order: typeof index === 'number' ? index : page.content.length
+    };
     const newContent = [...page.content];
     if (typeof index === 'number') newContent.splice(index, 0, newBlock);
     else newContent.push(newBlock);
@@ -99,7 +160,7 @@ const PageEditor = () => {
 
   const duplicateBlock = (block: Block) => {
     if (!page) return;
-    const newBlock = { ...block, id: Math.random().toString(36).substr(2, 9) };
+    const newBlock = { ...block, id: 'temp-' + Math.random().toString(36).substr(2, 9) };
     const index = page.content.findIndex(b => b.id === block.id);
     const newContent = [...page.content];
     newContent.splice(index + 1, 0, newBlock);

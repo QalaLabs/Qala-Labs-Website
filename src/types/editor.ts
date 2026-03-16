@@ -22,8 +22,10 @@ export type BlockType =
 
 export interface Block {
   id: string;
+  page_id?: string;
   type: BlockType;
   props: Record<string, any>;
+  sort_order: number;
 }
 
 export interface Page {
@@ -31,7 +33,7 @@ export interface Page {
   title: string;
   slug: string;
   description?: string;
-  content: Block[];
+  content: Block[]; // We'll keep this for the UI state, but map it to page_blocks on save
   status: 'draft' | 'published';
   user_id?: string;
   created_at?: string;

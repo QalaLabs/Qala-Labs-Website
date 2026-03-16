@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Page } from '@/types/editor';
+import { Page, Block, BlockType } from '@/types/editor';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
@@ -23,22 +23,48 @@ const DynamicPage = () => {
   useEffect(() => {
     const fetchPage = async () => {
       setLoading(true);
-      const { data, error } = await supabase
+      
+      // 1. Fetch page metadata
+      const { data: pageData, error: pageError } = await supabase
         .from('pages')
         .select('*')
         .eq('slug', slug)
         .single();
 
-      if (error || !data) {
+      if (pageError || !pageData) {
         setError(true);
-      } else {
-        // If not in preview mode, only show published pages
-        if (!isPreview && data.status !== 'published') {
-          setError(true);
-        } else {
-          setPage(data);
-        }
+        setLoading(false);
+        return;
       }
+
+      // If not in preview mode, only show published pages
+      if (!isPreview && pageData.status !== 'published') {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      // 2. Fetch blocks for this page
+      const { data: blocksData, error: blocksError } = await supabase
+        .from('page_blocks')
+        .select('*')
+        .eq('page_id', pageData.id)
+        .order('sort_order', { ascending: true });
+
+      if (blocksError) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      const blocks: Block[] = (blocksData || []).map(b => ({
+        id: b.id,
+        type: b.block_type as BlockType,
+        props: b.content_data,
+        sort_order: b.sort_order
+      }));
+
+      setPage({ ...pageData, content: blocks });
       setLoading(false);
     };
 
