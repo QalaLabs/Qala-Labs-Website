@@ -28,10 +28,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
 
 const creators = [
-  { name: "Sarah J.", niche: "Lifestyle/DTC", reach: "250K+", image: "https://i.pravatar.cc/300?u=sarah" },
-  { name: "Alex M.", niche: "Tech/Gadgets", reach: "100K+", image: "https://i.pravatar.cc/300?u=alex" },
-  { name: "Priya K.", niche: "Fashion/Beauty", reach: "500K+", image: "https://i.pravatar.cc/300?u=priya" },
-  { name: "David L.", niche: "Fitness/Health", reach: "150K+", image: "https://i.pravatar.cc/300?u=david" }
+  { name: "Roshni Dhar", handle: "@roshni_dhar", niche: "Lifestyle & Travel", reach: "150K+", image: "https://i.pravatar.cc/400?u=roshni" },
+  { name: "Oohil Anand", handle: "@Thenameis_oohilanand", niche: "Fashion & Style", reach: "85K+", image: "https://i.pravatar.cc/400?u=oohil" },
+  { name: "Nandinii Kaur", handle: "@nandinii_kaurr", niche: "Beauty & Skincare", reach: "120K+", image: "https://i.pravatar.cc/400?u=nandinii" },
+  { name: "Aashna", handle: "@aashna.journal", niche: "Creative Journaling", reach: "50K+", image: "https://i.pravatar.cc/400?u=aashna" },
+  { name: "Piyush Semwal", handle: "@piyush_semwalyt15", niche: "Tech & Gaming", reach: "200K+", image: "https://i.pravatar.cc/400?u=piyush" },
+  { name: "Riddhi", handle: "@riddhhiiiii", niche: "Lifestyle", reach: "95K+", image: "https://i.pravatar.cc/400?u=riddhi" },
+  { name: "Urvi Rishi", handle: "@urvirishi_30", niche: "Fashion", reach: "110K+", image: "https://i.pravatar.cc/400?u=urvi" },
+  { name: "Kanchan", handle: "@kanchannr", niche: "Fitness", reach: "75K+", image: "https://i.pravatar.cc/400?u=kanchan" },
+  { name: "Priyu", handle: "@priyuu2723", niche: "Entertainment", reach: "180K+", image: "https://i.pravatar.cc/400?u=priyu" },
+  { name: "Khushi", handle: "@khushikkh_11", niche: "Lifestyle", reach: "60K+", image: "https://i.pravatar.cc/400?u=khushi" },
+  { name: "Zuleha", handle: "@zuleha_23", niche: "Fashion", reach: "45K+", image: "https://i.pravatar.cc/400?u=zuleha" },
+  { name: "Yukti Sharma", handle: "@Yukti_sharma31", niche: "Beauty", reach: "130K+", image: "https://i.pravatar.cc/400?u=yukti" },
+  { name: "Kanika", handle: "@kanikaaaa_xo", niche: "Lifestyle", reach: "90K+", image: "https://i.pravatar.cc/400?u=kanika" },
+  { name: "Charmi Arora", handle: "@charmiiarora", niche: "Fashion & Travel", reach: "115K+", image: "https://i.pravatar.cc/400?u=charmi" }
 ];
 
 const CreatorCollective = () => {
@@ -88,24 +98,27 @@ const CreatorCollective = () => {
             </p>
           </div>
 
-          {/* Creator Showcase */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32">
+          {/* Creator Showcase Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-32">
             {creators.map((creator, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl"
+                transition={{ delay: (i % 4) * 0.1 }}
+                className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl bg-white"
               >
                 <img src={creator.image} alt={creator.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-white font-black text-xl mb-1">{creator.name}</p>
-                  <p className="text-pink-400 text-xs font-bold uppercase tracking-widest">{creator.niche}</p>
-                  <div className="flex items-center gap-2 mt-3 text-white/60 text-[10px] font-black uppercase tracking-widest">
-                    <Users className="w-3 h-3" /> {creator.reach} Reach
+                  <p className="text-pink-400 text-[10px] font-black uppercase tracking-widest mb-2">{creator.handle}</p>
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-white/60 text-[10px] font-black uppercase tracking-widest">{creator.niche}</span>
+                    <div className="flex items-center gap-1 text-white/80 text-[10px] font-black uppercase tracking-widest">
+                      <Users className="w-3 h-3" /> {creator.reach}
+                    </div>
                   </div>
                 </div>
               </motion.div>
