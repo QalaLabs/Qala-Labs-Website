@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,14 @@ import { CheckCircle2, Loader2 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
 
+const nicheOptions: Record<string, string[]> = {
+  "Performance Marketing": ["Meta Ads", "Google Ads", "TikTok Ads", "Amazon Ads", "Snapchat Ads"],
+  "Creative/Design": ["Video Editing", "Graphic Design", "UGC Production", "Branding", "Motion Graphics"],
+  "Web Development": ["Shopify", "React/Next.js", "WordPress", "Headless Commerce", "UI/UX Design"],
+  "AI/Automation": ["n8n/Make.com", "AI Agents", "CRM Automation", "Custom LLM Tools"],
+  "Strategy/Consulting": ["E-com Growth", "Fractional CMO", "Operations", "Inventory Strategy"]
+};
+
 const NetworkForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -18,6 +26,7 @@ const NetworkForm = () => {
     name: '',
     email: '',
     expertise: '',
+    niche: '',
     portfolio: '',
     message: ''
   });
@@ -44,7 +53,7 @@ const NetworkForm = () => {
       showSuccess("Request received!");
       setTimeout(() => {
         setSuccess(false);
-        setFormData({ name: '', email: '', expertise: '', portfolio: '', message: '' });
+        setFormData({ name: '', email: '', expertise: '', niche: '', portfolio: '', message: '' });
       }, 5000);
     }
   };
@@ -99,23 +108,49 @@ const NetworkForm = () => {
                         <Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="h-12 rounded-xl bg-slate-50 border-none" />
                       </div>
                     </div>
-                    <div className="space-y-1">
-                      <Label className="text-xs font-bold text-slate-700">Primary Expertise</Label>
-                      <select 
-                        required
-                        value={formData.expertise}
-                        onChange={e => setFormData({...formData, expertise: e.target.value})}
-                        className="w-full h-12 px-4 rounded-xl border-none bg-slate-50 text-sm font-medium"
-                      >
-                        <option value="">Select Expertise</option>
-                        <option value="Performance Marketing">Performance Marketing</option>
-                        <option value="Creative/Design">Creative/Design</option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="AI/Automation">AI/Automation</option>
-                        <option value="Strategy/Consulting">Strategy/Consulting</option>
-                        <option value="Other">Other</option>
-                      </select>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <Label className="text-xs font-bold text-slate-700">Primary Expertise</Label>
+                        <select 
+                          required
+                          value={formData.expertise}
+                          onChange={e => setFormData({...formData, expertise: e.target.value, niche: ''})}
+                          className="w-full h-12 px-4 rounded-xl border-none bg-slate-50 text-sm font-medium"
+                        >
+                          <option value="">Select Expertise</option>
+                          {Object.keys(nicheOptions).map(exp => (
+                            <option key={exp} value={exp}>{exp}</option>
+                          ))}
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+
+                      <AnimatePresence mode="wait">
+                        {formData.expertise && nicheOptions[formData.expertise] && (
+                          <motion.div 
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 10 }}
+                            className="space-y-1"
+                          >
+                            <Label className="text-xs font-bold text-slate-700">Specific Niche</Label>
+                            <select 
+                              required
+                              value={formData.niche}
+                              onChange={e => setFormData({...formData, niche: e.target.value})}
+                              className="w-full h-12 px-4 rounded-xl border-none bg-slate-50 text-sm font-medium"
+                            >
+                              <option value="">Select Niche</option>
+                              {nicheOptions[formData.expertise].map(niche => (
+                                <option key={niche} value={niche}>{niche}</option>
+                              ))}
+                            </select>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
+
                     <div className="space-y-1">
                       <Label className="text-xs font-bold text-slate-700">Portfolio / Website URL</Label>
                       <Input required value={formData.portfolio} onChange={e => setFormData({...formData, portfolio: e.target.value})} className="h-12 rounded-xl bg-slate-50 border-none" placeholder="https://..." />

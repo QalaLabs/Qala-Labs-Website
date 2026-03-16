@@ -7,7 +7,7 @@ import { Globe, Users, Zap, Star } from 'lucide-react';
 const stats = [
   { label: "Active Partners", value: "150+", icon: <Users className="w-5 h-5" /> },
   { label: "Countries", value: "12", icon: <Globe className="w-5 h-5" /> },
-  { label: "Avg. Project Size", value: "₹15L+", icon: <Star className="w-5 h-5" /> },
+  { label: "Avg. Project Size", value: "$100", icon: <Star className="w-5 h-5" /> },
   { label: "Growth Velocity", value: "3.5x", icon: <Zap className="w-5 h-5" /> }
 ];
 

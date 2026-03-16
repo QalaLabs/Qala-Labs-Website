@@ -25,7 +25,7 @@ const AgencyNetwork = () => {
         <NetworkBenefits />
         <NetworkForm />
         <ClosingCTA 
-          title="Not an agency? No problem." 
+          title="Not an agency or freelancer? No problem." 
           description="If you're a creator looking to work with brands, check out our Creator Collective."
           primaryCtaText="Creator Collective"
           secondaryCtaText="Contact Us"
