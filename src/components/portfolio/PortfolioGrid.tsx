@@ -7,6 +7,7 @@ import { Filter, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import TeamLogos from '@/assets/ipl/team-logos.png';
+import WPLHero from '@/assets/pickleball/wpl-hero.png';
 
 const PortfolioGrid = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -31,7 +32,7 @@ const PortfolioGrid = () => {
       slug: "merchandise-design-apparel",
       category: "Merchandise Design",
       result: "Full Kit & Retail System",
-      image: "https://images.unsplash.com/photo-1626225928561-a77a1773ce64?auto=format&fit=crop&q=80&w=800",
+      image: WPLHero,
       isFeatured: true
     },
     {
