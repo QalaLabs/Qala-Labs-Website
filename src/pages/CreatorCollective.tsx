@@ -16,7 +16,7 @@ import {
   Zap,
   TrendingUp,
   Globe,
-  DollarSign,
+  IndianRupee,
   Gift
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -100,7 +100,6 @@ const CreatorCollective = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         setSuccess(false);
-        // Reset form logic could go here
       }, 5000);
     }
   };
@@ -232,21 +231,21 @@ const CreatorCollective = () => {
                       {/* Payouts */}
                       <div className="space-y-6">
                         <div className="flex items-center gap-3 mb-4">
-                          <DollarSign className="w-5 h-5 text-pink-600" />
-                          <h4 className="font-black text-slate-900 uppercase tracking-widest text-sm">Average Payouts (USD)</h4>
+                          <IndianRupee className="w-5 h-5 text-pink-600" />
+                          <h4 className="font-black text-slate-900 uppercase tracking-widest text-sm">Average Payouts (INR)</h4>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase text-slate-400">Per Reel</Label>
-                            <Input placeholder="$500" value={formData.averagePayout.reel} onChange={e => handlePayoutChange('reel', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
+                            <Input placeholder="₹15,000" value={formData.averagePayout.reel} onChange={e => handlePayoutChange('reel', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
                           </div>
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase text-slate-400">Per Static</Label>
-                            <Input placeholder="$200" value={formData.averagePayout.static} onChange={e => handlePayoutChange('static', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
+                            <Input placeholder="₹8,000" value={formData.averagePayout.static} onChange={e => handlePayoutChange('static', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
                           </div>
                           <div className="space-y-2">
                             <Label className="text-[10px] font-black uppercase text-slate-400">Per Carousel</Label>
-                            <Input placeholder="$350" value={formData.averagePayout.carousel} onChange={e => handlePayoutChange('carousel', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
+                            <Input placeholder="₹12,000" value={formData.averagePayout.carousel} onChange={e => handlePayoutChange('carousel', e.target.value)} className="h-12 rounded-xl bg-slate-50 border-none" />
                           </div>
                         </div>
                       </div>
@@ -277,9 +276,9 @@ const CreatorCollective = () => {
                               className="overflow-hidden"
                             >
                               <div className="pt-4 space-y-2">
-                                <Label className="text-[10px] font-black uppercase text-pink-600">Minimum Product Value (USD)</Label>
+                                <Label className="text-[10px] font-black uppercase text-pink-600">Minimum Product Value (INR)</Label>
                                 <Input 
-                                  placeholder="e.g. $100+" 
+                                  placeholder="e.g. ₹5,000+" 
                                   value={formData.barterValue} 
                                   onChange={e => setFormData({...formData, barterValue: e.target.value})}
                                   className="h-12 rounded-xl bg-white border-pink-200" 
