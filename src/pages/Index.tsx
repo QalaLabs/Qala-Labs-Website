@@ -8,48 +8,49 @@ import BlockRenderer from '@/components/cms/BlockRenderer';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
 import { Loader2 } from 'lucide-react';
+import { fetchPageSEO, SEOData } from '@/utils/seoFetcher';
 
 const Index = () => {
   const [page, setPage] = useState<Page | null>(null);
+  const [seo, setSeo] = useState<SEOData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHome = async () => {
       setLoading(true);
       
-      // 1. Fetch homepage metadata
-      const { data: pageData, error: pageError } = await supabase
-        .from('pages')
-        .select('*')
-        .eq('slug', 'home')
-        .single();
-      
-      if (pageError || !pageData) {
+      try {
+        const [seoData, pageRes] = await Promise.all([
+          fetchPageSEO('home'),
+          supabase.from('pages').select('*').eq('slug', 'home').single()
+        ]);
+
+        setSeo(seoData);
+
+        if (pageRes.error || !pageRes.data) {
+          setLoading(false);
+          return;
+        }
+
+        const { data: blocksData } = await supabase
+          .from('page_blocks')
+          .select('*')
+          .eq('page_id', pageRes.data.id)
+          .order('sort_order', { ascending: true });
+
+        const blocks: Block[] = (blocksData || []).map(b => ({
+          id: b.id,
+          type: b.block_type as BlockType,
+          props: b.content_data,
+          sort_order: b.sort_order
+        }));
+
+        setPage({ ...pageRes.data, content: blocks });
+      } catch (err) {
+        console.error("Error loading homepage:", err);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      // 2. Fetch blocks for homepage
-      const { data: blocksData, error: blocksError } = await supabase
-        .from('page_blocks')
-        .select('*')
-        .eq('page_id', pageData.id)
-        .order('sort_order', { ascending: true });
-
-      if (blocksError) {
-        setLoading(false);
-        return;
-      }
-
-      const blocks: Block[] = (blocksData || []).map(b => ({
-        id: b.id,
-        type: b.block_type as BlockType,
-        props: b.content_data,
-        sort_order: b.sort_order
-      }));
-
-      setPage({ ...pageData, content: blocks });
-      setLoading(false);
     };
     fetchHome();
   }, []);
@@ -79,10 +80,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title={page.title} 
-        description={page.description} 
-      />
+      {seo && (
+        <SEO 
+          title={seo.title} 
+          description={seo.description} 
+          image={seo.ogImage}
+        />
+      )}
       <Navbar />
       <main>
         <BlockRenderer blocks={page.content} />
