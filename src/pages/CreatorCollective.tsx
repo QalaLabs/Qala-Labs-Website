@@ -14,8 +14,7 @@ import {
   Loader2,
   Sparkles,
   Zap,
-  TrendingUp,
-  ExternalLink
+  TrendingUp
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,23 +24,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
-
-const creators = [
-  { name: "Roshni Dhar", handle: "roshni_dhar", niche: "Lifestyle & Travel", reach: "150K+" },
-  { name: "Oohil Anand", handle: "Thenameis_oohilanand", niche: "Fashion & Style", reach: "85K+" },
-  { name: "Nandinii Kaur", handle: "nandinii_kaurr", niche: "Beauty & Skincare", reach: "120K+" },
-  { name: "Aashna", handle: "aashna.journal", niche: "Creative Journaling", reach: "50K+" },
-  { name: "Piyush Semwal", handle: "piyush_semwalyt15", niche: "Tech & Gaming", reach: "200K+" },
-  { name: "Riddhi", handle: "riddhhiiiii", niche: "Lifestyle", reach: "95K+" },
-  { name: "Urvi Rishi", handle: "urvirishi_30", niche: "Fashion", reach: "110K+" },
-  { name: "Kanchan", handle: "kanchannr", niche: "Fitness", reach: "75K+" },
-  { name: "Priyu", handle: "priyuu2723", niche: "Entertainment", reach: "180K+" },
-  { name: "Khushi", handle: "khushikkh_11", niche: "Lifestyle", reach: "60K+" },
-  { name: "Zuleha", handle: "zuleha_23", niche: "Fashion", reach: "45K+" },
-  { name: "Yukti Sharma", handle: "Yukti_sharma31", niche: "Beauty", reach: "130K+" },
-  { name: "Kanika", handle: "kanikaaaa_xo", niche: "Lifestyle", reach: "90K+" },
-  { name: "Charmi Arora", handle: "charmiiarora", niche: "Fashion & Travel", reach: "115K+" }
-];
 
 const CreatorCollective = () => {
   const [loading, setLoading] = useState(false);
@@ -97,51 +79,19 @@ const CreatorCollective = () => {
             </p>
           </div>
 
-          {/* Creator Showcase Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-32">
-            {creators.map((creator, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 4) * 0.1 }}
-                className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl bg-white border border-slate-100"
-              >
-                {/* Using unavatar.io to pull real profile pictures by handle */}
-                <img 
-                  src={`https://unavatar.io/instagram/${creator.handle}`} 
-                  alt={creator.name} 
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.name)}&background=f472b6&color=fff&size=400`;
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-white font-black text-xl mb-1">{creator.name}</p>
-                  <p className="text-pink-400 text-[10px] font-black uppercase tracking-widest mb-3">@{creator.handle}</p>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-white/60 text-[10px] font-black uppercase tracking-widest">{creator.niche}</span>
-                    <div className="flex items-center gap-1 text-white/80 text-[10px] font-black uppercase tracking-widest">
-                      <Users className="w-3 h-3" /> {creator.reach}
-                    </div>
-                  </div>
-
-                  <a 
-                    href={`https://instagram.com/${creator.handle}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-white text-[10px] font-black uppercase tracking-widest hover:text-pink-400 transition-colors"
-                  >
-                    View Profile <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* High Impact Highlight Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="py-24 mb-32 text-center border-y border-slate-200"
+          >
+            <h2 className="text-4xl md:text-8xl font-black text-slate-900 leading-none tracking-tighter mb-8">
+              100+ creators <br /> 
+              <span className="text-pink-600">have joined.</span>
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold text-slate-400">What are you waiting for?</p>
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-12">
