@@ -69,7 +69,14 @@ const Footer = () => {
             <ul className="space-y-4">
               {links.company.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-slate-400 hover:text-white transition-colors">{link.name}</Link>
+                  <Link 
+                    to={link.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -80,7 +87,14 @@ const Footer = () => {
             <ul className="space-y-4">
               {links.network.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-slate-400 hover:text-white transition-colors">{link.name}</Link>
+                  <Link 
+                    to={link.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -91,7 +105,14 @@ const Footer = () => {
             <ul className="space-y-4">
               {links.resources.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-slate-400 hover:text-white transition-colors">{link.name}</Link>
+                  <Link 
+                    to={link.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -121,7 +142,15 @@ const Footer = () => {
           <p>© {currentYear} Qala Labs. All rights reserved.</p>
           <div className="flex gap-8">
             {links.legal.map((link) => (
-              <Link key={link.name} to={link.href} className="hover:text-white transition-colors">{link.name}</Link>
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                {link.name}
+              </Link>
             ))}
           </div>
           <MadeWithDyad />
