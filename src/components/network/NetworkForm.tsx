@@ -7,11 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2 } from 'lucide-react';
+import { Checkbox } from "@/components/ui/checkbox";
+import { CheckCircle2, Loader2, IndianRupee, Plus, Trash2 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
 
-const nicheOptions: Record<string, string[]> = {
+const expertiseOptions: Record<string, string[]> = {
   "Performance Marketing": ["Meta Ads", "Google Ads", "TikTok Ads", "Amazon Ads", "Snapchat Ads"],
   "Creative/Design": ["Video Editing", "Graphic Design", "UGC Production", "Branding", "Motion Graphics"],
   "Web Development": ["Shopify", "React/Next.js", "WordPress", "Headless Commerce", "UI/UX Design"],
@@ -26,18 +27,45 @@ const NetworkForm = () => {
     name: '',
     email: '',
     expertise: '',
-    niche: '',
+    selectedNiches: {} as Record<string, string>, // nicheName: price
     portfolio: '',
     message: ''
   });
 
+  const handleExpertiseChange = (val: string) => {
+    setFormData({ ...formData, expertise: val, selectedNiches: {} });
+  };
+
+  const toggleNiche = (niche: string) => {
+    const newNiches = { ...formData.selectedNiches };
+    if (newNiches[niche] !== undefined) {
+      delete newNiches[niche];
+    } else {
+      newNiches[niche] = '';
+    }
+    setFormData({ ...formData, selectedNiches: newNiches });
+  };
+
+  const handlePriceChange = (niche: string, price: string) => {
+    setFormData({
+      ...formData,
+      selectedNiches: { ...formData.selectedNiches, [niche]: price }
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (Object.keys(formData.selectedNiches).length === 0) {
+      showError("Please select at least one niche.");
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
-      tool_used: 'agency_network_join',
+      tool_used: 'agency_network_join_v2',
       data: {
         ...formData,
         timestamp: new Date().toISOString(),
@@ -45,15 +73,17 @@ const NetworkForm = () => {
       }
     });
 
-    setLoading(false);
+    setLoading(true);
     if (error) {
       showError("Something went wrong. Please try again.");
+      setLoading(false);
     } else {
       setSuccess(true);
-      showSuccess("Request received!");
+      showSuccess("Application received!");
       setTimeout(() => {
         setSuccess(false);
-        setFormData({ name: '', email: '', expertise: '', niche: '', portfolio: '', message: '' });
+        setFormData({ name: '', email: '', expertise: '', selectedNiches: {}, portfolio: '', message: '' });
+        setLoading(false);
       }, 5000);
     }
   };
@@ -61,7 +91,7 @@ const NetworkForm = () => {
   return (
     <section className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-20 items-start">
           <div>
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
               Ready to scale <br /> with us?
@@ -97,7 +127,7 @@ const NetworkForm = () => {
                     <p className="text-slate-500">Tell us about your expertise and how you can help our clients scale.</p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1">
                         <Label className="text-xs font-bold text-slate-700">Full Name</Label>
@@ -109,43 +139,79 @@ const NetworkForm = () => {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-4">
                       <div className="space-y-1">
                         <Label className="text-xs font-bold text-slate-700">Primary Expertise</Label>
                         <select 
                           required
                           value={formData.expertise}
-                          onChange={e => setFormData({...formData, expertise: e.target.value, niche: ''})}
+                          onChange={e => handleExpertiseChange(e.target.value)}
                           className="w-full h-12 px-4 rounded-xl border-none bg-slate-50 text-sm font-medium"
                         >
                           <option value="">Select Expertise</option>
-                          {Object.keys(nicheOptions).map(exp => (
+                          {Object.keys(expertiseOptions).map(exp => (
                             <option key={exp} value={exp}>{exp}</option>
                           ))}
-                          <option value="Other">Other</option>
                         </select>
                       </div>
 
                       <AnimatePresence mode="wait">
-                        {formData.expertise && nicheOptions[formData.expertise] && (
+                        {formData.expertise && (
                           <motion.div 
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: 10 }}
-                            className="space-y-1"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="space-y-6"
                           >
-                            <Label className="text-xs font-bold text-slate-700">Specific Niche</Label>
-                            <select 
-                              required
-                              value={formData.niche}
-                              onChange={e => setFormData({...formData, niche: e.target.value})}
-                              className="w-full h-12 px-4 rounded-xl border-none bg-slate-50 text-sm font-medium"
-                            >
-                              <option value="">Select Niche</option>
-                              {nicheOptions[formData.expertise].map(niche => (
-                                <option key={niche} value={niche}>{niche}</option>
-                              ))}
-                            </select>
+                            <div className="space-y-3">
+                              <Label className="text-xs font-black uppercase tracking-widest text-blue-600">Select Your Niches</Label>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {expertiseOptions[formData.expertise].map(niche => (
+                                  <div 
+                                    key={niche} 
+                                    onClick={() => toggleNiche(niche)}
+                                    className={cn(
+                                      "flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all",
+                                      formData.selectedNiches[niche] !== undefined 
+                                        ? "bg-blue-50 border-blue-200" 
+                                        : "bg-white border-slate-100 hover:border-blue-100"
+                                    )}
+                                  >
+                                    <Checkbox 
+                                      checked={formData.selectedNiches[niche] !== undefined}
+                                      onCheckedChange={() => toggleNiche(niche)}
+                                      className="data-[state=checked]:bg-blue-600"
+                                    />
+                                    <span className="text-sm font-bold text-slate-700">{niche}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {Object.keys(formData.selectedNiches).length > 0 && (
+                              <div className="space-y-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                                <Label className="text-xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                                  <IndianRupee className="w-3 h-3" /> Pricing per Niche (Starting at)
+                                </Label>
+                                <div className="space-y-3">
+                                  {Object.keys(formData.selectedNiches).map(niche => (
+                                    <div key={niche} className="flex items-center gap-4">
+                                      <span className="text-xs font-bold text-slate-600 w-32 truncate">{niche}</span>
+                                      <div className="relative flex-1">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">₹</span>
+                                        <Input 
+                                          placeholder="e.g. 25,000" 
+                                          value={formData.selectedNiches[niche]}
+                                          onChange={e => handlePriceChange(niche, e.target.value)}
+                                          className="h-10 pl-7 rounded-lg bg-white border-slate-200 text-sm"
+                                          required
+                                        />
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </motion.div>
                         )}
                       </AnimatePresence>
