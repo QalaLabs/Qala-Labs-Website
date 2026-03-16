@@ -6,6 +6,7 @@ import ProjectCard from './ProjectCard';
 import { Filter, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import TeamLogos from '@/assets/ipl/team-logos.png';
 
 const PortfolioGrid = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -21,7 +22,7 @@ const PortfolioGrid = () => {
       slug: "ipl-merchandise-partner-playr",
       category: "Merchandise Design",
       result: "Full Ecosystem • 8 Franchises",
-      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
+      image: TeamLogos,
       isFeatured: true
     },
     {
