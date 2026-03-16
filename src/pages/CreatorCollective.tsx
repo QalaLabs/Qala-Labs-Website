@@ -9,14 +9,13 @@ import {
   Instagram, 
   Users, 
   Heart, 
-  Play, 
   ArrowRight, 
   CheckCircle2, 
   Loader2,
   Sparkles,
-  Camera,
   Zap,
-  TrendingUp
+  TrendingUp,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,20 +27,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { showSuccess, showError } from '@/utils/toast';
 
 const creators = [
-  { name: "Roshni Dhar", handle: "@roshni_dhar", niche: "Lifestyle & Travel", reach: "150K+", image: "https://i.pravatar.cc/400?u=roshni" },
-  { name: "Oohil Anand", handle: "@Thenameis_oohilanand", niche: "Fashion & Style", reach: "85K+", image: "https://i.pravatar.cc/400?u=oohil" },
-  { name: "Nandinii Kaur", handle: "@nandinii_kaurr", niche: "Beauty & Skincare", reach: "120K+", image: "https://i.pravatar.cc/400?u=nandinii" },
-  { name: "Aashna", handle: "@aashna.journal", niche: "Creative Journaling", reach: "50K+", image: "https://i.pravatar.cc/400?u=aashna" },
-  { name: "Piyush Semwal", handle: "@piyush_semwalyt15", niche: "Tech & Gaming", reach: "200K+", image: "https://i.pravatar.cc/400?u=piyush" },
-  { name: "Riddhi", handle: "@riddhhiiiii", niche: "Lifestyle", reach: "95K+", image: "https://i.pravatar.cc/400?u=riddhi" },
-  { name: "Urvi Rishi", handle: "@urvirishi_30", niche: "Fashion", reach: "110K+", image: "https://i.pravatar.cc/400?u=urvi" },
-  { name: "Kanchan", handle: "@kanchannr", niche: "Fitness", reach: "75K+", image: "https://i.pravatar.cc/400?u=kanchan" },
-  { name: "Priyu", handle: "@priyuu2723", niche: "Entertainment", reach: "180K+", image: "https://i.pravatar.cc/400?u=priyu" },
-  { name: "Khushi", handle: "@khushikkh_11", niche: "Lifestyle", reach: "60K+", image: "https://i.pravatar.cc/400?u=khushi" },
-  { name: "Zuleha", handle: "@zuleha_23", niche: "Fashion", reach: "45K+", image: "https://i.pravatar.cc/400?u=zuleha" },
-  { name: "Yukti Sharma", handle: "@Yukti_sharma31", niche: "Beauty", reach: "130K+", image: "https://i.pravatar.cc/400?u=yukti" },
-  { name: "Kanika", handle: "@kanikaaaa_xo", niche: "Lifestyle", reach: "90K+", image: "https://i.pravatar.cc/400?u=kanika" },
-  { name: "Charmi Arora", handle: "@charmiiarora", niche: "Fashion & Travel", reach: "115K+", image: "https://i.pravatar.cc/400?u=charmi" }
+  { name: "Roshni Dhar", handle: "roshni_dhar", niche: "Lifestyle & Travel", reach: "150K+" },
+  { name: "Oohil Anand", handle: "Thenameis_oohilanand", niche: "Fashion & Style", reach: "85K+" },
+  { name: "Nandinii Kaur", handle: "nandinii_kaurr", niche: "Beauty & Skincare", reach: "120K+" },
+  { name: "Aashna", handle: "aashna.journal", niche: "Creative Journaling", reach: "50K+" },
+  { name: "Piyush Semwal", handle: "piyush_semwalyt15", niche: "Tech & Gaming", reach: "200K+" },
+  { name: "Riddhi", handle: "riddhhiiiii", niche: "Lifestyle", reach: "95K+" },
+  { name: "Urvi Rishi", handle: "urvirishi_30", niche: "Fashion", reach: "110K+" },
+  { name: "Kanchan", handle: "kanchannr", niche: "Fitness", reach: "75K+" },
+  { name: "Priyu", handle: "priyuu2723", niche: "Entertainment", reach: "180K+" },
+  { name: "Khushi", handle: "khushikkh_11", niche: "Lifestyle", reach: "60K+" },
+  { name: "Zuleha", handle: "zuleha_23", niche: "Fashion", reach: "45K+" },
+  { name: "Yukti Sharma", handle: "Yukti_sharma31", niche: "Beauty", reach: "130K+" },
+  { name: "Kanika", handle: "kanikaaaa_xo", niche: "Lifestyle", reach: "90K+" },
+  { name: "Charmi Arora", handle: "charmiiarora", niche: "Fashion & Travel", reach: "115K+" }
 ];
 
 const CreatorCollective = () => {
@@ -107,19 +106,38 @@ const CreatorCollective = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 4) * 0.1 }}
-                className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl bg-white"
+                className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl bg-white border border-slate-100"
               >
-                <img src={creator.image} alt={creator.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
+                {/* Using unavatar.io to pull real profile pictures by handle */}
+                <img 
+                  src={`https://unavatar.io/instagram/${creator.handle}`} 
+                  alt={creator.name} 
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.name)}&background=f472b6&color=fff&size=400`;
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-white font-black text-xl mb-1">{creator.name}</p>
-                  <p className="text-pink-400 text-[10px] font-black uppercase tracking-widest mb-2">{creator.handle}</p>
-                  <div className="flex items-center justify-between mt-3">
+                  <p className="text-pink-400 text-[10px] font-black uppercase tracking-widest mb-3">@{creator.handle}</p>
+                  
+                  <div className="flex items-center justify-between mb-4">
                     <span className="text-white/60 text-[10px] font-black uppercase tracking-widest">{creator.niche}</span>
                     <div className="flex items-center gap-1 text-white/80 text-[10px] font-black uppercase tracking-widest">
                       <Users className="w-3 h-3" /> {creator.reach}
                     </div>
                   </div>
+
+                  <a 
+                    href={`https://instagram.com/${creator.handle}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white text-[10px] font-black uppercase tracking-widest hover:text-pink-400 transition-colors"
+                  >
+                    View Profile <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </motion.div>
             ))}
