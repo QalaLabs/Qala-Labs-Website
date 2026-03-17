@@ -4,17 +4,15 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
-  FileText, 
-  Image as ImageIcon, 
   Settings, 
   LogOut, 
-  BookOpen,
   Briefcase,
   Trophy,
   PenTool,
   Globe,
-  Users,
-  MessageSquare
+  Palette,
+  Zap,
+  Files
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/layout/Logo';
@@ -25,23 +23,23 @@ const AdminSidebar = () => {
   const { signOut } = useAuth();
   
   const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
-    { icon: MessageSquare, label: 'Leads', href: '/admin' }, // Reusing Admin for CRM
+    { icon: LayoutDashboard, label: 'CRM Dashboard', href: '/admin' },
+    { icon: Files, label: 'Page Manager', href: '/admin/pages' },
+    { icon: Palette, label: 'Site & Branding', href: '/admin/site-management' },
+    { icon: Zap, label: 'Integrations', href: '/admin/settings' },
     { icon: Trophy, label: 'Case Studies', href: '/admin/case-studies' },
     { icon: Briefcase, label: 'Portfolio', href: '/admin/portfolio' },
     { icon: PenTool, label: 'Blog Posts', href: '/admin/blog' },
-    { icon: ImageIcon, label: 'Media Library', href: '/admin/media' },
-    { icon: Globe, label: 'Site Management', href: '/admin/site-management' },
-    { icon: Settings, label: 'Settings', href: '/admin/settings' },
   ];
 
   return (
-    <aside className="w-64 bg-[#1a1f2e] text-white flex flex-col h-screen sticky top-0 shrink-0 z-50">
+    <aside className="w-64 bg-[#0f172a] text-white flex flex-col h-screen sticky top-0 shrink-0 z-50">
       <div className="p-8 mb-4">
         <Logo variant="white" className="scale-110 origin-left" />
       </div>
       
       <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
+        <p className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Core Management</p>
         {navItems.map((item) => (
           <Link
             key={item.href}
@@ -61,7 +59,7 @@ const AdminSidebar = () => {
 
       <div className="p-6 border-t border-white/5 space-y-4">
         <Link to="/" className="flex items-center gap-3 px-4 py-2 text-xs font-bold text-slate-500 hover:text-white transition-colors">
-          <Globe className="w-4 h-4" /> Back to Main Site
+          <Globe className="w-4 h-4" /> View Live Site
         </Link>
         <button 
           onClick={() => signOut()}
