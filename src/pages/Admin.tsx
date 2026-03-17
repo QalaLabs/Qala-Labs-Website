@@ -9,7 +9,7 @@ import {
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
   Loader2, FilterX, Star, Zap, ShieldAlert, DatabaseBackup,
-  History, StickyNote
+  History, StickyNote, Briefcase, UserCheck, Trophy
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,16 @@ import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import LeadPipeline from '@/components/admin/LeadPipeline';
 
-const services = ["Performance Marketing", "Creative Production", "Web Development", "Conversion Optimization", "Analytics & Data", "eCommerce Growth"];
+const services = [
+  "Performance Marketing", 
+  "Creative Production", 
+  "Web Development", 
+  "Conversion Optimization", 
+  "Analytics & Data", 
+  "eCommerce Growth",
+  "Agency Network",
+  "Creator Collective"
+];
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -61,7 +70,16 @@ const Admin = () => {
     if (rev.includes('50L+') || rev.includes('25L+')) score += 50;
     if (rev.includes('15L-50L') || rev.includes('5-25L')) score += 30;
     if (data.service === 'eCommerce Growth' || data.service === 'Performance Marketing') score += 20;
+    if (lead.tool_used === 'agency_network_join' || lead.tool_used === 'creator_onboarding_v2') score += 10;
     return score;
+  };
+
+  const getLeadInterest = (lead: any) => {
+    if (lead.data?.service) return lead.data.service;
+    if (lead.tool_used === 'agency_network_join') return "Agency Network";
+    if (lead.tool_used === 'creator_onboarding_v2') return "Creator Collective";
+    if (lead.tool_used === 'scale_potential_quiz') return "Scale Quiz";
+    return "General Inquiry";
   };
 
   const handleSendCampaign = async () => {
@@ -90,8 +108,10 @@ const Admin = () => {
 
   const filteredLeads = leads.filter(lead => {
     const data = lead.data || {};
-    const matchesSearch = lead.email.toLowerCase().includes(searchTerm.toLowerCase()) || (data.name || '').toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesService = filterService === 'all' || data.service === filterService;
+    const interest = getLeadInterest(lead);
+    const matchesSearch = lead.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         (data.name || '').toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesService = filterService === 'all' || interest === filterService;
     return matchesSearch && matchesService;
   });
 
@@ -102,6 +122,10 @@ const Admin = () => {
         <nav className="space-y-2 flex-1">
           <Link to="/admin"><Button variant="ghost" className="w-full justify-start gap-3 bg-blue-600/10 text-blue-400 font-bold"><LayoutDashboard className="w-4 h-4" /> CRM Dashboard</Button></Link>
           <Link to="/admin/pages"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><FileText className="w-4 h-4" /> Site Content</Button></Link>
+          <Link to="/admin/case-studies"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><Trophy className="w-4 h-4" /> Case Studies</Button></Link>
+          <Link to="/admin/portfolio"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><Briefcase className="w-4 h-4" /> Portfolio</Button></Link>
+          <Link to="/admin/blog"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><BookOpen className="w-4 h-4" /> Blog Posts</Button></Link>
+          <Link to="/admin/media"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><Database className="w-4 h-4" /> Media Library</Button></Link>
           <Button onClick={() => setCampaignModal(true)} variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><Mail className="w-4 h-4" /> Bulk Email</Button>
           <Link to="/admin/settings"><Button variant="ghost" className="w-full justify-start gap-3 text-slate-300 font-bold"><Settings className="w-4 h-4" /> Settings</Button></Link>
         </nav>
@@ -132,7 +156,7 @@ const Admin = () => {
             </div>
             <div className="flex gap-3">
               <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterService} onChange={e => setFilterService(e.target.value)}>
-                <option value="all">All Services</option>
+                <option value="all">All Sources</option>
                 {services.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
@@ -151,6 +175,7 @@ const Admin = () => {
               <tbody className="divide-y divide-slate-50">
                 {filteredLeads.map((lead) => {
                   const score = calculateScore(lead);
+                  const interest = getLeadInterest(lead);
                   return (
                     <tr key={lead.id} className="hover:bg-slate-50/50 transition-colors group cursor-pointer" onClick={() => setSelectedLead(lead)}>
                       <td className="px-8 py-6">
@@ -168,7 +193,11 @@ const Admin = () => {
                         </Badge>
                       </td>
                       <td className="px-8 py-6">
-                        <span className="text-sm font-bold text-slate-600">{lead.data?.service || 'General Inquiry'}</span>
+                        <div className="flex items-center gap-2">
+                          {lead.tool_used === 'agency_network_join' && <Briefcase className="w-3 h-3 text-blue-500" />}
+                          {lead.tool_used === 'creator_onboarding_v2' && <UserCheck className="w-3 h-3 text-pink-500" />}
+                          <span className="text-sm font-bold text-slate-600">{interest}</span>
+                        </div>
                       </td>
                       <td className="px-8 py-6">
                         <Badge variant="secondary" className="uppercase font-black text-[9px] tracking-widest">{lead.data?.status || 'new'}</Badge>
@@ -212,6 +241,7 @@ const Admin = () => {
                         <div><p className="text-xs text-slate-400">Captured on</p><p className="font-bold text-slate-900 truncate">{selectedLead.data?.source_url || 'Direct'}</p></div>
                         <div><p className="text-xs text-slate-400">Campaign</p><p className="font-bold text-blue-600">{selectedLead.data?.utm_campaign || 'Organic'}</p></div>
                         <div><p className="text-xs text-slate-400">Budget/Rev</p><p className="font-bold text-slate-900">{selectedLead.data?.revenue || selectedLead.data?.budget || 'N/A'}</p></div>
+                        <div><p className="text-xs text-slate-400">Tool Used</p><Badge variant="outline" className="font-mono text-[10px]">{selectedLead.tool_used}</Badge></div>
                       </div>
                     </div>
                   </div>
