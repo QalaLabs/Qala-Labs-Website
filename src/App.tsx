@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
@@ -97,30 +98,31 @@ const App = () => (
             <Route path="/agency-network" element={<AgencyNetwork />} />
             <Route path="/creator-collective" element={<CreatorCollective />} />
             
-            {/* Admin Routes */}
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/pages" element={<PageList />} />
-            <Route path="/admin/editor/:id" element={<PageEditor />} />
+            {/* Admin Routes (Protected) */}
+            <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="/admin/pages" element={<ProtectedRoute><PageList /></ProtectedRoute>} />
+            <Route path="/admin/editor/:id" element={<ProtectedRoute><PageEditor /></ProtectedRoute>} />
             
-            <Route path="/admin/case-studies" element={<CaseStudyManager />} />
-            <Route path="/admin/case-studies/new" element={<CaseStudyEditor />} />
-            <Route path="/admin/case-studies/edit/:id" element={<CaseStudyEditor />} />
+            <Route path="/admin/case-studies" element={<ProtectedRoute><CaseStudyManager /></ProtectedRoute>} />
+            <Route path="/admin/case-studies/new" element={<ProtectedRoute><CaseStudyEditor /></ProtectedRoute>} />
+            <Route path="/admin/case-studies/edit/:id" element={<ProtectedRoute><CaseStudyEditor /></ProtectedRoute>} />
             
-            <Route path="/admin/portfolio" element={<PortfolioManager />} />
-            <Route path="/admin/portfolio/new" element={<PortfolioEditor />} />
-            <Route path="/admin/portfolio/edit/:id" element={<PortfolioEditor />} />
+            <Route path="/admin/portfolio" element={<ProtectedRoute><PortfolioManager /></ProtectedRoute>} />
+            <Route path="/admin/portfolio/new" element={<ProtectedRoute><PortfolioEditor /></ProtectedRoute>} />
+            <Route path="/admin/portfolio/edit/:id" element={<ProtectedRoute><PortfolioEditor /></ProtectedRoute>} />
             
-            <Route path="/admin/blog" element={<BlogManager />} />
-            <Route path="/admin/blog/new" element={<BlogEditor />} />
-            <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
+            <Route path="/admin/blog" element={<ProtectedRoute><BlogManager /></ProtectedRoute>} />
+            <Route path="/admin/blog/new" element={<ProtectedRoute><BlogEditor /></ProtectedRoute>} />
+            <Route path="/admin/blog/edit/:id" element={<ProtectedRoute><BlogEditor /></ProtectedRoute>} />
             
-            <Route path="/admin/media" element={<MediaManager />} />
-            <Route path="/admin/settings" element={<Settings />} />
-            <Route path="/admin/site-management" element={<SiteManagement />} />
-            <Route path="/admin/guide" element={<EditorGuide />} />
+            <Route path="/admin/media" element={<ProtectedRoute><MediaManager /></ProtectedRoute>} />
+            <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/admin/site-management" element={<ProtectedRoute><SiteManagement /></ProtectedRoute>} />
+            <Route path="/admin/guide" element={<ProtectedRoute><EditorGuide /></ProtectedRoute>} />
             
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+            
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />

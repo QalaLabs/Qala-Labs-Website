@@ -28,18 +28,15 @@ const DynamicPage = () => {
       setLoading(true);
       
       try {
-        // 1. Fetch SEO data
         const seoData = await fetchPageSEO(slug);
         setSeo(seoData);
 
-        // 2. Fetch Page Content via Edge Function
-        const { data, error: apiError } = await supabase.functions.invoke('content-api', {
-          method: 'GET',
-          queryParams: { slug, type: 'page' }
+        // Fix: Append query params to the function name string
+        const { data, error: apiError } = await supabase.functions.invoke(`content-api?slug=${slug}&type=page`, {
+          method: 'GET'
         });
 
         if (apiError || !data) {
-          // Fallback to direct DB fetch if Edge Function fails or is not deployed
           const { data: dbPage, error: dbError } = await supabase
             .from('pages')
             .select('*, page_blocks(*)')
@@ -60,7 +57,6 @@ const DynamicPage = () => {
 
           setPage({ ...dbPage, content: blocks });
         } else {
-          // Use data from Edge Function
           const blocks: Block[] = (data.page_blocks || []).map((b: any) => ({
             id: b.id,
             type: b.block_type as BlockType,
@@ -72,7 +68,6 @@ const DynamicPage = () => {
         }
 
         if (!isPreview && page?.status !== 'published' && page) {
-          // Double check status if not in preview
           if (data?.status !== 'published') setError(true);
         }
 

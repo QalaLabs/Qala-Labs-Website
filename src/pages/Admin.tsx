@@ -23,6 +23,7 @@ import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
+import LeadPipeline from '@/components/admin/LeadPipeline';
 
 const services = ["Performance Marketing", "Creative Production", "Web Development", "Conversion Optimization", "Analytics & Data", "eCommerce Growth"];
 
@@ -118,19 +119,9 @@ const Admin = () => {
           </div>
         </header>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Total Prospects</p>
-            <p className="text-4xl font-black text-slate-900">{leads.length}</p>
-          </div>
-          <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-            <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">High Quality Leads</p>
-            <p className="text-4xl font-black text-slate-900">{leads.filter(l => calculateScore(l) >= 50).length}</p>
-          </div>
-          <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-2">Conversion Rate</p>
-            <p className="text-4xl font-black text-slate-900">{((leads.filter(l => l.data?.status === 'closed').length / (leads.length || 1)) * 100).toFixed(1)}%</p>
-          </div>
+        <div className="mb-10">
+          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
+          <LeadPipeline leads={leads} />
         </div>
 
         <Card className="border-none shadow-sm overflow-hidden bg-white rounded-[2.5rem]">
