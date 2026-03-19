@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">flying-kraken-wag</string>
+    <string name="title_activity_main">flying-kraken-wag</string>
+    <string name="package_name">com.example.flyingkrakenwag</string>
+    <string name="custom_url_scheme">com.example.flyingkrakenwag</string>
+</resources>
