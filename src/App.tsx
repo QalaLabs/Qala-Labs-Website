@@ -78,22 +78,28 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+              
+              {/* Specific Case Study Routes (Prioritized) */}
               <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
               <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
               <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+              
+              {/* Specific Portfolio Routes (Prioritized) */}
               <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
               <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
               <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
               <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
               <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
               <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+              
               <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogDetail />} />
               <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+              
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/tools" element={<Tools />} />
