@@ -164,9 +164,12 @@ const BlogEditor = () => {
 
             <div className="p-8 bg-slate-900 rounded-[2.5rem] text-white">
               <h3 className="text-xl font-bold mb-4">Publishing Tip</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 Use high-quality WebP images for faster load times. Ensure your headline includes target keywords for SEO performance.
               </p>
+              <Button variant="ghost" className="w-full text-blue-400 hover:text-blue-300 hover:bg-white/5" asChild>
+                <a href="/admin/guide">View Editor Guide</a>
+              </Button>
             </div>
           </div>
         </div>
