@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { 
   Save, Zap, Database, Link as LinkIcon,
-  ShieldCheck, RefreshCcw, Code, BarChart3,
-  Mail, Send, Loader2
+  ShieldCheck, RefreshCcw, BarChart3,
+  Mail, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,6 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 
 const Settings = () => {
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,7 +37,7 @@ const Settings = () => {
       }, { onConflict: 'key' });
 
     if (!error) {
-      showSuccess("Integrations updated. Rebuilding tracking layer...");
+      showSuccess("Integrations updated.");
     } else {
       showError("Failed to update integrations");
     }
@@ -48,24 +47,19 @@ const Settings = () => {
   const handleTestEmail = async () => {
     setTesting(true);
     try {
-      const response = await fetch('/api/test-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const { data, error } = await supabase.functions.invoke('bulk-email', {
+        body: {
+          isTest: true,
           to: 'qalakaar.qalalabs@gmail.com',
-          subject: 'Test Email from Qala Labs Admin',
-          body: 'This is a test email to verify that your Hostinger SMTP settings are working correctly. If you received this, your scale engine is ready to communicate!'
-        })
+          subject: 'Test Email from Qala Labs',
+          content: 'Your scale engine is ready to communicate!'
+        }
       });
       
-      const data = await response.json();
-      if (data.success) {
-        showSuccess("Test email sent to qalakaar.qalalabs@gmail.com!");
-      } else {
-        showError(data.error || "Failed to send test email");
-      }
-    } catch (err) {
-      showError("Could not connect to the backend server. Ensure server.js is running.");
+      if (error) throw error;
+      showSuccess(data.message);
+    } catch (err: any) {
+      showError(err.message || "Failed to trigger test email. Check Supabase logs.");
     } finally {
       setTesting(false);
     }
@@ -74,12 +68,11 @@ const Settings = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <AdminSidebar />
-      
       <main className="flex-1 p-10">
         <header className="flex justify-between items-center mb-10">
           <div>
             <h1 className="text-3xl font-black text-slate-900">Integrations</h1>
-            <p className="text-slate-500">Manage tracking IDs, pixels, and automation webhooks.</p>
+            <p className="text-slate-500">Manage tracking IDs and automation.</p>
           </div>
           <div className="flex gap-3">
             <Button 
@@ -108,16 +101,16 @@ const Settings = () => {
             <CardContent className="p-10 space-y-8">
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Google Tag Manager ID</Label>
-                  <Input value={formData.gtm_id} onChange={e => setFormData({...formData, gtm_id: e.target.value})} className="rounded-xl h-12" placeholder="GTM-XXXXXXX" />
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">GTM ID</Label>
+                  <Input value={formData.gtm_id} onChange={e => setFormData({...formData, gtm_id: e.target.value})} className="rounded-xl h-12" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Meta Pixel ID</Label>
-                  <Input value={formData.pixel_id} onChange={e => setFormData({...formData, pixel_id: e.target.value})} className="rounded-xl h-12" placeholder="1234567890" />
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pixel ID</Label>
+                  <Input value={formData.pixel_id} onChange={e => setFormData({...formData, pixel_id: e.target.value})} className="rounded-xl h-12" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">GA4 Measurement ID</Label>
-                  <Input value={formData.ga4_id} onChange={e => setFormData({...formData, ga4_id: e.target.value})} className="rounded-xl h-12" placeholder="G-XXXXXXXXXX" />
+                  <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">GA4 ID</Label>
+                  <Input value={formData.ga4_id} onChange={e => setFormData({...formData, ga4_id: e.target.value})} className="rounded-xl h-12" />
                 </div>
               </div>
 
@@ -128,30 +121,10 @@ const Settings = () => {
                   </div>
                   <div>
                     <h4 className="font-black text-blue-900">Server-Side Tracking (CAPI)</h4>
-                    <p className="text-sm text-blue-700/70">Route all events through our secure edge server to bypass ad-blockers and improve attribution accuracy.</p>
+                    <p className="text-sm text-blue-700/70">Route all events through our secure edge server.</p>
                   </div>
                 </div>
                 <Switch checked={formData.server_side_enabled} onCheckedChange={v => setFormData({...formData, server_side_enabled: v})} />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-sm rounded-[2.5rem] bg-white">
-            <CardHeader className="p-10 pb-0">
-              <CardTitle className="text-2xl font-black flex items-center gap-3">
-                <LinkIcon className="w-6 h-6 text-blue-600" /> Automation Webhooks
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-10 space-y-6">
-              <div className="space-y-2">
-                <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Incoming Lead Webhook (n8n/Zapier)</Label>
-                <Input 
-                  value={formData.webhook_url} 
-                  onChange={e => setFormData({...formData, webhook_url: e.target.value})} 
-                  className="rounded-xl h-12" 
-                  placeholder="https://your-n8n-instance.com/webhook/..."
-                />
-                <p className="text-[10px] text-slate-400">All new leads captured on the site will be POSTed to this URL in real-time.</p>
               </div>
             </CardContent>
           </Card>

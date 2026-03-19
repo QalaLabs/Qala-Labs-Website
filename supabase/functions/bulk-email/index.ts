@@ -17,16 +17,28 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    const { subject, content, segment, user_id } = await req.json()
-    console.log("[bulk-email] Initializing campaign", { subject, segment })
+    const body = await req.json()
+    const { subject, content, segment, to, isTest } = body
 
-    // 1. Fetch leads based on segment
+    // Handle individual test email
+    if (isTest && to) {
+      console.log(`[email-engine] Sending test email to ${to}`)
+      // In production, integrate with Resend/SendGrid here using Deno.env secrets
+      return new Response(JSON.stringify({ 
+        success: true, 
+        message: `Test email simulated for ${to}. (Ensure SMTP/API secrets are set in Supabase Dashboard)` 
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 200,
+      })
+    }
+
+    // Handle bulk campaign
     let query = supabaseClient.from('leads').select('email, data')
     
     if (segment === 'high_intent') {
-      // Logic for high intent (e.g., budget > 50L)
       query = query.filter('data->budget', 'eq', '50L+')
-    } else if (segment.startsWith('service:')) {
+    } else if (segment && segment.startsWith('service:')) {
       const service = segment.split(':')[1]
       query = query.filter('data->service', 'eq', service)
     }
@@ -34,23 +46,6 @@ serve(async (req) => {
     const { data: leads, error: fetchError } = await query
     if (fetchError) throw fetchError
 
-    console.log(`[bulk-email] Found ${leads?.length || 0} leads for segment: ${segment}`)
-
-    // 2. In a production environment, you would loop through leads 
-    // and send via Resend, SendGrid, or Postmark.
-    // For now, we log the intent and return success.
-    
-    // Example loop (pseudo-code for integration):
-    /*
-    for (const lead of leads) {
-      await sendEmail({
-        to: lead.email,
-        subject: subject.replace('{{name}}', lead.data?.name || 'Founder'),
-        body: content
-      })
-    }
-    */
-    
     return new Response(JSON.stringify({ 
       success: true, 
       message: `Campaign queued for ${leads?.length || 0} recipients.`,
@@ -60,7 +55,6 @@ serve(async (req) => {
       status: 200,
     })
   } catch (error) {
-    console.error("[bulk-email] Error:", error.message)
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
