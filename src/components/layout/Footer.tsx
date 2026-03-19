@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Instagram, ArrowRight, Zap } from 'lucide-react';
+import { Linkedin, Instagram, ArrowRight } from 'lucide-react';
 import Logo from './Logo';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
@@ -71,8 +71,6 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
                     className="text-slate-400 hover:text-white transition-colors"
                   >
                     {link.name}
@@ -89,8 +87,6 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
                     className="text-slate-400 hover:text-white transition-colors"
                   >
                     {link.name}
@@ -107,8 +103,6 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
                     className="text-slate-400 hover:text-white transition-colors"
                   >
                     {link.name}
@@ -145,8 +139,6 @@ const Footer = () => {
               <Link 
                 key={link.name} 
                 to={link.href} 
-                target="_blank" 
-                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
                 {link.name}

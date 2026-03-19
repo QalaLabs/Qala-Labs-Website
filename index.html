@@ -14,13 +14,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://kyllkrozprazwdrzwugq.supabase.co" />
     
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- SEO Meta -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="Qala Labs builds predictable revenue engines for DTC and B2B brands through performance marketing and high-velocity creative." />
+
     <!-- GA4 / GTM Baseline (Placeholders) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-XXXXXXXXXX', { 'send_page_view': false });
     </script>
   </head>
 

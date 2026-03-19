@@ -8,8 +8,8 @@ import {
   TrendingUp, Mail, Eye, CheckCircle2, Database,
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
-  Loader2, FilterX, Star, Zap, ShieldAlert, DatabaseBackup,
-  History, StickyNote, Briefcase, UserCheck, Trophy
+  Loader2, FilterX, Star, Zap, ShieldAlert, Download,
+  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { format } from 'date-fns';
+import { format, isWithinInterval, startOfDay, endOfDay, parseISO } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
@@ -44,6 +44,8 @@ const Admin = () => {
   const [sending, setSending] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [filterService, setFilterService] = React.useState("all");
+  const [filterScore, setFilterScore] = React.useState("all");
+  const [dateRange, setDateRange] = React.useState({ start: '', end: '' });
   const [selectedLead, setSelectedLead] = React.useState<any>(null);
   const [campaignModal, setCampaignModal] = React.useState(false);
   const [internalNote, setInternalNote] = React.useState("");
@@ -82,6 +84,34 @@ const Admin = () => {
     return "General Inquiry";
   };
 
+  const exportToCSV = () => {
+    if (filteredLeads.length === 0) return;
+    
+    const headers = ["Date", "Name", "Email", "Interest", "Score", "Status", "Revenue/Budget", "Source URL"];
+    const rows = filteredLeads.map(lead => [
+      format(new Date(lead.created_at), 'yyyy-MM-dd'),
+      lead.data?.name || 'Anonymous',
+      lead.email,
+      getLeadInterest(lead),
+      calculateScore(lead),
+      lead.data?.status || 'new',
+      lead.data?.revenue || lead.data?.budget || 'N/A',
+      lead.data?.source_url || 'Direct'
+    ]);
+
+    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `qala_leads_export_${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showSuccess("Export started");
+  };
+
   const handleSendCampaign = async () => {
     if (!campaignData.subject || !campaignData.content) {
       showError("Please fill in all fields");
@@ -109,11 +139,36 @@ const Admin = () => {
   const filteredLeads = leads.filter(lead => {
     const data = lead.data || {};
     const interest = getLeadInterest(lead);
+    const score = calculateScore(lead);
+    
     const matchesSearch = lead.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          (data.name || '').toLowerCase().includes(searchTerm.toLowerCase());
+    
     const matchesService = filterService === 'all' || interest === filterService;
-    return matchesSearch && matchesService;
+    
+    const matchesScore = filterScore === 'all' || 
+                        (filterScore === 'high' && score >= 50) ||
+                        (filterScore === 'medium' && score >= 30 && score < 50) ||
+                        (filterScore === 'low' && score < 30);
+
+    let matchesDate = true;
+    if (dateRange.start && dateRange.end) {
+      const leadDate = parseISO(lead.created_at);
+      matchesDate = isWithinInterval(leadDate, {
+        start: startOfDay(parseISO(dateRange.start)),
+        end: endOfDay(parseISO(dateRange.end))
+      });
+    }
+
+    return matchesSearch && matchesService && matchesScore && matchesDate;
   });
+
+  const clearFilters = () => {
+    setSearchTerm("");
+    setFilterService("all");
+    setFilterScore("all");
+    setDateRange({ start: '', end: '' });
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
@@ -138,7 +193,10 @@ const Admin = () => {
             <h1 className="text-3xl font-black text-slate-900">CRM Intelligence</h1>
             <p className="text-slate-500">Managing {leads.length} leads across your ecosystem.</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-3">
+            <Button onClick={exportToCSV} variant="outline" className="rounded-xl gap-2 border-slate-200">
+              <Download className="w-4 h-4" /> Export CSV
+            </Button>
             <Button onClick={fetchData} variant="outline" className="rounded-xl"><RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} /></Button>
           </div>
         </header>
@@ -149,18 +207,47 @@ const Admin = () => {
         </div>
 
         <Card className="border-none shadow-sm overflow-hidden bg-white rounded-[2.5rem]">
-          <div className="p-8 border-b border-slate-50 flex items-center justify-between">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input placeholder="Search prospects..." className="pl-10 h-12 rounded-xl" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          <div className="p-8 border-b border-slate-50 space-y-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Input placeholder="Search prospects..." className="pl-10 h-12 rounded-xl" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              </div>
+              <div className="flex gap-3">
+                <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-400 hover:text-blue-600 font-bold">
+                  <FilterX className="w-4 h-4 mr-2" /> Clear Filters
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-3">
-              <select className="h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold" value={filterService} onChange={e => setFilterService(e.target.value)}>
-                <option value="all">All Sources</option>
-                {services.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="space-y-1">
+                <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Source/Interest</Label>
+                <select className="w-full h-11 px-4 rounded-xl border border-slate-100 bg-slate-50 text-xs font-bold outline-none focus:ring-2 focus:ring-blue-600/20" value={filterService} onChange={e => setFilterService(e.target.value)}>
+                  <option value="all">All Sources</option>
+                  {services.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+              <div className="space-y-1">
+                <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Lead Score</Label>
+                <select className="w-full h-11 px-4 rounded-xl border border-slate-100 bg-slate-50 text-xs font-bold outline-none focus:ring-2 focus:ring-blue-600/20" value={filterScore} onChange={e => setFilterScore(e.target.value)}>
+                  <option value="all">All Scores</option>
+                  <option value="high">High (50+)</option>
+                  <option value="medium">Medium (30-50)</option>
+                  <option value="low">Low (<30)</option>
+                </select>
+              </div>
+              <div className="space-y-1">
+                <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">From Date</Label>
+                <Input type="date" className="h-11 rounded-xl border-slate-100 bg-slate-50 text-xs" value={dateRange.start} onChange={e => setDateRange({...dateRange, start: e.target.value})} />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">To Date</Label>
+                <Input type="date" className="h-11 rounded-xl border-slate-100 bg-slate-50 text-xs" value={dateRange.end} onChange={e => setDateRange({...dateRange, end: e.target.value})} />
+              </div>
             </div>
           </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead className="bg-slate-50 text-slate-500 text-[10px] font-black uppercase tracking-widest">
@@ -168,6 +255,7 @@ const Admin = () => {
                   <th className="px-8 py-4">Lead</th>
                   <th className="px-8 py-4">Score</th>
                   <th className="px-8 py-4">Interest</th>
+                  <th className="px-8 py-4">Date</th>
                   <th className="px-8 py-4">Status</th>
                   <th className="px-8 py-4 text-right">Actions</th>
                 </tr>
@@ -199,6 +287,9 @@ const Admin = () => {
                           <span className="text-sm font-bold text-slate-600">{interest}</span>
                         </div>
                       </td>
+                      <td className="px-8 py-6 text-xs text-slate-500 font-medium">
+                        {format(new Date(lead.created_at), 'MMM dd, yyyy')}
+                      </td>
                       <td className="px-8 py-6">
                         <Badge variant="secondary" className="uppercase font-black text-[9px] tracking-widest">{lead.data?.status || 'new'}</Badge>
                       </td>
@@ -211,6 +302,16 @@ const Admin = () => {
                     </tr>
                   );
                 })}
+                {filteredLeads.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="px-8 py-20 text-center">
+                      <div className="flex flex-col items-center gap-2 text-slate-400">
+                        <FilterX className="w-10 h-10 opacity-20" />
+                        <p className="font-bold">No leads match your current filters.</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -308,7 +409,7 @@ const Admin = () => {
                   placeholder="e.g. Your 90-Day Scale Roadmap" 
                   className="rounded-xl h-12" 
                   value={campaignData.subject}
-                  onChange={e => setCampaignData({...campaignData, subject: e.target.value})}
+                  onChange={(e) => setCampaignData({...campaignData, subject: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -317,7 +418,7 @@ const Admin = () => {
                   placeholder="Hi {{name}}, I noticed your brand is prime for scale..." 
                   className="min-h-[200px] rounded-xl" 
                   value={campaignData.content}
-                  onChange={e => setCampaignData({...campaignData, content: e.target.value})}
+                  onChange={(e) => setCampaignData({...campaignData, content: e.target.value})}
                 />
               </div>
               <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex items-center gap-4">
