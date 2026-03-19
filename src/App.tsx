@@ -11,57 +11,60 @@ import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoadingScreen from "./components/layout/LoadingScreen";
 
-// Lazy load pages for performance
-const Index = React.lazy(() => import("./pages/Index"));
-const Services = React.lazy(() => import("./pages/Services"));
-const ServiceDetail = React.lazy(() => import("./pages/ServiceDetail"));
-const CaseStudies = React.lazy(() => import("./pages/CaseStudies"));
-const CaseStudyDetail = React.lazy(() => import("./pages/CaseStudyDetail"));
-const Portfolio = React.lazy(() => import("./pages/Portfolio"));
-const PortfolioDetail = React.lazy(() => import("./pages/PortfolioDetail"));
-const Blog = React.lazy(() => import("./pages/Blog"));
-const BlogDetail = React.lazy(() => import("./pages/BlogDetail"));
-const Pricing = React.lazy(() => import("./pages/Pricing"));
-const Contact = React.lazy(() => import("./pages/Contact"));
-const Tools = React.lazy(() => import("./pages/Tools"));
-const Quiz = React.lazy(() => import("./pages/Quiz"));
-const Login = React.lazy(() => import("./pages/Login"));
-const Admin = React.lazy(() => import("./pages/Admin"));
-const PageList = React.lazy(() => import("./pages/admin/PageList"));
-const PageEditor = React.lazy(() => import("./pages/admin/PageEditor"));
-const MediaManager = React.lazy(() => import("./pages/admin/MediaManager"));
-const Settings = React.lazy(() => import("./pages/admin/Settings"));
-const SiteManagement = React.lazy(() => import("./pages/admin/SiteManagement"));
-const CaseStudyManager = React.lazy(() => import("./pages/admin/CaseStudyManager"));
-const CaseStudyEditor = React.lazy(() => import("./pages/admin/CaseStudyEditor"));
-const PortfolioManager = React.lazy(() => import("./pages/admin/PortfolioManager"));
-const PortfolioEditor = React.lazy(() => import("./pages/admin/PortfolioEditor"));
-const BlogManager = React.lazy(() => import("./pages/admin/BlogManager"));
-const BlogEditor = React.lazy(() => import("./pages/admin/BlogEditor"));
-const Dashboard = React.lazy(() => import("./pages/Dashboard"));
-const About = React.lazy(() => import("./pages/About"));
-const Privacy = React.lazy(() => import("./pages/Privacy"));
-const Terms = React.lazy(() => import("./pages/Terms"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
-const EditorGuide = React.lazy(() => import("./pages/EditorGuide"));
-const Onboarding = React.lazy(() => import("./pages/Onboarding"));
-const DynamicPage = React.lazy(() => import("./pages/DynamicPage"));
-const KashmiriMusicCaseStudy = React.lazy(() => import("./pages/KashmiriMusicCaseStudy"));
-const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
-const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
-const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
-const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
-const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
-const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
-const PickleballPortfolio = React.lazy(() => import("./pages/PickleballPortfolio"));
-const IPLMerchPortfolio = React.lazy(() => import("./pages/IPLMerchPortfolio"));
-const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
-const Career = React.lazy(() => import("./pages/Career"));
-const AgencyNetwork = React.lazy(() => import("./pages/AgencyNetwork"));
-const CreatorCollective = React.lazy(() => import("./pages/CreatorCollective"));
+// Direct imports for critical pages to ensure reliability and fix 404s
+import Index from "./pages/Index";
+import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
+import CaseStudies from "./pages/CaseStudies";
+import CaseStudyDetail from "./pages/CaseStudyDetail";
+import Portfolio from "./pages/Portfolio";
+import PortfolioDetail from "./pages/PortfolioDetail";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
+import Pricing from "./pages/Pricing";
+import Contact from "./pages/Contact";
+import Tools from "./pages/Tools";
+import Quiz from "./pages/Quiz";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+import About from "./pages/About";
+import Career from "./pages/Career";
+import AgencyNetwork from "./pages/AgencyNetwork";
+import CreatorCollective from "./pages/CreatorCollective";
+import Dashboard from "./pages/Dashboard";
+import Onboarding from "./pages/Onboarding";
+import DynamicPage from "./pages/DynamicPage";
+import NotFound from "./pages/NotFound";
 
-const StickyCTA = React.lazy(() => import("./components/layout/StickyCTA"));
-const WhatsAppButton = React.lazy(() => import("./components/layout/WhatsAppButton"));
+// Specific Case Study & Portfolio Pages
+import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
+import TrotrCaseStudy from "./pages/TrotrCaseStudy";
+import GaffarCaseStudy from "./pages/GaffarCaseStudy";
+import AmazonAdsPortfolio from "./pages/AmazonAdsPortfolio";
+import InstagramUGCPortfolio from "./pages/InstagramUGCPortfolio";
+import CSKInfluencerPortfolio from "./pages/CSKInfluencerPortfolio";
+import CapitalKeysPortfolio from "./pages/CapitalKeysPortfolio";
+import PickleballPortfolio from "./pages/PickleballPortfolio";
+import IPLMerchPortfolio from "./pages/IPLMerchPortfolio";
+import BNPLStrategy from "./pages/BNPLStrategy";
+
+// Admin Sub-pages
+import PageList from "./pages/admin/PageList";
+import PageEditor from "./pages/admin/PageEditor";
+import MediaManager from "./pages/admin/MediaManager";
+import Settings from "./pages/admin/Settings";
+import SiteManagement from "./pages/admin/SiteManagement";
+import CaseStudyManager from "./pages/admin/CaseStudyManager";
+import CaseStudyEditor from "./pages/admin/CaseStudyEditor";
+import PortfolioManager from "./pages/admin/PortfolioManager";
+import PortfolioEditor from "./pages/admin/PortfolioEditor";
+import BlogManager from "./pages/admin/BlogManager";
+import BlogEditor from "./pages/admin/BlogEditor";
+import EditorGuide from "./pages/EditorGuide";
+
+// Layout Components
+import StickyCTA from "./components/layout/StickyCTA";
+import WhatsAppButton from "./components/layout/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -79,14 +82,14 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               
-              {/* Specific Case Study Routes (Prioritized) */}
+              {/* Specific Case Study Routes */}
               <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
               <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
               <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
               
-              {/* Specific Portfolio Routes (Prioritized) */}
+              {/* Specific Portfolio Routes */}
               <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
               <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
               <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
