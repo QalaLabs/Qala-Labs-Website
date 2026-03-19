@@ -35,6 +35,8 @@ import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import DynamicPage from "./pages/DynamicPage";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 // Specific Case Study & Portfolio Pages
 import KashmiriMusicCaseStudy from "./pages/KashmiriMusicCaseStudy";
