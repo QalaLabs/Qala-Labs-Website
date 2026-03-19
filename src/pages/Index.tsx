@@ -7,7 +7,7 @@ import SEO from '@/components/layout/SEO';
 import BlockRenderer from '@/components/cms/BlockRenderer';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
-import { Loader2 } from 'lucide-react';
+import LoadingScreen from '@/components/layout/LoadingScreen';
 import { fetchPageSEO, SEOData } from '@/utils/seoFetcher';
 
 const Index = () => {
@@ -56,11 +56,7 @@ const Index = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!page) {

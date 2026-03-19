@@ -7,9 +7,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { Loader2 } from "lucide-react";
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import LoadingScreen from "./components/layout/LoadingScreen";
 
 // Lazy load pages for performance
 const Index = React.lazy(() => import("./pages/Index"));
@@ -65,12 +65,6 @@ const WhatsAppButton = React.lazy(() => import("./components/layout/WhatsAppButt
 
 const queryClient = new QueryClient();
 
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-white">
-    <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-  </div>
-);
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
@@ -79,7 +73,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <React.Suspense fallback={<PageLoader />}>
+          <React.Suspense fallback={<LoadingScreen />}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/services" element={<Services />} />
