@@ -42,20 +42,24 @@ serve(async (req) => {
     const webhookUrl = Deno.env.get('N8N_WEBHOOK_URL')
     if (webhookUrl) {
       console.log(`[lead-engine] Forwarding to external webhook`)
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lead, source: 'qala-labs-engine' })
-      }).catch(err => console.error(`[lead-engine] Webhook failed:`, err))
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lead, source: 'qala-labs-engine' })
+        })
+      } catch (err) {
+        console.error(`[lead-engine] Webhook failed:`, err)
+      }
     }
 
     return new Response(JSON.stringify({ success: true, lead_id: lead.id }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     })
-  } catch (error) {
-    console.error(`[lead-engine] Error:`, error.message)
-    return new Response(JSON.stringify({ error: error.message }), {
+  } catch (error: any) {
+    console.error(`[lead-engine] Error:`, error.message || error)
+    return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
     })
