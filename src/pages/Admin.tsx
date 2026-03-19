@@ -234,7 +234,7 @@ const Admin = () => {
                   <option value="all">All Scores</option>
                   <option value="high">High (50+)</option>
                   <option value="medium">Medium (30-50)</option>
-                  <option value="low">Low (<30)</option>
+                  <option value="low">{"Low (<30)"}</option>
                 </select>
               </div>
               <div className="space-y-1">
