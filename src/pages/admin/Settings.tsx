@@ -57,9 +57,10 @@ const Settings = () => {
       });
       
       if (error) throw error;
-      showSuccess(data.message);
+      showSuccess(data.message || "Test trigger successful!");
     } catch (err: any) {
-      showError(err.message || "Failed to trigger test email. Check Supabase logs.");
+      console.error(err);
+      showError("Failed to trigger test. Please ensure Supabase is linked and the function is deployed.");
     } finally {
       setTesting(false);
     }

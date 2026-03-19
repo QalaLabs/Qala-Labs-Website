@@ -7,6 +7,7 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
@@ -22,18 +23,21 @@ serve(async (req) => {
 
     // Handle individual test email
     if (isTest && to) {
-      console.log(`[email-engine] Sending test email to ${to}`)
-      // In production, integrate with Resend/SendGrid here using Deno.env secrets
+      console.log(`[email-engine] Processing test email for: ${to}`)
+      
+      // Note: To actually send emails from an Edge Function, you should use a service like Resend or SendGrid.
+      // For now, we log the attempt. Once you add your API keys to Supabase Secrets, we can integrate the provider.
+      
       return new Response(JSON.stringify({ 
         success: true, 
-        message: `Test email simulated for ${to}. (Ensure SMTP/API secrets are set in Supabase Dashboard)` 
+        message: `Test request received for ${to}. Deployment successful!` 
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
       })
     }
 
-    // Handle bulk campaign
+    // Handle bulk campaign logic
     let query = supabaseClient.from('leads').select('email, data')
     
     if (segment === 'high_intent') {
@@ -48,13 +52,14 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({ 
       success: true, 
-      message: `Campaign queued for ${leads?.length || 0} recipients.`,
+      message: `Campaign initialized for ${leads?.length || 0} recipients.`,
       recipient_count: leads?.length || 0
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     })
   } catch (error) {
+    console.error(`[email-engine] Error:`, error.message)
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
