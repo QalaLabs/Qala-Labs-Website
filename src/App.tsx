@@ -43,19 +43,8 @@ const About = React.lazy(() => import("./pages/About"));
 const Privacy = React.lazy(() => import("./pages/Privacy"));
 const Terms = React.lazy(() => import("./pages/Terms"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
-const EditorGuide = React.lazy(() => import("./pages/EditorGuide"));
 const Onboarding = React.lazy(() => import("./pages/Onboarding"));
 const DynamicPage = React.lazy(() => import("./pages/DynamicPage"));
-const KashmiriMusicCaseStudy = React.lazy(() => import("./pages/KashmiriMusicCaseStudy"));
-const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
-const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
-const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
-const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
-const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
-const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
-const PickleballPortfolio = React.lazy(() => import("./pages/PickleballPortfolio"));
-const IPLMerchPortfolio = React.lazy(() => import("./pages/IPLMerchPortfolio"));
-const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
 const Career = React.lazy(() => import("./pages/Career"));
 const AgencyNetwork = React.lazy(() => import("./pages/AgencyNetwork"));
 const CreatorCollective = React.lazy(() => import("./pages/CreatorCollective"));
@@ -80,20 +69,10 @@ const App = () => (
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
-              <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
-              <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
-              <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
-              <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
-              <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
-              <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
-              <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
-              <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
-              <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogDetail />} />
-              <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/tools" element={<Tools />} />
@@ -123,7 +102,6 @@ const App = () => (
               <Route path="/admin/media" element={<ProtectedRoute><MediaManager /></ProtectedRoute>} />
               <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/admin/site-management" element={<ProtectedRoute><SiteManagement /></ProtectedRoute>} />
-              <Route path="/admin/guide" element={<ProtectedRoute><EditorGuide /></ProtectedRoute>} />
               
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
