@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { 
   Save, Zap, Database, Link as LinkIcon,
-  ShieldCheck, RefreshCcw, Code, BarChart3
+  ShieldCheck, RefreshCcw, Code, BarChart3,
+  Mail, Send, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,6 +18,7 @@ import { supabase } from '@/integrations/supabase/client';
 const Settings = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
   const [formData, setFormData] = useState({
     gtm_id: '',
     pixel_id: '',
@@ -27,7 +29,6 @@ const Settings = () => {
 
   const handleSave = async () => {
     setSaving(true);
-    // In this architecture, we store these in site_settings under 'integrations'
     const { error } = await supabase
       .from('site_settings')
       .upsert({ 
@@ -44,6 +45,32 @@ const Settings = () => {
     setSaving(false);
   };
 
+  const handleTestEmail = async () => {
+    setTesting(true);
+    try {
+      const response = await fetch('/api/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'qalakaar.qalalabs@gmail.com',
+          subject: 'Test Email from Qala Labs Admin',
+          body: 'This is a test email to verify that your Hostinger SMTP settings are working correctly. If you received this, your scale engine is ready to communicate!'
+        })
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        showSuccess("Test email sent to qalakaar.qalalabs@gmail.com!");
+      } else {
+        showError(data.error || "Failed to send test email");
+      }
+    } catch (err) {
+      showError("Could not connect to the backend server. Ensure server.js is running.");
+    } finally {
+      setTesting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <AdminSidebar />
@@ -54,10 +81,21 @@ const Settings = () => {
             <h1 className="text-3xl font-black text-slate-900">Integrations</h1>
             <p className="text-slate-500">Manage tracking IDs, pixels, and automation webhooks.</p>
           </div>
-          <Button onClick={handleSave} disabled={saving} className="bg-blue-600 hover:bg-blue-700 rounded-xl px-8 py-6 font-black shadow-lg">
-            {saving ? <RefreshCcw className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}
-            Save Integrations
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              onClick={handleTestEmail} 
+              disabled={testing} 
+              variant="outline" 
+              className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 gap-2 font-bold"
+            >
+              {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+              Send Test Email
+            </Button>
+            <Button onClick={handleSave} disabled={saving} className="bg-blue-600 hover:bg-blue-700 rounded-xl px-8 py-6 font-black shadow-lg">
+              {saving ? <RefreshCcw className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}
+              Save Integrations
+            </Button>
+          </div>
         </header>
 
         <div className="grid gap-8">
