@@ -89,19 +89,19 @@ const Hero = ({
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 text-blue-700 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-200/50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 text-blue-700 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-200/50 max-w-full text-center"
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
             </span>
-            {badgeText}
+            <span className="truncate sm:whitespace-normal">{badgeText}</span>
           </motion.div>
 
           <h1 
             ref={headlineRef}
             id="hero-heading"
-            className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight px-2"
+            className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight px-2 break-words"
           >
             {title}
           </h1>

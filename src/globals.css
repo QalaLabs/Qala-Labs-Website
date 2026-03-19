@@ -96,11 +96,14 @@
   }
 
   html, body {
-    @apply overflow-x-hidden w-full;
+    @apply overflow-x-hidden w-full max-w-[100vw];
     position: relative;
+    margin: 0;
+    padding: 0;
   }
 
   body {
     @apply bg-background text-foreground;
+    -webkit-overflow-scrolling: touch;
   }
 }
