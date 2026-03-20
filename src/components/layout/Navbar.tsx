@@ -113,13 +113,19 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Mobile Toggle */}
+            {/* Mobile Toggle - Improved for visibility and hit area */}
             <button 
               onClick={() => setIsOpen(!isOpen)} 
-              className="lg:hidden relative z-[1020] p-3 text-slate-900 hover:bg-slate-100 rounded-xl transition-all active:scale-90"
+              className={cn(
+                "lg:hidden relative z-[1020] flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all active:scale-95 shadow-lg",
+                isOpen ? "bg-white text-slate-900 border border-slate-200" : "bg-slate-900 text-white"
+              )}
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] ml-1">
+                {isOpen ? 'Close' : 'Menu'}
+              </span>
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -134,7 +140,7 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
             />
             
             <motion.div
@@ -146,7 +152,7 @@ const Navbar = () => {
             >
               <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
                 <div className="space-y-2">
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-4">Navigation</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
                   {[...navLinks, ...collaborateLinks].map((link, i) => (
                     <motion.div
                       key={link.name}
@@ -157,7 +163,7 @@ const Navbar = () => {
                       <Link 
                         to={link.href}
                         className={cn(
-                          "flex items-center justify-between py-3 text-xl font-black transition-all group",
+                          "flex items-center justify-between py-4 text-2xl font-black transition-all group border-b border-slate-50",
                           location.pathname === link.href ? "text-blue-600" : "text-slate-900"
                         )}
                       >
@@ -174,14 +180,14 @@ const Navbar = () => {
                 <div className="mt-auto pt-10 space-y-6">
                   <Button 
                     onClick={() => navigate(user ? '/admin' : '/contact')}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-7 rounded-2xl text-lg shadow-2xl shadow-blue-500/20"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-xl shadow-2xl shadow-blue-500/20"
                   >
-                    {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-5 h-5" />
+                    {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-6 h-6" />
                   </Button>
                   
-                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-4">
-                    <a href="https://instagram.com/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Instagram</a>
-                    <a href="https://linkedin.com/company/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400">LinkedIn</a>
+                  <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 pb-4">
+                    <a href="https://instagram.com/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">Instagram</a>
+                    <a href="https://linkedin.com/company/qalalabs" target="_blank" rel="noreferrer" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-colors">LinkedIn</a>
                   </div>
                 </div>
               </div>
