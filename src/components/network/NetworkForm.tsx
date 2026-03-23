@@ -35,6 +35,7 @@ const NetworkForm = () => {
     e.preventDefault();
     setLoading(true);
 
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
       tool_used: 'agency_network_join',
@@ -45,10 +46,26 @@ const NetworkForm = () => {
       }
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: formData.email, 
+            tool_used: 'agency_network_join', 
+            data: formData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       setSuccess(true);
       showSuccess("Request received!");
       setTimeout(() => {

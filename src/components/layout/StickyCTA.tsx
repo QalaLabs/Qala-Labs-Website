@@ -45,22 +45,41 @@ const StickyCTA = () => {
     e.preventDefault();
     setLoading(true);
 
+    const leadData = {
+      ...formData,
+      ...utmData,
+      source_url: window.location.href,
+      status: 'new',
+      timestamp: new Date().toISOString()
+    };
+
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
       tool_used: 'sticky_cta_microform',
-      data: {
-        ...formData,
-        ...utmData,
-        source_url: window.location.href,
-        status: 'new',
-        timestamp: new Date().toISOString()
-      }
+      data: leadData
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: formData.email, 
+            tool_used: 'sticky_cta_microform', 
+            data: leadData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       setSuccess(true);
       showSuccess("Strategy incoming!");
       setTimeout(() => {

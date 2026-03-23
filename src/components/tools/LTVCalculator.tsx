@@ -9,7 +9,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { TrendingUp, Loader2, Info } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
-import { Tooltip as ShadcnTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
 
 const LTVCalculator = () => {
   const [aov, setAov] = useState(5000);
@@ -21,10 +21,6 @@ const LTVCalculator = () => {
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
-    const ltv = aov * frequency * retentionYears;
-    const ratio = ltv / cac;
-    
-    // Generate data for LTV growth over time
     const data = Array.from({ length: 6 }).map((_, i) => ({
       month: i * 6,
       value: (aov * (frequency / 2) * (i * 0.5))
@@ -37,17 +33,35 @@ const LTVCalculator = () => {
     setLoading(true);
     
     const ltv = aov * frequency * retentionYears;
+    const leadData = { aov, frequency, retentionYears, cac, ltv, ratio: ltv/cac };
 
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email,
       tool_used: 'ltv_calculator',
-      data: { aov, frequency, retentionYears, cac, ltv, ratio: ltv/cac }
+      data: leadData
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email, 
+            tool_used: 'ltv_calculator', 
+            data: leadData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       showSuccess("LTV audit sent to your email!");
       setEmail("");
     }
@@ -69,9 +83,7 @@ const LTVCalculator = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  Avg. Order Value (₹)
-                </Label>
+                <Label>Avg. Order Value (₹)</Label>
                 <Input type="number" value={aov} onChange={(e) => setAov(Number(e.target.value))} className="rounded-xl h-12" />
               </div>
               <div className="space-y-2">
@@ -103,9 +115,6 @@ const LTVCalculator = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-white/10 text-xs text-blue-100 italic">
-                {ratio >= 3 ? "Your unit economics are healthy for aggressive scaling." : "Focus on retention or AOV before scaling ad spend."}
-              </div>
             </div>
           </div>
 
@@ -135,7 +144,7 @@ const LTVCalculator = () => {
                   required 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-xl h-12 bg-white"
+                  className="rounded-xl h-12 bg-white px-4"
                 />
                 <Button type="submit" className="bg-blue-600 hover:bg-blue-700 h-12 px-6 rounded-xl font-bold" disabled={loading}>
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Get Roadmap"}
@@ -149,5 +158,4 @@ const LTVCalculator = () => {
   );
 };
 
-import { cn } from '@/lib/utils';
 export default LTVCalculator;

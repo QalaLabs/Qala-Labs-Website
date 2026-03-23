@@ -9,7 +9,6 @@ import {
   Target, 
   TrendingUp, 
   ShieldCheck,
-  IndianRupee,
   Rocket,
   CheckCircle2,
   Loader2
@@ -70,7 +69,7 @@ const ScaleQuiz = () => {
   const [showResults, setShowResults] = useState(false);
   const [email, setEmail] = useState("");
 
-  const totalSteps = questions.length + 1; // +1 for lead capture
+  const totalSteps = questions.length + 1;
   const progress = ((step) / totalSteps) * 100;
 
   const handleOptionSelect = (id: string, option: any) => {
@@ -89,21 +88,39 @@ const ScaleQuiz = () => {
     const score = calculateTotalScore();
     const maxScore = questions.length * 50;
     const percentage = Math.round((score / maxScore) * 100);
+    const leadData = {
+      answers: Object.entries(answers).map(([key, val]: [string, any]) => ({ question: key, answer: val.label })),
+      score: percentage,
+      status: 'qualified'
+    };
 
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email,
       tool_used: 'scale_potential_quiz',
-      data: {
-        answers: Object.entries(answers).map(([key, val]: [string, any]) => ({ question: key, answer: val.label })),
-        score: percentage,
-        status: 'qualified'
-      }
+      data: leadData
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email, 
+            tool_used: 'scale_potential_quiz', 
+            data: leadData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       showSuccess("Report generated!");
       setShowResults(true);
     }
@@ -211,31 +228,10 @@ const ScaleQuiz = () => {
                 {getScoreMessage(Math.round((calculateTotalScore() / (questions.length * 50)) * 100))}
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-                <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
-                  <Target className="w-6 h-6 text-blue-400 mb-4 mx-auto" />
-                  <p className="text-[10px] font-black uppercase text-slate-500 mb-1">Efficiency</p>
-                  <p className="font-bold">Optimized</p>
-                </div>
-                <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
-                  <Zap className="w-6 h-6 text-blue-400 mb-4 mx-auto" />
-                  <p className="text-[10px] font-black uppercase text-slate-500 mb-1">Velocity</p>
-                  <p className="font-bold">Moderate</p>
-                </div>
-                <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
-                  <ShieldCheck className="w-6 h-6 text-blue-400 mb-4 mx-auto" />
-                  <p className="text-[10px] font-black uppercase text-slate-500 mb-1">Stability</p>
-                  <p className="font-bold">High</p>
-                </div>
-              </div>
-
               <Button className="bg-white text-slate-900 hover:bg-slate-100 px-10 py-8 rounded-2xl text-xl font-black transition-all">
                 Book Implementation Call <ChevronRight className="ml-2 w-6 h-6" />
               </Button>
             </div>
-
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -mr-48 -mt-48" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] -ml-48 -mb-48" />
           </motion.div>
         )}
       </AnimatePresence>

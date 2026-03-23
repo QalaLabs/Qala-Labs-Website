@@ -81,6 +81,7 @@ const CreatorCollective = () => {
     e.preventDefault();
     setLoading(true);
 
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
       tool_used: 'creator_onboarding_v2',
@@ -91,15 +92,48 @@ const CreatorCollective = () => {
       }
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: formData.email, 
+            tool_used: 'creator_onboarding_v2', 
+            data: formData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       setSuccess(true);
       showSuccess("Onboarding request sent!");
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
         setSuccess(false);
+        setFormData({
+          name: '',
+          email: '',
+          platforms: {
+            instagram: { handle: '', followers: '' },
+            tiktok: { handle: '', followers: '' },
+            youtube: { handle: '', followers: '' },
+            facebook: { handle: '', followers: '' },
+            threads: { handle: '', followers: '' },
+            quora: { handle: '', followers: '' },
+            reddit: { handle: '', followers: '' },
+            discord: { handle: '', followers: '' }
+          },
+          averagePayout: { reel: '', static: '', carousel: '' },
+          acceptsBarter: false,
+          barterValue: ''
+        });
       }, 5000);
     }
   };

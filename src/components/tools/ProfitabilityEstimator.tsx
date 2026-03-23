@@ -23,21 +23,40 @@ const ProfitabilityEstimator = () => {
     e.preventDefault();
     setLoading(true);
 
+    const leadData = { 
+      current_gmv: gmv, 
+      net_margin: margin, 
+      target_growth: growth,
+      projected_profit: projectedProfit 
+    };
+
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email,
       tool_used: 'profitability_estimator',
-      data: { 
-        current_gmv: gmv, 
-        net_margin: margin, 
-        target_growth: growth,
-        projected_profit: projectedProfit 
-      }
+      data: leadData
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email, 
+            tool_used: 'profitability_estimator', 
+            data: leadData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       showSuccess("Profitability analysis sent to your email!");
       setEmail("");
     }
@@ -103,7 +122,7 @@ const ProfitabilityEstimator = () => {
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="rounded-xl"
+              className="rounded-xl px-4"
             />
             <Button type="submit" className="bg-blue-600 hover:bg-blue-700 rounded-xl px-6" disabled={loading}>
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Scale Now"}
