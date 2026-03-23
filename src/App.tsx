@@ -64,6 +64,7 @@ import BlogManager from "./pages/admin/BlogManager";
 import BlogEditor from "./pages/admin/BlogEditor";
 import TemplateManager from "./pages/admin/TemplateManager";
 import EditorGuide from "./pages/EditorGuide";
+import CareerLeads from "./pages/admin/CareerLeads";
 
 // Layout Components
 import StickyCTA from "./components/layout/StickyCTA";
@@ -117,6 +118,7 @@ const App = () => (
               
               {/* Admin Routes (Protected) */}
               <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+              <Route path="/admin/careers" element={<ProtectedRoute><CareerLeads /></ProtectedRoute>} />
               <Route path="/admin/pages" element={<ProtectedRoute><PageList /></ProtectedRoute>} />
               <Route path="/admin/editor/:id" element={<ProtectedRoute><PageEditor /></ProtectedRoute>} />
               <Route path="/admin/templates" element={<ProtectedRoute><TemplateManager /></ProtectedRoute>} />

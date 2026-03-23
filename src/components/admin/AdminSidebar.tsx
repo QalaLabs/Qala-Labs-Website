@@ -13,7 +13,8 @@ import {
   Palette,
   Zap,
   Files,
-  Mail
+  Mail,
+  UserCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/layout/Logo';
@@ -25,6 +26,7 @@ const AdminSidebar = () => {
   
   const navItems = [
     { icon: LayoutDashboard, label: 'CRM Dashboard', href: '/admin' },
+    { icon: UserCheck, label: 'Career Leads', href: '/admin/careers' },
     { icon: Files, label: 'Page Manager', href: '/admin/pages' },
     { icon: Mail, label: 'Email Templates', href: '/admin/templates' },
     { icon: Palette, label: 'Site & Branding', href: '/admin/site-management' },
