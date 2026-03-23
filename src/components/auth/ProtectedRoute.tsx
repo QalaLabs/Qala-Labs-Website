@@ -13,6 +13,14 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
+  // Dev bypass for Dyad preview and local development
+  const isDev = typeof window !== 'undefined' && 
+    (window.location.hostname.includes('localhost') || window.location.hostname.includes('dyad'));
+
+  if (isDev) {
+    return <>{children}</>;
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
