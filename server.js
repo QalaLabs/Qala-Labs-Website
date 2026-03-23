@@ -76,6 +76,25 @@ app.post('/api/lead', async (req, res) => {
   }
 });
 
+// Endpoint to test SMTP connection
+app.post('/api/test-smtp', async (req, res) => {
+  const { to } = req.body;
+  if (!to) return res.status(400).json({ error: 'Recipient email required' });
+
+  try {
+    await transporter.sendMail({
+      from: '"Qala Labs Test" <hello@qalalabs.com>',
+      to: to,
+      subject: "SMTP Connection Verified",
+      text: "Your Hostinger SMTP configuration is working perfectly. The Qala Labs scale engine is ready to communicate."
+    });
+    res.status(200).json({ success: true, message: 'Test email sent successfully!' });
+  } catch (error) {
+    console.error('SMTP Test Error:', error);
+    res.status(500).json({ error: 'SMTP Test Failed: ' + error.message });
+  }
+});
+
 // Admin: Fetch all templates
 app.get('/api/templates', async (req, res) => {
   const { data, error } = await supabase.from('email_templates').select('*');
