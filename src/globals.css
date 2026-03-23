@@ -106,4 +106,12 @@
     @apply bg-background text-foreground;
     -webkit-overflow-scrolling: touch;
   }
+
+  /* Mobile Menu Scroll Lock */
+  body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
 }

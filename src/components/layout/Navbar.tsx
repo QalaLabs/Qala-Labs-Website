@@ -36,20 +36,20 @@ const Navbar = () => {
     { name: 'Careers', href: '/career' },
   ];
 
-  // Close menu on route change
+  // Close menu on route change - ensuring it works on iOS
   React.useEffect(() => {
     setIsOpen(false);
-  }, [location]);
+  }, [location.pathname]);
 
-  // Prevent scroll when menu is open
+  // Prevent scroll when menu is open using class toggle for better Android/iOS support
   React.useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('no-scroll');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     };
   }, [isOpen]);
 
@@ -113,11 +113,11 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Mobile Toggle - Improved for visibility and hit area */}
+            {/* Mobile Toggle - Increased padding for 48px tap target */}
             <button 
               onClick={() => setIsOpen(!isOpen)} 
               className={cn(
-                "lg:hidden relative z-[1020] flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all active:scale-95 shadow-lg",
+                "lg:hidden relative z-[1020] flex items-center gap-2 px-5 py-3.5 rounded-xl transition-all active:scale-95 shadow-lg min-h-[48px] min-w-[48px]",
                 isOpen ? "bg-white text-slate-900 border border-slate-200" : "bg-slate-900 text-white"
               )}
               aria-label="Toggle menu"
@@ -150,6 +150,15 @@ const Navbar = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="absolute top-0 right-0 bottom-0 w-[85%] bg-white shadow-2xl flex flex-col border-l border-slate-100"
             >
+              {/* Internal Close Button for better UX */}
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="absolute top-6 right-6 p-4 text-slate-400 hover:text-slate-900 transition-colors z-20"
+                aria-label="Close menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
               <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
                 <div className="space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
