@@ -1,6 +1,7 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const { createClient } = require('@supabase/supabase-js');
+const path = require('path');
 const app = express();
 app.use(express.json());
 
@@ -62,11 +63,10 @@ app.post('/api/lead', async (req, res) => {
     // Personalize template with lead data
     const personalizedBody = template.body.replace(/{{(.*?)}}/g, (match, key) => {
       const k = key.trim();
-      // Check in lead.data or top level lead object
       return (lead.data && lead.data[k]) || lead[k] || match;
     });
 
-    // Send email via SMTP
+    // 1. Send confirmation email to the lead
     await transporter.sendMail({
       from: '"Qala Labs" <hello@qalalabs.com>',
       to: email,
@@ -74,7 +74,15 @@ app.post('/api/lead', async (req, res) => {
       text: personalizedBody
     });
 
-    console.log('Email sent successfully to', email);
+    // 2. Send BCC notification to admin with full data
+    await transporter.sendMail({
+      from: '"Qala Labs Lead Engine" <hello@qalalabs.com>',
+      to: 'hello@qalalabs.com',
+      subject: `[NEW LEAD] ${tool_used} - ${email}`,
+      text: `A new lead has been captured.\n\nLead Email: ${email}\nTool Used: ${tool_used}\n\nFull Data Payload:\n${JSON.stringify(data, null, 2)}`
+    });
+
+    console.log('Emails sent successfully for lead:', email);
     res.status(200).json({ success: true, leadId: lead.id });
   } catch (error) {
     console.error('Process error:', error);
@@ -113,6 +121,14 @@ app.get('/api/email-templates', async (req, res) => {
     return res.status(500).json({ error: 'Failed to fetch templates' });
   }
   res.json(data);
+});
+
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;

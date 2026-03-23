@@ -39,7 +39,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Using the dynamic API route (Edge Function)
+    // 1. Capture lead in Supabase via Edge Function
     const { data, error } = await supabase.functions.invoke('lead-engine', {
       body: {
         email: formData.email,
@@ -52,10 +52,26 @@ const Contact = () => {
       }
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger SMTP email delivery via Node.js backend
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: formData.email, 
+            tool_used: 'contact_form_v2', 
+            data: formData 
+          })
+        });
+      } catch (smtpError) {
+        console.error("SMTP trigger failed:", smtpError);
+      }
+
+      setLoading(false);
       showSuccess("Audit request received! We'll be in touch within 24 hours.");
       setFormData({ name: '', email: '', phone: '', website: '', service: '', revenue: '', message: '' });
     }
