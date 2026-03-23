@@ -49,7 +49,6 @@ app.post('/api/lead', async (req, res) => {
     // 2. Personalize template with lead data
     const personalizedBody = activeTemplate.body.replace(/{{(.*?)}}/g, (match, key) => {
       const k = key.trim();
-      // Check nested data object first, then top level
       return (data && data[k]) || (req.body[k]) || match;
     });
 
@@ -75,6 +74,24 @@ app.post('/api/lead', async (req, res) => {
     console.error('Process error:', error);
     res.status(500).json({ error: 'Failed to process lead or send email' });
   }
+});
+
+// Admin: Fetch all templates
+app.get('/api/templates', async (req, res) => {
+  const { data, error } = await supabase.from('email_templates').select('*');
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
+});
+
+// Admin: Update or Create template
+app.post('/api/templates', async (req, res) => {
+  const { tool_used, subject, body } = req.body;
+  const { data, error } = await supabase
+    .from('email_templates')
+    .upsert({ tool_used, subject, body, updated_at: new Date().toISOString() }, { onConflict: 'tool_used' });
+  
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ success: true });
 });
 
 // Serve static files from the React app build directory

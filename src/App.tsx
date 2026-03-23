@@ -11,7 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoadingScreen from "./components/layout/LoadingScreen";
 
-// Direct imports for critical pages to ensure reliability and fix 404s
+// Direct imports for critical pages
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
@@ -62,6 +62,7 @@ import PortfolioManager from "./pages/admin/PortfolioManager";
 import PortfolioEditor from "./pages/admin/PortfolioEditor";
 import BlogManager from "./pages/admin/BlogManager";
 import BlogEditor from "./pages/admin/BlogEditor";
+import TemplateManager from "./pages/admin/TemplateManager";
 import EditorGuide from "./pages/EditorGuide";
 
 // Layout Components
@@ -116,9 +117,9 @@ const App = () => (
               
               {/* Admin Routes (Protected) */}
               <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
-              <Route path="/admin/preview" element={<Admin />} />
               <Route path="/admin/pages" element={<ProtectedRoute><PageList /></ProtectedRoute>} />
               <Route path="/admin/editor/:id" element={<ProtectedRoute><PageEditor /></ProtectedRoute>} />
+              <Route path="/admin/templates" element={<ProtectedRoute><TemplateManager /></ProtectedRoute>} />
               
               <Route path="/admin/case-studies" element={<ProtectedRoute><CaseStudyManager /></ProtectedRoute>} />
               <Route path="/admin/case-studies/new" element={<ProtectedRoute><CaseStudyEditor /></ProtectedRoute>} />
