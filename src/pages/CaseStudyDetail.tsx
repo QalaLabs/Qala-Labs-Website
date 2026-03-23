@@ -7,25 +7,16 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import InstagramEmbed from '@/components/social/InstagramEmbed';
 import { 
   ArrowLeft, 
-  TrendingUp, 
-  Target, 
-  Zap, 
   CheckCircle2,
-  BarChart3,
-  Users,
-  Play,
   ArrowRight,
   XCircle,
-  Quote,
-  IndianRupee,
-  MousePointer2,
   Loader2
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { generateCaseStudySchema } from '@/lib/seo';
 
 const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) => (
   <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-slate-100 bg-slate-900">
@@ -76,10 +67,16 @@ const CaseStudyDetail = () => {
   const metrics = study.results?.metrics || [];
   const blocks = study.content?.blocks || [];
   const learnings = study.results?.learnings || [];
+  const schema = JSON.parse(generateCaseStudySchema(study));
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO title={study.title} description={study.description} image={study.image_url} />
+      <SEO 
+        title={study.title} 
+        description={study.description} 
+        image={study.image_url} 
+        jsonLd={schema}
+      />
       <Navbar />
       
       <div className="pt-32 pb-20">

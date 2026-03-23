@@ -79,10 +79,31 @@ export const getBaseJsonLd = () => {
   };
 };
 
-export const generateJsonLd = (type: 'Organization' | 'Website' | 'CaseStudy' | 'Service' | 'BreadcrumbList', data: any) => {
+export const generateJsonLd = (type: string, data: any) => {
   const base = {
     "@context": "https://schema.org",
     "@type": type,
   };
   return JSON.stringify({ ...base, ...data });
+};
+
+export const generateCaseStudySchema = (study: any) => {
+  return generateJsonLd('CreativeWork', {
+    name: study.title,
+    description: study.description,
+    image: study.image_url,
+    author: {
+      "@type": "Organization",
+      "name": "Qala Labs"
+    },
+    publisher: {
+      "@type": "Organization",
+      "name": "Qala Labs"
+    },
+    genre: study.category,
+    about: {
+      "@type": "Thing",
+      "name": study.results?.headline || "Business Growth"
+    }
+  });
 };
