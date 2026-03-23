@@ -39,6 +39,7 @@ const SEO = ({ title, description, image, article, noIndex, jsonLd }: SEOProps) 
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:site_name" content={siteConfig.name} />
+      <meta property="og:locale" content="en_IN" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
