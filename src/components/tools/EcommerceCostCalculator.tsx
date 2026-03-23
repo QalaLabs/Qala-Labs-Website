@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, IndianRupee, Percent, Truck, Loader2, Info, PieChart } from 'lucide-react';
+import { ShoppingCart, IndianRupee, Percent, Truck, Loader2, Info, PieChart, Zap } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from '@/lib/utils';
