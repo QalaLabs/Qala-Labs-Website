@@ -11,11 +11,11 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-// Create SMTP transporter using Hostinger credentials
+// Create SMTP transporter using Hostinger credentials (SSL on Port 465)
 const transporter = nodemailer.createTransport({
   host: 'smtp.hostinger.com',
   port: 465,
-  secure: true,
+  secure: true, // Use SSL
   auth: {
     user: 'hello@qalalabs.com',
     pass: 'Qala_labs124'
