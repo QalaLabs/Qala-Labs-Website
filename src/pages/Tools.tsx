@@ -6,9 +6,10 @@ import SEO from '@/components/layout/SEO';
 import ROICalculator from '@/components/tools/ROICalculator';
 import ProfitabilityEstimator from '@/components/tools/ProfitabilityEstimator';
 import LTVCalculator from '@/components/tools/LTVCalculator';
+import EcommerceCostCalculator from '@/components/tools/EcommerceCostCalculator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
-import { Calculator, Target, TrendingUp } from 'lucide-react';
+import { Calculator, Target, TrendingUp, ShoppingCart } from 'lucide-react';
 
 const Tools = () => {
   return (
@@ -28,9 +29,12 @@ const Tools = () => {
           </p>
         </motion.div>
 
-        <Tabs defaultValue="roi" className="w-full">
+        <Tabs defaultValue="ecom-cost" className="w-full">
           <div className="flex justify-center mb-12">
             <TabsList className="bg-white p-1 rounded-2xl border border-slate-200 shadow-sm h-auto flex flex-wrap justify-center">
+              <TabsTrigger value="ecom-cost" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2 transition-all">
+                <ShoppingCart className="w-4 h-4" /> Ecommerce Cost Calculator
+              </TabsTrigger>
               <TabsTrigger value="roi" className="rounded-xl px-8 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white flex items-center gap-2 transition-all">
                 <Target className="w-4 h-4" /> ROI Calculator
               </TabsTrigger>
@@ -42,6 +46,12 @@ const Tools = () => {
               </TabsTrigger>
             </TabsList>
           </div>
+
+          <TabsContent value="ecom-cost">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <EcommerceCostCalculator />
+            </motion.div>
+          </TabsContent>
 
           <TabsContent value="roi">
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
