@@ -143,7 +143,7 @@ const QuickMetrics = ({
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                     {item.stats.map((stat, j) => (
                       <div key={j} className="space-y-2 md:space-y-3">
                         <div className="flex items-center gap-2">
