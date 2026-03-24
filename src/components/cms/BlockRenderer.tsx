@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from '@/components/layout/Hero';
 import Team from '@/components/home/Team';
 import FAQ from '@/components/home/FAQ';
-import TestimonialBlock from '@/components/cms/blocks/FAQBlock'; // Note: This seems misnamed in imports, using local logic
 import { Block } from '@/types/editor';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -14,6 +13,7 @@ import QuickMetrics from '@/components/home/QuickMetrics';
 import WhatWeDo from '@/components/home/WhatWeDo';
 import HowWeWork from '@/components/home/HowWeWork';
 import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
+import PortfolioSnapshots from '@/components/home/PortfolioSnapshots';
 import ResearchInsights from '@/components/home/ResearchInsights';
 import ClosingCTA from '@/components/home/ClosingCTA';
 
@@ -118,6 +118,9 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
           
           case 'case_study_snapshots':
             return <CaseStudySnapshots key={block.id} />;
+
+          case 'portfolio_snapshots':
+            return <PortfolioSnapshots key={block.id} />;
 
           case 'research_insights':
             return <ResearchInsights key={block.id} {...block.props} />;

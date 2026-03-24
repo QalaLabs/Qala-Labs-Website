@@ -51,7 +51,8 @@ const PageList = () => {
       ] } },
       { id: 'h6', type: 'what_we_do', props: { title: "What we do" } },
       { id: 'h7', type: 'how_we_work', props: { title: "How we work" } },
-      { id: 'h8', type: 'case_study_snapshots', props: { studyIds: [] } },
+      { id: 'h8', type: 'case_study_snapshots', props: {} },
+      { id: 'h8b', type: 'portfolio_snapshots', props: {} },
       { id: 'h9', type: 'research_insights', props: { title: "Research & Insights", description: "We believe in doing the right research and finding the perfect insight for your brand to work on: from customer micro-segments to creative triggers and measurement design." } },
       { id: 'h10', type: 'testimonial', props: { quote: "Qala Labs helped us scale to a six-figure monthly run-rate: fast, strategic, and data-driven.", author: "CEO, Gaffar India" } },
       { id: 'h11', type: 'team_grid', props: { 
@@ -67,7 +68,6 @@ const PageList = () => {
       { id: 'h13', type: 'closing_cta', props: {} }
     ];
 
-    // 1. Upsert the page metadata
     const { data: pageData, error: pageError } = await supabase
       .from('pages')
       .upsert({
@@ -87,7 +87,6 @@ const PageList = () => {
       return;
     }
 
-    // 2. Clear and insert blocks for the page
     await supabase.from('page_blocks').delete().eq('page_id', pageData.id);
     
     const blocksToInsert = homeBlocks.map((block, index) => ({
