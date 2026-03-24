@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Save, Rocket, Eye, Plus, 
@@ -23,12 +23,6 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 
-// Import images for the default import
-import AashirwadImg from '@/assets/Aashirwad.png';
-import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.png';
-import ManpreetImg from '@/assets/Manpreet.png';
-
 const PageEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -37,6 +31,7 @@ const PageEditor = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
+  const dragItem = useRef<number | null>(null);
 
   const fetchData = useCallback(async () => {
     if (!id || id === 'new') { setLoading(false); return; }
@@ -83,7 +78,6 @@ const PageEditor = () => {
       updated_at: new Date().toISOString() 
     };
 
-    // 1. Update page metadata
     const { error: pageError } = await supabase.from('pages').update(updates).eq('id', id);
     
     if (pageError) {
@@ -92,7 +86,6 @@ const PageEditor = () => {
       return;
     }
 
-    // 2. Sync blocks (Delete all and re-insert for simplicity and reliability)
     const { error: deleteError } = await supabase.from('page_blocks').delete().eq('page_id', id);
     
     if (deleteError) {
@@ -120,7 +113,7 @@ const PageEditor = () => {
     setSaving(false);
     showSuccess("Saved!");
     if (status) setPage(prev => prev ? { ...prev, status } : null);
-    fetchData(); // Refresh to get new block IDs
+    fetchData();
   };
 
   const updateBlockProps = (blockId: string, newProps: any) => {
@@ -167,9 +160,27 @@ const PageEditor = () => {
     setPage({ ...page, content: newContent });
   };
 
+  const handleDragStart = (index: number) => {
+    dragItem.current = index;
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (index: number) => {
+    if (!page || dragItem.current === null) return;
+    const newContent = [...page.content];
+    const draggedItemContent = newContent[dragItem.current];
+    newContent.splice(dragItem.current, 1);
+    newContent.splice(index, 0, draggedItemContent);
+    dragItem.current = null;
+    setPage({ ...page, content: newContent });
+  };
+
   const getDefaultProps = (type: BlockType) => {
     switch (type) {
-      case 'hero': return { title: 'New Hero', subtitle: 'Subtitle', ctaText: 'Get Started', ctaUrl: '#' };
+      case 'hero': return { title: 'New Hero', subtitle: 'Subtitle', ctaText: 'Get Started', ctaUrl: '#', bgColor: '#f8fafc' };
       case 'rich_text': return { content: '<h2>New Section</h2><p>Content...</p>' };
       case 'team_grid': return { title: 'Our Team', members: [] };
       case 'how_we_work': return { title: 'How we work', steps: [] };
@@ -190,6 +201,22 @@ const PageEditor = () => {
     switch (block.type) {
       case 'hero': return (
         <div className="space-y-4">
+          <div className="space-y-2">
+            <Label className="text-xs font-bold text-slate-400 uppercase">Background Color</Label>
+            <div className="flex gap-2">
+              <Input 
+                type="color" 
+                value={props.bgColor || '#f8fafc'} 
+                onChange={(e) => onUpdate({ ...props, bgColor: e.target.value })} 
+                className="w-12 h-12 p-1 rounded-lg cursor-pointer" 
+              />
+              <Input 
+                value={props.bgColor || '#f8fafc'} 
+                onChange={(e) => onUpdate({ ...props, bgColor: e.target.value })} 
+                className="rounded-xl font-mono" 
+              />
+            </div>
+          </div>
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Headline</Label><Input value={props.title || ''} onChange={(e) => onUpdate({ ...props, title: e.target.value })} className="rounded-xl" /></div>
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">Subtitle</Label><Textarea value={props.subtitle || ''} onChange={(e) => onUpdate({ ...props, subtitle: e.target.value })} className="rounded-xl" /></div>
           <div className="space-y-2"><Label className="text-xs font-bold text-slate-400 uppercase">CTA Text</Label><Input value={props.ctaText || ''} onChange={(e) => onUpdate({ ...props, ctaText: e.target.value })} className="rounded-xl" /></div>
@@ -330,7 +357,7 @@ const PageEditor = () => {
                     const currentIds = props.studyIds || [];
                     const newIds = currentIds.includes(study.id)
                       ? currentIds.filter((id: string) => id !== study.id)
-                      : [...currentIds, study.id].slice(0, 2); // Max 2 for snapshots
+                      : [...currentIds, study.id].slice(0, 2);
                     onUpdate({ ...props, studyIds: newIds });
                   }}
                   className={cn(
@@ -385,10 +412,14 @@ const PageEditor = () => {
             {page.content.map((block, i) => (
               <button 
                 key={block.id} 
+                draggable={true}
+                onDragStart={() => handleDragStart(i)}
+                onDragOver={handleDragOver}
+                onDrop={() => handleDrop(i)}
                 onClick={() => setSelectedBlockId(block.id)}
-                className={cn("w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-3", selectedBlockId === block.id ? "bg-blue-600 text-white shadow-lg" : "text-slate-600 hover:bg-slate-100")}
+                className={cn("w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-3 cursor-grab active:cursor-grabbing", selectedBlockId === block.id ? "bg-blue-600 text-white shadow-lg" : "text-slate-600 hover:bg-slate-100")}
               >
-                <span className="opacity-40">{i + 1}</span>
+                <GripVertical className="w-3 h-3 opacity-40" />
                 <span className="truncate">{block.type.replace('_', ' ')}</span>
               </button>
             ))}
@@ -401,12 +432,29 @@ const PageEditor = () => {
           </div>
         </aside>
 
-        <main className="flex-1 overflow-y-auto p-12 bg-slate-100/50" onClick={() => setSelectedBlockId(null)}>
-          <div className="max-w-4xl mx-auto space-y-4">
+        <main className="flex-1 overflow-y-auto bg-slate-100/50" onClick={() => setSelectedBlockId(null)}>
+          <div className="w-full">
             {page.content.map((block, index) => (
               <React.Fragment key={block.id}>
-                <BlockWrapper type={block.type} isSelected={selectedBlockId === block.id} onSelect={() => setSelectedBlockId(block.id)} onDelete={() => deleteBlock(block.id)} onMoveUp={() => moveBlock(index, 'up')} onMoveDown={() => moveBlock(index, 'down')} onDuplicate={() => duplicateBlock(block)}>
-                  <div className="pointer-events-none scale-[0.7] origin-top transform-gpu"><BlockRenderer blocks={[block]} /></div>
+                <BlockWrapper 
+                  type={block.type} 
+                  isSelected={selectedBlockId === block.id} 
+                  onSelect={() => setSelectedBlockId(block.id)} 
+                  onDelete={() => deleteBlock(block.id)} 
+                  onMoveUp={() => moveBlock(index, 'up')} 
+                  onMoveDown={() => moveBlock(index, 'down')} 
+                  onDuplicate={() => duplicateBlock(block)}
+                >
+                  <div className={cn(
+                    "transition-all duration-300",
+                    selectedBlockId === block.id ? "ring-4 ring-blue-600/20 rounded-3xl overflow-hidden" : ""
+                  )}>
+                    <BlockRenderer 
+                      blocks={[block]} 
+                      editingId={selectedBlockId} 
+                      onUpdateBlock={updateBlockProps}
+                    />
+                  </div>
                 </BlockWrapper>
                 <div className="flex justify-center opacity-0 hover:opacity-100 transition-opacity py-2">
                   <Popover><PopoverTrigger asChild><Button variant="ghost" size="sm" className="rounded-full bg-white shadow-sm border border-slate-200 gap-2 px-4"><Plus className="w-4 h-4" /> Add Block</Button></PopoverTrigger>
