@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
 import { TrendingUp, Zap, Share2, Heart, Users, Play, BarChart3, ShoppingBag } from 'lucide-react';
@@ -22,6 +22,36 @@ interface QuickMetricsProps {
   subtitle?: string;
   results?: MetricItem[];
 }
+
+const useCountUp = (targetValue: string, duration: number = 2000, start: boolean = false) => {
+  const [count, setCount] = useState(0);
+  const numericPart = parseFloat(targetValue.replace(/[^0-9.]/g, '')) || 0;
+  const prefix = targetValue.match(/^[^0-9.]+/)?.[0] || '';
+  const suffix = targetValue.match(/[0-9.]+(.+)$/)?.[1] || '';
+
+  useEffect(() => {
+    if (!start) return;
+
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(progress * numericPart);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [numericPart, duration, start]);
+
+  const formattedCount = numericPart % 1 === 0 ? Math.floor(count) : count.toFixed(1);
+  return `${prefix}${formattedCount}${suffix}`;
+};
+
+const StatValue = ({ value, isVisible }: { value: string; isVisible: boolean }) => {
+  const animatedValue = useCountUp(value, 2000, isVisible);
+  return <>{animatedValue}</>;
+};
 
 const iconMap: Record<string, any> = {
   zap: <Zap className="w-4 h-4 text-blue-400" />,
@@ -62,8 +92,29 @@ const QuickMetrics = ({
   subtitle = "Proven Performance.",
   results = defaultResults 
 }: QuickMetricsProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-12 md:mb-16">
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
@@ -100,7 +151,7 @@ const QuickMetrics = ({
                           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
                         </div>
                         <p className="text-3xl md:text-5xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-500 origin-left">
-                          {stat.value}
+                          <StatValue value={stat.value} isVisible={isVisible} />
                         </p>
                       </div>
                     ))}

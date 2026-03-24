@@ -81,13 +81,53 @@ const Hero = ({
     }
   };
 
+  const particles = [
+    { className: "particle-1", top: "20%", left: "10%", delay: 0 },
+    { className: "particle-2", top: "60%", left: "15%", delay: 1 },
+    { className: "particle-3", top: "30%", left: "80%", delay: 0.5 },
+    { className: "particle-4", top: "70%", left: "85%", delay: 1.5 },
+    { className: "particle-5", top: "15%", left: "50%", delay: 2 },
+    { className: "particle-6", top: "80%", left: "40%", delay: 0.8 },
+  ];
+
   return (
     <section 
       ref={heroRef}
       className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden"
-      style={{ backgroundColor: bgColor || '#f8fafc' }}
+      style={{ 
+        backgroundColor: bgColor || '#f8fafc',
+        animation: 'gradientShift 8s ease infinite'
+      }}
       aria-labelledby="hero-heading"
     >
+      <style>{`
+        @keyframes gradientShift {
+          0% { background-color: #f8fafc; }
+          33% { background-color: #eff6ff; }
+          66% { background-color: #eef2ff; }
+          100% { background-color: #f8fafc; }
+        }
+      `}</style>
+
+      {/* Particles */}
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className={`absolute w-4 h-4 rounded-full bg-blue-400/20 blur-sm z-0 ${p.className}`}
+          style={{ top: p.top, left: p.left }}
+          animate={{ 
+            y: [0, -20, 0],
+            x: [0, 10, 0]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
       <div 
         ref={bgLayerRef}
         className="absolute inset-0 z-0 pointer-events-none"
