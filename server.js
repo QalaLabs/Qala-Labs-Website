@@ -3,7 +3,12 @@ const nodemailer = require('nodemailer');
 const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 const app = express();
+
 app.use(express.json());
+
+// Serve static files from the React app build directory
+// This must be defined before the API routes to ensure assets are served correctly
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Initialize Supabase
 const supabase = createClient(
@@ -113,12 +118,12 @@ app.post('/api/templates', async (req, res) => {
   res.json({ success: true });
 });
 
-// Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+// The "catchall" handler: for any request that doesn't match an API route, 
+// send back React's index.html file to allow client-side routing.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  }
 });
 
 const PORT = process.env.PORT || 3000;
