@@ -9,7 +9,8 @@ import {
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
   Loader2, FilterX, Star, Zap, ShieldAlert, Download,
-  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy
+  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy,
+  ArrowUpRight, PenTool
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,12 @@ const Admin = () => {
   const navigate = useNavigate();
   const { signOut, user } = useAuth();
   const [leads, setLeads] = React.useState<any[]>([]);
+  const [stats, setStats] = React.useState({
+    caseStudies: 0,
+    portfolio: 0,
+    blogs: 0,
+    pages: 0
+  });
   const [loading, setLoading] = React.useState(true);
   const [sending, setSending] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -58,8 +65,24 @@ const Admin = () => {
 
   const fetchData = React.useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
-    if (!error) setLeads(data || []);
+    
+    const [leadsRes, studiesRes, portfolioRes, blogsRes, pagesRes] = await Promise.all([
+      supabase.from('leads').select('*').order('created_at', { ascending: false }),
+      supabase.from('case_studies').select('id', { count: 'exact' }),
+      supabase.from('portfolio_projects').select('id', { count: 'exact' }),
+      supabase.from('blog_posts').select('id', { count: 'exact' }),
+      supabase.from('pages').select('id', { count: 'exact' })
+    ]);
+
+    if (!leadsRes.error) setLeads(leadsRes.data || []);
+    
+    setStats({
+      caseStudies: studiesRes.count || 0,
+      portfolio: portfolioRes.count || 0,
+      blogs: blogsRes.count || 0,
+      pages: pagesRes.count || 0
+    });
+
     setLoading(false);
   }, []);
 
@@ -200,6 +223,42 @@ const Admin = () => {
             <Button onClick={fetchData} variant="outline" className="rounded-xl"><RefreshCcw className={cn("w-4 h-4", loading && "animate-spin")} /></Button>
           </div>
         </header>
+
+        {/* Content Ecosystem Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl group hover:bg-blue-600 transition-all duration-500">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-blue-100">Case Studies</span>
+              <Trophy className="w-4 h-4 text-blue-500 group-hover:text-white" />
+            </div>
+            <div className="text-3xl font-black text-slate-900 group-hover:text-white">{stats.caseStudies}</div>
+            <Link to="/admin/case-studies" className="text-[10px] font-bold text-blue-600 group-hover:text-blue-200 mt-2 flex items-center gap-1">Manage <ArrowUpRight className="w-3 h-3" /></Link>
+          </Card>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl group hover:bg-purple-600 transition-all duration-500">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-purple-100">Portfolio</span>
+              <Briefcase className="w-4 h-4 text-purple-500 group-hover:text-white" />
+            </div>
+            <div className="text-3xl font-black text-slate-900 group-hover:text-white">{stats.portfolio}</div>
+            <Link to="/admin/portfolio" className="text-[10px] font-bold text-purple-600 group-hover:text-purple-200 mt-2 flex items-center gap-1">Manage <ArrowUpRight className="w-3 h-3" /></Link>
+          </Card>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl group hover:bg-amber-600 transition-all duration-500">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-amber-100">Blog Posts</span>
+              <PenTool className="w-4 h-4 text-amber-500 group-hover:text-white" />
+            </div>
+            <div className="text-3xl font-black text-slate-900 group-hover:text-white">{stats.blogs}</div>
+            <Link to="/admin/blog" className="text-[10px] font-bold text-amber-600 group-hover:text-amber-200 mt-2 flex items-center gap-1">Manage <ArrowUpRight className="w-3 h-3" /></Link>
+          </Card>
+          <Card className="border-none shadow-sm bg-white p-6 rounded-3xl group hover:bg-slate-900 transition-all duration-500">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-400">CMS Pages</span>
+              <FileText className="w-4 h-4 text-slate-500 group-hover:text-white" />
+            </div>
+            <div className="text-3xl font-black text-slate-900 group-hover:text-white">{stats.pages}</div>
+            <Link to="/admin/pages" className="text-[10px] font-bold text-slate-600 group-hover:text-slate-400 mt-2 flex items-center gap-1">Manage <ArrowUpRight className="w-3 h-3" /></Link>
+          </Card>
+        </div>
 
         <div className="mb-10">
           <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
