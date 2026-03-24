@@ -24,7 +24,58 @@ export interface BlockRendererProps {
 }
 
 const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpdateBlock }) => {
-  if (!blocks || blocks.length === 0) return null;
+  if (!blocks || blocks.length === 0) {
+    // Fallback: If no blocks are defined, render the homepage structure anyway
+    return (
+      <>
+        <Hero 
+          title="Scale Your DTC Brand to 8-Figures." 
+          subtitle="We combine high-performance paid media with high-velocity creative to build predictable scale engines for DTC & B2B." 
+          ctaText="Get Proposal" 
+          ctaUrl="/contact" 
+        />
+        <TechStackRibbon />
+        <WhyDifferent 
+          title="Why we're different" 
+          description="We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution so every experiment has a clear hypothesis, an attribution plan, and measurable revenue impact." 
+        />
+        <ClientLogos />
+        <QuickMetrics 
+          title="Recent Results" 
+          subtitle="Proven Performance." 
+          results={[
+            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }, { label: "Monthly Sales", value: "₹2.7L+", iconType: 'trending' }], color: "from-blue-600/20 to-indigo-600/20" },
+            { brand: "CSK: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }, { label: "Engagement", value: "12%", iconType: 'heart' }], color: "from-yellow-600/20 to-orange-600/20" }
+          ]}
+        />
+        <WhatWeDo title="What we do" />
+        <HowWeWork title="How we work" />
+        <CaseStudySnapshots />
+        <PortfolioSnapshots />
+        <ResearchInsights 
+          title="Research & Insights" 
+          description="We believe in doing the right research and finding the perfect insight for your brand to work on: from customer micro-segments to creative triggers and measurement design." 
+        />
+        <Team 
+          title="The Team" 
+          members={[
+            { name: "Aashirwad Bhansali", role: "Growth & Performance Strategy", desc: "Data-first paid media, experiment design, and scaling playbooks.", image: "https://i.pravatar.cc/100?img=1", linkedin: "#" },
+            { name: "Dipika", role: "Ecommerce Scaling", desc: "Listing optimization, retention engineering, and lifecycle flows.", image: "https://i.pravatar.cc/100?img=2", linkedin: "#" },
+            { name: "Aryaman", role: "Social Media and Talent Management", desc: "Creator programs, UGC production, and cross-platform distribution.", image: "https://i.pravatar.cc/100?img=3", linkedin: "#" },
+            { name: "Manpreet Singh", role: "Visualiser", desc: "Visual storytelling, brand aesthetics, and high-impact design.", image: "https://i.pravatar.cc/100?img=4", linkedin: "#" }
+          ]}
+        />
+        <FAQ 
+          title="Frequently Asked Questions" 
+          items={[
+            { question: "How do you measure success?", answer: "We track contribution margin, ROAS, and LTV:CAC — not vanity metrics." },
+            { question: "Do you work with startups?", answer: "Yes — we only work with brands ready to scale beyond ₹5L/month revenue." }
+          ]}
+        />
+        <ClosingCTA />
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col">
