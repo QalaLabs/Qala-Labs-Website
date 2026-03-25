@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Save, Rocket, Eye, Plus, 
   Settings, ChevronLeft, Loader2,
-  Trash2, List, GripVertical, Check, 
+  List, GripVertical, 
   Monitor, Smartphone
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -27,7 +27,6 @@ const PageEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [page, setPage] = useState<Page | null>(null);
-  const [allCaseStudies, setAllCaseStudies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
@@ -38,9 +37,8 @@ const PageEditor = () => {
     if (!id || id === 'new') { setLoading(false); return; }
     setLoading(true);
     
-    const [pageRes, studiesRes, blocksRes] = await Promise.all([
+    const [pageRes, blocksRes] = await Promise.all([
       supabase.from('pages').select('*').eq('id', id).single(),
-      supabase.from('case_studies').select('id, title, category').order('created_at', { ascending: false }),
       supabase.from('page_blocks').select('*').eq('page_id', id).order('sort_order', { ascending: true })
     ]);
 
@@ -56,10 +54,6 @@ const PageEditor = () => {
       }));
       
       setPage({ ...pageRes.data, content: blocks }); 
-    }
-
-    if (!studiesRes.error) {
-      setAllCaseStudies(studiesRes.data || []);
     }
     
     setLoading(false);
@@ -122,6 +116,20 @@ const PageEditor = () => {
     setSelectedBlockId(newBlock.id);
   };
 
+  const duplicateBlock = (index: number) => {
+    if (!page) return;
+    const blockToDuplicate = page.content[index];
+    const newBlock: Block = {
+      ...blockToDuplicate,
+      id: 'temp-' + Math.random().toString(36).substr(2, 9),
+      sort_order: index + 1
+    };
+    const newContent = [...page.content];
+    newContent.splice(index + 1, 0, newBlock);
+    setPage({ ...page, content: newContent });
+    setSelectedBlockId(newBlock.id);
+  };
+
   const deleteBlock = (blockId: string) => {
     if (!page) return;
     setPage({ ...page, content: page.content.filter(b => b.id !== blockId) });
@@ -178,7 +186,7 @@ const PageEditor = () => {
 
         <div className="flex items-center bg-slate-100 p-1 rounded-2xl">
           <Button 
-            variant={previewMode === 'desktop' ? 'white' : 'ghost'} 
+            variant={previewMode === 'desktop' ? 'secondary' : 'ghost'} 
             size="sm" 
             onClick={() => setPreviewMode('desktop')}
             className={cn("rounded-xl px-4", previewMode === 'desktop' && "shadow-sm")}
@@ -186,7 +194,7 @@ const PageEditor = () => {
             <Monitor className="w-4 h-4 mr-2" /> Desktop
           </Button>
           <Button 
-            variant={previewMode === 'mobile' ? 'white' : 'ghost'} 
+            variant={previewMode === 'mobile' ? 'secondary' : 'ghost'} 
             size="sm" 
             onClick={() => setPreviewMode('mobile')}
             className={cn("rounded-xl px-4", previewMode === 'mobile' && "shadow-sm")}
@@ -244,6 +252,7 @@ const PageEditor = () => {
                     onDelete={() => deleteBlock(block.id)} 
                     onMoveUp={() => moveBlock(index, 'up')} 
                     onMoveDown={() => moveBlock(index, 'down')} 
+                    onDuplicate={() => duplicateBlock(index)}
                   >
                     <div className={cn(
                       "transition-all duration-300",
@@ -275,7 +284,6 @@ const PageEditor = () => {
               <div className="space-y-6">
                 <div className="flex items-center justify-between"><Badge className="bg-blue-100 text-blue-700 border-none">{selectedBlock.type.replace('_', ' ')}</Badge></div>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Tip: You can edit text directly in the preview.</p>
-                {/* Settings rendering logic remains same as previous turn */}
               </div>
             )}
           </div>

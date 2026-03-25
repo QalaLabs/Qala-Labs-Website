@@ -2,10 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot, ArrowRight } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot } from 'lucide-react';
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -127,7 +125,7 @@ const AIChatWidget = () => {
               </button>
             </div>
 
-            <ScrollArea className="flex-1 p-6" viewportRef={scrollRef}>
+            <div className="flex-1 p-6 overflow-y-auto" ref={scrollRef}>
               <div className="space-y-4">
                 {messages.map((msg, i) => (
                   <div key={i} className={cn(
@@ -161,7 +159,7 @@ const AIChatWidget = () => {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
 
             <div className="p-6 border-t border-slate-100 bg-slate-50/50 space-y-4">
               {messages.length === 1 && !isLoading && (
