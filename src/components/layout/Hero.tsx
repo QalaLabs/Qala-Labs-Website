@@ -20,6 +20,9 @@ interface HeroProps {
   secondaryCtaText?: string;
   secondaryCtaUrl?: string;
   badgeText?: string;
+  bgColor?: string;
+  isEditing?: boolean;
+  onUpdate?: (props: any) => void;
 }
 
 const Hero = ({ 
@@ -29,7 +32,10 @@ const Hero = ({
   ctaUrl = "/contact",
   secondaryCtaText = "See Work",
   secondaryCtaUrl = "/portfolio",
-  badgeText = "Generated ₹20L in 30 Days for Trotr via Meta B2B Lead Gen"
+  badgeText = "Generated ₹20L in 30 Days for Trotr via Meta B2B Lead Gen",
+  bgColor,
+  isEditing,
+  onUpdate
 }: HeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
@@ -37,7 +43,7 @@ const Hero = ({
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || isEditing) return;
     
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -67,14 +73,61 @@ const Hero = ({
     }, heroRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isEditing]);
+
+  const handleBlur = (field: string, e: React.FocusEvent<HTMLElement>) => {
+    if (onUpdate) {
+      onUpdate({ [field]: e.currentTarget.innerText });
+    }
+  };
+
+  const particles = [
+    { className: "particle-1", top: "20%", left: "10%", delay: 0 },
+    { className: "particle-2", top: "60%", left: "15%", delay: 1 },
+    { className: "particle-3", top: "30%", left: "80%", delay: 0.5 },
+    { className: "particle-4", top: "70%", left: "85%", delay: 1.5 },
+    { className: "particle-5", top: "15%", left: "50%", delay: 2 },
+    { className: "particle-6", top: "80%", left: "40%", delay: 0.8 },
+  ];
 
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden bg-slate-50"
+      className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden"
+      style={{ 
+        backgroundColor: bgColor || '#f8fafc',
+        animation: 'gradientShift 8s ease infinite'
+      }}
       aria-labelledby="hero-heading"
     >
+      <style>{`
+        @keyframes gradientShift {
+          0% { background-color: #f8fafc; }
+          33% { background-color: #eff6ff; }
+          66% { background-color: #eef2ff; }
+          100% { background-color: #f8fafc; }
+        }
+      `}</style>
+
+      {/* Particles */}
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className={`absolute w-4 h-4 rounded-full bg-blue-400/20 blur-sm z-0 ${p.className}`}
+          style={{ top: p.top, left: p.left }}
+          animate={{ 
+            y: [0, -20, 0],
+            x: [0, 10, 0]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
       <div 
         ref={bgLayerRef}
         className="absolute inset-0 z-0 pointer-events-none"
@@ -102,27 +155,35 @@ const Hero = ({
           <h1 
             ref={headlineRef}
             id="hero-heading"
-            className="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight px-2 break-words"
+            contentEditable={isEditing}
+            onBlur={(e) => handleBlur('title', e)}
+            suppressContentEditableWarning={true}
+            className={`text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight px-2 break-words outline-none ${isEditing ? 'hover:bg-blue-50/50 focus:bg-blue-50/50 rounded-lg transition-colors cursor-text' : ''}`}
           >
             {title}
           </h1>
 
           {subtitle && (
-            <p className="text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed px-4">
+            <p 
+              contentEditable={isEditing}
+              onBlur={(e) => handleBlur('subtitle', e)}
+              suppressContentEditableWarning={true}
+              className={`text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed px-4 outline-none ${isEditing ? 'hover:bg-blue-50/50 focus:bg-blue-50/50 rounded-lg transition-colors cursor-text' : ''}`}
+            >
               {subtitle}
             </p>
           )}
 
           <div className="hero-cta-container flex flex-col sm:flex-row justify-center gap-4 px-6">
             {ctaText && (
-              <Link to={ctaUrl} className="w-full sm:w-auto">
+              <Link to={ctaUrl} className="w-full sm:w-auto" onClick={(e) => isEditing && e.preventDefault()}>
                 <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white px-10 py-8 rounded-2xl text-lg font-black shadow-xl shadow-blue-500/20 transition-all hover:scale-105">
                   {ctaText} <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
             )}
             {secondaryCtaText && (
-              <Link to={secondaryCtaUrl} className="w-full sm:w-auto">
+              <Link to={secondaryCtaUrl} className="w-full sm:w-auto" onClick={(e) => isEditing && e.preventDefault()}>
                 <Button size="lg" variant="outline" className="w-full px-10 py-8 rounded-2xl text-lg font-bold border-2 border-slate-200 hover:bg-white transition-all">
                   {secondaryCtaText}
                 </Button>

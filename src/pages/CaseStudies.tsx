@@ -1,36 +1,81 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, ArrowRight, Play, Target, Zap } from "lucide-react";
+import { Loader2, ArrowRight, Zap, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import { supabase } from "@/integrations/supabase/client";
 import GaffarLogo from '@/assets/gaffar-new-logo.webp';
 
 const CaseStudies = () => {
-  const [studies, setStudies] = React.useState<any[]>([]);
-  const [loading, setLoading] = React.useState(true);
+  const [studies, setStudies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("All");
   const navigate = useNavigate();
 
-  const fetchStudies = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("case_studies")
-      .select("*")
-      .order("created_at", { ascending: false });
-    
-    if (!error) setStudies(data || []);
-    setLoading(false);
-  };
+  const featuredStudies = [
+    {
+      id: 'trotr-featured',
+      title: "Trotr: Spain Pivot",
+      slug: "Trotr-Meta-Lead-Generation",
+      category: "Lead Generation",
+      result: "28x ROAS • ₹14L Revenue",
+      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      id: 'gaffar-featured',
+      title: "Gaffar India",
+      slug: "gaffar-india-rebrand",
+      category: "Brand Identity",
+      result: "Marketplace Rebrand",
+      image: GaffarLogo,
+      isLogo: true
+    },
+    {
+      id: 'kashmiri-featured',
+      title: "Kashmiri Sound",
+      slug: "kashmiri-movement",
+      category: "Cultural Movement",
+      result: "Zero Ad Spend • 25K Subs",
+      image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800"
+    }
+  ];
 
   useEffect(() => {
+    const fetchStudies = async () => {
+      const { data, error } = await supabase
+        .from("case_studies")
+        .select("*")
+        .order("created_at", { ascending: false });
+      
+      const dbStudies = data || [];
+      const merged = [...featuredStudies];
+      
+      dbStudies.forEach(dbS => {
+        if (!merged.find(m => m.slug === dbS.slug)) {
+          merged.push({
+            ...dbS,
+            result: dbS.results?.headline || "View Results",
+            image: dbS.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+          });
+        }
+      });
+
+      setStudies(merged);
+      setLoading(false);
+    };
     fetchStudies();
   }, []);
+
+  const categories = ["All", ...new Set(studies.map(s => s.category).filter(Boolean))];
+  const filteredStudies = activeCategory === "All" 
+    ? studies 
+    : studies.filter(s => s.category === activeCategory);
 
   if (loading) {
     return (
@@ -65,89 +110,35 @@ const CaseStudies = () => {
           </p>
         </motion.div>
 
-        {/* Featured Case Studies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 max-w-7xl mx-auto">
-          {/* Trotr Case Study */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800" 
-              alt="Trotr Travel" 
-              className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
-            <div className="absolute bottom-10 left-10 right-10">
-              <Badge className="bg-blue-600 text-white mb-4">Lead Generation</Badge>
-              <h3 className="text-3xl font-black text-white mb-2">Trotr: Spain Pivot</h3>
-              <p className="text-blue-400 font-bold mb-6">28x ROAS • ₹14L Revenue</p>
-              <Link to="/case-studies/Trotr-Meta-Lead-Generation">
-                <button className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-600 hover:text-white transition-all">
-                  View Case Study <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Gaffar India Case Study */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-white"
-          >
-            <div className="absolute inset-0 flex items-center justify-center p-12 bg-blue-50/30">
-              <img 
-                src={GaffarLogo} 
-                alt="Gaffar India" 
-                className="w-full h-auto object-contain group-hover:scale-110 transition-transform duration-700"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-10 left-10 right-10">
-              <Badge className="bg-blue-600 text-white mb-4">Brand Identity</Badge>
-              <h3 className="text-3xl font-black text-slate-900 group-hover:text-white mb-2 transition-colors">Gaffar India</h3>
-              <p className="text-blue-600 group-hover:text-blue-400 font-bold mb-6 transition-colors">Marketplace Rebrand</p>
-              <Link to="/case-studies/gaffar-india-rebrand">
-                <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-600 transition-all">
-                  View Case Study <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Kashmiri Movement Case Study */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="group relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-900"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800" 
-              alt="Kashmiri Sound" 
-              className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
-            <div className="absolute bottom-10 left-10 right-10">
-              <Badge className="bg-blue-600 text-white mb-4">Cultural Movement</Badge>
-              <h3 className="text-3xl font-black text-white mb-2">Kashmiri Sound</h3>
-              <p className="text-blue-400 font-bold mb-6">Zero Ad Spend • 25K Subs</p>
-              <Link to="/case-studies/kashmiri-movement">
-                <button className="w-full py-4 bg-white text-slate-900 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-600 hover:text-white transition-all">
-                  View Case Study <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-            </div>
-          </motion.div>
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {categories.map((cat: any) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-8 py-4 rounded-2xl font-black text-sm transition-all duration-500 flex items-center gap-2 ${
+                activeCategory === cat 
+                  ? "bg-blue-600 text-white shadow-2xl shadow-blue-200 scale-105" 
+                  : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+              }`}
+            >
+              {cat === "All" && <Filter className="w-4 h-4" />}
+              {cat}
+            </button>
+          ))}
         </div>
 
-        {/* Scale Quiz CTA */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+          <AnimatePresence mode="popLayout">
+            {filteredStudies.map((study) => (
+              <ProjectCard 
+                key={study.id || study.slug} 
+                project={study} 
+                onClick={() => navigate(`/case-studies/${study.slug}`)}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+
         <section className="py-20">
           <div className="relative p-12 md:p-20 bg-slate-900 rounded-[4rem] overflow-hidden text-center shadow-2xl">
             <div className="relative z-10">

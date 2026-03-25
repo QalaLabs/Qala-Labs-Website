@@ -5,7 +5,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 import { 
   Save, Zap, Database, Link as LinkIcon,
   ShieldCheck, RefreshCcw, BarChart3,
-  Mail, Loader2
+  Mail, Loader2, CheckCircle2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,20 +47,19 @@ const Settings = () => {
   const handleTestEmail = async () => {
     setTesting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('bulk-email', {
-        body: {
-          isTest: true,
-          to: 'qalakaar.qalalabs@gmail.com',
-          subject: 'Test Email from Qala Labs',
-          content: 'Your scale engine is ready to communicate!'
-        }
+      const response = await fetch('/api/test-smtp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to: 'qalakaar.qalalabs@gmail.com' })
       });
       
-      if (error) throw error;
-      showSuccess(data.message || "Test trigger successful!");
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to send test email");
+      
+      showSuccess(data.message || "Test email sent to qalakaar.qalalabs@gmail.com!");
     } catch (err: any) {
       console.error(err);
-      showError("Failed to trigger test. Please ensure Supabase is linked and the function is deployed.");
+      showError(err.message || "Failed to trigger test. Ensure the Node.js server is running.");
     } finally {
       setTesting(false);
     }
@@ -83,7 +82,7 @@ const Settings = () => {
               className="rounded-xl px-6 py-6 border-blue-200 text-blue-600 gap-2 font-bold"
             >
               {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
-              Send Test Email
+              Test Hostinger SMTP
             </Button>
             <Button onClick={handleSave} disabled={saving} className="bg-blue-600 hover:bg-blue-700 rounded-xl px-8 py-6 font-black shadow-lg">
               {saving ? <RefreshCcw className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}

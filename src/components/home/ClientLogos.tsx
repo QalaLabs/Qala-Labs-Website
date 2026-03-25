@@ -51,8 +51,10 @@ const ClientLogos = () => {
               <img 
                 src={logo.src} 
                 alt={logo.alt} 
-                className="h-12 md:h-16 w-auto object-contain transition-all duration-500 filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+                width={160}
+                height={64}
                 loading="lazy"
+                className="h-12 md:h-16 w-auto object-contain transition-all duration-500 filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
               />
             </div>
           ))}

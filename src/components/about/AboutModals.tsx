@@ -31,16 +31,35 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
     e.preventDefault();
     setLoading(true);
 
+    const toolUsed = type === 'book' ? 'about_quick_qualify' : 'about_casepack_request';
+
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email: formData.email,
-      tool_used: type === 'book' ? 'about_quick_qualify' : 'about_casepack_request',
+      tool_used: toolUsed,
       data: { ...formData, timestamp: new Date().toISOString() }
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: formData.email, 
+            tool_used: toolUsed, 
+            data: formData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       setSuccess(true);
       showSuccess(type === 'book' ? "Qualifying request sent!" : "Case pack sent to your inbox!");
       setTimeout(() => {

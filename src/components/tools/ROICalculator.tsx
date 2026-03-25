@@ -33,17 +33,35 @@ const ROICalculator = () => {
     
     const revenue = (adSpend / cpa) * avgOrderValue;
     const roas = revenue / adSpend;
+    const leadData = { adSpend, cpa, avgOrderValue, revenue, roas };
 
+    // 1. Capture in Supabase
     const { error } = await supabase.from('leads').insert({
       email,
       tool_used: 'roi_calculator',
-      data: { adSpend, cpa, avgOrderValue, revenue, roas }
+      data: leadData
     });
 
-    setLoading(false);
     if (error) {
+      setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
+      // 2. Trigger immediate personalized email
+      try {
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email, 
+            tool_used: 'roi_calculator', 
+            data: leadData 
+          })
+        });
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+      }
+
+      setLoading(false);
       showSuccess("Strategy report sent to your email!");
       setEmail("");
     }
