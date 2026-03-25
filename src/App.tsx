@@ -67,6 +67,7 @@ import EditorGuide from "./pages/EditorGuide";
 // Layout Components
 import StickyCTA from "./components/layout/StickyCTA";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
+import AIChatWidget from "./components/layout/AIChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -150,6 +151,7 @@ const App = () => (
             </Routes>
             <StickyCTA />
             <WhatsAppButton />
+            <AIChatWidget />
           </React.Suspense>
         </BrowserRouter>
       </TooltipProvider>
