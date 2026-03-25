@@ -9,7 +9,8 @@ import {
   Search, Filter, MoreVertical, X, BookOpen, 
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
   Loader2, FilterX, Star, Zap, ShieldAlert, Download,
-  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy
+  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy,
+  Activity, Clock
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { format, isWithinInterval, startOfDay, endOfDay, parseISO } from 'date-fns';
+import { format, isWithinInterval, startOfDay, endOfDay, parseISO, formatDistanceToNow } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
@@ -201,9 +202,37 @@ const Admin = () => {
           </div>
         </header>
 
-        <div className="mb-10">
-          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
-          <LeadPipeline leads={leads} />
+        <div className="grid lg:grid-cols-3 gap-8 mb-10">
+          <div className="lg:col-span-2">
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
+            <LeadPipeline leads={leads} />
+          </div>
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
+              <Activity className="w-3 h-3 text-blue-600" /> Live Activity
+            </h3>
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardContent className="p-6">
+                <div className="space-y-6">
+                  {leads.slice(0, 5).map((lead, i) => (
+                    <div key={lead.id} className="flex gap-4 items-start">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                        <Clock className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-900">
+                          New lead from <span className="text-blue-600">{lead.data?.name || 'Anonymous'}</span>
+                        </p>
+                        <p className="text-[10px] text-slate-400 mt-1">
+                          {formatDistanceToNow(new Date(lead.created_at))} ago via {lead.tool_used.replace('_', ' ')}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         <Card className="border-none shadow-sm overflow-hidden bg-white rounded-[2.5rem]">
