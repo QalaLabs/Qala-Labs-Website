@@ -6,22 +6,26 @@ import { useNavigate, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, FileText, Settings, LogOut, 
   Mail, Database, RefreshCcw, Loader2, Download,
-  Trophy, Briefcase, BookOpen, PenTool
+  Trophy, Briefcase, BookOpen, PenTool, BarChart3, PieChart as PieIcon, Activity
 } from 'lucide-react';
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { format, isWithinInterval, startOfDay, endOfDay, parseISO } from 'date-fns';
+import { format, isWithinInterval, startOfDay, endOfDay, parseISO, subDays } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
-import LeadPipeline from '@/components/admin/LeadPipeline';
 import AdminStats from '@/components/admin/AdminStats';
 import LeadFilters from '@/components/admin/LeadFilters';
 import LeadTable from '@/components/admin/LeadTable';
 import LeadDetailModal from '@/components/admin/LeadDetailModal';
 import CampaignModal from '@/components/admin/CampaignModal';
 import { calculateLeadScore, getLeadInterest, exportLeadsToCSV } from '@/utils/admin';
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, BarChart, Bar 
+} from 'recharts';
+import { Badge } from "@/components/ui/badge";
 
 const services = [
   "Performance Marketing", 
@@ -67,6 +71,53 @@ const Admin = () => {
   }, []);
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
+
+  const analyticsData = React.useMemo(() => {
+    if (!leads.length) return { timeData: [], toolData: [], scoreData: [] };
+
+    // 1. Leads over time (Last 30 days)
+    const last30Days = Array.from({ length: 30 }).map((_, i) => {
+      const d = subDays(new Date(), i);
+      return format(d, 'MMM dd');
+    }).reverse();
+
+    const timeMap = leads.reduce((acc: any, lead) => {
+      const day = format(parseISO(lead.created_at), 'MMM dd');
+      acc[day] = (acc[day] || 0) + 1;
+      return acc;
+    }, {});
+
+    const timeData = last30Days.map(day => ({
+      name: day,
+      count: timeMap[day] || 0
+    }));
+
+    // 2. Tool Distribution
+    const toolMap = leads.reduce((acc: any, lead) => {
+      const tool = lead.tool_used.replace(/_/g, ' ').replace(/\bv2\b/g, '').trim();
+      acc[tool] = (acc[tool] || 0) + 1;
+      return acc;
+    }, {});
+
+    const toolData = Object.entries(toolMap).map(([name, value]) => ({ name, value }));
+
+    // 3. Score Distribution
+    const scores = { Low: 0, Medium: 0, High: 0 };
+    leads.forEach(lead => {
+      const score = calculateLeadScore(lead);
+      if (score >= 50) scores.High++;
+      else if (score >= 30) scores.Medium++;
+      else scores.Low++;
+    });
+
+    const scoreData = [
+      { name: 'Low', count: scores.Low },
+      { name: 'Medium', count: scores.Medium },
+      { name: 'High', count: scores.High }
+    ];
+
+    return { timeData, toolData, scoreData };
+  }, [leads]);
 
   const handleSendCampaign = async (campaignData: any) => {
     const { data, error } = await supabase.functions.invoke('bulk-email', {
@@ -135,8 +186,92 @@ const Admin = () => {
         <AdminStats stats={stats} />
 
         <div className="mb-10">
-          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
-          <LeadPipeline leads={leads} />
+          <div className="flex items-center gap-3 mb-6">
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">Analytics Intelligence</h3>
+            <Badge variant="secondary" className="bg-blue-50 text-blue-600 border-none text-[10px] font-black">LAST 30 DAYS</Badge>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Leads Over Time */}
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-blue-600" /> Lead Volume
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="h-[250px] pt-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={analyticsData.timeData}>
+                    <defs>
+                      <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <XAxis dataKey="name" hide />
+                    <YAxis hide />
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Area type="monotone" dataKey="count" stroke="#2563eb" strokeWidth={2} fillOpacity={1} fill="url(#colorCount)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Tool Distribution */}
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <PieIcon className="w-4 h-4 text-blue-600" /> Source Distribution
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="h-[250px] pt-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={analyticsData.toolData}
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {analyticsData.toolData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index === 0 ? '#2563eb' : index === 1 ? '#3b82f6' : '#60a5fa'} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Score Distribution */}
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-blue-600" /> Lead Quality
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="h-[250px] pt-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={analyticsData.scoreData}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 'bold' }} />
+                    <YAxis hide />
+                    <Tooltip 
+                      cursor={{ fill: '#f8fafc' }}
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Bar dataKey="count" fill="#2563eb" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         <Card className="border-none shadow-sm overflow-hidden bg-white rounded-[2.5rem]">
