@@ -2,12 +2,13 @@
 
 import * as React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, LayoutDashboard, ArrowRight, ChevronRight, ChevronDown } from 'lucide-react';
+import { Menu, X, LayoutDashboard, ArrowRight, ChevronRight, ChevronDown, Moon, Sun } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Logo from './Logo';
 import { useUser } from '@/hooks/useUser';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +21,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useUser();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  // Avoid hydration mismatch
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { name: 'About', href: '/about' },
@@ -36,12 +44,10 @@ const Navbar = () => {
     { name: 'Careers', href: '/career' },
   ];
 
-  // Close menu on route change - ensuring it works on iOS
   React.useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  // Prevent scroll when menu is open using class toggle for better Android/iOS support
   React.useEffect(() => {
     if (isOpen) {
       document.body.classList.add('no-scroll');
@@ -53,13 +59,28 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  const ThemeToggle = () => {
+    if (!mounted) return <div className="w-10 h-10" />;
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className="rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        aria-label="Toggle theme"
+      >
+        {theme === 'dark' ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-slate-600" />}
+      </Button>
+    );
+  };
+
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white/95 backdrop-blur-xl border-b border-slate-100">
+      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="relative z-[1020] flex items-center">
-              <Logo className="h-8 md:h-10" />
+              <Logo className="h-8 md:h-10" variant={mounted && theme === 'dark' ? 'white' : 'default'} />
             </Link>
 
             {/* Desktop Menu */}
@@ -70,7 +91,7 @@ const Navbar = () => {
                   to={link.href}
                   className={cn(
                     "text-sm font-bold transition-colors",
-                    location.pathname === link.href ? "text-blue-600" : "text-slate-600 hover:text-blue-600"
+                    location.pathname === link.href ? "text-blue-600" : "text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
                   )}
                 >
                   {link.name}
@@ -78,15 +99,15 @@ const Navbar = () => {
               ))}
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-sm font-bold text-slate-600 hover:text-blue-600 flex items-center gap-1 outline-none">
+                <DropdownMenuTrigger className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 outline-none">
                   Collaborate <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="rounded-2xl p-2 border-slate-100 shadow-2xl">
+                <DropdownMenuContent className="rounded-2xl p-2 border-slate-100 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-900">
                   {collaborateLinks.map((link) => (
                     <DropdownMenuItem key={link.name} asChild>
                       <Link 
                         to={link.href}
-                        className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer"
                       >
                         {link.name}
                       </Link>
@@ -95,38 +116,44 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              {user ? (
-                <Button 
-                  onClick={() => navigate('/admin')}
-                  variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50 font-black px-6 rounded-xl flex items-center gap-2"
-                >
-                  <LayoutDashboard className="w-4 h-4" /> Dashboard
-                </Button>
-              ) : (
-                <Button 
-                  onClick={() => navigate('/contact')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
-                >
-                  Free Audit
-                </Button>
-              )}
+              <div className="flex items-center gap-2 ml-4">
+                <ThemeToggle />
+                {user ? (
+                  <Button 
+                    onClick={() => navigate('/admin')}
+                    variant="outline"
+                    className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 font-black px-6 rounded-xl flex items-center gap-2"
+                  >
+                    <LayoutDashboard className="w-4 h-4" /> Dashboard
+                  </Button>
+                ) : (
+                  <Button 
+                    onClick={() => navigate('/contact')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
+                  >
+                    Free Audit
+                  </Button>
+                )}
+              </div>
             </div>
 
-            {/* Mobile Toggle - Increased padding for 48px tap target */}
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className={cn(
-                "lg:hidden relative z-[1020] flex items-center gap-2 px-5 py-3.5 rounded-xl transition-all active:scale-95 shadow-lg min-h-[48px] min-w-[48px]",
-                isOpen ? "bg-white text-slate-900 border border-slate-200" : "bg-slate-900 text-white"
-              )}
-              aria-label="Toggle menu"
-            >
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] ml-1">
-                {isOpen ? 'Close' : 'Menu'}
-              </span>
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Mobile Toggle */}
+            <div className="flex lg:hidden items-center gap-2">
+              <ThemeToggle />
+              <button 
+                onClick={() => setIsOpen(!isOpen)} 
+                className={cn(
+                  "relative z-[1020] flex items-center gap-2 px-5 py-3.5 rounded-xl transition-all active:scale-95 shadow-lg min-h-[48px] min-w-[48px]",
+                  isOpen ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800" : "bg-slate-900 dark:bg-white text-white dark:text-slate-900"
+                )}
+                aria-label="Toggle menu"
+              >
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] ml-1">
+                  {isOpen ? 'Close' : 'Menu'}
+                </span>
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -148,12 +175,11 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute top-0 right-0 bottom-0 w-[85%] bg-white shadow-2xl flex flex-col border-l border-slate-100"
+              className="absolute top-0 right-0 bottom-0 w-[85%] bg-white dark:bg-slate-950 shadow-2xl flex flex-col border-l border-slate-100 dark:border-slate-800"
             >
-              {/* Internal Close Button for better UX */}
               <button 
                 onClick={() => setIsOpen(false)}
-                className="absolute top-6 right-6 p-4 text-slate-400 hover:text-slate-900 transition-colors z-20"
+                className="absolute top-6 right-6 p-4 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors z-20"
                 aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
@@ -172,14 +198,14 @@ const Navbar = () => {
                       <Link 
                         to={link.href}
                         className={cn(
-                          "flex items-center justify-between py-4 text-2xl font-black transition-all group border-b border-slate-50",
-                          location.pathname === link.href ? "text-blue-600" : "text-slate-900"
+                          "flex items-center justify-between py-4 text-2xl font-black transition-all group border-b border-slate-50 dark:border-slate-900",
+                          location.pathname === link.href ? "text-blue-600" : "text-slate-900 dark:text-white"
                         )}
                       >
                         <span>{link.name}</span>
                         <ChevronRight className={cn(
                           "w-5 h-5 transition-transform group-hover:translate-x-2",
-                          location.pathname === link.href ? "text-blue-600" : "text-slate-200"
+                          location.pathname === link.href ? "text-blue-600" : "text-slate-200 dark:text-slate-800"
                         )} />
                       </Link>
                     </motion.div>

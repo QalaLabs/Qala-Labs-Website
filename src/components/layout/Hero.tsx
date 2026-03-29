@@ -93,27 +93,35 @@ const Hero = ({
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden"
+      className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden transition-colors duration-500"
       style={{ 
-        backgroundColor: bgColor || '#f8fafc',
-        animation: 'gradientShift 8s ease infinite'
+        backgroundColor: bgColor || undefined,
+        animation: !bgColor ? 'gradientShift 8s ease infinite' : undefined
       }}
       aria-labelledby="hero-heading"
     >
-      <style>{`
-        @keyframes gradientShift {
-          0% { background-color: #f8fafc; }
-          33% { background-color: #eff6ff; }
-          66% { background-color: #eef2ff; }
-          100% { background-color: #f8fafc; }
-        }
-      `}</style>
+      {!bgColor && (
+        <style>{`
+          @keyframes gradientShift {
+            0% { background-color: #f8fafc; }
+            33% { background-color: #eff6ff; }
+            66% { background-color: #eef2ff; }
+            100% { background-color: #f8fafc; }
+          }
+          .dark @keyframes gradientShift {
+            0% { background-color: #020617; }
+            33% { background-color: #0f172a; }
+            66% { background-color: #1e1b4b; }
+            100% { background-color: #020617; }
+          }
+        `}</style>
+      )}
 
       {/* Particles */}
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className={`absolute w-4 h-4 rounded-full bg-blue-400/20 blur-sm z-0 ${p.className}`}
+          className={`absolute w-4 h-4 rounded-full bg-blue-400/20 dark:bg-blue-500/10 blur-sm z-0 ${p.className}`}
           style={{ top: p.top, left: p.left }}
           animate={{ 
             y: [0, -20, 0],
@@ -132,8 +140,8 @@ const Hero = ({
         ref={bgLayerRef}
         className="absolute inset-0 z-0 pointer-events-none"
       >
-        <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-100/50 rounded-full blur-3xl" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-indigo-100/30 rounded-full blur-3xl" />
+        <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-[10%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-indigo-100/30 dark:bg-indigo-900/10 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 z-10">
@@ -142,7 +150,7 @@ const Hero = ({
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 text-blue-700 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-200/50 max-w-full text-center"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-200/50 dark:border-blue-800/50 max-w-full text-center"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -158,7 +166,7 @@ const Hero = ({
             contentEditable={isEditing}
             onBlur={(e) => handleBlur('title', e)}
             suppressContentEditableWarning={true}
-            className={`text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 tracking-tight px-2 break-words outline-none ${isEditing ? 'hover:bg-blue-50/50 focus:bg-blue-50/50 rounded-lg transition-colors cursor-text' : ''}`}
+            className={`text-4xl md:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-8 tracking-tight px-2 break-words outline-none ${isEditing ? 'hover:bg-blue-50/50 dark:hover:bg-blue-900/20 focus:bg-blue-50/50 dark:focus:bg-blue-900/20 rounded-lg transition-colors cursor-text' : ''}`}
           >
             {title}
           </h1>
@@ -168,7 +176,7 @@ const Hero = ({
               contentEditable={isEditing}
               onBlur={(e) => handleBlur('subtitle', e)}
               suppressContentEditableWarning={true}
-              className={`text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed px-4 outline-none ${isEditing ? 'hover:bg-blue-50/50 focus:bg-blue-50/50 rounded-lg transition-colors cursor-text' : ''}`}
+              className={`text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed px-4 outline-none ${isEditing ? 'hover:bg-blue-50/50 dark:hover:bg-blue-900/20 focus:bg-blue-50/50 dark:focus:bg-blue-900/20 rounded-lg transition-colors cursor-text' : ''}`}
             >
               {subtitle}
             </p>
@@ -184,7 +192,7 @@ const Hero = ({
             )}
             {secondaryCtaText && (
               <Link to={secondaryCtaUrl} className="w-full sm:w-auto" onClick={(e) => isEditing && e.preventDefault()}>
-                <Button size="lg" variant="outline" className="w-full px-10 py-8 rounded-2xl text-lg font-bold border-2 border-slate-200 hover:bg-white transition-all">
+                <Button size="lg" variant="outline" className="w-full px-10 py-8 rounded-2xl text-lg font-bold border-2 border-slate-200 dark:border-slate-800 dark:text-white hover:bg-white dark:hover:bg-slate-900 transition-all">
                   {secondaryCtaText}
                 </Button>
               </Link>
