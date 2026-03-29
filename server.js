@@ -1,22 +1,25 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-const { createClient } = require('@supabase/supabase-js');
-const path = require('path');
-const app = express();
+import express from 'express';
+import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
 app.use(express.json());
 
 // Serve static files from the React app build directory
-// This must be defined before the API routes to ensure assets are served correctly
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Initialize Supabase
 const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_ANON_KEY || ''
 );
 
-// Create SMTP transporter using Hostinger credentials (SSL on Port 465)
+// Create SMTP transporter using Hostinger credentials
 const transporter = nodemailer.createTransport({
   host: 'smtp.hostinger.com',
   port: 465,
@@ -27,7 +30,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Endpoint to receive lead submissions and send personalized email
+// Endpoint to receive lead submissions
 app.post('/api/lead', async (req, res) => {
   const { email, tool_used, data } = req.body;
   
@@ -36,28 +39,24 @@ app.post('/api/lead', async (req, res) => {
   }
 
   try {
-    // 1. Fetch email template based on tool_used
-    const { data: template, error: templateError } = await supabase
+    const { data: template } = await supabase
       .from('email_templates')
       .select('subject, body')
       .eq('tool_used', tool_used)
       .single();
 
-    // Fallback template if one isn't found in DB
     const defaultTemplate = {
       subject: "We've received your request | Qala Labs",
-      body: "Hi {{name}},\n\nThanks for reaching out to Qala Labs. Our team has received your submission via {{tool_used}} and we are reviewing it now.\n\nWe'll be in touch within 24 hours.\n\nBest,\nQala Labs Team"
+      body: "Hi {{name}},\n\nThanks for reaching out to Qala Labs. We'll be in touch within 24 hours."
     };
 
     const activeTemplate = template || defaultTemplate;
 
-    // 2. Personalize template with lead data
     const personalizedBody = activeTemplate.body.replace(/{{(.*?)}}/g, (match, key) => {
       const k = key.trim();
       return (data && data[k]) || (req.body[k]) || match;
     });
 
-    // 3. Send confirmation email to the lead
     await transporter.sendMail({
       from: '"Qala Labs" <hello@qalalabs.com>',
       to: email,
@@ -65,61 +64,36 @@ app.post('/api/lead', async (req, res) => {
       text: personalizedBody
     });
 
-    // 4. Send notification to admin team (including qalakaar address)
     await transporter.sendMail({
       from: '"Qala Labs Lead Engine" <hello@qalalabs.com>',
       to: 'hello@qalalabs.com, qalakaar.qalalabs@gmail.com',
       subject: `[NEW LEAD] ${tool_used} - ${email}`,
-      text: `A new lead has been captured.\n\nLead Email: ${email}\nTool Used: ${tool_used}\n\nFull Data Payload:\n${JSON.stringify(data, null, 2)}`
+      text: `New lead captured.\n\nEmail: ${email}\nTool: ${tool_used}\n\nData:\n${JSON.stringify(data, null, 2)}`
     });
 
-    console.log('Emails sent successfully for lead:', email);
     res.status(200).json({ success: true });
   } catch (error) {
-    console.error('Process error:', error);
-    res.status(500).json({ error: 'Failed to process lead or send email' });
+    console.error('Backend Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// Endpoint to test SMTP connection
 app.post('/api/test-smtp', async (req, res) => {
   const { to } = req.body;
-  if (!to) return res.status(400).json({ error: 'Recipient email required' });
-
   try {
     await transporter.sendMail({
       from: '"Qala Labs Test" <hello@qalalabs.com>',
-      to: to,
+      to: to || 'hello@qalalabs.com',
       subject: "SMTP Connection Verified",
-      text: "Your Hostinger SMTP configuration is working perfectly. The Qala Labs scale engine is ready to communicate."
+      text: "Hostinger SMTP is working."
     });
-    res.status(200).json({ success: true, message: 'Test email sent successfully!' });
+    res.status(200).json({ success: true });
   } catch (error) {
-    console.error('SMTP Test Error:', error);
-    res.status(500).json({ error: 'SMTP Test Failed: ' + error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 
-// Admin: Fetch all templates
-app.get('/api/templates', async (req, res) => {
-  const { data, error } = await supabase.from('email_templates').select('*');
-  if (error) return res.status(500).json({ error: error.message });
-  res.json(data);
-});
-
-// Admin: Update or Create template
-app.post('/api/templates', async (req, res) => {
-  const { tool_used, subject, body } = req.body;
-  const { data, error } = await supabase
-    .from('email_templates')
-    .upsert({ tool_used, subject, body, updated_at: new Date().toISOString() }, { onConflict: 'tool_used' });
-  
-  if (error) return res.status(500).json({ error: error.message });
-  res.json({ success: true });
-});
-
-// The "catchall" handler: for any request that doesn't match an API route, 
-// send back React's index.html file to allow client-side routing.
+// Catch-all to serve React App
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api')) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
