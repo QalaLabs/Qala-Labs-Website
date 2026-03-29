@@ -42,33 +42,49 @@ const AIChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const GEMINI_API_KEY = 'AIzaSyD24qdHytX23Ok6rSsk1DrG5jiKQ9wvyyM';
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+      // Format history for Gemini (Gemini uses 'user' and 'model' roles)
+      const contents = messages.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }]
+      }));
+
+      // Add the new message
+      contents.push({
+        role: 'user',
+        parts: [{ text: messageToSend }]
+      });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'YOUR_ANTHROPIC_API_KEY',
-          'anthropic-version': '2023-06-01',
-          'dangerously-allow-browser': 'true'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 500,
-          system: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth.",
-          messages: [
-            ...messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) !== 0).map(m => ({
-              role: m.role,
-              content: m.content
-            })),
-            { role: 'user', content: messageToSend }
-          ]
+          contents: contents,
+          system_instruction: {
+            parts: [{ 
+              text: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth." 
+            }]
+          },
+          generationConfig: {
+            maxOutputTokens: 500,
+            temperature: 0.7,
+          }
         })
       });
 
       const data = await response.json();
-      if (data.content && data.content[0]) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.content[0].text }]);
+      
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: data.candidates[0].content.parts[0].text 
+        }]);
       } else {
-        throw new Error('Invalid response from AI');
+        throw new Error('Invalid response from Gemini');
       }
     } catch (error) {
       console.error('Chat Error:', error);
