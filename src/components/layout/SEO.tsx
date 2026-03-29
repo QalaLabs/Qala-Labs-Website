@@ -18,7 +18,15 @@ const SEO = ({ title, description, image, article, noIndex, jsonLd }: SEOProps) 
   const location = useLocation();
   const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
   const seoDescription = description || siteConfig.description;
-  const seoImage = image || siteConfig.ogImage;
+  
+  // Ensure the image URL is absolute for social crawlers
+  const getFullImageUrl = (img?: string) => {
+    if (!img) return siteConfig.ogImage;
+    if (img.startsWith('http')) return img;
+    return `${siteConfig.url}${img.startsWith('/') ? '' : '/'}${img}`;
+  };
+
+  const seoImage = getFullImageUrl(image);
   const canonicalUrl = `${siteConfig.url}${location.pathname}`;
 
   const baseJsonLd = getBaseJsonLd();
@@ -36,6 +44,9 @@ const SEO = ({ title, description, image, article, noIndex, jsonLd }: SEOProps) 
       <meta property="og:title" content={seoTitle} />
       <meta property="og:description" content={seoDescription} />
       <meta property="og:image" content={seoImage} />
+      <meta property="og:image:secure_url" content={seoImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:site_name" content={siteConfig.name} />
