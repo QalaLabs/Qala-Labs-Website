@@ -3,15 +3,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot } from 'lucide-react';
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
+
+const QUICK_REPLIES = [
+  "How do you scale DTC brands?",
+  "What is your average ROAS?",
+  "Tell me about AI Automation.",
+  "How do I book a free audit?"
+];
 
 const AIChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,45 +33,58 @@ const AIChatWidget = () => {
     }
   }, [messages, isLoading]);
 
-  const handleSend = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  const handleSend = async (text?: string) => {
+    const messageToSend = text || input.trim();
+    if (!messageToSend || isLoading) return;
 
-    const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setMessages(prev => [...prev, { role: 'user', content: messageToSend }]);
     setIsLoading(true);
 
     try {
-      // Note: In a production environment, you should call this through a backend proxy
-      // to keep your API key secure.
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const GEMINI_API_KEY = 'AIzaSyD24qdHytX23Ok6rSsk1DrG5jiKQ9wvyyM';
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+      // Format history for Gemini (Gemini uses 'user' and 'model' roles)
+      const contents = messages.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }]
+      }));
+
+      // Add the new message
+      contents.push({
+        role: 'user',
+        parts: [{ text: messageToSend }]
+      });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'YOUR_ANTHROPIC_API_KEY', // Replace with your actual key
-          'anthropic-version': '2023-06-01',
-          'dangerously-allow-browser': 'true'
         },
         body: JSON.stringify({
-          model: 'claude-3-5-sonnet-20240620', // Using the latest stable Sonnet model
-          max_tokens: 500,
-          system: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth.",
-          messages: [
-            ...messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) !== 0).map(m => ({
-              role: m.role,
-              content: m.content
-            })),
-            { role: 'user', content: userMessage }
-          ]
+          contents: contents,
+          system_instruction: {
+            parts: [{ 
+              text: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth." 
+            }]
+          },
+          generationConfig: {
+            maxOutputTokens: 500,
+            temperature: 0.7,
+          }
         })
       });
 
       const data = await response.json();
-      if (data.content && data.content[0]) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.content[0].text }]);
+      
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: data.candidates[0].content.parts[0].text 
+        }]);
       } else {
-        throw new Error('Invalid response from AI');
+        throw new Error('Invalid response from Gemini');
       }
     } catch (error) {
       console.error('Chat Error:', error);
@@ -81,7 +99,6 @@ const AIChatWidget = () => {
 
   return (
     <>
-      {/* Floating Bubble */}
       <motion.button
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -89,7 +106,6 @@ const AIChatWidget = () => {
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-24 right-6 z-[100] flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full shadow-2xl hover:bg-blue-700 transition-colors"
-        aria-label="Chat with AI"
       >
         {isOpen ? <X className="w-8 h-8" /> : <MessageSquare className="w-8 h-8" />}
         {!isOpen && (
@@ -102,16 +118,14 @@ const AIChatWidget = () => {
         )}
       </motion.button>
 
-      {/* Chat Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-44 right-6 z-[100] w-[90vw] md:w-[400px] h-[500px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
+            className="fixed bottom-44 right-6 z-[100] w-[90vw] md:w-[400px] h-[600px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
           >
-            {/* Header */}
             <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
@@ -127,8 +141,7 @@ const AIChatWidget = () => {
               </button>
             </div>
 
-            {/* Messages Area */}
-            <ScrollArea className="flex-1 p-6" viewportRef={scrollRef}>
+            <div className="flex-1 p-6 overflow-y-auto" ref={scrollRef}>
               <div className="space-y-4">
                 {messages.map((msg, i) => (
                   <div key={i} className={cn(
@@ -162,11 +175,24 @@ const AIChatWidget = () => {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
 
-            {/* Input Area */}
-            <form onSubmit={handleSend} className="p-6 border-t border-slate-100 bg-slate-50/50">
-              <div className="relative">
+            <div className="p-6 border-t border-slate-100 bg-slate-50/50 space-y-4">
+              {messages.length === 1 && !isLoading && (
+                <div className="flex flex-wrap gap-2">
+                  {QUICK_REPLIES.map((reply) => (
+                    <button
+                      key={reply}
+                      onClick={() => handleSend(reply)}
+                      className="text-[10px] font-bold bg-white border border-slate-200 hover:border-blue-600 hover:text-blue-600 px-3 py-2 rounded-full transition-all shadow-sm"
+                    >
+                      {reply}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
+              <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="relative">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -180,11 +206,8 @@ const AIChatWidget = () => {
                 >
                   <Send className="w-5 h-5" />
                 </button>
-              </div>
-              <p className="text-[10px] text-center text-slate-400 mt-3 font-medium">
-                AI can make mistakes. Check important info.
-              </p>
-            </form>
+              </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

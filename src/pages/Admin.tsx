@@ -4,12 +4,21 @@ import * as React from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, Link } from 'react-router-dom';
 import { 
-  LayoutDashboard, FileText, Settings, LogOut, 
-  Mail, Database, RefreshCcw, Loader2, Download,
-  Trophy, Briefcase, BookOpen, PenTool, BarChart3, PieChart as PieIcon, Activity
+  LayoutDashboard, Users, FileText, Settings, LogOut, 
+  TrendingUp, Mail, Eye, CheckCircle2, Database,
+  Search, Filter, MoreVertical, X, BookOpen, 
+  MessageSquare, Send, Phone, Trash2, RefreshCcw,
+  Loader2, FilterX, Star, Zap, ShieldAlert, Download,
+  Calendar, History, StickyNote, Briefcase, UserCheck, Trophy,
+  Activity, Clock, PenTool, BarChart3, PieChart as PieChartIcon
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { format, isWithinInterval, startOfDay, endOfDay, parseISO, subDays } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
@@ -25,7 +34,11 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   PieChart, Pie, Cell, BarChart, Bar 
 } from 'recharts';
-import { Badge } from "@/components/ui/badge";
+
+// New Chart Components
+import LeadsOverTimeChart from '@/components/admin/LeadsOverTimeChart';
+import ToolDistributionChart from '@/components/admin/ToolDistributionChart';
+import ScoreDistributionChart from '@/components/admin/ScoreDistributionChart';
 
 const services = [
   "Performance Marketing", 
@@ -188,87 +201,40 @@ const Admin = () => {
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">
             <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">Analytics Intelligence</h3>
-            <Badge variant="secondary" className="bg-blue-50 text-blue-600 border-none text-[10px] font-black">LAST 30 DAYS</Badge>
+            <Badge className="bg-blue-100 text-blue-700 border-none font-black text-[9px] uppercase tracking-widest">Last 30 days</Badge>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Leads Over Time */}
             <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-blue-600" /> Lead Volume
+                  <TrendingUp className="w-4 h-4 text-blue-600" /> Lead Volume
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-[250px] pt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={analyticsData.timeData}>
-                    <defs>
-                      <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                    <XAxis dataKey="name" hide />
-                    <YAxis hide />
-                    <Tooltip 
-                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                    />
-                    <Area type="monotone" dataKey="count" stroke="#2563eb" strokeWidth={2} fillOpacity={1} fill="url(#colorCount)" />
-                  </AreaChart>
-                </ResponsiveContainer>
+              <CardContent>
+                <LeadsOverTimeChart leads={leads} />
               </CardContent>
             </Card>
 
-            {/* Tool Distribution */}
             <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold flex items-center gap-2">
-                  <PieIcon className="w-4 h-4 text-blue-600" /> Source Distribution
+                  <PieChartIcon className="w-4 h-4 text-blue-600" /> Source Distribution
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-[250px] pt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={analyticsData.toolData}
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {analyticsData.toolData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={index === 0 ? '#2563eb' : index === 1 ? '#3b82f6' : '#60a5fa'} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <CardContent>
+                <ToolDistributionChart leads={leads} />
               </CardContent>
             </Card>
 
-            {/* Score Distribution */}
             <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-blue-600" /> Lead Quality
+                  <BarChart3 className="w-4 h-4 text-blue-600" /> Lead Quality (Scores)
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-[250px] pt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={analyticsData.scoreData}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 'bold' }} />
-                    <YAxis hide />
-                    <Tooltip 
-                      cursor={{ fill: '#f8fafc' }}
-                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                    />
-                    <Bar dataKey="count" fill="#2563eb" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+              <CardContent>
+                <ScoreDistributionChart leads={leads} />
               </CardContent>
             </Card>
           </div>

@@ -17,6 +17,7 @@ export type BlockType =
   | 'what_we_do'
   | 'how_we_work'
   | 'case_study_snapshots'
+  | 'portfolio_snapshots'
   | 'research_insights'
   | 'closing_cta';
 
