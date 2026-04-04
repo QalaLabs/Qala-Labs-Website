@@ -22,12 +22,14 @@ export default defineConfig(() => ({
     },
   },
   build: {
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-motion': ['framer-motion', 'gsap'],
+          'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
           'vendor-charts': ['recharts'],
-          'vendor-lottie': ['lottie-react'],
         }
       }
     }
