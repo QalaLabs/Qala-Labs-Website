@@ -7,6 +7,11 @@ interface ToolDistributionChartProps {
   leads: any[];
 }
 
+interface ToolData {
+  name: string;
+  value: number;
+}
+
 const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#dbeafe'];
 
 const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
@@ -18,7 +23,7 @@ const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
     }, {});
     
     return Object.entries(counts)
-      .map(([name, value]) => ({ name, value }))
+      .map(([name, value]): ToolData => ({ name, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 6);
   }, [leads]);
