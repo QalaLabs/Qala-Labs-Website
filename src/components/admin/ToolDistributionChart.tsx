@@ -23,7 +23,7 @@ const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
     }, {});
     
     return Object.entries(counts)
-      .map(([name, value]): ToolData => ({ name, value }))
+      .map(([name, value]): ToolData => ({ name, value: value as number }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 6);
   }, [leads]);
@@ -41,7 +41,7 @@ const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
             paddingAngle={5}
             dataKey="value"
           >
-            {chartData.map((entry, index) => (
+            {chartData.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
