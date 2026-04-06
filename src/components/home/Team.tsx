@@ -7,6 +7,7 @@ import AashirwadImg from '@/assets/Aashirwad.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 import ManpreetImg from '@/assets/Manpreet.png';
+import AayushImg from '@/assets/Aayush.png';
 
 interface TeamMember {
   name: string;
@@ -44,6 +45,13 @@ const defaultMembers = [
     linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/"
   },
   {
+    name: "Aayush Singh",
+    role: "AI and Tech Lead",
+    desc: "Engineering autonomous AI agents, custom LLM workflows, and high-performance tech stacks.",
+    image: AayushImg,
+    linkedin: "https://www.linkedin.com/in/captn1107/"
+  },
+  {
     name: "Manpreet Singh",
     role: "Visualiser",
     desc: "Visual storytelling, brand aesthetics, and high-impact design for digital-first brands.",
@@ -62,7 +70,7 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.3em] mb-4">The Team</h2>
           <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{title}</h3>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
           {displayMembers.map((member, i) => (
             <motion.div
               key={i}
@@ -93,9 +101,9 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
                 </div>
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-black text-slate-900 tracking-tight">{member.name}</h3>
-                <p className="text-blue-600 font-black text-[10px] uppercase tracking-[0.2em]">{member.role}</p>
-                <p className="text-slate-500 text-sm leading-relaxed pt-2 border-t border-slate-100">{member.desc}</p>
+                <h3 className="text-xl font-black text-slate-900 tracking-tight">{member.name}</h3>
+                <p className="text-blue-600 font-black text-[9px] uppercase tracking-[0.2em]">{member.role}</p>
+                <p className="text-slate-500 text-xs leading-relaxed pt-2 border-t border-slate-100">{member.desc}</p>
               </div>
             </motion.div>
           ))}
