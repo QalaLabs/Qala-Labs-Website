@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import AashirwadImg from '@/assets/Aashirwad.png';
+import AayushImg from '@/assets/Aayush.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 import ManpreetImg from '@/assets/Manpreet.png';
@@ -31,9 +32,9 @@ const defaultMembers = [
   },
   {
     name: "Aayush Singh",
-    role: "Performance Marketing",
-    desc: "Specializes in high-scale Meta and Google ad operations with a focus on ROI and attribution.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+    role: "AI and Tech Lead",
+    desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.",
+    image: AayushImg,
     linkedin: "#"
   },
   {
