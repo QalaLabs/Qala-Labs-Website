@@ -11,7 +11,10 @@
     "preview": "vite preview",
     "start": "node server.js",
     "import-xml": "tsx scripts/import_asenkai_xml.ts",
-    "postinstall": "chmod +x node_modules/.bin/esbuild || true"
+    "postinstall": "find node_modules -name esbuild -type f -exec chmod +x {} + || true"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@capacitor/android": "7.4.4",
