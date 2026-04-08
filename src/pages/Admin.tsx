@@ -19,7 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { format, isWithinInterval, startOfDay, endOfDay, parseISO, formatDistanceToNow } from 'date-fns';
+import { format, isWithinInterval, startOfDay, endOfDay, parseISO, subDays } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
@@ -31,6 +31,10 @@ import LeadDetailModal from '@/components/admin/LeadDetailModal';
 import CampaignModal from '@/components/admin/CampaignModal';
 import LeadPipeline from '@/components/admin/LeadPipeline';
 import { calculateLeadScore, getLeadInterest, exportLeadsToCSV } from '@/utils/admin';
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, BarChart, Bar 
+} from 'recharts';
 
 // New Chart Components
 import LeadsOverTimeChart from '@/components/admin/LeadsOverTimeChart';
@@ -81,6 +85,53 @@ const Admin = () => {
   }, []);
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
+
+  const analyticsData = React.useMemo(() => {
+    if (!leads.length) return { timeData: [], toolData: [], scoreData: [] };
+
+    // 1. Leads over time (Last 30 days)
+    const last30Days = Array.from({ length: 30 }).map((_, i) => {
+      const d = subDays(new Date(), i);
+      return format(d, 'MMM dd');
+    }).reverse();
+
+    const timeMap = leads.reduce((acc: any, lead) => {
+      const day = format(parseISO(lead.created_at), 'MMM dd');
+      acc[day] = (acc[day] || 0) + 1;
+      return acc;
+    }, {});
+
+    const timeData = last30Days.map(day => ({
+      name: day,
+      count: timeMap[day] || 0
+    }));
+
+    // 2. Tool Distribution
+    const toolMap = leads.reduce((acc: any, lead) => {
+      const tool = lead.tool_used.replace(/_/g, ' ').replace(/\bv2\b/g, '').trim();
+      acc[tool] = (acc[tool] || 0) + 1;
+      return acc;
+    }, {});
+
+    const toolData = Object.entries(toolMap).map(([name, value]) => ({ name, value }));
+
+    // 3. Score Distribution
+    const scores = { Low: 0, Medium: 0, High: 0 };
+    leads.forEach(lead => {
+      const score = calculateLeadScore(lead);
+      if (score >= 50) scores.High++;
+      else if (score >= 30) scores.Medium++;
+      else scores.Low++;
+    });
+
+    const scoreData = [
+      { name: 'Low', count: scores.Low },
+      { name: 'Medium', count: scores.Medium },
+      { name: 'High', count: scores.High }
+    ];
+
+    return { timeData, toolData, scoreData };
+  }, [leads]);
 
   const handleSendCampaign = async (campaignData: any) => {
     const { data, error } = await supabase.functions.invoke('bulk-email', {

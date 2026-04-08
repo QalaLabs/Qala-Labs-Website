@@ -42,6 +42,9 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
         <img 
           src={project.image} 
           alt={project.title}
+          width={400}
+          height={500}
+          loading="lazy"
           className={`w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
         <video
@@ -50,6 +53,8 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           loop
           playsInline
           preload="none"
+          width="400"
+          height="500"
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
         >
           <source src={project.video} type="video/mp4" />

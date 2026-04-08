@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js",
-    "import-xml": "tsx scripts/import_asenkai_xml.ts"
+    "import-xml": "tsx scripts/import_asenkai_xml.ts",
+    "postinstall": "chmod +x node_modules/.bin/esbuild || true"
   },
   "dependencies": {
     "@capacitor/android": "7.4.4",
@@ -87,6 +88,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.25.0",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
