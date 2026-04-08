@@ -29,6 +29,7 @@ import LeadFilters from '@/components/admin/LeadFilters';
 import LeadTable from '@/components/admin/LeadTable';
 import LeadDetailModal from '@/components/admin/LeadDetailModal';
 import CampaignModal from '@/components/admin/CampaignModal';
+import LeadPipeline from '@/components/admin/LeadPipeline';
 import { calculateLeadScore, getLeadInterest, exportLeadsToCSV } from '@/utils/admin';
 
 // New Chart Components
@@ -146,6 +147,11 @@ const Admin = () => {
         </header>
 
         <AdminStats stats={stats} />
+
+        <div className="mb-10">
+          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Lead Pipeline</h3>
+          <LeadPipeline leads={leads} />
+        </div>
 
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">

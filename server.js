@@ -19,14 +19,14 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY || ''
 );
 
-// Create SMTP transporter using Hostinger credentials
+// Create SMTP transporter using environment variables
 const transporter = nodemailer.createTransport({
-  host: 'smtp.hostinger.com',
-  port: 465,
+  host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+  port: parseInt(process.env.SMTP_PORT || '465'),
   secure: true,
   auth: {
-    user: 'hello@qalalabs.com',
-    pass: 'Qala_labs124'
+    user: process.env.SMTP_USER || 'hello@qalalabs.com',
+    pass: process.env.SMTP_PASS || 'Qala_labs124'
   }
 });
 
@@ -58,14 +58,14 @@ app.post('/api/lead', async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: '"Qala Labs" <hello@qalalabs.com>',
+      from: `"Qala Labs" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
       to: email,
       subject: activeTemplate.subject,
       text: personalizedBody
     });
 
     await transporter.sendMail({
-      from: '"Qala Labs Lead Engine" <hello@qalalabs.com>',
+      from: `"Qala Labs Lead Engine" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
       to: 'hello@qalalabs.com, qalakaar.qalalabs@gmail.com',
       subject: `[NEW LEAD] ${tool_used} - ${email}`,
       text: `New lead captured.\n\nEmail: ${email}\nTool: ${tool_used}\n\nData:\n${JSON.stringify(data, null, 2)}`
@@ -82,7 +82,7 @@ app.post('/api/test-smtp', async (req, res) => {
   const { to } = req.body;
   try {
     await transporter.sendMail({
-      from: '"Qala Labs Test" <hello@qalalabs.com>',
+      from: `"Qala Labs Test" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
       to: to || 'hello@qalalabs.com',
       subject: "SMTP Connection Verified",
       text: "Hostinger SMTP is working."
