@@ -11,7 +11,7 @@ const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe', '#dbeafe'
 
 const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
   const chartData = useMemo(() => {
-    const counts = leads.reduce((acc: Record<string, number>, lead) => {
+    const counts = leads.reduce<Record<string, number>>((acc, lead) => {
       const tool = lead.tool_used.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
       acc[tool] = (acc[tool] || 0) + 1;
       return acc;
@@ -19,7 +19,7 @@ const ToolDistributionChart = ({ leads }: ToolDistributionChartProps) => {
     
     return Object.entries(counts)
       .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value)
+      .sort((a, b) => (b.value as number) - (a.value as number))
       .slice(0, 6);
   }, [leads]);
 
