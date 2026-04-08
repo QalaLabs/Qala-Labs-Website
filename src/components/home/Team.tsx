@@ -30,6 +30,13 @@ const defaultMembers = [
     linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
   },
   {
+    name: "Aayush Singh",
+    role: "Performance Marketing",
+    desc: "Specializes in high-scale Meta and Google ad operations with a focus on ROI and attribution.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+    linkedin: "#"
+  },
+  {
     name: "Dipika",
     role: "Ecommerce Scaling",
     desc: "Listing optimization, retention engineering, and lifecycle flows.",
@@ -62,7 +69,7 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.3em] mb-4">The Team</h2>
           <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{title}</h3>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {displayMembers.map((member, i) => (
             <motion.div
               key={i}
