@@ -10,27 +10,36 @@ import {
   MessageSquare, Send, Phone, Trash2, RefreshCcw,
   Loader2, FilterX, Star, Zap, ShieldAlert, Download,
   Calendar, History, StickyNote, Briefcase, UserCheck, Trophy,
-  Activity, Clock, PenTool
+  Activity, Clock, PenTool, BarChart3, PieChart as PieChartIcon
 } from 'lucide-react';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { format, isWithinInterval, startOfDay, endOfDay, parseISO, formatDistanceToNow } from 'date-fns';
+import { format, isWithinInterval, startOfDay, endOfDay, parseISO, subDays } from 'date-fns';
 import Logo from '@/components/layout/Logo';
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
-import LeadPipeline from '@/components/admin/LeadPipeline';
 import AdminStats from '@/components/admin/AdminStats';
 import LeadFilters from '@/components/admin/LeadFilters';
 import LeadTable from '@/components/admin/LeadTable';
 import LeadDetailModal from '@/components/admin/LeadDetailModal';
 import CampaignModal from '@/components/admin/CampaignModal';
+import LeadPipeline from '@/components/admin/LeadPipeline';
 import { calculateLeadScore, getLeadInterest, exportLeadsToCSV } from '@/utils/admin';
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, BarChart, Bar 
+} from 'recharts';
+
+// New Chart Components
+import LeadsOverTimeChart from '@/components/admin/LeadsOverTimeChart';
+import ToolDistributionChart from '@/components/admin/ToolDistributionChart';
+import ScoreDistributionChart from '@/components/admin/ScoreDistributionChart';
 
 const services = [
   "Performance Marketing", 
@@ -76,6 +85,53 @@ const Admin = () => {
   }, []);
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
+
+  const analyticsData = React.useMemo(() => {
+    if (!leads.length) return { timeData: [], toolData: [], scoreData: [] };
+
+    // 1. Leads over time (Last 30 days)
+    const last30Days = Array.from({ length: 30 }).map((_, i) => {
+      const d = subDays(new Date(), i);
+      return format(d, 'MMM dd');
+    }).reverse();
+
+    const timeMap = leads.reduce((acc: any, lead) => {
+      const day = format(parseISO(lead.created_at), 'MMM dd');
+      acc[day] = (acc[day] || 0) + 1;
+      return acc;
+    }, {});
+
+    const timeData = last30Days.map(day => ({
+      name: day,
+      count: timeMap[day] || 0
+    }));
+
+    // 2. Tool Distribution
+    const toolMap = leads.reduce((acc: any, lead) => {
+      const tool = lead.tool_used.replace(/_/g, ' ').replace(/\bv2\b/g, '').trim();
+      acc[tool] = (acc[tool] || 0) + 1;
+      return acc;
+    }, {});
+
+    const toolData = Object.entries(toolMap).map(([name, value]) => ({ name, value }));
+
+    // 3. Score Distribution
+    const scores = { Low: 0, Medium: 0, High: 0 };
+    leads.forEach(lead => {
+      const score = calculateLeadScore(lead);
+      if (score >= 50) scores.High++;
+      else if (score >= 30) scores.Medium++;
+      else scores.Low++;
+    });
+
+    const scoreData = [
+      { name: 'Low', count: scores.Low },
+      { name: 'Medium', count: scores.Medium },
+      { name: 'High', count: scores.High }
+    ];
+
+    return { timeData, toolData, scoreData };
+  }, [leads]);
 
   const handleSendCampaign = async (campaignData: any) => {
     const { data, error } = await supabase.functions.invoke('bulk-email', {
@@ -143,34 +199,48 @@ const Admin = () => {
 
         <AdminStats stats={stats} />
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-10">
-          <div className="lg:col-span-2">
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Conversion Pipeline</h3>
-            <LeadPipeline leads={leads} />
+        <div className="mb-10">
+          <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6">Lead Pipeline</h3>
+          <LeadPipeline leads={leads} />
+        </div>
+
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-6">
+            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">Analytics Intelligence</h3>
+            <Badge className="bg-blue-100 text-blue-700 border-none font-black text-[9px] uppercase tracking-widest">Last 30 days</Badge>
           </div>
-          <div>
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
-              <Activity className="w-3 h-3 text-blue-600" /> Live Activity
-            </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
-              <CardContent className="p-6">
-                <div className="space-y-6">
-                  {leads.slice(0, 5).map((lead, i) => (
-                    <div key={lead.id} className="flex gap-4 items-start">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-                        <Clock className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-900">
-                          New lead from <span className="text-blue-600">{lead.data?.name || 'Anonymous'}</span>
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-1">
-                          {formatDistanceToNow(new Date(lead.created_at))} ago via {lead.tool_used.replace('_', ' ')}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-blue-600" /> Lead Volume
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <LeadsOverTimeChart leads={leads} />
+              </CardContent>
+            </Card>
+
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <PieChartIcon className="w-4 h-4 text-blue-600" /> Source Distribution
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ToolDistributionChart leads={leads} />
+              </CardContent>
+            </Card>
+
+            <Card className="border-none shadow-sm bg-white rounded-[2rem] overflow-hidden">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-blue-600" /> Lead Quality (Scores)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScoreDistributionChart leads={leads} />
               </CardContent>
             </Card>
           </div>

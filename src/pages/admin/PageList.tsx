@@ -13,6 +13,7 @@ import { useAuth } from '@/context/AuthContext';
 
 // Import images for the default import
 import AashirwadImg from '@/assets/Aashirwad.png';
+import AayushImg from '@/assets/Aayush.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 import ManpreetImg from '@/assets/Manpreet.png';
@@ -105,6 +106,7 @@ const PageList = () => {
               title: "The Team",
               members: [
                 { name: "Aashirwad Bhansali", role: "Growth & Performance Strategy", desc: "Data-first paid media, experiment design, and scaling playbooks.", image: AashirwadImg, linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/" },
+                { name: "Aayush Singh", role: "AI and Tech Lead", desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.", image: AayushImg, linkedin: "https://www.linkedin.com/in/captn1107/" },
                 { name: "Dipika", role: "Ecommerce Scaling", desc: "Listing optimization, retention engineering, and lifecycle flows.", image: DipikaImg, linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/" },
                 { name: "Aryaman", role: "Social Media and Talent Management", desc: "Creator programs, UGC production, and cross-platform distribution.", image: AryamanImg, linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/" },
                 { name: "Manpreet Singh", role: "Visualiser", desc: "Visual storytelling, brand aesthetics, and high-impact design.", image: ManpreetImg, linkedin: "https://www.linkedin.com/in/manpreet-singh-020549237" }
@@ -129,6 +131,7 @@ const PageList = () => {
               title: "The Team",
               members: [
                 { name: "Aashirwad Bhansali", role: "Growth & Performance Strategy", desc: "Data-first paid media, experiment design, and scaling playbooks.", image: AashirwadImg, linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/" },
+                { name: "Aayush Singh", role: "AI and Tech Lead", desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.", image: AayushImg, linkedin: "https://www.linkedin.com/in/captn1107/" },
                 { name: "Dipika", role: "Ecommerce Scaling", desc: "Listing optimization, retention engineering, and lifecycle flows.", image: DipikaImg, linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/" },
                 { name: "Aryaman", role: "Social Media and Talent Management", desc: "Creator programs, UGC production, and cross-platform distribution.", image: AryamanImg, linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/" },
                 { name: "Manpreet Singh", role: "Visualiser", desc: "Visual storytelling, brand aesthetics, and high-impact design.", image: ManpreetImg, linkedin: "https://www.linkedin.com/in/manpreet-singh-020549237" }

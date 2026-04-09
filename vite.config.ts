@@ -22,12 +22,29 @@ export default defineConfig(() => ({
     },
   },
   build: {
+    cssCodeSplit: true,
+    sourcemap: false,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-motion': ['framer-motion', 'gsap'],
+          'vendor-core': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-utils': ['framer-motion', 'gsap', 'date-fns', 'clsx', 'tailwind-merge'],
+          'vendor-ui': [
+            '@radix-ui/react-dialog', 
+            '@radix-ui/react-dropdown-menu', 
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-tooltip'
+          ],
           'vendor-charts': ['recharts'],
-          'vendor-lottie': ['lottie-react'],
+          'vendor-supabase': ['@supabase/supabase-js'],
         }
       }
     }

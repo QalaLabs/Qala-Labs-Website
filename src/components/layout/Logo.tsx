@@ -16,6 +16,8 @@ const Logo = ({ className, iconOnly = false, variant = 'default' }: LogoProps) =
       <img 
         src={QalaLogo} 
         alt="Qala Labs" 
+        width={160}
+        height={40}
         className={cn(
           "h-10 w-auto transition-all duration-300",
           variant === 'white' && "invert brightness-0 invert-[1]",

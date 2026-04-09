@@ -51,6 +51,7 @@ const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfol
 const PickleballPortfolio = React.lazy(() => import("./pages/PickleballPortfolio"));
 const IPLMerchPortfolio = React.lazy(() => import("./pages/IPLMerchPortfolio"));
 const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
+const WWFIndiaPortfolio = React.lazy(() => import("./pages/WWFIndiaPortfolio"));
 
 // Admin Sub-pages
 const PageList = React.lazy(() => import("./pages/admin/PageList"));
@@ -103,6 +104,7 @@ const App = () => (
               <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
               <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
               <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
+              <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
               

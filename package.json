@@ -9,7 +9,12 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node server.js"
+    "start": "node server.js",
+    "import-xml": "tsx scripts/import_asenkai_xml.ts",
+    "postinstall": "find node_modules -name esbuild -type f -exec chmod +x {} + || true"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@capacitor/android": "7.4.4",
@@ -54,6 +59,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
     "express": "^5.2.1",
+    "fast-xml-parser": "^4.5.3",
     "framer-motion": "^12.34.3",
     "gsap": "^3.14.2",
     "input-otp": "^1.2.4",
@@ -72,6 +78,7 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.19.3",
     "vaul": "^0.9.3",
     "zod": "^3.23.8"
   },
@@ -84,6 +91,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.25.0",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

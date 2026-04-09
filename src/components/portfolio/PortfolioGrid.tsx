@@ -18,6 +18,15 @@ const PortfolioGrid = () => {
   // Hardcoded featured projects to ensure they are always visible
   const featuredProjects = [
     {
+      id: 'wwf-india-featured',
+      title: "WWF India: AI Ad Creatives",
+      slug: "ai-ad-creatives-wwfindia",
+      category: "AI Creative",
+      result: "80% Lower Production Cost",
+      image: "dyad-media://media/flying-kraken-wag/.dyad/media/b6a576bf9964decedd3f805bcebaefbd.png",
+      isFeatured: true
+    },
+    {
       id: 'ipl-merch-featured',
       title: "playR: IPL Merchandise Partner",
       slug: "ipl-merchandise-partner-playr",

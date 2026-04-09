@@ -2,10 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot, ArrowRight } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { MessageSquare, Send, X, Sparkles, Loader2, User, Bot } from 'lucide-react';
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -44,33 +42,49 @@ const AIChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const GEMINI_API_KEY = 'AIzaSyD24qdHytX23Ok6rSsk1DrG5jiKQ9wvyyM';
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+      // Format history for Gemini (Gemini uses 'user' and 'model' roles)
+      const contents = messages.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }]
+      }));
+
+      // Add the new message
+      contents.push({
+        role: 'user',
+        parts: [{ text: messageToSend }]
+      });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'YOUR_ANTHROPIC_API_KEY',
-          'anthropic-version': '2023-06-01',
-          'dangerously-allow-browser': 'true'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 500,
-          system: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth.",
-          messages: [
-            ...messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) !== 0).map(m => ({
-              role: m.role,
-              content: m.content
-            })),
-            { role: 'user', content: messageToSend }
-          ]
+          contents: contents,
+          system_instruction: {
+            parts: [{ 
+              text: "You are the Qala Labs growth assistant. You help DTC and ecommerce brands understand how Qala Labs can scale their revenue. Keep responses concise and always suggest booking a free audit at /contact. You know about Qala Labs services: Performance Marketing, AI Automation, Creative Production, Web Development, eCommerce Growth." 
+            }]
+          },
+          generationConfig: {
+            maxOutputTokens: 500,
+            temperature: 0.7,
+          }
         })
       });
 
       const data = await response.json();
-      if (data.content && data.content[0]) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.content[0].text }]);
+      
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        setMessages(prev => [...prev, { 
+          role: 'assistant', 
+          content: data.candidates[0].content.parts[0].text 
+        }]);
       } else {
-        throw new Error('Invalid response from AI');
+        throw new Error('Invalid response from Gemini');
       }
     } catch (error) {
       console.error('Chat Error:', error);
@@ -127,7 +141,7 @@ const AIChatWidget = () => {
               </button>
             </div>
 
-            <ScrollArea className="flex-1 p-6" viewportRef={scrollRef}>
+            <div className="flex-1 p-6 overflow-y-auto" ref={scrollRef}>
               <div className="space-y-4">
                 {messages.map((msg, i) => (
                   <div key={i} className={cn(
@@ -161,7 +175,7 @@ const AIChatWidget = () => {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
 
             <div className="p-6 border-t border-slate-100 bg-slate-50/50 space-y-4">
               {messages.length === 1 && !isLoading && (

@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import AashirwadImg from '@/assets/Aashirwad.png';
+import AayushImg from '@/assets/Aayush.png';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 import ManpreetImg from '@/assets/Manpreet.png';
@@ -28,6 +29,13 @@ const defaultMembers = [
     desc: "Data-first paid media, experiment design, and scaling playbooks for 8-figure DTC brands.",
     image: AashirwadImg,
     linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
+  },
+  {
+    name: "Aayush Singh",
+    role: "AI and Tech Lead",
+    desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.",
+    image: AayushImg,
+    linkedin: "https://www.linkedin.com/in/captn1107/"
   },
   {
     name: "Dipika",
@@ -62,7 +70,7 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.3em] mb-4">The Team</h2>
           <h3 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">{title}</h3>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {displayMembers.map((member, i) => (
             <motion.div
               key={i}
