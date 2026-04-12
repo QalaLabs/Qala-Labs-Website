@@ -155,7 +155,7 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
             );
 
           case 'team_grid':
-            return <Team key={block.id} {...block.props} />;
+            return <Team key={block.id} title={block.props?.title} />;
           
           case 'tech_stack_ribbon':
             return <TechStackRibbon key={block.id} />;
