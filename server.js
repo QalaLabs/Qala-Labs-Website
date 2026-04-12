@@ -2,6 +2,7 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -10,8 +11,33 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 
-// Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static assets (JS, CSS, images) — index:false so SSR catch-all handles HTML requests
+app.use(express.static(path.join(__dirname, 'dist'), { index: false }));
+
+// Read the HTML template once at startup
+const templatePath = path.join(__dirname, 'dist', 'index.html');
+let template = '';
+try {
+  template = fs.readFileSync(templatePath, 'utf-8');
+} catch {
+  console.warn('[SSR] dist/index.html not found — run npm run build first');
+}
+
+// Lazily load the SSR renderer (only present after `npm run build`)
+let ssrRender = null;
+async function getSSRRenderer() {
+  if (ssrRender) return ssrRender;
+  const ssrPath = path.join(__dirname, 'dist', 'server', 'entry-server.js');
+  if (!fs.existsSync(ssrPath)) return null;
+  try {
+    const mod = await import(ssrPath);
+    ssrRender = mod.render;
+    console.log('[SSR] Renderer loaded');
+  } catch (err) {
+    console.error('[SSR] Failed to load renderer:', err.message);
+  }
+  return ssrRender;
+}
 
 // Initialize Supabase
 const supabase = createClient(
@@ -93,10 +119,55 @@ app.post('/api/test-smtp', async (req, res) => {
   }
 });
 
-// Catch-all to serve React App
-app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// SSR catch-all — serves all non-API, non-admin GET requests with server-rendered HTML
+app.get('*', async (req, res) => {
+  if (req.path.startsWith('/api')) return;
+
+  if (!template) {
+    return res.status(503).send('App not built yet. Run: npm run build');
+  }
+
+  // Serve admin routes as plain SPA shell — no SSR needed, they are protected
+  if (req.path.startsWith('/admin') || req.path.startsWith('/login') || req.path.startsWith('/dashboard') || req.path.startsWith('/onboarding')) {
+    return res.status(200).set('Content-Type', 'text/html').send(template);
+  }
+
+  const render = await getSSRRenderer();
+  if (!render) {
+    // SSR bundle not built — fall back to SPA shell
+    return res.status(200).set('Content-Type', 'text/html').send(template);
+  }
+
+  try {
+    const { html, helmet } = await render(req.originalUrl);
+
+    const helmetTitle    = helmet?.title?.toString()  ?? '';
+    const helmetMeta     = helmet?.meta?.toString()   ?? '';
+    const helmetLink     = helmet?.link?.toString()   ?? '';
+    const helmetScript   = helmet?.script?.toString() ?? '';
+    const headInjection  = [helmetMeta, helmetLink, helmetScript].filter(Boolean).join('\n');
+
+    let page = template;
+
+    // Replace fallback <title> with the per-page title from Helmet
+    if (helmetTitle) {
+      page = page.replace(/<title>[^<]*<\/title>/, helmetTitle);
+    }
+
+    // Inject Helmet meta/link/script tags (canonical, OG, description, JSON-LD)
+    page = page.replace('<!--app-head-->', headInjection);
+
+    // Inject the server-rendered component HTML into the root div
+    page = page.replace('<!--app-html-->', html);
+
+    return res.status(200).set('Content-Type', 'text/html').send(page);
+  } catch (err) {
+    console.error('[SSR] Render error for', req.originalUrl, err);
+    // Graceful fallback — client will render everything
+    const fallback = template
+      .replace('<!--app-head-->', '')
+      .replace('<!--app-html-->', '');
+    return res.status(200).set('Content-Type', 'text/html').send(fallback);
   }
 });
 

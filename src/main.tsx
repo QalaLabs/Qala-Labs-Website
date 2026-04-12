@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "next-themes";
@@ -8,8 +8,7 @@ import "./globals.css";
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Failed to find the root element");
 
-const root = createRoot(rootElement);
-root.render(
+const appTree = (
   <React.StrictMode>
     <ThemeProvider attribute="class" defaultTheme="light">
       <AuthProvider>
@@ -18,3 +17,11 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
+// If the server pre-rendered HTML into the root, hydrate to attach React to it.
+// Otherwise (dev mode or SSR fallback), do a fresh client render.
+if (rootElement.firstElementChild !== null) {
+  hydrateRoot(rootElement, appTree);
+} else {
+  createRoot(rootElement).render(appTree);
+}
