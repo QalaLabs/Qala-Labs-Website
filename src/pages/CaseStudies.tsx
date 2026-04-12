@@ -87,9 +87,9 @@ const CaseStudies = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title="Proven Results | Qala Labs" 
-        description="Real data from real brands. See how we use our scale engines to dominate markets." 
+      <SEO
+        title="DTC Ecommerce Case Studies India | Proven Revenue Growth | Qala Labs"
+        description="Real results from real DTC brands — 28x ROAS, 11.2x Amazon ROAS, 5M+ viral reach. See how Qala Labs builds scale engines for ecommerce brands in India."
       />
       <Navbar />
       

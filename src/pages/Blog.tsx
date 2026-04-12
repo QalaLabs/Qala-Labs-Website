@@ -51,7 +51,10 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO title="Insights & Strategy" description="Expert takes on e-commerce scaling, performance marketing, and digital transformation." />
+      <SEO
+        title="DTC Growth Insights & Performance Marketing Strategy | Qala Labs"
+        description="Expert playbooks on scaling DTC brands in India — CAC reduction, ROAS improvement, Meta Ads, AI automation, and ecommerce growth strategy."
+      />
       <Navbar />
       
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">

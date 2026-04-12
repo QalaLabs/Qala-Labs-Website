@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SEO from '@/components/layout/SEO';
 import { Check, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
@@ -56,8 +57,12 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO
+        title="Performance Marketing Agency Pricing India | Qala Labs"
+        description="Transparent, performance-based pricing for DTC brands in India. From ₹1.5L/month growth packages to full-scale market domination. No hidden fees."
+      />
       <Navbar />
-      
+
       <main className="pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-20">

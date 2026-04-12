@@ -43,9 +43,9 @@ const CSKInfluencerPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-yellow-100">
-      <SEO 
-        title="CSK Influencer Campaign: Real Fans, Real Roar | Qala Labs" 
-        description="How we turned the CSK jersey drop into a viral Instagram movement using real fan passion."
+      <SEO
+        title="Influencer Marketing Case Study — CSK IPL Campaign 5M+ Reach | Qala Labs"
+        description="How Qala Labs drove 5M+ reach and 12% engagement for the CSK jersey drop using real-fan UGC and influencer marketing — without a single paid placement."
       />
       <Navbar />
       

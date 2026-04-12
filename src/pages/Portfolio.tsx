@@ -1,12 +1,17 @@
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SEO from '@/components/layout/SEO';
 import PortfolioGrid from '@/components/portfolio/PortfolioGrid';
 import { motion } from 'framer-motion';
 
 const Portfolio = () => {
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO
+        title="Creative Portfolio | UGC, Influencer & Ecommerce Marketing Work | Qala Labs"
+        description="Browse Qala Labs' portfolio — Amazon Ads, CSK influencer campaigns, UGC content, AI ad creatives, merchandise design, and real estate platforms for DTC brands."
+      />
       <Navbar />
       
       <main className="pt-32 pb-24">

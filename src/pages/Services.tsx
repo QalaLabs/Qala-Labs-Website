@@ -1,12 +1,17 @@
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SEO from '@/components/layout/SEO';
 import ServicesGrid from '@/components/services/ServicesGrid';
 import { motion } from 'framer-motion';
 
 const Services = () => {
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEO
+        title="Performance Marketing & AI Automation Services | Qala Labs"
+        description="Meta Ads, Google Shopping, Amazon Ads, AI automation, creative production & server-side tracking — full-stack growth services for DTC brands in India."
+      />
       <Navbar />
       
       <main className="pt-32 pb-24">

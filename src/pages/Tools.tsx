@@ -14,7 +14,10 @@ import { Calculator, Target, TrendingUp, ShoppingCart } from 'lucide-react';
 const Tools = () => {
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO title="Growth Tools" description="Free calculators and estimators to help you plan your 8-figure scale." />
+      <SEO
+        title="Free DTC Growth Tools & ROAS Calculators | Qala Labs"
+        description="Free calculators for DTC brands in India — ROAS estimator, CAC calculator, LTV:CAC ratio tool, and ad spend planner. Plan your path to 8-figure revenue."
+      />
       <Navbar />
       
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">

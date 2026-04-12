@@ -97,7 +97,10 @@ const Career = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO title="Careers | Join the Scale Engine" description="Join Qala Labs and help us build 8-figure revenue engines." />
+      <SEO
+        title="Careers at Qala Labs | Join a DTC Performance Marketing Agency India"
+        description="Work on 8-figure DTC brands — Meta Ads, AI automation, UGC, ecommerce. Join Qala Labs and build the next generation of revenue growth engines."
+      />
       <Navbar />
       
       <main className="pt-40 pb-24 px-4">

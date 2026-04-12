@@ -31,9 +31,9 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title="About Qala Labs — Performance Marketing, AI Automation & Ecommerce Growth"
-        description="Qala Labs pairs rigorous research with hands-on execution to help DTC & ecommerce brands lower CAC, lift LTV and scale profitably. Book a 15-min growth audit."
+      <SEO
+        title="About Qala Labs | Performance Marketing Agency for DTC Brands India"
+        description="We're a performance marketing & AI automation agency for DTC brands in India. Rigorous research, hands-on execution, and measurable revenue growth. Book a free 15-min audit."
       />
       <Navbar />
       

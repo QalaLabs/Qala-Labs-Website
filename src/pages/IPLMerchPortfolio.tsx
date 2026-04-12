@@ -40,9 +40,9 @@ const IPLMerchPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="playR: IPL 2024-25 Merchandise Partner | Qala Labs" 
-        description="Full merchandising ecosystem for the IPL season — from packaging and hangtags to stadium assets and matchday banners."
+      <SEO
+        title="IPL Merchandise Design & Branding — playR 2024-25 | Qala Labs"
+        description="Qala Labs built the full IPL merchandise ecosystem for playR — packaging, hangtags, stadium assets, and matchday banners for the 2024-25 season."
       />
       <Navbar />
       

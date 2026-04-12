@@ -40,9 +40,9 @@ const InstagramUGCPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Instagram UGC: Style Meets Real Life | Qala Labs" 
-        description="How we used creator-led content to drive relatability and conversions for playR."
+      <SEO
+        title="UGC Content Agency India — Instagram Creator Campaign | Qala Labs"
+        description="How Qala Labs produced creator-led UGC content for playR to drive product relatability and ecommerce conversions on Instagram — authentic, scroll-stopping, performance-tested."
       />
       <Navbar />
       

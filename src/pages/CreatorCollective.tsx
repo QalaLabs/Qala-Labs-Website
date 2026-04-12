@@ -140,7 +140,10 @@ const CreatorCollective = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO title="Creator Collective | Join the Qala Creator Network" description="Influencers and creators: join our collective and work with the world's fastest-growing DTC brands." />
+      <SEO
+        title="Creator Collective | UGC & Influencer Marketing for DTC Brands India | Qala Labs"
+        description="Creators and influencers: join Qala Labs' Creator Collective to make UGC content for India's fastest-growing DTC ecommerce brands. Paid collabs, performance data, creative freedom."
+      />
       <Navbar />
       
       <main className="pt-40 pb-24">

@@ -62,9 +62,9 @@ const BNPLStrategy = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Why BNPL is a Core D2C Strategy in India | Qala Labs" 
-        description="Discover how Buy Now Pay Later (BNPL) transforms conversion, AOV, and operational health for Indian D2C brands by solving COD and RTO problems."
+      <SEO
+        title="Why BNPL Should Be Every D2C Brand's Core Payment Strategy in India | Qala Labs"
+        description="BNPL cuts RTO, lifts AOV, and eliminates COD friction for D2C brands in India. A data-backed playbook for implementing Buy Now Pay Later to scale conversions and reduce reverse logistics."
         image={BNPLFeatured}
         article={true}
         jsonLd={articleJsonLd}

@@ -50,9 +50,9 @@ const KashmiriMusicCaseStudy = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Kashmiri Music Movement Case Study | Mystic Studio 8" 
-        description="How we launched Kashmir's first digital-first music label and generated 3.4M+ views with zero ad spend."
+      <SEO
+        title="3.4M Views with Zero Ad Spend — Organic Growth Case Study | Qala Labs"
+        description="How Qala Labs launched Mystic Studio 8, Kashmir's first digital-first music label, reaching 3.4M+ views through creator-led content and zero paid media spend."
       />
       <Navbar />
       

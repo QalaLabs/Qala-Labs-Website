@@ -79,7 +79,10 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO title="Book Your Free Audit" description="Get a detailed performance audit and growth strategy for your brand." />
+      <SEO
+        title="Book a Free Growth Audit | DTC Performance Marketing Agency India"
+        description="Get a free 15-minute performance audit and 90-day revenue growth plan for your DTC brand. Meta Ads, Google Shopping, Amazon, AI automation — we cover it all."
+      />
       <Navbar />
       
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">

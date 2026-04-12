@@ -41,9 +41,9 @@ const PickleballPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-yellow-100">
-      <SEO 
-        title="World Pickleball League: Apparel & Merchandise | Qala Labs" 
-        description="Complete visual system and merchandise line for the World Pickleball League, featuring team kits for Bengaluru Jawans and Chennai Super Champs."
+      <SEO
+        title="Sports Merchandise Design — World Pickleball League Kits | Qala Labs"
+        description="Qala Labs designed the complete visual identity and team merchandise for the World Pickleball League — kits, branding, and apparel for Bengaluru Jawans and Chennai Super Champs."
       />
       <Navbar />
       

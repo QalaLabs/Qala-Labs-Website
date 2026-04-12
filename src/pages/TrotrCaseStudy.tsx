@@ -32,9 +32,9 @@ const TrotrCaseStudy = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Trotr Meta Lead Generation Case Study | Founder-Led Marketing" 
-        description="How we generated ₹14L in revenue with a 28x ROAS using founder-led storytelling and a high-ticket conversion funnel."
+      <SEO
+        title="28x ROAS Meta Ads Case Study — Trotr Lead Generation India | Qala Labs"
+        description="How Qala Labs generated ₹14L revenue for Trotr with 28x ROAS using founder-led Meta Ads storytelling and a high-ticket DTC conversion funnel."
       />
       <Navbar />
       

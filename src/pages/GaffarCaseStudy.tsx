@@ -40,9 +40,9 @@ const GaffarCaseStudy = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Gaffar India Rebranding Case Study | Qala Labs" 
-        description="From Market Stall to Marketplace: How we rebranded Gaffar India for scale and digital trust."
+      <SEO
+        title="Ecommerce Rebranding Case Study — Gaffar India | Qala Labs"
+        description="How Qala Labs rebranded Gaffar India from a market stall to a trusted ecommerce marketplace — new visual identity, digital-first positioning, and scalable brand architecture."
       />
       <Navbar />
       

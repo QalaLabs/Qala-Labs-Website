@@ -49,9 +49,9 @@ const WWFIndiaPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-green-100">
-      <SEO 
-        title="WWF India: AI-Powered Ad Creatives | Qala Labs" 
-        description="How we leveraged advanced AI image generation to create high-impact, low-cost awareness campaigns for WWF India."
+      <SEO
+        title="AI Ad Creatives for NGO — WWF India Awareness Campaign | Qala Labs"
+        description="How Qala Labs used AI image generation to produce high-impact, low-cost awareness campaign creatives for WWF India — scaling visual output without scaling the budget."
       />
       <Navbar />
       

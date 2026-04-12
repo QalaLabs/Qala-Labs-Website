@@ -32,9 +32,9 @@ const AmazonAdsPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Amazon Ads: Performance Scaling for Apparel Brand | Qala Labs" 
-        description="How we scaled Amazon Ads profitably for an apparel brand, achieving 11.2x ROAS."
+      <SEO
+        title="Amazon Ads Agency India — 11.2x ROAS Apparel Case Study | Qala Labs"
+        description="How Qala Labs scaled Amazon Sponsored Ads for an Indian apparel brand to 11.2x ROAS and ₹2.7L+ monthly sales using campaign segmentation and search term mining."
       />
       <Navbar />
       

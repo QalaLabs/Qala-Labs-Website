@@ -10,9 +10,9 @@ import { motion } from 'framer-motion';
 const QuizPage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEO 
-        title="Scale Potential Quiz | Qala Labs" 
-        description="Find out if your DTC brand is ready to scale to 8-figures. Get a personalized roadmap in 2 minutes."
+      <SEO
+        title="Is Your DTC Brand Ready to Scale? Free Quiz | Qala Labs"
+        description="Take our 2-minute DTC scale-readiness quiz and get a personalised 90-day growth roadmap. Find out what's holding back your ROAS, CAC, and revenue growth."
       />
       <Navbar />
 

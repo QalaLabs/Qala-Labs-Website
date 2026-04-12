@@ -34,9 +34,9 @@ const CapitalKeysPortfolio = () => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
-      <SEO 
-        title="Capital Keys: Luxury Real Estate Platform | Qala Labs" 
-        description="Complete website development for Capital Keys, featuring property listings, lead dashboards, and admin panels."
+      <SEO
+        title="Luxury Real Estate Website Development — Capital Keys | Qala Labs"
+        description="How Qala Labs built Capital Keys' full-stack real estate platform — property listings, lead capture dashboards, CRM integration, and a custom admin panel."
       />
       <Navbar />
       

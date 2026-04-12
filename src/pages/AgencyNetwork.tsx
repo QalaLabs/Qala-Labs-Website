@@ -13,9 +13,9 @@ import ClosingCTA from '../components/home/ClosingCTA';
 const AgencyNetwork = () => {
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title="Agency Network | Collaborate with Qala Labs" 
-        description="Freelancers, consultants, and experts: join our network and collaborate on 8-figure projects for global DTC brands." 
+      <SEO
+        title="Agency Partner Network | Collaborate with a DTC Growth Agency India | Qala Labs"
+        description="Freelancers, performance marketers, and growth consultants: join Qala Labs' partner network and collaborate on high-impact DTC ecommerce projects."
       />
       <Navbar />
       
