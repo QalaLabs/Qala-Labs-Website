@@ -59,6 +59,11 @@ const BlogDetail = () => {
         image={post.image_url}
         article={true}
         jsonLd={JSON.parse(generateBlogSchema(post))}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: post.title, url: `/blog/${post.slug}` }
+        ]}
       />
       <Navbar />
       

@@ -35,6 +35,12 @@ const AmazonAdsPortfolio = () => {
       <SEO
         title="Amazon Ads Agency India — 11.2x ROAS Apparel Case Study | Qala Labs"
         description="How Qala Labs scaled Amazon Sponsored Ads for an Indian apparel brand to 11.2x ROAS and ₹2.7L+ monthly sales using campaign segmentation and search term mining."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'Amazon Ads — 11.2x ROAS', url: '/portfolio/Amazon-ads' }
+        ]}
       />
       <Navbar />
       
@@ -98,7 +104,7 @@ const AmazonAdsPortfolio = () => {
               >
                 <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
                   {/* Replace the src with your actual screenshot URL */}
-                  <img src="/src/assets/amazon-ads-1.jpeg" alt="Dashboard Screenshot 1" className="w-full h-full object-cover" />
+                  <img loading="lazy" src="/src/assets/amazon-ads-1.jpeg" alt="Dashboard Screenshot 1" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <p className="text-sm font-bold text-slate-900">Campaign Performance Overview</p>
@@ -114,7 +120,7 @@ const AmazonAdsPortfolio = () => {
               >
                 <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
                   {/* Replace the src with your actual screenshot URL */}
-                  <img src="/src/assets/amazon-ads-2.jpeg" alt="Dashboard Screenshot 2" className="w-full h-full object-cover" />
+                  <img loading="lazy" src="/src/assets/amazon-ads-2.jpeg" alt="Dashboard Screenshot 2" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <p className="text-sm font-bold text-slate-900">Keyword Level ROAS Analysis</p>

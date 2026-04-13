@@ -43,6 +43,11 @@ const GaffarCaseStudy = () => {
       <SEO
         title="Ecommerce Rebranding Case Study — Gaffar India | Qala Labs"
         description="How Qala Labs rebranded Gaffar India from a market stall to a trusted ecommerce marketplace — new visual identity, digital-first positioning, and scalable brand architecture."
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Case Studies', url: '/case-studies' },
+          { name: 'Gaffar India Ecommerce Rebrand', url: '/case-studies/gaffar-india-rebrand' }
+        ]}
       />
       <Navbar />
       
@@ -88,7 +93,7 @@ const GaffarCaseStudy = () => {
               className="relative group"
             >
               <div className="aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-blue-100 bg-blue-50/30 flex items-center justify-center p-12">
-                <img src={NewLogo} alt="New Logo" className="max-h-full w-auto object-contain" />
+                <img loading="lazy" src={NewLogo} alt="New Logo" className="max-h-full w-auto object-contain" />
                 <div className="absolute top-6 left-6">
                   <Badge className="bg-blue-600 text-white">New Identity</Badge>
                 </div>
@@ -213,7 +218,7 @@ const GaffarCaseStudy = () => {
                 </div>
               </div>
               <div className="order-1 lg:order-2 rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-white p-12 flex items-center justify-center">
-                <img src={NewLogo} alt="Gaffar India Logo Detail" className="w-full h-auto max-w-xs" />
+                <img loading="lazy" src={NewLogo} alt="Gaffar India Logo Detail" className="w-full h-auto max-w-xs" />
               </div>
             </div>
           </section>

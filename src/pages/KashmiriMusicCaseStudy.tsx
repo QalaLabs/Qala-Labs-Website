@@ -54,6 +54,11 @@ const KashmiriMusicCaseStudy = () => {
       <SEO
         title="3.4M Views with Zero Ad Spend — Organic Growth Case Study | Qala Labs"
         description="How Qala Labs launched Mystic Studio 8, Kashmir's first digital-first music label, reaching 3.4M+ views through creator-led content and zero paid media spend."
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Case Studies', url: '/case-studies' },
+          { name: '3.4M Views — Kashmiri Music Organic Growth', url: '/case-studies/kashmiri-movement' }
+        ]}
       />
       <Navbar />
       
@@ -165,7 +170,7 @@ const KashmiriMusicCaseStudy = () => {
             {/* Block 2 */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-in-image-of-song-launch-in-srinagar.webp" className="w-full h-auto" alt="Song Launch Srinagar" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-in-image-of-song-launch-in-srinagar.webp" className="w-full h-auto" alt="Song Launch Srinagar" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">02</div>
@@ -200,14 +205,14 @@ const KashmiriMusicCaseStudy = () => {
                 </ul>
               </div>
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-of-kashmiri-community.webp" className="w-full h-auto" alt="Kashmiri Community" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-of-kashmiri-community.webp" className="w-full h-auto" alt="Kashmiri Community" />
               </div>
             </div>
 
             {/* Block 4 */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Firefly_Case-study-banner-for-a-Kashmiri-Musical-Movement-135464-1.webp" className="w-full h-auto" alt="Youth x Fusion" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Firefly_Case-study-banner-for-a-Kashmiri-Musical-Movement-135464-1.webp" className="w-full h-auto" alt="Youth x Fusion" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">04</div>
@@ -250,7 +255,7 @@ const KashmiriMusicCaseStudy = () => {
                 </div>
               </div>
               <div className="rounded-[3rem] overflow-hidden shadow-xl">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/create-a-1_1-image-for-learning.webp" className="w-full h-auto" alt="Learning Visual" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/create-a-1_1-image-for-learning.webp" className="w-full h-auto" alt="Learning Visual" />
               </div>
             </div>
           </section>

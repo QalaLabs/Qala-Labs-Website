@@ -13,6 +13,10 @@ const Services = () => {
       <SEO
         title="Performance Marketing & AI Automation Services | Qala Labs"
         description="Meta Ads, Google Shopping, Amazon Ads, AI automation, creative production & server-side tracking — full-stack growth services for DTC brands in India."
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' }
+        ]}
       />
       <Navbar />
       

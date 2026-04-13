@@ -127,8 +127,9 @@ app.get('*', async (req, res) => {
     return res.status(503).send('App not built yet. Run: npm run build');
   }
 
-  // Serve admin routes as plain SPA shell — no SSR needed, they are protected
+  // Serve admin routes as plain SPA shell — no SSR, tell crawlers not to index them
   if (req.path.startsWith('/admin') || req.path.startsWith('/login') || req.path.startsWith('/dashboard') || req.path.startsWith('/onboarding')) {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     return res.status(200).set('Content-Type', 'text/html').send(template);
   }
 

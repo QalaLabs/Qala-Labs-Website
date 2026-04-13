@@ -3,14 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface HeroProps {
   title?: string;
@@ -25,7 +19,7 @@ interface HeroProps {
   onUpdate?: (props: any) => void;
 }
 
-const Hero = ({ 
+const Hero = ({
   title = "Scale Your Brand to 8-Figures with Revenue Engineering.",
   subtitle = "We combine high-performance paid media with high-velocity creative to build predictable scale engines for DTC & B2B.",
   ctaText = "Get Proposal",
@@ -44,35 +38,44 @@ const Hero = ({
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion || isEditing) return;
-    
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      
-      tl.from(headlineRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2
-      })
-      .from(".hero-cta-container", {
-        y: 20,
-        opacity: 0,
-        duration: 0.8
-      }, "-=0.6");
 
-      gsap.to(bgLayerRef.current, {
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        },
-        y: 100,
-        ease: "none"
-      });
-    }, heroRef);
+    // Load GSAP dynamically so it doesn't block the initial page parse
+    let ctx: any;
+    Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-    return () => ctx.revert();
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+        tl.from(headlineRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2
+        })
+        .from(".hero-cta-container", {
+          y: 20,
+          opacity: 0,
+          duration: 0.8
+        }, "-=0.6");
+
+        gsap.to(bgLayerRef.current, {
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          },
+          y: 100,
+          ease: "none"
+        });
+      }, heroRef);
+    });
+
+    return () => ctx?.revert();
   }, [isEditing]);
 
   const handleBlur = (field: string, e: React.FocusEvent<HTMLElement>) => {
@@ -91,10 +94,10 @@ const Hero = ({
   ];
 
   return (
-    <section 
+    <section
       ref={heroRef}
       className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden transition-colors duration-500"
-      style={{ 
+      style={{
         backgroundColor: bgColor || undefined,
         animation: !bgColor ? 'gradientShift 8s ease infinite' : undefined
       }}
@@ -123,7 +126,7 @@ const Hero = ({
           key={i}
           className={`absolute w-4 h-4 rounded-full bg-blue-400/20 dark:bg-blue-500/10 blur-sm z-0 ${p.className}`}
           style={{ top: p.top, left: p.left }}
-          animate={{ 
+          animate={{
             y: [0, -20, 0],
             x: [0, 10, 0]
           }}
@@ -136,7 +139,7 @@ const Hero = ({
         />
       ))}
 
-      <div 
+      <div
         ref={bgLayerRef}
         className="absolute inset-0 z-0 pointer-events-none"
       >
@@ -147,7 +150,7 @@ const Hero = ({
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-4xl mx-auto text-center">
           {badgeText && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-200/50 dark:border-blue-800/50 max-w-full text-center"
@@ -160,7 +163,7 @@ const Hero = ({
             </motion.div>
           )}
 
-          <h1 
+          <h1
             ref={headlineRef}
             id="hero-heading"
             contentEditable={isEditing}
@@ -172,7 +175,7 @@ const Hero = ({
           </h1>
 
           {subtitle && (
-            <p 
+            <p
               contentEditable={isEditing}
               onBlur={(e) => handleBlur('subtitle', e)}
               suppressContentEditableWarning={true}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { siteConfig, getBaseJsonLd } from '@/lib/seo';
+import { siteConfig, getBaseJsonLd, generateBreadcrumbSchema } from '@/lib/seo';
 import { useLocation } from 'react-router-dom';
 
 interface SEOProps {
@@ -12,9 +12,10 @@ interface SEOProps {
   article?: boolean;
   noIndex?: boolean;
   jsonLd?: any;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const SEO = ({ title, description, image, article, noIndex, jsonLd }: SEOProps) => {
+const SEO = ({ title, description, image, article, noIndex, jsonLd, breadcrumbs }: SEOProps) => {
   const location = useLocation();
   const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
   const seoDescription = description || siteConfig.description;
@@ -66,6 +67,11 @@ const SEO = ({ title, description, image, article, noIndex, jsonLd }: SEOProps) 
       {jsonLd && (
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
+        </script>
+      )}
+      {breadcrumbs && breadcrumbs.length > 1 && (
+        <script type="application/ld+json">
+          {JSON.stringify(generateBreadcrumbSchema(breadcrumbs))}
         </script>
       )}
     </Helmet>

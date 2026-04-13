@@ -44,6 +44,12 @@ const PickleballPortfolio = () => {
       <SEO
         title="Sports Merchandise Design — World Pickleball League Kits | Qala Labs"
         description="Qala Labs designed the complete visual identity and team merchandise for the World Pickleball League — kits, branding, and apparel for Bengaluru Jawans and Chennai Super Champs."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'World Pickleball League Kits', url: '/portfolio/merchandise-design-apparel' }
+        ]}
       />
       <Navbar />
       
@@ -85,24 +91,24 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100"
             >
-              <img src={CSCBanner} alt="Chennai Super Champs Merchandise Banner" className="w-full h-auto" />
+              <img loading="lazy" src={CSCBanner} alt="Chennai Super Champs Merchandise Banner" className="w-full h-auto" />
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCBlackTee} alt="CSC Black Tee" className="w-full h-auto" />
+                <img loading="lazy" src={CSCBlackTee} alt="CSC Black Tee" className="w-full h-auto" />
               </div>
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCYellowTee} alt="CSC Yellow Tee" className="w-full h-auto" />
+                <img loading="lazy" src={CSCYellowTee} alt="CSC Yellow Tee" className="w-full h-auto" />
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCYellowPolo} alt="CSC Yellow Polo" className="w-full h-auto" />
+                <img loading="lazy" src={CSCYellowPolo} alt="CSC Yellow Polo" className="w-full h-auto" />
               </div>
               <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50">
-                <img src={CSCStaffCollection} alt="CSC Staff Collection" className="w-full h-auto" />
+                <img loading="lazy" src={CSCStaffCollection} alt="CSC Staff Collection" className="w-full h-auto" />
               </div>
             </div>
 
@@ -112,7 +118,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
             >
-              <img src={CSCCaps} alt="CSC Caps Collection" className="w-full h-auto" />
+              <img loading="lazy" src={CSCCaps} alt="CSC Caps Collection" className="w-full h-auto" />
             </motion.div>
 
             <motion.div 
@@ -121,7 +127,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
             >
-              <img src={CSCTeamKits} alt="CSC Team Kits" className="w-full h-auto" />
+              <img loading="lazy" src={CSCTeamKits} alt="CSC Team Kits" className="w-full h-auto" />
             </motion.div>
 
             <motion.div 
@@ -130,7 +136,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
             >
-              <img src={CSCTracksuit} alt="CSC Tracksuit" className="w-full h-auto" />
+              <img loading="lazy" src={CSCTracksuit} alt="CSC Tracksuit" className="w-full h-auto" />
             </motion.div>
           </section>
 
@@ -142,7 +148,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100"
             >
-              <img src={BJLogoLockup} alt="playR x Bengaluru Jawans" className="w-full h-auto" />
+              <img loading="lazy" src={BJLogoLockup} alt="playR x Bengaluru Jawans" className="w-full h-auto" />
             </motion.div>
 
             <motion.div 
@@ -151,7 +157,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
             >
-              <img src={BJCaps} alt="BJ Caps Collection" className="w-full h-auto" />
+              <img loading="lazy" src={BJCaps} alt="BJ Caps Collection" className="w-full h-auto" />
             </motion.div>
 
             <motion.div 
@@ -160,7 +166,7 @@ const PickleballPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"
             >
-              <img src={BJCamoTee} alt="BJ Camo Tee" className="w-full h-auto" />
+              <img loading="lazy" src={BJCamoTee} alt="BJ Camo Tee" className="w-full h-auto" />
             </motion.div>
           </section>
 

@@ -52,6 +52,12 @@ const WWFIndiaPortfolio = () => {
       <SEO
         title="AI Ad Creatives for NGO — WWF India Awareness Campaign | Qala Labs"
         description="How Qala Labs used AI image generation to produce high-impact, low-cost awareness campaign creatives for WWF India — scaling visual output without scaling the budget."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'WWF India AI Ad Creatives', url: '/portfolio/ai-ad-creatives-wwfindia' }
+        ]}
       />
       <Navbar />
       

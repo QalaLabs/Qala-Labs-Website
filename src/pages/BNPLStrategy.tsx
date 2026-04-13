@@ -68,6 +68,11 @@ const BNPLStrategy = () => {
         image={BNPLFeatured}
         article={true}
         jsonLd={articleJsonLd}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: 'Why BNPL Should Be Every D2C Brand Core Payment Strategy', url: '/blog/why-bnpl-core-payment-strategy-india' }
+        ]}
       />
       <Navbar />
       
@@ -160,7 +165,7 @@ const BNPLStrategy = () => {
             </section>
 
             <div className="rounded-[3rem] overflow-hidden shadow-xl mb-24 border border-slate-100">
-              <img 
+              <img loading="lazy" 
                 src={BNPLContent} 
                 alt="Data visualization showing BNPL impact on D2C conversion rates" 
                 className="w-full h-auto" 

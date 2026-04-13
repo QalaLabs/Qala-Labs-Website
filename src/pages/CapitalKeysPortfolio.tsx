@@ -37,6 +37,12 @@ const CapitalKeysPortfolio = () => {
       <SEO
         title="Luxury Real Estate Website Development — Capital Keys | Qala Labs"
         description="How Qala Labs built Capital Keys' full-stack real estate platform — property listings, lead capture dashboards, CRM integration, and a custom admin panel."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'Capital Keys Real Estate Website', url: '/portfolio/real-estate-website-development' }
+        ]}
       />
       <Navbar />
       

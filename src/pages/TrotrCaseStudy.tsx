@@ -36,6 +36,11 @@ const TrotrCaseStudy = () => {
       <SEO
         title="28x ROAS Meta Ads Case Study — Trotr Lead Generation India | Qala Labs"
         description="How Qala Labs generated ₹14L revenue for Trotr with 28x ROAS using founder-led Meta Ads storytelling and a high-ticket DTC conversion funnel."
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Case Studies', url: '/case-studies' },
+          { name: '28x ROAS — Trotr Meta Lead Generation', url: '/case-studies/Trotr-Meta-Lead-Generation' }
+        ]}
       />
       <Navbar />
       

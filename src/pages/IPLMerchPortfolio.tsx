@@ -43,6 +43,12 @@ const IPLMerchPortfolio = () => {
       <SEO
         title="IPL Merchandise Design & Branding — playR 2024-25 | Qala Labs"
         description="Qala Labs built the full IPL merchandise ecosystem for playR — packaging, hangtags, stadium assets, and matchday banners for the 2024-25 season."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'IPL Merchandise — playR 2024-25', url: '/portfolio/ipl-merchandise-partner-playr' }
+        ]}
       />
       <Navbar />
       
@@ -108,7 +114,7 @@ const IPLMerchPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-50"
             >
-              <img src={TeamLogos} alt="IPL Team Partnership Lockups" className="w-full h-auto" />
+              <img loading="lazy" src={TeamLogos} alt="IPL Team Partnership Lockups" className="w-full h-auto" />
             </motion.div>
           </section>
 
@@ -133,7 +139,7 @@ const IPLMerchPortfolio = () => {
               viewport={{ once: true }}
               className="rounded-[3rem] overflow-hidden shadow-xl border border-slate-100"
             >
-              <img src={WelcomeCards} alt="Franchise Welcome & Thank You Cards" className="w-full h-auto" />
+              <img loading="lazy" src={WelcomeCards} alt="Franchise Welcome & Thank You Cards" className="w-full h-auto" />
             </motion.div>
           </section>
 
@@ -150,7 +156,7 @@ const IPLMerchPortfolio = () => {
                   viewport={{ once: true }}
                   className="rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 bg-slate-50"
                 >
-                  <img src={GTBox} alt="Gujarat Titans Box Dieline" className="w-full h-auto" />
+                  <img loading="lazy" src={GTBox} alt="Gujarat Titans Box Dieline" className="w-full h-auto" />
                 </motion.div>
                 <motion.div 
                   initial={{ opacity: 0, x: 20 }}
@@ -158,7 +164,7 @@ const IPLMerchPortfolio = () => {
                   viewport={{ once: true }}
                   className="rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 bg-slate-50"
                 >
-                  <img src={CSKBox} alt="Chennai Super Kings Box Dieline" className="w-full h-auto" />
+                  <img loading="lazy" src={CSKBox} alt="Chennai Super Kings Box Dieline" className="w-full h-auto" />
                 </motion.div>
               </div>
               <motion.div 
@@ -167,7 +173,7 @@ const IPLMerchPortfolio = () => {
                 viewport={{ once: true }}
                 className="rounded-[3rem] overflow-hidden shadow-lg border border-slate-100 bg-slate-50"
               >
-                <img src={CSKRRBoxes} alt="CSK and RR Box Dielines" className="w-full h-auto" />
+                <img loading="lazy" src={CSKRRBoxes} alt="CSK and RR Box Dielines" className="w-full h-auto" />
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -175,7 +181,7 @@ const IPLMerchPortfolio = () => {
                 viewport={{ once: true }}
                 className="rounded-[3rem] overflow-hidden shadow-lg border border-slate-100 bg-slate-50"
               >
-                <img src={PBKSMIBoxes} alt="PBKS and MI Box Dielines" className="w-full h-auto" />
+                <img loading="lazy" src={PBKSMIBoxes} alt="PBKS and MI Box Dielines" className="w-full h-auto" />
               </motion.div>
             </div>
           </section>
@@ -199,7 +205,7 @@ const IPLMerchPortfolio = () => {
                   transition={{ delay: i * 0.1 }}
                   className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 bg-white p-4"
                 >
-                  <img src={card.img} alt={card.title} className="w-full h-auto rounded-xl" />
+                  <img loading="lazy" src={card.img} alt={card.title} className="w-full h-auto rounded-xl" />
                   <p className="text-center mt-4 text-xs font-black uppercase tracking-widest text-slate-400">{card.title}</p>
                 </motion.div>
               ))}

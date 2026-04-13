@@ -46,6 +46,12 @@ const CSKInfluencerPortfolio = () => {
       <SEO
         title="Influencer Marketing Case Study — CSK IPL Campaign 5M+ Reach | Qala Labs"
         description="How Qala Labs drove 5M+ reach and 12% engagement for the CSK jersey drop using real-fan UGC and influencer marketing — without a single paid placement."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'CSK Influencer Marketing Campaign', url: '/portfolio/influencer-marketing-campaign-chennai-super-kings' }
+        ]}
       />
       <Navbar />
       

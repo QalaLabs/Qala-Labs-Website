@@ -1,5 +1,3 @@
-import gsap from 'gsap';
-
 export const motionTokens = {
   duration: {
     fast: 0.2,
@@ -15,13 +13,15 @@ export const motionTokens = {
 };
 
 // Helper to check for reduced motion preference
-export const prefersReducedMotion = () => 
+export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Global GSAP defaults
+// Apply GSAP defaults lazily — avoids adding GSAP to the initial parse bundle
 if (typeof window !== 'undefined') {
-  gsap.defaults({
-    duration: motionTokens.duration.normal,
-    ease: motionTokens.easing.primary
+  import('gsap').then(({ default: gsap }) => {
+    gsap.defaults({
+      duration: motionTokens.duration.normal,
+      ease: motionTokens.easing.primary
+    });
   });
 }

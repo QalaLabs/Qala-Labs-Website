@@ -43,6 +43,12 @@ const InstagramUGCPortfolio = () => {
       <SEO
         title="UGC Content Agency India — Instagram Creator Campaign | Qala Labs"
         description="How Qala Labs produced creator-led UGC content for playR to drive product relatability and ecommerce conversions on Instagram — authentic, scroll-stopping, performance-tested."
+
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Portfolio', url: '/portfolio' },
+          { name: 'Instagram UGC Content Campaign', url: '/portfolio/Instagram-user-generated-content' }
+        ]}
       />
       <Navbar />
       
