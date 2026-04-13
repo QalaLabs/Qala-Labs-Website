@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from 'date-fns';
 import { showSuccess } from '@/utils/toast';
+import { generateBlogSchema } from '@/lib/seo';
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -52,7 +53,13 @@ const BlogDetail = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO title={post.title} description={post.excerpt} image={post.image_url} />
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        image={post.image_url}
+        article={true}
+        jsonLd={JSON.parse(generateBlogSchema(post))}
+      />
       <Navbar />
       
       <div className="pt-32 pb-20">

@@ -31,8 +31,10 @@ import IPLMerchPortfolio from './pages/IPLMerchPortfolio';
 import BNPLStrategy from './pages/BNPLStrategy';
 import WWFIndiaPortfolio from './pages/WWFIndiaPortfolio';
 
-// Data-fetching pages — lazy so Suspense renders their loading state (meta tags still captured)
-const Index = React.lazy(() => import('./pages/Index'));
+// Homepage — direct import so SSR renders the loading state with static meta tags
+import Index from './pages/Index';
+
+// Data-fetching pages — lazy so Suspense renders their loading state
 const Blog = React.lazy(() => import('./pages/Blog'));
 const BlogDetail = React.lazy(() => import('./pages/BlogDetail'));
 const CaseStudies = React.lazy(() => import('./pages/CaseStudies'));

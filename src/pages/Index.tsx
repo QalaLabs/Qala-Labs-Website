@@ -56,13 +56,24 @@ const Index = () => {
   }, []);
 
   if (loading) {
-    return <LoadingScreen />;
+    return (
+      <>
+        <SEO
+          title="Performance Marketing Agency for DTC Brands | Qala Labs"
+          description="Performance marketing & AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems."
+        />
+        <LoadingScreen />
+      </>
+    );
   }
 
   if (!page) {
     return (
       <div className="min-h-screen bg-slate-50">
-        <SEO title="Qala Labs | Revenue Growth Agency" />
+        <SEO
+          title="Performance Marketing Agency for DTC Brands | Qala Labs"
+          description="Performance marketing & AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems."
+        />
         <Navbar />
         <div className="pt-40 pb-20 text-center px-4">
           <h1 className="text-4xl font-black text-slate-900 mb-6">CMS Initialization Required</h1>

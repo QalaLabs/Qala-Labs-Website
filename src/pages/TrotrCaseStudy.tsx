@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
 import InstagramEmbed from '@/components/social/InstagramEmbed';
 
 const TrotrCaseStudy = () => {
@@ -221,9 +222,16 @@ const TrotrCaseStudy = () => {
                 <h2 className="text-4xl md:text-6xl font-black mb-10 leading-tight text-white">
                   Ready to turn clicks <br /> into <i>bookings?</i>
                 </h2>
-                <Button className="bg-white text-blue-600 hover:bg-slate-100 px-12 py-10 rounded-3xl text-2xl font-black group transition-all shadow-xl">
-                  Book Your Scale Audit <ArrowRight className="ml-3 w-8 h-8 group-hover:translate-x-2 transition-transform" />
-                </Button>
+                <Link to="/contact">
+                  <Button className="bg-white text-blue-600 hover:bg-slate-100 px-12 py-10 rounded-3xl text-2xl font-black group transition-all shadow-xl">
+                    Book Your Scale Audit <ArrowRight className="ml-3 w-8 h-8 group-hover:translate-x-2 transition-transform" />
+                  </Button>
+                </Link>
+                <div className="mt-8">
+                  <Link to="/services/performance" className="text-blue-200 hover:text-white font-bold underline underline-offset-4 transition-colors">
+                    See how our Meta Ads service works →
+                  </Link>
+                </div>
               </div>
               <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] -mr-48 -mt-48" />
               <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] -ml-48 -mb-48" />
