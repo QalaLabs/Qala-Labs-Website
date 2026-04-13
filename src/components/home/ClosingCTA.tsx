@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText } from 'lucide-react';
@@ -35,12 +36,16 @@ const ClosingCTA = ({
               {description}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-white text-blue-600 hover:bg-slate-100 px-10 py-8 rounded-2xl text-xl font-black shadow-xl">
-                {primaryCtaText} <ArrowRight className="ml-2 w-6 h-6" />
-              </Button>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-10 py-8 rounded-2xl text-xl font-black">
-                {secondaryCtaText} <FileText className="ml-2 w-6 h-6" />
-              </Button>
+              <Link to="/contact">
+                <Button className="bg-white text-blue-600 hover:bg-slate-100 px-10 py-8 rounded-2xl text-xl font-black shadow-xl">
+                  {primaryCtaText} <ArrowRight className="ml-2 w-6 h-6" />
+                </Button>
+              </Link>
+              <Link to="/case-studies">
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-10 py-8 rounded-2xl text-xl font-black">
+                  {secondaryCtaText} <FileText className="ml-2 w-6 h-6" />
+                </Button>
+              </Link>
             </div>
           </div>
           
