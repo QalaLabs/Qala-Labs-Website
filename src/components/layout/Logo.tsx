@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { cn } from "@/lib/utils";
-import QalaLogo from '@/assets/qala-logo.png';
+import QalaLogoFull from '@/assets/qala-logo-full.png';
+import QalaLogoSymbol from '@/assets/qala-logo-symbol.png';
 
 interface LogoProps {
   className?: string;
@@ -11,20 +12,40 @@ interface LogoProps {
 }
 
 const Logo = ({ className, iconOnly = false, variant = 'default' }: LogoProps) => {
+  if (iconOnly) {
+    return (
+      <div className={cn("flex items-center select-none", className)}>
+        <img
+          src={QalaLogoSymbol}
+          alt="Qala Labs"
+          className="h-10 w-auto transition-all duration-300"
+        />
+      </div>
+    );
+  }
+
+  // On dark backgrounds use the full logo (white text is visible)
+  if (variant === 'white') {
+    return (
+      <div className={cn("flex items-center select-none", className)}>
+        <img
+          src={QalaLogoFull}
+          alt="Qala Labs"
+          className="h-10 w-auto transition-all duration-300"
+        />
+      </div>
+    );
+  }
+
+  // On light backgrounds: symbol + dark text
   return (
-    <div className={cn("flex items-center select-none overflow-hidden", className)}>
-      <img 
-        src={QalaLogo} 
-        alt="Qala Labs" 
-        width={160}
-        height={40}
-        className={cn(
-          "h-10 w-auto transition-all duration-300",
-          variant === 'white' && "invert brightness-0 invert-[1]",
-          iconOnly ? "object-left object-cover w-[40px]" : "object-contain"
-        )}
-        style={iconOnly ? { objectPosition: '0% 50%', width: '40px' } : {}}
+    <div className={cn("flex items-center gap-3 select-none", className)}>
+      <img
+        src={QalaLogoSymbol}
+        alt="Qala Labs"
+        className="h-10 w-auto transition-all duration-300"
       />
+      <span className="text-xl font-bold text-slate-900 tracking-tight">Qala Labs</span>
     </div>
   );
 };
