@@ -41,11 +41,11 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       <div className="relative aspect-[4/5] overflow-hidden bg-slate-900">
         <img 
           src={project.image} 
-          alt={project.title}
+          alt={project.imageAlt || project.title}
           width={400}
           height={500}
           loading="lazy"
-          className={`w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${project.imageClassName || ''} ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
         <video
           ref={videoRef}

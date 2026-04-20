@@ -11,6 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import { supabase } from "@/integrations/supabase/client";
 import GaffarLogo from '@/assets/gaffar-new-logo.webp';
+import NutrivendThumbnail from '@/assets/nutrivend/training-boxers-gym.jpg?w=900&format=webp&quality=82';
+import TrotrFeatured from '@/assets/trotr-featured.jpeg?w=900&format=webp&quality=82';
+import KashmirFeatured from '@/assets/kashmir-street-musician.jpg?w=900&format=webp&quality=82';
 
 const CaseStudies = () => {
   const [studies, setStudies] = useState<any[]>([]);
@@ -20,12 +23,24 @@ const CaseStudies = () => {
 
   const featuredStudies = [
     {
+      id: 'nutrivend-uk-meta-lead-gen',
+      title: "Nutrivend UK: B2B Market Validation",
+      slug: "Meta-Lead-Generation-Ad-UK-Market",
+      category: "Meta Lead Generation",
+      result: "45 B2B Leads • 71% Untapped Market",
+      image: NutrivendThumbnail,
+      imageClassName: "object-center",
+      imageAlt: "Nutrivend UK Meta lead generation case study thumbnail showing boxing gym audience validation"
+    },
+    {
       id: 'trotr-featured',
       title: "Trotr: Spain Pivot",
       slug: "Trotr-Meta-Lead-Generation",
       category: "Lead Generation",
       result: "28x ROAS • ₹14L Revenue",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+      image: TrotrFeatured,
+      imageClassName: "object-center",
+      imageAlt: "Trotr Meta lead generation case study thumbnail showing Spain travel campaign audience"
     },
     {
       id: 'gaffar-featured',
@@ -42,7 +57,9 @@ const CaseStudies = () => {
       slug: "kashmiri-movement",
       category: "Cultural Movement",
       result: "Zero Ad Spend • 25K Subs",
-      image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800"
+      image: KashmirFeatured,
+      imageClassName: "object-center",
+      imageAlt: "Kashmiri music organic growth case study thumbnail showing a traditional street musician"
     }
   ];
 

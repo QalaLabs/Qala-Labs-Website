@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
+import KashmirFeaturedImage from '@/assets/kashmir-street-musician.jpg?w=1400&format=webp&quality=82';
 
 const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) => (
   <div className="relative w-full aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl mb-12 border border-slate-100 bg-slate-900">
@@ -52,8 +53,20 @@ const KashmiriMusicCaseStudy = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO
-        title="3.4M Views with Zero Ad Spend — Organic Growth Case Study | Qala Labs"
-        description="How Qala Labs launched Mystic Studio 8, Kashmir's first digital-first music label, reaching 3.4M+ views through creator-led content and zero paid media spend."
+        title="Kashmiri Music Organic Growth Case Study: 3.4M Views"
+        description="How Qala Labs launched Mystic Studio 8 as a digital-first Kashmiri music label, earning 3.4M+ YouTube views, 25.7K subscribers, and zero paid ad spend."
+        image={KashmirFeaturedImage}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: "Kashmiri Music Organic Growth Case Study: 3.4M Views",
+          description: "How Qala Labs helped Mystic Studio 8 build a Kashmiri music movement through creator-led storytelling, YouTube launch strategy, and zero paid media.",
+          image: KashmirFeaturedImage,
+          author: { "@type": "Organization", name: "Qala Labs" },
+          publisher: { "@type": "Organization", name: "Qala Labs" },
+          mainEntityOfPage: "https://qalalabs.com/case-studies/kashmiri-movement",
+          keywords: "Kashmiri music marketing case study, organic YouTube growth, music label launch, creator-led content, Qala Labs"
+        }}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Case Studies', url: '/case-studies' },
@@ -80,6 +93,14 @@ const KashmiriMusicCaseStudy = () => {
               Importance of storytelling and influencer marketing in social media: How Mystic Studio 8 built a regional powerhouse from scratch in 90 days.
             </p>
           </motion.div>
+
+          <div className="mb-16 overflow-hidden rounded-[3rem] shadow-2xl border border-slate-100">
+            <img
+              src={KashmirFeaturedImage}
+              alt="Kashmiri music organic growth case study featured image of a street musician playing a traditional instrument"
+              className="w-full h-auto object-cover"
+            />
+          </div>
 
           {/* Primary Video Embed */}
           <motion.div
@@ -163,14 +184,14 @@ const KashmiriMusicCaseStudy = () => {
                 </ul>
               </div>
               <div className="order-1 lg:order-2 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-defining-market-research.webp" className="w-full h-auto" alt="Market Research" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-defining-market-research.webp" className="w-full h-auto" alt="Kashmiri music case study market research for organic YouTube growth" />
               </div>
             </div>
 
             {/* Block 2 */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-in-image-of-song-launch-in-srinagar.webp" className="w-full h-auto" alt="Song Launch Srinagar" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-in-image-of-song-launch-in-srinagar.webp" className="w-full h-auto" alt="Mystic Studio 8 Kashmiri song launch in Srinagar for creator-led music marketing" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">02</div>
@@ -205,14 +226,14 @@ const KashmiriMusicCaseStudy = () => {
                 </ul>
               </div>
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-of-kashmiri-community.webp" className="w-full h-auto" alt="Kashmiri Community" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-of-kashmiri-community.webp" className="w-full h-auto" alt="Kashmiri community engagement for Mystic Studio 8 music movement case study" />
               </div>
             </div>
 
             {/* Block 4 */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Firefly_Case-study-banner-for-a-Kashmiri-Musical-Movement-135464-1.webp" className="w-full h-auto" alt="Youth x Fusion" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Firefly_Case-study-banner-for-a-Kashmiri-Musical-Movement-135464-1.webp" className="w-full h-auto" alt="Youth fusion strategy for Kashmiri music organic growth case study" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">04</div>
@@ -255,7 +276,7 @@ const KashmiriMusicCaseStudy = () => {
                 </div>
               </div>
               <div className="rounded-[3rem] overflow-hidden shadow-xl">
-                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/create-a-1_1-image-for-learning.webp" className="w-full h-auto" alt="Learning Visual" />
+                <img loading="lazy" src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/create-a-1_1-image-for-learning.webp" className="w-full h-auto" alt="Organic music marketing lessons from the Kashmiri Sound movement case study" />
               </div>
             </div>
           </section>
@@ -304,6 +325,35 @@ const KashmiriMusicCaseStudy = () => {
                 </div>
               </CardContent>
             </Card>
+          </section>
+
+          <section className="mb-24 grid lg:grid-cols-2 gap-8">
+            <div className="p-10 bg-slate-50 rounded-[3rem] border border-slate-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-8">Organic Music Growth FAQ</h2>
+              <div className="space-y-6">
+                {[
+                  ["How did the Kashmiri music campaign grow without ads?", "We sequenced releases, offline events, creator content, YouTube optimization, and community participation into one movement."],
+                  ["Why did the songs launch one month apart?", "A staggered launch created anticipation, retention, and repeat audience behavior across three original releases."],
+                  ["What made Mystic Studio 8 discoverable?", "Cultural positioning, thumbnail testing, creator collaborations, and audience retention loops helped YouTube recommend the catalog."]
+                ].map(([question, answer]) => (
+                  <div key={question}>
+                    <h3 className="font-black text-slate-900">{question}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="p-10 bg-white rounded-[3rem] border border-slate-100 shadow-sm">
+              <h2 className="text-3xl font-black text-slate-900 mb-8">Share This Case Study</h2>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                This page is the canonical source for Mystic Studio 8's organic growth story and can be used in artist outreach, label partnerships, media pitches, and LinkedIn posts.
+              </p>
+              <div className="space-y-3 text-sm font-bold text-slate-700">
+                <Link to="/services" className="block text-blue-600 hover:underline">Explore Qala Labs growth services</Link>
+                <Link to="/case-studies/Trotr-Meta-Lead-Generation" className="block text-blue-600 hover:underline">Read a paid media storytelling case study</Link>
+                <Link to="/contact" className="block text-blue-600 hover:underline">Plan an organic launch campaign</Link>
+              </div>
+            </div>
           </section>
 
           {/* CTA Section */}

@@ -44,6 +44,7 @@ const Terms = React.lazy(() => import("./pages/Terms"));
 const KashmiriMusicCaseStudy = React.lazy(() => import("./pages/KashmiriMusicCaseStudy"));
 const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
 const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
+const NutrivendUKCaseStudy = React.lazy(() => import("./pages/NutrivendUKCaseStudy"));
 const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
 const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
 const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
@@ -94,6 +95,7 @@ const App = () => (
               <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
               <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
               <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
+              <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
               

@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
 import InstagramEmbed from '@/components/social/InstagramEmbed';
+import TrotrFeaturedImage from '@/assets/trotr-featured.jpeg?w=1400&format=webp&quality=82';
 
 const TrotrCaseStudy = () => {
   const metrics = [
@@ -34,8 +35,20 @@ const TrotrCaseStudy = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO
-        title="28x ROAS Meta Ads Case Study — Trotr Lead Generation India | Qala Labs"
-        description="How Qala Labs generated ₹14L revenue for Trotr with 28x ROAS using founder-led Meta Ads storytelling and a high-ticket DTC conversion funnel."
+        title="Trotr Meta Lead Generation Case Study: 28x ROAS Travel Funnel"
+        description="See how Qala Labs rebuilt Trotr's Meta lead generation funnel with founder-led storytelling, generating ₹14L revenue and 28x ROAS for a high-ticket Spain travel campaign."
+        image={TrotrFeaturedImage}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: "Trotr Meta Lead Generation Case Study: 28x ROAS Travel Funnel",
+          description: "How Qala Labs generated ₹14L revenue and 28x ROAS for Trotr through Meta Ads, founder-led storytelling, and a high-ticket travel lead funnel.",
+          image: TrotrFeaturedImage,
+          author: { "@type": "Organization", name: "Qala Labs" },
+          publisher: { "@type": "Organization", name: "Qala Labs" },
+          mainEntityOfPage: "https://qalalabs.com/case-studies/Trotr-Meta-Lead-Generation",
+          keywords: "Meta lead generation case study, travel marketing case study, high-ticket funnel, 28x ROAS, Qala Labs"
+        }}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Case Studies', url: '/case-studies' },
@@ -62,6 +75,14 @@ const TrotrCaseStudy = () => {
               How founder-led marketing and a refined funnel turned a failing travel campaign into a high-ticket conversion machine.
             </p>
           </motion.div>
+
+          <div className="mb-16 overflow-hidden rounded-[3rem] shadow-2xl border border-slate-100">
+            <img
+              src={TrotrFeaturedImage}
+              alt="Trotr Meta lead generation case study featured image showing travelers in Spain"
+              className="w-full h-auto object-cover"
+            />
+          </div>
 
           {/* Social Proof Reels */}
           <div className="grid md:grid-cols-2 gap-8 mb-16">
@@ -143,13 +164,13 @@ const TrotrCaseStudy = () => {
                 </div>
               </div>
               <div className="order-1 lg:order-2 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_4-10.png" className="w-full h-auto" alt="Initial Failure Analysis" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_4-10.png" className="w-full h-auto" alt="Trotr Meta Ads month one failure analysis for high-ticket travel lead generation" />
               </div>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_5-10.png" className="w-full h-auto" alt="Strategy Pivot" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_5-10.png" className="w-full h-auto" alt="Trotr Spain campaign strategy pivot for Meta lead generation" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">02</div>
@@ -192,7 +213,7 @@ const TrotrCaseStudy = () => {
                 </div>
               </div>
               <div className="rounded-[3rem] overflow-hidden shadow-xl border-8 border-white bg-white">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2024/11/about-img2.jpg" className="w-full h-auto" alt="Learning Experience" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2024/11/about-img2.jpg" className="w-full h-auto" alt="Trotr case study learning from founder-led travel storytelling funnel" />
               </div>
             </div>
           </section>
@@ -218,6 +239,35 @@ const TrotrCaseStudy = () => {
                 </div>
               </CardContent>
             </Card>
+          </section>
+
+          <section className="mb-24 grid lg:grid-cols-2 gap-8">
+            <div className="p-10 bg-slate-50 rounded-[3rem] border border-slate-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-8">Meta Lead Generation FAQ</h2>
+              <div className="space-y-6">
+                {[
+                  ["Can Meta Ads work for high-ticket travel leads?", "Yes, when the creative builds trust and the landing page qualifies intent before the sales call."],
+                  ["Why did Trotr move away from Click-to-WhatsApp?", "The offer needed authority and clarity. A website lead funnel gave prospects more confidence than a chat-first flow."],
+                  ["What made the Spain campaign convert?", "Founder-led video, emotion-driven storytelling, manual intent targeting, and a low-friction lead form worked together."]
+                ].map(([question, answer]) => (
+                  <div key={question}>
+                    <h3 className="font-black text-slate-900">{question}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="p-10 bg-white rounded-[3rem] border border-slate-100 shadow-sm">
+              <h2 className="text-3xl font-black text-slate-900 mb-8">Share This Case Study</h2>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Use this page as the canonical source when sharing Trotr's Meta lead generation results on LinkedIn, sales decks, partner emails, and founder communities.
+              </p>
+              <div className="space-y-3 text-sm font-bold text-slate-700">
+                <Link to="/services/performance" className="block text-blue-600 hover:underline">Explore our Meta Ads and performance marketing service</Link>
+                <Link to="/case-studies/Meta-Lead-Generation-Ad-UK-Market" className="block text-blue-600 hover:underline">Read another B2B Meta lead generation case study</Link>
+                <Link to="/contact" className="block text-blue-600 hover:underline">Book a Meta lead generation audit</Link>
+              </div>
+            </div>
           </section>
 
           {/* CTA Section */}
