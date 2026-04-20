@@ -10,7 +10,7 @@ if (!rootElement) throw new Error("Failed to find the root element");
 
 const appTree = (
   <React.StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <AuthProvider>
         <App />
       </AuthProvider>

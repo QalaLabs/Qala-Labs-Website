@@ -76,11 +76,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-100 dark:border-slate-800">
+      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-[#06070D]/95 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="relative z-[1020] flex items-center">
-              <Logo className="h-8 md:h-10" variant={mounted && theme === 'dark' ? 'white' : 'default'} />
+              <Logo className="h-8 md:h-10" variant="white" />
             </Link>
 
             {/* Desktop Menu */}
@@ -91,7 +91,7 @@ const Navbar = () => {
                   to={link.href}
                   className={cn(
                     "text-sm font-bold transition-colors",
-                    location.pathname === link.href ? "text-blue-600" : "text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    location.pathname === link.href ? "text-blue-400" : "text-slate-400 hover:text-white"
                   )}
                 >
                   {link.name}
@@ -99,15 +99,15 @@ const Navbar = () => {
               ))}
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 outline-none">
+                <DropdownMenuTrigger className="text-sm font-bold text-slate-400 hover:text-white flex items-center gap-1 outline-none">
                   Collaborate <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="rounded-2xl p-2 border-slate-100 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-900">
+                <DropdownMenuContent className="rounded-2xl p-2 border-white/5 shadow-2xl bg-[#0A0B12]">
                   {collaborateLinks.map((link) => (
                     <DropdownMenuItem key={link.name} asChild>
-                      <Link 
+                      <Link
                         to={link.href}
-                        className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer"
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
                       >
                         {link.name}
                       </Link>
@@ -144,7 +144,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(!isOpen)} 
                 className={cn(
                   "relative z-[1020] flex items-center gap-2 px-5 py-3.5 rounded-xl transition-all active:scale-95 shadow-lg min-h-[48px] min-w-[48px]",
-                  isOpen ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800" : "bg-slate-900 dark:bg-white text-white dark:text-slate-900"
+                  isOpen ? "bg-white/10 text-white border border-white/10" : "bg-white/10 text-white"
                 )}
                 aria-label="Toggle menu"
               >
@@ -175,7 +175,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute top-0 right-0 bottom-0 w-[85%] bg-white dark:bg-slate-950 shadow-2xl flex flex-col border-l border-slate-100 dark:border-slate-800"
+              className="absolute top-0 right-0 bottom-0 w-[85%] bg-[#06070D] shadow-2xl flex flex-col border-l border-white/5"
             >
               <button 
                 onClick={() => setIsOpen(false)}
@@ -198,14 +198,14 @@ const Navbar = () => {
                       <Link 
                         to={link.href}
                         className={cn(
-                          "flex items-center justify-between py-4 text-2xl font-black transition-all group border-b border-slate-50 dark:border-slate-900",
-                          location.pathname === link.href ? "text-blue-600" : "text-slate-900 dark:text-white"
+                          "flex items-center justify-between py-4 text-2xl font-black transition-all group border-b border-white/5",
+                          location.pathname === link.href ? "text-blue-400" : "text-white"
                         )}
                       >
                         <span>{link.name}</span>
                         <ChevronRight className={cn(
                           "w-5 h-5 transition-transform group-hover:translate-x-2",
-                          location.pathname === link.href ? "text-blue-600" : "text-slate-200 dark:text-slate-800"
+                          location.pathname === link.href ? "text-blue-400" : "text-slate-600"
                         )} />
                       </Link>
                     </motion.div>

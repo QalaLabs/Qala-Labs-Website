@@ -24,28 +24,14 @@ const Logo = ({ className, iconOnly = false, variant = 'default' }: LogoProps) =
     );
   }
 
-  // On dark backgrounds use the full logo (white text is visible)
-  if (variant === 'white') {
-    return (
-      <div className={cn("flex items-center select-none", className)}>
-        <img
-          src={QalaLogoFull}
-          alt="Qala Labs"
-          className="h-10 w-auto transition-all duration-300"
-        />
-      </div>
-    );
-  }
-
-  // On light backgrounds: symbol + dark text
+  // Full logo — white text on dark bg
   return (
-    <div className={cn("flex items-center gap-3 select-none", className)}>
+    <div className={cn("flex items-center select-none", className)}>
       <img
-        src={QalaLogoSymbol}
+        src={QalaLogoFull}
         alt="Qala Labs"
         className="h-10 w-auto transition-all duration-300"
       />
-      <span className="text-xl font-bold text-slate-900 tracking-tight">Qala Labs</span>
     </div>
   );
 };
