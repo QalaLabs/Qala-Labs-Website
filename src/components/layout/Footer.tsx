@@ -37,7 +37,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-8">
-            <Logo variant="white" />
+            <Logo variant="white" className="h-16" />
             <p className="text-slate-400 leading-relaxed max-w-xs">
               The performance marketing agency for brands that refuse to settle for average growth. We build scale engines.
             </p>

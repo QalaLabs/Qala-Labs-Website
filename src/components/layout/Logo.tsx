@@ -14,11 +14,11 @@ interface LogoProps {
 const Logo = ({ className, iconOnly = false, variant = 'default' }: LogoProps) => {
   if (iconOnly) {
     return (
-      <div className={cn("flex items-center select-none", className)}>
+      <div className={cn("flex items-center select-none h-10", className)}>
         <img
           src={QalaLogoSymbol}
           alt="Qala Labs"
-          className="h-10 w-auto transition-all duration-300"
+          className="h-full w-auto transition-all duration-300"
         />
       </div>
     );
@@ -26,11 +26,11 @@ const Logo = ({ className, iconOnly = false, variant = 'default' }: LogoProps) =
 
   // Full logo — white text on dark bg
   return (
-    <div className={cn("flex items-center select-none", className)}>
+    <div className={cn("flex items-center select-none h-10", className)}>
       <img
         src={QalaLogoFull}
         alt="Qala Labs"
-        className="h-10 w-auto transition-all duration-300"
+        className="h-full w-auto transition-all duration-300"
       />
     </div>
   );
