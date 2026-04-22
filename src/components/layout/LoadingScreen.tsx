@@ -6,7 +6,7 @@ import Logo from './Logo';
 
 const LoadingScreen = () => {
   return (
-    <div className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center">
+    <div className="fixed inset-0 z-[9999] bg-[#06070D] flex flex-col items-center justify-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
@@ -40,12 +40,12 @@ const LoadingScreen = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600"
+          className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400"
         >
           Engineering Scale
         </motion.p>
         
-        <div className="w-48 h-1 bg-slate-100 rounded-full overflow-hidden mx-auto">
+        <div className="w-48 h-1 bg-slate-800 rounded-full overflow-hidden mx-auto">
           <motion.div 
             className="h-full bg-blue-600"
             initial={{ width: "0%" }}

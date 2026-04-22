@@ -23,7 +23,7 @@ const PortfolioGrid = () => {
       slug: "ai-ad-creatives-wwfindia",
       category: "AI Creative",
       result: "80% Lower Production Cost",
-      image: "dyad-media://media/flying-kraken-wag/.dyad/media/b6a576bf9964decedd3f805bcebaefbd.png",
+      image: "/clients/wwf.png",
       isFeatured: true
     },
     {
@@ -68,7 +68,7 @@ const PortfolioGrid = () => {
       slug: "Instagram-user-generated-content",
       category: "Content Creation",
       result: "Relatability Converts Better",
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=800",
+      image: "/ugc-hero.jpg",
       isFeatured: true
     },
     {

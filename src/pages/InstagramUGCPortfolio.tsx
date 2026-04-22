@@ -43,7 +43,7 @@ const InstagramUGCPortfolio = () => {
       <SEO
         title="UGC Content Agency India — Instagram Creator Campaign | Qala Labs"
         description="How Qala Labs produced creator-led UGC content for playR to drive product relatability and ecommerce conversions on Instagram — authentic, scroll-stopping, performance-tested."
-
+        image="https://qalalabs.com/ugc-hero.jpg"
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Portfolio', url: '/portfolio' },
@@ -72,6 +72,20 @@ const InstagramUGCPortfolio = () => {
             <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
               Relatability converts better than a size chart ever could. We threw the catalog out and handed the gear to creators of all shapes and vibes.
             </p>
+          </motion.div>
+
+          {/* Hero Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-16 rounded-[2rem] overflow-hidden aspect-video w-full max-h-[520px]"
+          >
+            <img
+              src="/ugc-hero.jpg"
+              alt="UGC creator showing new pullover to online audience"
+              className="w-full h-full object-cover"
+            />
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-16">

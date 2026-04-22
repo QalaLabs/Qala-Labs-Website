@@ -31,17 +31,17 @@ const WWFIndiaPortfolio = () => {
 
   const creatives = [
     {
-      url: "dyad-media://media/flying-kraken-wag/.dyad/media/b6a576bf9964decedd3f805bcebaefbd.png",
+      url: "/clients/wwf.png",
       title: "The Guardian",
       desc: "Hyper-realistic AI generation focusing on majestic wildlife protection."
     },
     {
-      url: "dyad-media://media/flying-kraken-wag/.dyad/media/84bbf38d6fa2cf3a32e06ec282263c0f.png",
+      url: "/clients/wwf.png",
       title: "Ecosystem Harmony",
       desc: "Visualizing the delicate balance of India's natural habitats."
     },
     {
-      url: "dyad-media://media/flying-kraken-wag/.dyad/media/96747edff68c605196714a92fb9bbcf0.png",
+      url: "/clients/wwf.png",
       title: "Future Conservation",
       desc: "Conceptual art driving awareness for long-term environmental goals."
     }
@@ -52,7 +52,7 @@ const WWFIndiaPortfolio = () => {
       <SEO
         title="AI Ad Creatives for NGO — WWF India Awareness Campaign | Qala Labs"
         description="How Qala Labs used AI image generation to produce high-impact, low-cost awareness campaign creatives for WWF India — scaling visual output without scaling the budget."
-
+        image="https://qalalabs.com/clients/wwf.png"
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Portfolio', url: '/portfolio' },
