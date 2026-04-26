@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import AashirwadImg from '@/assets/Aashirwad.png';
-import AayushImg from '@/assets/Aayush.png';
+import AayushImg from '@/assets/aayush.jpg';
 import DipikaImg from '@/assets/Dipika.jpg';
 import AryamanImg from '@/assets/Aryaman.png';
 import ManpreetImg from '@/assets/Manpreet.png';
@@ -32,8 +32,8 @@ const defaultMembers = [
   },
   {
     name: "Aayush Singh",
-    role: "AI and Tech Lead",
-    desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.",
+    role: "TECHNOLOGY & PRODUCT DEVELOPMENT",
+    desc: "Website architecture, performance optimization, and scalable digital infrastructure for growth.",
     image: AayushImg,
     linkedin: "https://www.linkedin.com/in/captn1107/"
   },
@@ -81,19 +81,19 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
               className="group"
             >
               <div className="aspect-[4/5] rounded-[3rem] overflow-hidden mb-8 shadow-2xl relative bg-slate-50 border border-slate-100">
-                <img 
-                  src={member.image} 
-                  alt={member.name} 
+                <img
+                  src={member.image}
+                  alt={member.name}
                   width={400}
                   height={500}
                   loading="lazy"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out group-hover:scale-105" 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                  <a 
-                    href={member.linkedin || "#"} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href={member.linkedin || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white hover:bg-blue-700 transition-all shadow-xl hover:scale-110"
                   >
                     <Linkedin className="w-6 h-6" />
