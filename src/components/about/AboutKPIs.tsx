@@ -39,7 +39,7 @@ const Counter = ({ value, suffix = "" }: { value: string, suffix?: string }) => 
 const KPICard = ({ value, label, icon }: any) => (
   <motion.div
     whileHover={{ y: -5 }}
-    className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all group relative overflow-hidden"
+    className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm hover:shadow-md transition-all group relative overflow-hidden"
   >
     <div className="flex justify-between items-start mb-6">
       <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">

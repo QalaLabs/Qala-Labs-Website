@@ -22,7 +22,7 @@ const milestones: Milestone[] = [
 
 const ProjectTimeline = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-slate-900">Project Roadmap</h3>
         <div className="flex items-center gap-2 text-sm text-slate-500">
@@ -35,7 +35,7 @@ const ProjectTimeline = () => {
         {/* Vertical Line */}
         <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-100" />
 
-        <div className="space-y-10">
+        <div className="space-y-6">
           {milestones.map((milestone, index) => (
             <motion.div 
               key={milestone.id}
@@ -52,8 +52,8 @@ const ProjectTimeline = () => {
                 "bg-slate-100 text-slate-400"
               )}>
                 {milestone.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : 
-                 milestone.status === 'current' ? <Circle className="w-3 h-3 fill-current" /> : 
-                 <Circle className="w-3 h-3" />}
+                 milestone.status === 'current' ? <Circle className="w-4 h-4 fill-current" /> :
+                 <Circle className="w-4 h-4" />}
               </div>
 
               <div className={cn(

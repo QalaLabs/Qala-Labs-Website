@@ -26,9 +26,26 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
     revenue: '',
     channel: ''
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (type === 'book') {
+      if (!formData.name.trim()) next.name = 'Full name is required';
+      if (!formData.email.trim()) next.email = 'Work email is required';
+      if (!formData.company.trim()) next.company = 'Company is required';
+      if (!formData.revenue) next.revenue = 'Please select a revenue range';
+    } else {
+      if (!formData.email.trim()) next.email = 'Work email is required';
+      if (!formData.company.trim()) next.company = 'Company name is required';
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setLoading(true);
 
     const toolUsed = type === 'book' ? 'about_quick_qualify' : 'about_casepack_request';
@@ -121,25 +138,28 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label>Full Name</Label>
-                          <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="rounded-xl h-12" />
+                          <Input aria-invalid={!!errors.name} value={formData.name} onChange={e => { setFormData({...formData, name: e.target.value}); setErrors(p => ({...p, name: ''})); }} className="rounded-xl h-12" />
+                          {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                         </div>
                         <div className="space-y-2">
                           <Label>Work Email</Label>
-                          <Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="rounded-xl h-12" />
+                          <Input type="email" aria-invalid={!!errors.email} value={formData.email} onChange={e => { setFormData({...formData, email: e.target.value}); setErrors(p => ({...p, email: ''})); }} className="rounded-xl h-12" />
+                          {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label>Company</Label>
-                          <Input required value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} className="rounded-xl h-12" />
+                          <Input aria-invalid={!!errors.company} value={formData.company} onChange={e => { setFormData({...formData, company: e.target.value}); setErrors(p => ({...p, company: ''})); }} className="rounded-xl h-12" />
+                          {errors.company && <p className="text-xs text-red-500">{errors.company}</p>}
                         </div>
                         <div className="space-y-2">
                           <Label>Monthly Revenue</Label>
-                          <select 
-                            className="w-full h-12 px-3 rounded-xl border border-input bg-background text-sm"
+                          <select
+                            aria-invalid={!!errors.revenue}
+                            className={`w-full h-12 px-3 rounded-xl border bg-background text-sm ${errors.revenue ? 'border-red-500' : 'border-input'}`}
                             value={formData.revenue}
-                            onChange={e => setFormData({...formData, revenue: e.target.value})}
-                            required
+                            onChange={e => { setFormData({...formData, revenue: e.target.value}); setErrors(p => ({...p, revenue: ''})); }}
                           >
                             <option value="">Select range</option>
                             <option value="<1L">{"< ₹1L"}</option>
@@ -147,6 +167,7 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
                             <option value="5-25L">₹5L - ₹25L</option>
                             <option value="25L+">₹25L+</option>
                           </select>
+                          {errors.revenue && <p className="text-xs text-red-500">{errors.revenue}</p>}
                         </div>
                       </div>
                       <div className="space-y-2">
@@ -170,19 +191,21 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
                   </TabsContent>
                 </Tabs>
               ) : (
-                <div className="space-y-8">
+                <div className="space-y-5">
                   <div>
                     <h3 className="text-3xl font-black text-slate-900 mb-2">Request Case Pack</h3>
                     <p className="text-slate-500">Get our anonymized 8-figure growth playbooks delivered to your inbox.</p>
                   </div>
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                       <Label>Work Email</Label>
-                      <Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="rounded-xl h-14 text-lg" placeholder="john@brand.com" />
+                      <Input type="email" aria-invalid={!!errors.email} value={formData.email} onChange={e => { setFormData({...formData, email: e.target.value}); setErrors(p => ({...p, email: ''})); }} className="rounded-xl h-14 text-lg" placeholder="john@brand.com" />
+                      {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label>Company Name</Label>
-                      <Input required value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} className="rounded-xl h-14 text-lg" placeholder="Your Brand Ltd" />
+                      <Input aria-invalid={!!errors.company} value={formData.company} onChange={e => { setFormData({...formData, company: e.target.value}); setErrors(p => ({...p, company: ''})); }} className="rounded-xl h-14 text-lg" placeholder="Your Brand Ltd" />
+                      {errors.company && <p className="text-xs text-red-500">{errors.company}</p>}
                     </div>
                     <Button type="submit" disabled={loading} className="w-full h-16 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black text-xl">
                       {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Send Case Pack"}

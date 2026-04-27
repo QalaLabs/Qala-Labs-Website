@@ -9,7 +9,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import RoleRoute from "./components/auth/RoleRoute";
 import LoadingScreen from "./components/layout/LoadingScreen";
+import PortalLayout from "./components/layout/PortalLayout";
 
 // Direct import for the landing page to ensure instant visibility
 import Index from "./pages/Index";
@@ -54,6 +56,13 @@ const IPLMerchPortfolio = React.lazy(() => import("./pages/IPLMerchPortfolio"));
 const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
 const WWFIndiaPortfolio = React.lazy(() => import("./pages/WWFIndiaPortfolio"));
 
+// New strategic pages
+const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
+const EnterpriseAIAutomation = React.lazy(() => import("./pages/EnterpriseAIAutomation"));
+const Industries = React.lazy(() => import("./pages/Industries"));
+const AIAudit = React.lazy(() => import("./pages/AIAudit"));
+const Results = React.lazy(() => import("./pages/Results"));
+
 // Admin Sub-pages
 const PageList = React.lazy(() => import("./pages/admin/PageList"));
 const PageEditor = React.lazy(() => import("./pages/admin/PageEditor"));
@@ -69,6 +78,29 @@ const BlogEditor = React.lazy(() => import("./pages/admin/BlogEditor"));
 const TemplateManager = React.lazy(() => import("./pages/admin/TemplateManager"));
 const EditorGuide = React.lazy(() => import("./pages/EditorGuide"));
 const CareerLeads = React.lazy(() => import("./pages/admin/CareerLeads"));
+const UserManagement = React.lazy(() => import("./pages/admin/UserManagement"));
+const IntegrationsConfig = React.lazy(() => import("./pages/admin/IntegrationsConfig"));
+const FullCRM = React.lazy(() => import("./pages/admin/FullCRM"));
+
+// Client Portal
+const ClientDashboard = React.lazy(() => import("./pages/client/ClientDashboard"));
+const ClientProjects = React.lazy(() => import("./pages/client/ClientProjects"));
+const ClientChat = React.lazy(() => import("./pages/client/ClientChat"));
+
+// Employee Portal
+const EmployeeDashboard = React.lazy(() => import("./pages/employee/EmployeeDashboard"));
+const Contacts = React.lazy(() => import("./pages/employee/Contacts"));
+const Deals = React.lazy(() => import("./pages/employee/Deals"));
+const Pipeline = React.lazy(() => import("./pages/employee/Pipeline"));
+const Tasks = React.lazy(() => import("./pages/employee/Tasks"));
+const KanbanBoard = React.lazy(() => import("./pages/employee/KanbanBoard"));
+const GanttChart = React.lazy(() => import("./pages/employee/GanttChart"));
+const EmployeeCalendar = React.lazy(() => import("./pages/employee/Calendar"));
+const EmployeeChat = React.lazy(() => import("./pages/employee/Chat"));
+const EmailApp = React.lazy(() => import("./pages/employee/EmailApp"));
+const InvoiceGenerator = React.lazy(() => import("./pages/employee/InvoiceGenerator"));
+const Attendance = React.lazy(() => import("./pages/employee/Attendance"));
+const LeaveRequest = React.lazy(() => import("./pages/employee/LeaveRequest"));
 
 // Layout Components
 import StickyCTA from "./components/layout/StickyCTA";
@@ -123,40 +155,75 @@ const App = () => (
               <Route path="/agency-network" element={<AgencyNetwork />} />
               <Route path="/creator-collective" element={<CreatorCollective />} />
               
-              {/* Admin Routes (Protected) */}
-              <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
-              <Route path="/admin/careers" element={<ProtectedRoute><CareerLeads /></ProtectedRoute>} />
-              <Route path="/admin/pages" element={<ProtectedRoute><PageList /></ProtectedRoute>} />
-              <Route path="/admin/editor/:id" element={<ProtectedRoute><PageEditor /></ProtectedRoute>} />
-              <Route path="/admin/templates" element={<ProtectedRoute><TemplateManager /></ProtectedRoute>} />
-              
-              <Route path="/admin/case-studies" element={<ProtectedRoute><CaseStudyManager /></ProtectedRoute>} />
-              <Route path="/admin/case-studies/new" element={<ProtectedRoute><CaseStudyEditor /></ProtectedRoute>} />
-              <Route path="/admin/case-studies/edit/:id" element={<ProtectedRoute><CaseStudyEditor /></ProtectedRoute>} />
-              
-              <Route path="/admin/portfolio" element={<ProtectedRoute><PortfolioManager /></ProtectedRoute>} />
-              <Route path="/admin/portfolio/new" element={<ProtectedRoute><PortfolioEditor /></ProtectedRoute>} />
-              <Route path="/admin/portfolio/edit/:id" element={<ProtectedRoute><PortfolioEditor /></ProtectedRoute>} />
-              
-              <Route path="/admin/blog" element={<ProtectedRoute><BlogManager /></ProtectedRoute>} />
-              <Route path="/admin/blog/new" element={<ProtectedRoute><BlogEditor /></ProtectedRoute>} />
-              <Route path="/admin/blog/edit/:id" element={<ProtectedRoute><BlogEditor /></ProtectedRoute>} />
-              
-              <Route path="/admin/media" element={<ProtectedRoute><MediaManager /></ProtectedRoute>} />
-              <Route path="/admin/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-              <Route path="/admin/site-management" element={<ProtectedRoute><SiteManagement /></ProtectedRoute>} />
-              <Route path="/admin/guide" element={<ProtectedRoute><EditorGuide /></ProtectedRoute>} />
-              
+              {/* ── Admin Portal (role-gated, with sidebar layout) ── */}
+              <Route element={<RoleRoute allowedRoles={['admin']}><PortalLayout /></RoleRoute>}>
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/users" element={<UserManagement />} />
+                <Route path="/admin/crm" element={<FullCRM />} />
+                <Route path="/admin/integrations" element={<IntegrationsConfig />} />
+                <Route path="/admin/careers" element={<CareerLeads />} />
+                <Route path="/admin/pages" element={<PageList />} />
+                <Route path="/admin/editor/:id" element={<PageEditor />} />
+                <Route path="/admin/templates" element={<TemplateManager />} />
+                <Route path="/admin/case-studies" element={<CaseStudyManager />} />
+                <Route path="/admin/case-studies/new" element={<CaseStudyEditor />} />
+                <Route path="/admin/case-studies/edit/:id" element={<CaseStudyEditor />} />
+                <Route path="/admin/portfolio" element={<PortfolioManager />} />
+                <Route path="/admin/portfolio/new" element={<PortfolioEditor />} />
+                <Route path="/admin/portfolio/edit/:id" element={<PortfolioEditor />} />
+                <Route path="/admin/blog" element={<BlogManager />} />
+                <Route path="/admin/blog/new" element={<BlogEditor />} />
+                <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
+                <Route path="/admin/media" element={<MediaManager />} />
+                <Route path="/admin/settings" element={<Settings />} />
+                <Route path="/admin/site-management" element={<SiteManagement />} />
+                <Route path="/admin/guide" element={<EditorGuide />} />
+              </Route>
+
+              {/* ── Employee Portal ── */}
+              <Route element={<RoleRoute allowedRoles={['employee']}><PortalLayout /></RoleRoute>}>
+                <Route path="/employee" element={<EmployeeDashboard />} />
+                <Route path="/employee/contacts" element={<Contacts />} />
+                <Route path="/employee/deals" element={<Deals />} />
+                <Route path="/employee/pipeline" element={<Pipeline />} />
+                <Route path="/employee/tasks" element={<Tasks />} />
+                <Route path="/employee/kanban" element={<KanbanBoard />} />
+                <Route path="/employee/gantt" element={<GanttChart />} />
+                <Route path="/employee/calendar" element={<EmployeeCalendar />} />
+                <Route path="/employee/chat" element={<EmployeeChat />} />
+                <Route path="/employee/email" element={<EmailApp />} />
+                <Route path="/employee/invoices" element={<InvoiceGenerator />} />
+                <Route path="/employee/attendance" element={<Attendance />} />
+                <Route path="/employee/leave" element={<LeaveRequest />} />
+              </Route>
+
+              {/* ── Client Portal ── */}
+              <Route element={<RoleRoute allowedRoles={['client']}><PortalLayout /></RoleRoute>}>
+                <Route path="/client" element={<ClientDashboard />} />
+                <Route path="/client/projects" element={<ClientProjects />} />
+                <Route path="/client/chat" element={<ClientChat />} />
+              </Route>
+
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
               
               <Route path="/about" element={<About />} />
+              <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
+              <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
+              <Route path="/industries" element={<Industries />} />
+              <Route path="/ai-audit" element={<AIAudit />} />
+              <Route path="/results" element={<Results />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               
               {/* Dynamic CMS Pages */}
               <Route path="/p/:slug" element={<DynamicPage />} />
-              
+
+              {/* Phase 2 UI Demos (temporary, public access) */}
+              <Route path="/demo/user-management" element={<UserManagement />} />
+              <Route path="/demo/integrations" element={<IntegrationsConfig />} />
+              <Route path="/demo/crm" element={<FullCRM />} />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
             <StickyCTA />

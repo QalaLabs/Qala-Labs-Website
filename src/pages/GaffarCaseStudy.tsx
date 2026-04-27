@@ -32,10 +32,10 @@ import OldLogo from '@/assets/gaffar-old-logo.jpg';
 
 const GaffarCaseStudy = () => {
   const metrics = [
-    { label: "Project Duration", value: "4 Weeks", icon: <Zap className="w-6 h-6" /> },
-    { label: "Deliverables", value: "Full Kit", icon: <FileText className="w-6 h-6" /> },
-    { label: "Brand Strategy", value: "Marketplace", icon: <Target className="w-6 h-6" /> },
-    { label: "Visual Identity", value: "Responsive", icon: <Palette className="w-6 h-6" /> }
+    { label: "Delivery Time", value: "28 Days", icon: <Zap className="w-6 h-6" /> },
+    { label: "Asset Packages", value: "6 Kits", icon: <FileText className="w-6 h-6" /> },
+    { label: "Seller Trust Score", value: "+40%", icon: <Target className="w-6 h-6" /> },
+    { label: "Brand Touchpoints", value: "12+", icon: <Palette className="w-6 h-6" /> }
   ];
 
   return (

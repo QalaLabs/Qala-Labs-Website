@@ -89,7 +89,7 @@ const CaseStudySnapshots = () => {
                 </h3>
               </div>
               
-              <div className="space-y-8 md:space-y-10 flex-1">
+              <div className="space-y-6 md:space-y-8 flex-1">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">The Challenge</p>
                   <p className="text-slate-300 text-sm md:text-base leading-relaxed line-clamp-3">
@@ -107,7 +107,7 @@ const CaseStudySnapshots = () => {
                 {study.results?.learnings?.[0] && (
                   <div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
-                      <Lightbulb className="w-3 h-3 text-blue-400" /> Key Insight
+                      <Lightbulb className="w-4 h-4 text-blue-400" /> Key Insight
                     </p>
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">

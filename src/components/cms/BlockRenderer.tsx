@@ -36,8 +36,8 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
     return (
       <>
         <Hero 
-          title="Scale Your DTC Brand to 8-Figures." 
-          subtitle="We combine high-performance paid media with high-velocity creative to build predictable scale engines for DTC & B2B." 
+          title="India's Full-Service AI Growth Agency."
+          subtitle="Performance marketing, AI automation, and AI search visibility — we build brands that scale." 
           ctaText="Get Proposal" 
           ctaUrl="/contact" 
         />

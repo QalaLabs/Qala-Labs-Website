@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Qala Labs",
-  description: "Performance marketing & AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems.",
+  description: "India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility to build brands that scale.",
   url: "https://qalalabs.com",
   ogImage: "https://qalalabs.com/og.svg",
   links: {

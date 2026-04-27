@@ -7,15 +7,29 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Logo from '@/components/layout/Logo';
+import { UserRole } from '@/types/platform';
+
+const ROLE_REDIRECT: Record<UserRole, string> = {
+  admin: '/admin',
+  employee: '/employee',
+  client: '/client',
+};
 
 const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        navigate('/admin');
-      }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!session) return;
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      const role = (profile?.role as UserRole) ?? 'client';
+      navigate(ROLE_REDIRECT[role]);
     });
     return () => subscription.unsubscribe();
   }, [navigate]);
@@ -26,8 +40,8 @@ const Login = () => {
         <CardHeader className="flex flex-col items-center space-y-4 pt-8">
           <Logo className="scale-125 mb-2" />
           <div className="text-center">
-            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest">Admin Portal</h2>
-            <p className="text-slate-500 text-xs mt-1">Sign in to manage your scale engine</p>
+            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest">Qala Labs Portal</h2>
+            <p className="text-slate-500 text-xs mt-1">Sign in to access your workspace</p>
           </div>
         </CardHeader>
         <CardContent>

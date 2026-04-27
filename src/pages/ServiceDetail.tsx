@@ -25,6 +25,27 @@ import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
 
 const serviceData: Record<string, any> = {
+  'seo-aeo-geo': {
+    title: "AI Search Visibility",
+    description: "Google AI Overviews reduced click-through rates for top-ranking content by 58%. Traditional SEO alone is no longer enough. We bundle technical SEO, Google AI Overviews optimization (AEO), and LLM citation strategy for ChatGPT, Gemini, and Perplexity (GEO) into one unified AI Search Visibility service — so your brand is the trusted answer wherever your customers search.",
+    icon: <Search className="w-12 h-12" />,
+    metric: "3× Organic Visibility",
+    features: [
+      "Technical SEO Audits & Remediation",
+      "Google AI Overviews Optimization (AEO)",
+      "LLM Citation Strategy — ChatGPT, Gemini, Perplexity (GEO)",
+      "Entity & Knowledge Graph Building",
+      "Structured Data & Schema Markup",
+      "Content Architecture for AI Discoverability",
+      "Brand Voice Alignment Across AI Channels",
+      "Ongoing AI SERP Monitoring & Reporting"
+    ],
+    process: [
+      { title: "Audit", desc: "Deep crawl of technical health, entity coverage, AI Overview presence, and LLM citation gaps." },
+      { title: "Optimize", desc: "Schema markup, entity alignment, and content restructuring for both traditional and AI search." },
+      { title: "Dominate", desc: "Continuous monitoring across Google, ChatGPT, Perplexity, and Gemini — with monthly visibility reports." }
+    ]
+  },
   'social-media': {
     title: "Social Media Management",
     description: "We manage your brand's social presence across all platforms. From content strategy and community management to viral trend hijacking, we ensure your brand stays relevant and engaged with your core audience.",
@@ -45,21 +66,24 @@ const serviceData: Record<string, any> = {
     ]
   },
   'ai-automation': {
-    title: "AI Agents & Automation",
-    description: "We build autonomous AI agents that handle customer support, lead qualification, and internal operations. By integrating LLMs with your existing stack, we reduce manual overhead by up to 80%.",
+    title: "Enterprise AI Automation",
+    description: "B2B and SaaS teams using AI marketing see 4.2× average ROI — and that's before you touch ops. We design and deploy custom Claude-powered agents, multi-step n8n and Make workflows, and CRM integrations that eliminate your manual layer entirely. From lead qualification and onboarding sequences to internal reporting and support — we automate the work so your team can focus on what actually scales.",
     icon: <Bot className="w-12 h-12" />,
     metric: "80% Efficiency Lift",
     features: [
-      "Custom AI Support Agents",
-      "Automated Lead Qualification",
-      "n8n & Make.com Workflows",
-      "LLM Integration (OpenAI/Claude)",
-      "Internal Process Automation"
+      "Custom Claude & LLM Agent Development",
+      "CRM Integration & AI-Driven Lead Scoring",
+      "Automated Lead Qualification & Nurture",
+      "Internal Workflow Automation (n8n / Make)",
+      "AI-Powered Customer Support Agents",
+      "B2B Onboarding & Ops Automation",
+      "SaaS Pipeline & Reporting Automation",
+      "Ongoing Agent Monitoring & Optimisation"
     ],
     process: [
-      { title: "Audit", desc: "Mapping your manual bottlenecks and data flows." },
-      { title: "Build", desc: "Developing custom agents and workflow logic." },
-      { title: "Deploy", desc: "Seamless integration into your existing stack." }
+      { title: "Audit", desc: "Map your manual bottlenecks, data flows, and CRM architecture to find the highest-ROI automation targets." },
+      { title: "Build", desc: "Develop custom agents and workflow logic using Claude, OpenAI, n8n, and Make — tailored to your stack." },
+      { title: "Deploy", desc: "Seamless integration and handoff with ongoing monitoring, retraining, and performance reporting." }
     ]
   },
   'performance': {
@@ -81,21 +105,24 @@ const serviceData: Record<string, any> = {
     ]
   },
   'creative': {
-    title: "Creative Production",
-    description: "High-velocity creative testing is the heartbeat of modern scale. We produce 100+ high-converting ad variants weekly.",
+    title: "AI Creative Production",
+    description: "AI video is the single biggest unlock in performance creative right now. We run a full AI production pipeline — script (Claude/ChatGPT) → visuals (Sora/Veo 3) → voiceover (ElevenLabs) → editing — combined with human creative direction and UGC creator programs. The result: 100+ high-converting ad variants weekly at a fraction of traditional production cost, with AI-assisted video averaging 3× ad engagement versus static.",
     icon: <Zap className="w-12 h-12" />,
-    metric: "35% Lower CPA",
+    metric: "3× Ad Engagement",
     features: [
-      "Creator-Led Content (UGC)",
+      "AI Video Production (Sora / Veo 3)",
+      "AI-Scripted UGC & Creator Programs",
+      "ElevenLabs Voiceover Integration",
       "Direct Response Video Editing",
-      "Static Ad Design",
-      "Hook & CTA Testing",
-      "Creative Strategy Workshops"
+      "Static Ad Design & Motion Graphics",
+      "Hook & CTA Variant Testing",
+      "Creative Strategy & Angle Research",
+      "Weekly Performance Feedback Loop"
     ],
     process: [
-      { title: "Ideation", desc: "Data-driven hook and angle research." },
-      { title: "Production", desc: "Rapid filming and editing cycles." },
-      { title: "Analysis", desc: "Performance feedback loop for next batch." }
+      { title: "Ideation", desc: "Data-driven hook and angle research using AI trend analysis and competitor creative audits." },
+      { title: "Production", desc: "Full AI pipeline — script, AI video generation, voiceover, and human editing for polish and brand fit." },
+      { title: "Analysis", desc: "Performance data feeds directly into the next batch — iterating toward lower CPA every week." }
     ]
   },
   'web-dev': {
@@ -117,21 +144,24 @@ const serviceData: Record<string, any> = {
     ]
   },
   'cro': {
-    title: "Conversion Optimization",
-    description: "Stop leaking revenue at the finish line. We eliminate friction in your customer journey from landing page to checkout.",
+    title: "CRO + Retention Engineering",
+    description: "If you're spending ₹10L+ on ads, the funnel you're paying to fill is where you're losing. We run full-funnel CRO — heatmap audits, A/B testing, and checkout flow optimisation — then extend into retention engineering: AI-trigger email and SMS flows, post-purchase sequences, win-back campaigns, and LTV maximisation. We turn one-time buyers into repeat revenue without increasing your media spend.",
     icon: <Search className="w-12 h-12" />,
     metric: "+42% CVR Lift",
     features: [
-      "Heatmap & Session Analysis",
-      "Rigorous A/B Testing",
-      "Checkout Flow Optimization",
-      "Landing Page Design",
-      "User Psychology Audits"
+      "Heatmap & Session Recording Analysis",
+      "Rigorous A/B & Multivariate Testing",
+      "Checkout Flow Optimisation",
+      "Landing Page Design & Copywriting",
+      "User Psychology & Friction Audits",
+      "AI-Trigger Email & SMS Flows",
+      "Post-Purchase & Win-Back Sequences",
+      "LTV & Cohort-Based Retention Strategy"
     ],
     process: [
-      { title: "Analyze", desc: "Identify drop-off points in the funnel." },
-      { title: "Hypothesize", desc: "Create data-backed test variations." },
-      { title: "Test", desc: "Run experiments to find winning changes." }
+      { title: "Audit", desc: "Full funnel analysis — heatmaps, session recordings, and drop-off identification from ad click to purchase." },
+      { title: "Optimise", desc: "A/B test landing pages, checkout steps, and post-purchase flows with statistical rigour." },
+      { title: "Retain", desc: "Deploy AI-trigger retention sequences that maximise repeat purchase rate and customer LTV." }
     ]
   },
   'data': {

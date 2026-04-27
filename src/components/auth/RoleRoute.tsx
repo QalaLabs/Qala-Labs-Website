@@ -3,14 +3,16 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { UserRole } from '@/types/platform';
 import { Loader2 } from 'lucide-react';
 
-interface ProtectedRouteProps {
+interface RoleRouteProps {
   children: React.ReactNode;
+  allowedRoles: UserRole[];
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { user, loading } = useAuth();
+const RoleRoute = ({ children, allowedRoles }: RoleRouteProps) => {
+  const { user, role, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -25,7 +27,16 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  if (role && !allowedRoles.includes(role)) {
+    const redirectMap: Record<UserRole, string> = {
+      admin: '/admin',
+      employee: '/employee',
+      client: '/client',
+    };
+    return <Navigate to={redirectMap[role]} replace />;
+  }
+
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default RoleRoute;

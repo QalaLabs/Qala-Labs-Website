@@ -49,8 +49,8 @@ const LeadTable = ({ leads, onLeadClick }: LeadTableProps) => {
                 </td>
                 <td className="px-8 py-6">
                   <div className="flex items-center gap-2">
-                    {lead.tool_used === 'agency_network_join' && <Briefcase className="w-3 h-3 text-blue-500" />}
-                    {lead.tool_used === 'creator_onboarding_v2' && <UserCheck className="w-3 h-3 text-pink-500" />}
+                    {lead.tool_used === 'agency_network_join' && <Briefcase className="w-4 h-4 text-blue-500" />}
+                    {lead.tool_used === 'creator_onboarding_v2' && <UserCheck className="w-4 h-4 text-pink-500" />}
                     <span className="text-sm font-bold text-slate-600">{interest}</span>
                   </div>
                 </td>

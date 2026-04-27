@@ -52,8 +52,8 @@ const LeadDetailModal = ({ lead, isOpen, onClose, onUpdate }: LeadDetailModalPro
 
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-6">
-              <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100">
-                <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><History className="w-3 h-3" /> Context</Label>
+              <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-200">
+                <Label className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2"><History className="w-4 h-4" /> Context</Label>
                 <div className="mt-4 space-y-4">
                   <div><p className="text-xs text-slate-400">Captured on</p><p className="font-bold text-slate-900 truncate">{lead.data?.source_url || 'Direct'}</p></div>
                   <div><p className="text-xs text-slate-400">Campaign</p><p className="font-bold text-blue-600">{lead.data?.utm_campaign || 'Organic'}</p></div>
@@ -65,7 +65,7 @@ const LeadDetailModal = ({ lead, isOpen, onClose, onUpdate }: LeadDetailModalPro
 
             <div className="space-y-6">
               <div className="p-8 bg-blue-50 rounded-[2.5rem] border border-blue-100">
-                <Label className="text-[10px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-2"><StickyNote className="w-3 h-3" /> Internal Notes</Label>
+                <Label className="text-[10px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-2"><StickyNote className="w-4 h-4" /> Internal Notes</Label>
                 <div className="mt-4 space-y-4">
                   {lead.data?.internal_note && (
                     <div className="p-3 bg-white rounded-xl text-xs text-slate-600 border border-blue-100 italic">

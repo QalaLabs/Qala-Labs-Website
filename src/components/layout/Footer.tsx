@@ -11,6 +11,8 @@ const Footer = () => {
     company: [
       { name: 'About Us', href: '/about' },
       { name: 'Services', href: '/services' },
+      { name: 'Industries', href: '/industries' },
+      { name: 'Results', href: '/results' },
       { name: 'Portfolio', href: '/portfolio' },
       { name: 'Case Studies', href: '/case-studies' },
       { name: 'Careers', href: '/career' },
@@ -21,6 +23,9 @@ const Footer = () => {
       { name: 'Pricing', href: '/pricing' },
     ],
     resources: [
+      { name: 'AI Search Visibility', href: '/ai-search-visibility' },
+      { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation' },
+      { name: 'Free AI Audit', href: '/ai-audit' },
       { name: 'Blog', href: '/blog' },
       { name: 'Growth Tools', href: '/tools' },
       { name: 'Contact', href: '/contact' },

@@ -17,6 +17,22 @@ import {
 
 const services = [
   {
+    title: "Enterprise AI Automation",
+    category: "Tech",
+    description: "We design and deploy custom AI agents, Claude-powered workflows, and end-to-end automation for B2B, SaaS, and enterprise teams. From CRM integration and lead qualification to internal ops — we eliminate the manual layer and scale your team's output without headcount.",
+    metric: "80% Efficiency Lift",
+    icon: <Bot className="w-7 h-7" />,
+    href: "/services/ai-automation"
+  },
+  {
+    title: "AI Search Visibility",
+    category: "Growth",
+    description: "Traditional SEO is no longer enough. We bundle technical SEO, Google AI Overviews (AEO), and LLM citation strategy for ChatGPT, Gemini, and Perplexity (GEO) into one unified service — so your brand is the answer wherever your customers search.",
+    metric: "3× Organic Visibility",
+    icon: <Search className="w-7 h-7" />,
+    href: "/services/seo-aeo-geo"
+  },
+  {
     title: "Performance Marketing",
     category: "Growth",
     description: "We dominate paid social and search by combining aggressive bidding strategies with proprietary attribution models. Our team manages millions in monthly spend across Meta, TikTok, and Google, ensuring every rupee is optimized for maximum return.",
@@ -33,18 +49,10 @@ const services = [
     href: "/services/social-media"
   },
   {
-    title: "AI Agents & Automation",
-    category: "Tech",
-    description: "We build autonomous AI agents that handle customer support, lead qualification, and internal operations. By integrating LLMs with your existing stack via n8n and Make, we reduce manual overhead by up to 80%.",
-    metric: "80% Less Manual Work",
-    icon: <Bot className="w-7 h-7" />,
-    href: "/services/ai-automation"
-  },
-  {
-    title: "Creative Production",
+    title: "AI Creative Production",
     category: "Creative",
-    description: "High-velocity creative testing is the heartbeat of modern scale. We produce 100+ high-converting ad variants weekly, leveraging creator-led content and data-driven editing to identify winning hooks that stop the scroll.",
-    metric: "35% Lower CPA",
+    description: "We combine AI video (Sora/Veo 3), AI-scripted UGC, and ElevenLabs voiceovers with human creative direction to produce 100+ high-converting ad variants weekly. AI-assisted production cuts turnaround time while tripling engagement versus static creative.",
+    metric: "3× Ad Engagement",
     icon: <Zap className="w-7 h-7" />,
     href: "/services/creative"
   },
@@ -57,9 +65,9 @@ const services = [
     href: "/services/web-dev"
   },
   {
-    title: "Conversion Optimization",
+    title: "CRO + Retention Engineering",
     category: "Growth",
-    description: "Stop leaking revenue at the finish line. We use heatmaps, session recordings, and rigorous A/B testing to identify and eliminate friction in your customer journey from landing page to checkout.",
+    description: "We fix the funnel you're paying to fill. From heatmap audits and A/B testing to AI-trigger email flows, post-purchase sequences, and LTV maximisation — we turn one-time buyers into repeat revenue without increasing your ad spend.",
     metric: "+42% CVR Lift",
     icon: <Search className="w-7 h-7" />,
     href: "/services/cro"

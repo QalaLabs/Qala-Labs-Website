@@ -50,7 +50,7 @@ const SuccessFramework = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl group hover:border-blue-200 transition-all duration-500"
+              className="bg-white p-10 rounded-[3rem] border border-slate-200 shadow-sm hover:shadow-md group hover:border-blue-200 transition-all duration-500"
             >
               <div className={`${pillar.color} w-16 h-16 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg group-hover:scale-110 transition-transform`}>
                 {pillar.icon}

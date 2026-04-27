@@ -11,8 +11,8 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO
-        title="Performance Marketing & AI Automation Services | Qala Labs"
-        description="Meta Ads, Google Shopping, Amazon Ads, AI automation, creative production & server-side tracking — full-stack growth services for DTC brands in India."
+        title="AI Automation, Performance Marketing & SEO Services | Qala Labs"
+        description="Enterprise AI agents, SEO/AEO/GEO, Meta & Google Ads, creative production, and server-side analytics — full-service AI and growth agency for ambitious brands."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' }
@@ -36,15 +36,15 @@ const Services = () => {
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight"
             >
-              Performance Marketing &amp; <span className="text-blue-600">DTC Growth</span> Services.
+              Full-Service AI &amp; <span className="text-blue-600">Growth Agency</span> Services.
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-xl text-slate-600 leading-relaxed"
             >
-              We don't just "run ads." We build end-to-end revenue engines that combine high-velocity creative testing with server-side tracking and aggressive media buying.
+              From enterprise AI automation to SEO/AEO/GEO and performance marketing — we build end-to-end revenue engines that combine intelligent systems with aggressive media buying and data-driven creative.
             </motion.p>
           </div>
 
@@ -57,7 +57,7 @@ const Services = () => {
                 See these services in action.
               </h2>
               <p className="text-slate-400 mb-10 max-w-xl mx-auto text-lg">
-                From 28x ROAS on Meta Ads to 3.4M organic YouTube views — explore real results we've delivered for DTC brands.
+                From 28x ROAS on Meta Ads to 3.4M organic YouTube views and enterprise AI automation deployments — real results across industries.
               </p>
               <Link
                 to="/case-studies"
