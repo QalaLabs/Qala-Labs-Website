@@ -196,7 +196,7 @@ const NutrivendUKCaseStudy = () => {
               </div>
             </div>
             <div className="overflow-hidden rounded-2xl shadow-2xl">
-              <img src={decisionImage} alt="Nutrivend UK B2B fitness lead generation audience research with gym decision maker" className="h-full w-full object-cover" />
+              <img src={decisionImage} alt="Nutrivend UK B2B fitness lead generation audience research with gym decision maker" className="h-full w-full object-cover" loading="lazy" />
             </div>
           </div>
         </section>
@@ -247,7 +247,7 @@ const NutrivendUKCaseStudy = () => {
         <section className="py-24">
           <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2">
             <div className="overflow-hidden rounded-2xl shadow-2xl">
-              <img src={vendingImage} alt="Nutrivend UK vending machine customer payment experience used in B2B Meta Ads creative" className="h-full w-full object-cover" />
+              <img src={vendingImage} alt="Nutrivend UK vending machine customer payment experience used in B2B Meta Ads creative" className="h-full w-full object-cover" loading="lazy" />
             </div>
             <div>
               <p className="text-xs font-black uppercase tracking-widest text-blue-600">The Offer</p>

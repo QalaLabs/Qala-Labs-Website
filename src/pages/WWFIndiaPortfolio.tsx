@@ -118,10 +118,11 @@ const WWFIndiaPortfolio = () => {
                   className="group"
                 >
                   <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100 bg-slate-50 mb-6">
-                    <img 
-                      src={item.url} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                    <img
+                      src={item.url}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>

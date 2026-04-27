@@ -82,10 +82,11 @@ const Blog = () => {
               <div className="mb-16">
                 <Link to={`/blog/${featuredPost.slug}`}>
                   <div className="relative h-[500px] rounded-[3rem] overflow-hidden group cursor-pointer shadow-2xl">
-                    <img 
-                      src={featuredPost.image_url || "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1200"} 
+                    <img
+                      src={featuredPost.image_url || "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1200"}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       alt={featuredPost.title}
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-10 md:p-16 text-white max-w-3xl">
@@ -107,10 +108,11 @@ const Blog = () => {
                 <Link key={post.id} to={`/blog/${post.slug}`}>
                   <Card className="border-none shadow-xl hover:shadow-2xl transition-all overflow-hidden group rounded-[2.5rem] bg-white h-full flex flex-col">
                     <div className="h-56 overflow-hidden relative">
-                      <img 
-                        src={post.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                      <img
+                        src={post.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
                       />
                       <div className="absolute top-4 left-4">
                         <Badge className="bg-white/90 backdrop-blur-md text-slate-900 border-none font-bold">

@@ -164,13 +164,13 @@ const TrotrCaseStudy = () => {
                 </div>
               </div>
               <div className="order-1 lg:order-2 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_4-10.png" className="w-full h-auto" alt="Trotr Meta Ads month one failure analysis for high-ticket travel lead generation" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_4-10.png" className="w-full h-auto" alt="Trotr Meta Ads month one failure analysis for high-ticket travel lead generation" loading="lazy" />
               </div>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_5-10.png" className="w-full h-auto" alt="Trotr Spain campaign strategy pivot for Meta lead generation" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2023/01/case_study_img_5-10.png" className="w-full h-auto" alt="Trotr Spain campaign strategy pivot for Meta lead generation" loading="lazy" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 font-black italic">02</div>
@@ -213,7 +213,7 @@ const TrotrCaseStudy = () => {
                 </div>
               </div>
               <div className="rounded-[3rem] overflow-hidden shadow-xl border-8 border-white bg-white">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2024/11/about-img2.jpg" className="w-full h-auto" alt="Trotr case study learning from founder-led travel storytelling funnel" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2024/11/about-img2.jpg" className="w-full h-auto" alt="Trotr case study learning from founder-led travel storytelling funnel" loading="lazy" />
               </div>
             </div>
           </section>

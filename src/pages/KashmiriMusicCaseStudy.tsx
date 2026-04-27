@@ -184,7 +184,7 @@ const KashmiriMusicCaseStudy = () => {
                 </ul>
               </div>
               <div className="order-1 lg:order-2 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100">
-                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-defining-market-research.webp" className="w-full h-auto" alt="Kashmiri music case study market research for organic YouTube growth" />
+                <img src="https://lightcyan-porpoise-736517.hostingersite.com/wp-content/uploads/2025/07/Create-an-image-defining-market-research.webp" className="w-full h-auto" alt="Kashmiri music case study market research for organic YouTube growth" loading="lazy" />
               </div>
             </div>
 

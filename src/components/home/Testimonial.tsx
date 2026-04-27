@@ -21,7 +21,7 @@ const Testimonial = () => {
             </p>
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-slate-200 rounded-full mb-4 overflow-hidden">
-                <img src="https://i.pravatar.cc/100?img=12" alt="CEO" />
+                <img src="https://i.pravatar.cc/100?img=12" alt="CEO" loading="lazy" />
               </div>
               <p className="font-bold text-slate-900">CEO, Gaffar India</p>
             </div>

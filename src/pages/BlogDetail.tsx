@@ -110,7 +110,7 @@ const BlogDetail = () => {
 
             {post.image_url && (
               <div className="rounded-[3rem] overflow-hidden h-[500px] mb-16 shadow-2xl border border-slate-100">
-                <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" />
+                <img src={post.image_url} alt={post.title} className="w-full h-full object-cover" loading="lazy" />
               </div>
             )}
 
