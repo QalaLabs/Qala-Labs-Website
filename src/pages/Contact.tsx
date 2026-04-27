@@ -121,21 +121,23 @@ const Contact = () => {
               <div className="pt-8 border-t border-slate-200">
                 <h4 className="font-bold text-slate-900 mb-4">Follow Our Frameworks</h4>
                 <div className="flex gap-4">
-                  <a 
-                    href="https://www.linkedin.com/company/qalalabs/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.linkedin.com/company/qalalabs/"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all"
+                    aria-label="Qala Labs on LinkedIn"
+                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-600 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                   >
-                    <Linkedin className="w-5 h-5" />
+                    <Linkedin className="w-5 h-5" aria-hidden="true" />
                   </a>
-                  <a 
-                    href="https://www.instagram.com/qalalabs/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.instagram.com/qalalabs/"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600 hover:border-pink-600 transition-all"
+                    aria-label="Qala Labs on Instagram"
+                    className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600 hover:border-pink-600 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-600"
                   >
-                    <Instagram className="w-5 h-5" />
+                    <Instagram className="w-5 h-5" aria-hidden="true" />
                   </a>
                 </div>
               </div>

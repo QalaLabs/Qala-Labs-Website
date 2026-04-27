@@ -6,10 +6,12 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, ArrowRight, Zap, Filter } from "lucide-react";
+import { ArrowRight, Zap, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ProjectCard from "@/components/portfolio/ProjectCard";
+import { CaseStudyCardSkeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import { showError } from "@/utils/toast";
 import GaffarLogo from '@/assets/gaffar-new-logo.webp';
 import NutrivendThumbnail from '@/assets/nutrivend/training-boxers-gym.jpg?w=900&format=webp&quality=82';
 import TrotrFeatured from '@/assets/trotr-featured.jpeg?w=900&format=webp&quality=82';
@@ -69,7 +71,8 @@ const CaseStudies = () => {
         .from("case_studies")
         .select("*")
         .order("created_at", { ascending: false });
-      
+
+      if (error) showError("Failed to load case studies. Please refresh.");
       const dbStudies = data || [];
       const merged = [...featuredStudies];
       
@@ -94,14 +97,6 @@ const CaseStudies = () => {
     ? studies 
     : studies.filter(s => s.category === activeCategory);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white">
       <SEO
@@ -109,9 +104,9 @@ const CaseStudies = () => {
         description="Real results from real DTC brands — 28x ROAS, 11.2x Amazon ROAS, 5M+ viral reach. See how Qala Labs builds scale engines for ecommerce brands in India."
       />
       <Navbar />
-      
+
       <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
@@ -127,34 +122,43 @@ const CaseStudies = () => {
           </p>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat: any) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-8 py-4 rounded-2xl font-black text-sm transition-all duration-500 flex items-center gap-2 ${
-                activeCategory === cat 
-                  ? "bg-blue-600 text-white shadow-2xl shadow-blue-200 scale-105" 
-                  : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
-              }`}
-            >
-              {cat === "All" && <Filter className="w-4 h-4" />}
-              {cat}
-            </button>
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+            {Array.from({ length: 6 }).map((_, i) => <CaseStudyCardSkeleton key={i} />)}
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-wrap justify-center gap-3 mb-16">
+              {categories.map((cat: any) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  aria-pressed={activeCategory === cat}
+                  className={`px-8 py-4 rounded-2xl font-black text-sm transition-all duration-500 flex items-center gap-2 ${
+                    activeCategory === cat
+                      ? "bg-blue-600 text-white shadow-2xl shadow-blue-200 scale-105"
+                      : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
+                  }`}
+                >
+                  {cat === "All" && <Filter className="w-4 h-4" />}
+                  {cat}
+                </button>
+              ))}
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-          <AnimatePresence mode="popLayout">
-            {filteredStudies.map((study) => (
-              <ProjectCard 
-                key={study.id || study.slug} 
-                project={study} 
-                onClick={() => navigate(`/case-studies/${study.slug}`)}
-              />
-            ))}
-          </AnimatePresence>
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+              <AnimatePresence mode="popLayout">
+                {filteredStudies.map((study) => (
+                  <ProjectCard
+                    key={study.id || study.slug}
+                    project={study}
+                    onClick={() => navigate(`/case-studies/${study.slug}`)}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          </>
+        )}
 
         <section className="py-20">
           <div className="relative p-12 md:p-20 bg-slate-900 rounded-[4rem] overflow-hidden text-center shadow-2xl">

@@ -7,11 +7,13 @@ import SEO from '@/components/layout/SEO';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, ArrowRight, Loader2 } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import BNPLFeatured from '@/assets/bnpl-featured.png';
+import { BlogFeaturedSkeleton, BlogCardSkeleton } from '@/components/ui/skeleton';
+import { showError } from '@/utils/toast';
 
 const Blog = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -23,7 +25,8 @@ const Blog = () => {
         .from('blog_posts')
         .select('*')
         .order('created_at', { ascending: false });
-      
+
+      if (error) showError("Failed to load posts. Please refresh.");
       const dbPosts = data || [];
       
       // Hardcoded featured post for BNPL
@@ -66,9 +69,12 @@ const Blog = () => {
         </div>
 
         {loading ? (
-          <div className="py-20 flex justify-center">
-            <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-          </div>
+          <>
+            <BlogFeaturedSkeleton />
+            <div className="grid md:grid-cols-3 gap-8">
+              {Array.from({ length: 3 }).map((_, i) => <BlogCardSkeleton key={i} />)}
+            </div>
+          </>
         ) : (
           <>
             {/* Featured Post */}

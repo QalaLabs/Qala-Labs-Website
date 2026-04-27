@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCard from './ProjectCard';
-import { Filter, Loader2 } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { ProjectCardSkeleton } from '@/components/ui/skeleton';
+import { showError } from '@/utils/toast';
 import TeamLogos from '@/assets/ipl/team-logos.png';
 import WPLHero from '@/assets/pickleball/wpl-hero.png';
 
@@ -88,7 +90,8 @@ const PortfolioGrid = () => {
         .from('portfolio_projects')
         .select('*')
         .order('created_at', { ascending: false });
-      
+
+      if (error) showError("Failed to load portfolio. Please refresh.");
       const dbProjects = data || [];
       // Merge hardcoded with DB projects, avoiding duplicates by slug
       const merged = [...featuredProjects];
@@ -116,8 +119,8 @@ const PortfolioGrid = () => {
 
   if (loading) {
     return (
-      <div className="py-20 flex justify-center">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {Array.from({ length: 6 }).map((_, i) => <ProjectCardSkeleton key={i} />)}
       </div>
     );
   }
@@ -130,9 +133,10 @@ const PortfolioGrid = () => {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
+            aria-pressed={activeCategory === cat}
             className={`px-8 py-4 rounded-2xl font-black text-sm transition-all duration-500 flex items-center gap-2 ${
-              activeCategory === cat 
-                ? "bg-blue-600 text-white shadow-2xl shadow-blue-200 scale-105" 
+              activeCategory === cat
+                ? "bg-blue-600 text-white shadow-2xl shadow-blue-200 scale-105"
                 : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-100"
             }`}
           >

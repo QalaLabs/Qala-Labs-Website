@@ -125,7 +125,7 @@ const StickyCTA = () => {
               exit={{ x: '100%' }}
               className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white z-[80] shadow-2xl p-8 md:p-12 flex flex-col overflow-y-auto"
             >
-              <button onClick={() => setIsOpen(false)} className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full"><X className="w-6 h-6 text-slate-400" /></button>
+              <button onClick={() => setIsOpen(false)} aria-label="Close growth plan form" className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"><X className="w-6 h-6 text-slate-400" aria-hidden="true" /></button>
 
               <div className="flex-1 flex flex-col justify-center">
                 {success ? (

@@ -5,7 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -109,6 +110,136 @@ import AIChatWidget from "./components/layout/AIChatWidget";
 
 const queryClient = new QueryClient();
 
+const pageTransition = {
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0 },
+  transition: { duration: 0.15, ease: "easeOut" },
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div key={location.pathname} {...pageTransition} style={{ minHeight: "100vh" }}>
+        <React.Suspense fallback={<LoadingScreen />}>
+          <Routes location={location}>
+            <Route path="/" element={<Index />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+
+            {/* Specific Case Study Routes */}
+            <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
+            <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
+            <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
+            <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+
+            {/* Specific Portfolio Routes */}
+            <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+            <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
+            <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
+            <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
+            <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
+            <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
+            <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
+
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/career" element={<Career />} />
+            <Route path="/agency-network" element={<AgencyNetwork />} />
+            <Route path="/creator-collective" element={<CreatorCollective />} />
+
+            {/* ── Admin Portal (role-gated, with sidebar layout) ── */}
+            <Route element={<RoleRoute allowedRoles={['admin']}><PortalLayout /></RoleRoute>}>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/users" element={<UserManagement />} />
+              <Route path="/admin/crm" element={<FullCRM />} />
+              <Route path="/admin/integrations" element={<IntegrationsConfig />} />
+              <Route path="/admin/careers" element={<CareerLeads />} />
+              <Route path="/admin/pages" element={<PageList />} />
+              <Route path="/admin/editor/:id" element={<PageEditor />} />
+              <Route path="/admin/templates" element={<TemplateManager />} />
+              <Route path="/admin/case-studies" element={<CaseStudyManager />} />
+              <Route path="/admin/case-studies/new" element={<CaseStudyEditor />} />
+              <Route path="/admin/case-studies/edit/:id" element={<CaseStudyEditor />} />
+              <Route path="/admin/portfolio" element={<PortfolioManager />} />
+              <Route path="/admin/portfolio/new" element={<PortfolioEditor />} />
+              <Route path="/admin/portfolio/edit/:id" element={<PortfolioEditor />} />
+              <Route path="/admin/blog" element={<BlogManager />} />
+              <Route path="/admin/blog/new" element={<BlogEditor />} />
+              <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
+              <Route path="/admin/media" element={<MediaManager />} />
+              <Route path="/admin/settings" element={<Settings />} />
+              <Route path="/admin/site-management" element={<SiteManagement />} />
+              <Route path="/admin/guide" element={<EditorGuide />} />
+            </Route>
+
+            {/* ── Employee Portal ── */}
+            <Route element={<RoleRoute allowedRoles={['employee']}><PortalLayout /></RoleRoute>}>
+              <Route path="/employee" element={<EmployeeDashboard />} />
+              <Route path="/employee/contacts" element={<Contacts />} />
+              <Route path="/employee/deals" element={<Deals />} />
+              <Route path="/employee/pipeline" element={<Pipeline />} />
+              <Route path="/employee/tasks" element={<Tasks />} />
+              <Route path="/employee/kanban" element={<KanbanBoard />} />
+              <Route path="/employee/gantt" element={<GanttChart />} />
+              <Route path="/employee/calendar" element={<EmployeeCalendar />} />
+              <Route path="/employee/chat" element={<EmployeeChat />} />
+              <Route path="/employee/email" element={<EmailApp />} />
+              <Route path="/employee/invoices" element={<InvoiceGenerator />} />
+              <Route path="/employee/attendance" element={<Attendance />} />
+              <Route path="/employee/leave" element={<LeaveRequest />} />
+            </Route>
+
+            {/* ── Client Portal ── */}
+            <Route element={<RoleRoute allowedRoles={['client']}><PortalLayout /></RoleRoute>}>
+              <Route path="/client" element={<ClientDashboard />} />
+              <Route path="/client/projects" element={<ClientProjects />} />
+              <Route path="/client/chat" element={<ClientChat />} />
+            </Route>
+
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+
+            <Route path="/about" element={<About />} />
+            <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
+            <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/ai-audit" element={<AIAudit />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+
+            {/* Dynamic CMS Pages */}
+            <Route path="/p/:slug" element={<DynamicPage />} />
+
+            {/* Phase 2 UI Demos (temporary, public access) */}
+            <Route path="/demo/user-management" element={<UserManagement />} />
+            <Route path="/demo/integrations" element={<IntegrationsConfig />} />
+            <Route path="/demo/crm" element={<FullCRM />} />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <StickyCTA />
+          <WhatsAppButton />
+          <AIChatWidget />
+        </React.Suspense>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
@@ -117,119 +248,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <React.Suspense fallback={<LoadingScreen />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/services/:slug" element={<ServiceDetail />} />
-              
-              {/* Specific Case Study Routes */}
-              <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
-              <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
-              <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
-              <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
-              
-              {/* Specific Portfolio Routes */}
-              <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
-              <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
-              <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
-              <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
-              <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
-              <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
-              <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
-              
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/why-bnpl-core-payment-strategy-india" element={<BNPLStrategy />} />
-              <Route path="/blog/:slug" element={<BlogDetail />} />
-              
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/tools" element={<Tools />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/career" element={<Career />} />
-              <Route path="/agency-network" element={<AgencyNetwork />} />
-              <Route path="/creator-collective" element={<CreatorCollective />} />
-              
-              {/* ── Admin Portal (role-gated, with sidebar layout) ── */}
-              <Route element={<RoleRoute allowedRoles={['admin']}><PortalLayout /></RoleRoute>}>
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/admin/users" element={<UserManagement />} />
-                <Route path="/admin/crm" element={<FullCRM />} />
-                <Route path="/admin/integrations" element={<IntegrationsConfig />} />
-                <Route path="/admin/careers" element={<CareerLeads />} />
-                <Route path="/admin/pages" element={<PageList />} />
-                <Route path="/admin/editor/:id" element={<PageEditor />} />
-                <Route path="/admin/templates" element={<TemplateManager />} />
-                <Route path="/admin/case-studies" element={<CaseStudyManager />} />
-                <Route path="/admin/case-studies/new" element={<CaseStudyEditor />} />
-                <Route path="/admin/case-studies/edit/:id" element={<CaseStudyEditor />} />
-                <Route path="/admin/portfolio" element={<PortfolioManager />} />
-                <Route path="/admin/portfolio/new" element={<PortfolioEditor />} />
-                <Route path="/admin/portfolio/edit/:id" element={<PortfolioEditor />} />
-                <Route path="/admin/blog" element={<BlogManager />} />
-                <Route path="/admin/blog/new" element={<BlogEditor />} />
-                <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
-                <Route path="/admin/media" element={<MediaManager />} />
-                <Route path="/admin/settings" element={<Settings />} />
-                <Route path="/admin/site-management" element={<SiteManagement />} />
-                <Route path="/admin/guide" element={<EditorGuide />} />
-              </Route>
-
-              {/* ── Employee Portal ── */}
-              <Route element={<RoleRoute allowedRoles={['employee']}><PortalLayout /></RoleRoute>}>
-                <Route path="/employee" element={<EmployeeDashboard />} />
-                <Route path="/employee/contacts" element={<Contacts />} />
-                <Route path="/employee/deals" element={<Deals />} />
-                <Route path="/employee/pipeline" element={<Pipeline />} />
-                <Route path="/employee/tasks" element={<Tasks />} />
-                <Route path="/employee/kanban" element={<KanbanBoard />} />
-                <Route path="/employee/gantt" element={<GanttChart />} />
-                <Route path="/employee/calendar" element={<EmployeeCalendar />} />
-                <Route path="/employee/chat" element={<EmployeeChat />} />
-                <Route path="/employee/email" element={<EmailApp />} />
-                <Route path="/employee/invoices" element={<InvoiceGenerator />} />
-                <Route path="/employee/attendance" element={<Attendance />} />
-                <Route path="/employee/leave" element={<LeaveRequest />} />
-              </Route>
-
-              {/* ── Client Portal ── */}
-              <Route element={<RoleRoute allowedRoles={['client']}><PortalLayout /></RoleRoute>}>
-                <Route path="/client" element={<ClientDashboard />} />
-                <Route path="/client/projects" element={<ClientProjects />} />
-                <Route path="/client/chat" element={<ClientChat />} />
-              </Route>
-
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-              
-              <Route path="/about" element={<About />} />
-              <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
-              <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
-              <Route path="/industries" element={<Industries />} />
-              <Route path="/ai-audit" element={<AIAudit />} />
-              <Route path="/results" element={<Results />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              
-              {/* Dynamic CMS Pages */}
-              <Route path="/p/:slug" element={<DynamicPage />} />
-
-              {/* Phase 2 UI Demos (temporary, public access) */}
-              <Route path="/demo/user-management" element={<UserManagement />} />
-              <Route path="/demo/integrations" element={<IntegrationsConfig />} />
-              <Route path="/demo/crm" element={<FullCRM />} />
-
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <StickyCTA />
-            <WhatsAppButton />
-            <AIChatWidget />
-          </React.Suspense>
+          <AppRoutes />
         </BrowserRouter>
       </TooltipProvider>
     </HelmetProvider>

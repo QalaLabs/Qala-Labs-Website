@@ -35,7 +35,11 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className="group relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer border border-slate-100"
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${project.title}`}
+      className="group relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer border border-slate-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
     >
       {/* Media Container */}
       <div className="relative aspect-[4/5] overflow-hidden bg-slate-900">
@@ -69,7 +73,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           </Badge>
         </div>
 
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
           <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
             <Play className="w-6 h-6 fill-current" />
           </div>
