@@ -19,14 +19,20 @@ interface HeroProps {
   onUpdate?: (props: any) => void;
 }
 
+const metrics = [
+  { value: "₹20L", label: "in 30 days for Trotr" },
+  { value: "3.8×", label: "avg ROAS across D2C clients" },
+  { value: "40+", label: "brands scaled" },
+];
+
 const Hero = ({
-  title = "Scale Your Brand to 8-Figures with Revenue Engineering.",
-  subtitle = "India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility to build brands that scale.",
+  title = "The Last Growth Agency You'll Need to Hire.",
+  subtitle = "D2C and B2B brands hire us when performance plateaus. We combine AI automation, performance marketing, and AI search to unlock the next growth layer.",
   ctaText = "Get Proposal",
   ctaUrl = "/contact",
-  secondaryCtaText = "See Work",
+  secondaryCtaText = "See Our Work",
   secondaryCtaUrl = "/portfolio",
-  badgeText = "Generated ₹20L in 30 Days for Trotr via Meta B2B Lead Gen",
+  badgeText = "Now onboarding Q3 clients — 2 spots remaining",
   bgColor,
   isEditing,
   onUpdate
@@ -179,7 +185,7 @@ const Hero = ({
             </p>
           )}
 
-          <div className="hero-cta-container flex flex-col sm:flex-row justify-center gap-4 px-6">
+          <div className="hero-cta-container flex flex-col sm:flex-row justify-center items-center gap-4 px-6">
             {ctaText && (
               <Link to={ctaUrl} className="w-full sm:w-auto" onClick={(e) => isEditing && e.preventDefault()}>
                 <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white px-10 py-8 rounded-2xl text-lg font-black shadow-xl shadow-blue-500/20 transition-all hover:scale-105">
@@ -188,13 +194,30 @@ const Hero = ({
               </Link>
             )}
             {secondaryCtaText && (
-              <Link to={secondaryCtaUrl} className="w-full sm:w-auto" onClick={(e) => isEditing && e.preventDefault()}>
-                <Button size="lg" variant="outline" className="w-full px-10 py-8 rounded-2xl text-lg font-bold border-2 border-white/20 text-white hover:bg-white/10 transition-all">
-                  {secondaryCtaText}
-                </Button>
+              <Link
+                to={secondaryCtaUrl}
+                className="text-slate-300 hover:text-white text-base font-semibold underline underline-offset-4 transition-colors"
+                onClick={(e) => isEditing && e.preventDefault()}
+              >
+                {secondaryCtaText}
               </Link>
             )}
           </div>
+
+          {/* Proof metrics strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            className="mt-14 flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 px-4"
+          >
+            {metrics.map((m, i) => (
+              <div key={i} className="text-center">
+                <p className="text-3xl font-black text-white">{m.value}</p>
+                <p className="text-xs text-slate-400 mt-0.5 uppercase tracking-wider">{m.label}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
