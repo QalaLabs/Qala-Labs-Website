@@ -26,35 +26,35 @@ const defaultMembers = [
   {
     name: "Aashirwad Bhansali",
     role: "Growth & Performance Strategy",
-    desc: "Data-first paid media, experiment design, and scaling playbooks for 8-figure DTC brands.",
+    desc: "Obsessed with finding the one variable that breaks a funnel. Has run paid media for brands from ₹0 to 8-figure monthly revenue — and believes the creative brief is the most underrated document in marketing.",
     image: AashirwadImg,
     linkedin: "https://www.linkedin.com/in/aashirwad-bhansali/"
   },
   {
     name: "Aayush Singh",
-    role: "AI and Tech Lead",
-    desc: "Architecting autonomous AI agents and high-performance tech stacks for ecommerce scale.",
+    role: "AI & Tech Lead",
+    desc: "Builds the systems that make everything else scale. From autonomous AI agents to server-side tracking stacks — if a process can be automated, Aayush is already two steps ahead of it.",
     image: AayushImg,
     linkedin: "https://www.linkedin.com/in/captn1107/"
   },
   {
     name: "Dipika",
     role: "Ecommerce Scaling",
-    desc: "Listing optimization, retention engineering, and lifecycle flows.",
+    desc: "Knows the difference between a brand that looks like it's growing and one that actually is. Focuses on the metrics that protect margin: repeat rate, LTV, and lifecycle flows that turn buyers into fans.",
     image: DipikaImg,
     linkedin: "https://www.linkedin.com/in/dipika-k-53a3bb138/"
   },
   {
     name: "Aryaman",
-    role: "Social Media and Talent Management",
-    desc: "Creator programs, UGC production, and cross-platform distribution.",
+    role: "Social & Creator Programs",
+    desc: "Grew up on the internet and knows exactly why people stop scrolling. Runs creator programs and UGC funnels that feel native — because they are.",
     image: AryamanImg,
     linkedin: "https://www.linkedin.com/in/aryaman-chatterjee-b8971b208/"
   },
   {
     name: "Manpreet Singh",
-    role: "Visualiser",
-    desc: "Visual storytelling, brand aesthetics, and high-impact design for digital-first brands.",
+    role: "Visual Design",
+    desc: "Believes great design isn't decoration — it's persuasion. Turns brand positioning into visuals that stop thumbs and communicate value in under two seconds.",
     image: ManpreetImg,
     linkedin: "https://www.linkedin.com/in/manpreet-singh-020549237?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
   }

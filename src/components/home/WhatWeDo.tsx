@@ -52,7 +52,7 @@ const WhatWeDo = ({ title = "What we do", services = [] }: WhatWeDoProps) => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-12 md:mb-16">
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
-            What we do
+            How we grow your revenue
           </h2>
           <h3 className="text-3xl md:text-6xl font-black text-slate-900 dark:text-white mb-6">{title}</h3>
         </div>

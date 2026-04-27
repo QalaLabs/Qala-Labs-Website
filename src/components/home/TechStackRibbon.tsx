@@ -33,8 +33,8 @@ const techStack = [
 ];
 
 const TechStackRibbon = () => {
-  // Triple the list to ensure seamless looping
-  const duplicatedStack = [...techStack, ...techStack, ...techStack];
+  // Double the list — animation moves exactly one copy (-50%), then resets seamlessly
+  const duplicatedStack = [...techStack, ...techStack];
 
   return (
     <section className="py-12 bg-white overflow-hidden border-b border-slate-100">
@@ -43,16 +43,16 @@ const TechStackRibbon = () => {
           Powered by the world's leading platforms
         </p>
       </div>
-      
+
       <div className="relative flex">
         {/* The moving track */}
-        <motion.div 
+        <motion.div
           className="flex whitespace-nowrap gap-12 items-center py-4"
-          animate={{ x: ["-50%", "0%"] }} // Moving towards right
-          transition={{ 
-            ease: "linear", 
-            duration: 40, 
-            repeat: Infinity 
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 40,
+            repeat: Infinity
           }}
         >
           {duplicatedStack.map((item, idx) => (

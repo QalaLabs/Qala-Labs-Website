@@ -18,8 +18,8 @@ const ClientLogos = () => {
     { src: "/clients/playr-gold.webp", alt: "playR Gold" }
   ];
 
-  // Triple the list to ensure seamless looping
-  const duplicatedLogos = [...logos, ...logos, ...logos];
+  // Double the list — animation moves exactly one copy (-50%), then resets seamlessly
+  const duplicatedLogos = [...logos, ...logos];
 
   return (
     <section className="py-20 bg-white border-y border-slate-50 overflow-hidden">

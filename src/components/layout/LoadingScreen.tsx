@@ -28,10 +28,10 @@ const LoadingScreen = () => {
           animate={{ rotate: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
-        <motion.div 
+        <motion.div
           className="absolute -inset-4 border-t-2 border-blue-600 rounded-full"
           animate={{ rotate: 360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         />
       </motion.div>
 

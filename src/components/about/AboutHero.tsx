@@ -28,17 +28,20 @@ const AboutHero = ({ onBookClick, onCasePackClick }: AboutHeroProps) => {
             </nav>
             
             <Badge className="bg-blue-600/10 text-blue-700 border-none mb-6 px-4 py-1 rounded-full font-bold">
-              We build predictable revenue engines for ecommerce.
+              India's AI-first growth agency for ecommerce brands
             </Badge>
-            
+
             <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              We build predictable <br /> 
-              <span className="text-blue-600">revenue engines</span> <br /> 
+              We build predictable <br />
+              <span className="text-blue-600">revenue engines</span> <br />
               for ecommerce.
             </h1>
-            
-            <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto">
-              Performance marketing, AI automation, conversion-first sites and creator programs all engineered to grow revenue, not vanity metrics.
+
+            <p className="text-xl text-slate-600 mb-4 leading-relaxed max-w-2xl mx-auto">
+              We started Qala Labs because we watched great DTC brands get burned by agencies chasing impressions instead of income. Every service we offer — paid media, AI automation, web, creators — exists to grow one number: your contribution margin.
+            </p>
+            <p className="text-lg text-slate-500 mb-10 leading-relaxed max-w-2xl mx-auto">
+              No vanity decks. No inflated follower counts. Just rigorous research, fast execution, and revenue you can take to the bank.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mb-12">
