@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, LayoutDashboard, ArrowRight, ChevronRight, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, ArrowRight, ChevronRight, ChevronDown } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Logo from './Logo';
 import { useUser } from '@/hooks/useUser';
@@ -17,17 +17,32 @@ import {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useUser();
 
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const navLinks = [
     { name: 'About', href: '/about' },
     { name: 'Services', href: '/services' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Case Studies', href: '/case-studies' },
-    { name: 'Tools', href: '/tools' },
+    { name: 'Industries', href: '/industries' },
+    { name: 'Results', href: '/results' },
+    { name: 'Pricing', href: '/pricing' },
     { name: 'Blog', href: '/blog' },
+    { name: 'Contact', href: '/contact' },
+  ];
+
+  const solutionsLinks = [
+    { name: 'AI Search Visibility', href: '/ai-search-visibility', desc: 'SEO + AEO + GEO' },
+    { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation', desc: 'AI agents & workflows' },
+    { name: 'Free AI Audit', href: '/ai-audit', desc: '48-hr personalised report' },
+    { name: 'Growth Tools', href: '/tools', desc: 'ROI, LTV & scale calculators' },
   ];
 
   const collaborateLinks = [
@@ -53,7 +68,23 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[1000] bg-[#06070D]/95 backdrop-blur-xl border-b border-white/5">
+      {/* Skip-to-content link for keyboard/screen-reader users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:font-bold focus:text-sm"
+      >
+        Skip to content
+      </a>
+
+      <motion.nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-xl border-b transition-colors duration-300",
+          scrolled
+            ? "bg-[#06070D]/95 border-white/5 shadow-lg shadow-black/30"
+            : "bg-transparent border-transparent"
+        )}
+        initial={false}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="relative z-[1020] flex items-center">
@@ -61,7 +92,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -74,6 +105,25 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-sm font-bold text-slate-400 hover:text-white flex items-center gap-1 outline-none">
+                  Solutions <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="rounded-2xl p-2 border-white/5 shadow-2xl bg-[#0A0B12] w-56">
+                  {solutionsLinks.map((link) => (
+                    <DropdownMenuItem key={link.name} asChild>
+                      <Link
+                        to={link.href}
+                        className="flex flex-col gap-0.5 px-4 py-3 rounded-xl text-sm cursor-pointer hover:bg-white/5 group"
+                      >
+                        <span className="font-bold text-slate-300 group-hover:text-white">{link.name}</span>
+                        <span className="text-xs text-slate-600 group-hover:text-slate-400">{link.desc}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-sm font-bold text-slate-400 hover:text-white flex items-center gap-1 outline-none">
@@ -93,7 +143,7 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="flex items-center gap-2 ml-4">
+              <div className="flex items-center gap-2 ml-2">
                 {user ? (
                   <Button
                     onClick={() => navigate('/admin')}
@@ -104,7 +154,7 @@ const Navbar = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => navigate('/contact')}
+                    onClick={() => navigate('/ai-audit')}
                     className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
                   >
                     Free Audit
@@ -113,25 +163,34 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Mobile Toggle */}
+            {/* Mobile Toggle — animated hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={cn(
-                  "relative z-[1020] flex items-center gap-2 px-5 py-3.5 rounded-xl transition-all active:scale-95 shadow-lg min-h-[48px] min-w-[48px]",
-                  isOpen ? "bg-white/10 text-white border border-white/10" : "bg-white/10 text-white"
-                )}
-                aria-label="Toggle menu"
+                className="relative z-[1020] flex flex-col justify-center items-center w-12 h-12 rounded-xl bg-white/10 text-white active:scale-95 transition-transform"
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isOpen}
               >
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] ml-1">
-                  {isOpen ? 'Close' : 'Menu'}
-                </span>
-                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                <motion.span
+                  animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="block h-0.5 w-5 bg-current rounded-full"
+                />
+                <motion.span
+                  animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="block h-0.5 w-5 bg-current rounded-full mt-1.5"
+                />
+                <motion.span
+                  animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="block h-0.5 w-5 bg-current rounded-full mt-1.5"
+                />
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -152,23 +211,15 @@ const Navbar = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="absolute top-0 right-0 bottom-0 w-[85%] bg-[#06070D] shadow-2xl flex flex-col border-l border-white/5"
             >
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-6 right-6 p-4 text-slate-400 hover:text-white transition-colors z-20"
-                aria-label="Close menu"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
               <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
                 <div className="space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
-                  {[...navLinks, ...collaborateLinks].map((link, i) => (
+                  {[...navLinks, ...solutionsLinks.map(l => ({ name: l.name, href: l.href })), ...collaborateLinks].map((link, i) => (
                     <motion.div
                       key={link.name}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
+                      transition={{ delay: i * 0.04 }}
                     >
                       <Link
                         to={link.href}
@@ -189,10 +240,10 @@ const Navbar = () => {
 
                 <div className="mt-auto pt-10 space-y-6">
                   <Button
-                    onClick={() => navigate(user ? '/admin' : '/contact')}
+                    onClick={() => navigate(user ? '/admin' : '/ai-audit')}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-xl shadow-2xl shadow-blue-500/20"
                   >
-                    {user ? 'Go to Dashboard' : 'Book Free Audit'} <ArrowRight className="ml-2 w-6 h-6" />
+                    {user ? 'Go to Dashboard' : 'Get Free Audit'} <ArrowRight className="ml-2 w-6 h-6" />
                   </Button>
 
                   <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 pb-4">

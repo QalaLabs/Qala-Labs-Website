@@ -59,8 +59,8 @@ const Index = () => {
     return (
       <>
         <SEO
-          title="Performance Marketing Agency for DTC Brands | Qala Labs"
-          description="Performance marketing & AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems."
+          title="Full-Service AI Growth Agency India | Qala Labs"
+          description="India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility to build brands that scale."
         />
         <LoadingScreen />
       </>
@@ -71,8 +71,8 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-slate-50">
         <SEO
-          title="Performance Marketing Agency for DTC Brands | Qala Labs"
-          description="Performance marketing & AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems."
+          title="Full-Service AI Growth Agency India | Qala Labs"
+          description="India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility to build brands that scale."
         />
         <Navbar />
         <div className="pt-40 pb-20 text-center px-4">
@@ -95,7 +95,7 @@ const Index = () => {
         />
       )}
       <Navbar />
-      <main>
+      <main id="main-content">
         <BlockRenderer blocks={page.content} />
       </main>
       <Footer />
