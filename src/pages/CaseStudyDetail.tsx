@@ -7,16 +7,24 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
+import {
+  ArrowLeft,
   CheckCircle2,
   ArrowRight,
   XCircle,
-  Loader2
+  Loader2,
+  Target,
+  Zap,
+  Gift,
+  TrendingUp
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { generateCaseStudySchema } from '@/lib/seo';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
+  PieChart, Pie, Cell, Legend
+} from 'recharts';
 
 const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) => (
   <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl mb-8 border border-slate-100 bg-slate-900">
@@ -32,6 +40,128 @@ const YouTubeEmbed = ({ videoId, title }: { videoId: string, title?: string }) =
   </div>
 );
 
+const FUNNEL_ICONS: Record<string, React.ReactNode> = {
+  target: <Target className="w-5 h-5" />,
+  zap: <Zap className="w-5 h-5" />,
+  gift: <Gift className="w-5 h-5" />,
+  "trending-up": <TrendingUp className="w-5 h-5" />,
+};
+
+const ChartBlock = ({ block }: { block: any }) => {
+  if (block.chartType === 'bar') {
+    return (
+      <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all">
+        <h2 className="text-2xl font-black mb-2 text-slate-900">{block.title}</h2>
+        {block.subtitle && <p className="text-slate-500 mb-8 text-sm">{block.subtitle}</p>}
+        <ResponsiveContainer width="100%" height={320}>
+          <BarChart data={block.data} margin={{ top: 4, right: 8, left: -16, bottom: 40 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+            <XAxis dataKey={block.xKey} tick={{ fontSize: 11, fill: '#94a3b8' }} angle={-45} textAnchor="end" interval={2} />
+            <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+            <Tooltip
+              contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }}
+              cursor={{ fill: '#f1f5f9' }}
+            />
+            <Bar dataKey={block.dataKey} fill={block.color || '#6366f1'} radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    );
+  }
+
+  if (block.chartType === 'donut') {
+    return (
+      <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all">
+        <h2 className="text-2xl font-black mb-2 text-slate-900">{block.title}</h2>
+        {block.subtitle && <p className="text-slate-500 mb-8 text-sm">{block.subtitle}</p>}
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <ResponsiveContainer width="100%" height={260}>
+            <PieChart>
+              <Pie data={block.data} cx="50%" cy="50%" innerRadius={70} outerRadius={110} paddingAngle={3} dataKey="value">
+                {block.data.map((entry: any, i: number) => (
+                  <Cell key={i} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }} />
+              <Legend iconType="circle" iconSize={10} wrapperStyle={{ fontSize: 13 }} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    );
+  }
+
+  if (block.chartType === 'stats-grid') {
+    return (
+      <div className="p-8 md:p-12 bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[2.5rem] border border-indigo-900 shadow-2xl">
+        <h2 className="text-2xl font-black mb-2 text-white">{block.title}</h2>
+        {block.subtitle && <p className="text-slate-400 mb-8 text-sm">{block.subtitle}</p>}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {block.stats.map((s: any, i: number) => (
+            <div key={i} className="p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all">
+              <p className="text-2xl font-black text-white mb-1">{s.value}</p>
+              <p className={`text-xs font-bold mb-2 ${s.positive ? 'text-emerald-400' : 'text-red-400'}`}>{s.change}</p>
+              <p className="text-[11px] text-slate-400 uppercase tracking-wider leading-tight">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (block.chartType === 'funnel-stats') {
+    return (
+      <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all">
+        <h2 className="text-2xl font-black mb-2 text-slate-900">{block.title}</h2>
+        {block.subtitle && <p className="text-slate-500 mb-8 text-sm">{block.subtitle}</p>}
+        <div className="flex flex-col gap-3">
+          {block.steps.map((step: any, i: number) => (
+            <React.Fragment key={i}>
+              <div className="flex items-center gap-4 p-5 rounded-2xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-md transition-all">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0" style={{ backgroundColor: step.color }}>
+                  {FUNNEL_ICONS[step.icon] || <Target className="w-5 h-5" />}
+                </div>
+                <div>
+                  <p className="font-black text-slate-900 text-sm">{step.label}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{step.sub}</p>
+                </div>
+                <div className="ml-auto text-slate-300 font-black text-lg">{i + 1}</div>
+              </div>
+              {i < block.steps.length - 1 && (
+                <div className="flex justify-center">
+                  <ArrowRight className="w-4 h-4 text-slate-300 rotate-90" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (block.chartType === 'comparison-bar') {
+    return (
+      <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all">
+        <h2 className="text-2xl font-black mb-2 text-slate-900">{block.title}</h2>
+        {block.subtitle && <p className="text-slate-500 mb-8 text-sm">{block.subtitle}</p>}
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart data={block.data} margin={{ top: 4, right: 8, left: -16, bottom: 8 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+            <XAxis dataKey="metric" tick={{ fontSize: 12, fill: '#64748b' }} />
+            <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+            <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }} />
+            <Legend iconType="circle" iconSize={10} wrapperStyle={{ fontSize: 13 }} />
+            <Bar dataKey="before" name={block.labels?.[0] || 'Before'} fill={block.colors?.[0] || '#cbd5e1'} radius={[6, 6, 0, 0]} />
+            <Bar dataKey="after" name={block.labels?.[1] || 'After'} fill={block.colors?.[1] || '#6366f1'} radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const CaseStudyDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -40,10 +170,11 @@ const CaseStudyDetail = () => {
 
   React.useEffect(() => {
     const fetchStudy = async () => {
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug || '');
       const { data, error } = await supabase
         .from('case_studies')
         .select('*')
-        .or(`slug.eq.${slug},id.eq.${slug}`)
+        .or(isUuid ? `slug.eq.${slug},id.eq.${slug}` : `slug.eq.${slug}`)
         .single();
       
       if (error || !data) {
@@ -63,6 +194,8 @@ const CaseStudyDetail = () => {
       </div>
     );
   }
+
+  if (!study) return null;
 
   const metrics = study.results?.metrics || [];
   const blocks = study.content?.blocks || [];
@@ -124,15 +257,20 @@ const CaseStudyDetail = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all group"
+                transition={{ delay: i * 0.05 }}
               >
-                <h2 className="text-2xl md:text-3xl font-black mb-6 text-slate-900 group-hover:text-blue-600 transition-colors">
-                  {block.title}
-                </h2>
-                <div className="text-lg text-slate-600 leading-relaxed space-y-6 whitespace-pre-line">
-                  {block.body}
-                </div>
+                {block.type === 'chart' ? (
+                  <ChartBlock block={block} />
+                ) : (
+                  <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all group">
+                    <h2 className="text-2xl md:text-3xl font-black mb-6 text-slate-900 group-hover:text-blue-600 transition-colors">
+                      {block.title}
+                    </h2>
+                    <div className="text-lg text-slate-600 leading-relaxed space-y-6 whitespace-pre-line">
+                      {block.body}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
