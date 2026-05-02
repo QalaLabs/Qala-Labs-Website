@@ -54,7 +54,7 @@ const campaigns = [
       {
         title: 'UK Market Expansion — Nutrivend',
         metrics: [
-          { label: 'CPL (UK)', value: '£4.20' },
+          { label: 'CPL (UK)', value: '£2.45' },
           { label: 'Leads in 60 days', value: '1,200+' },
           { label: 'ROAS', value: '6.8x' },
         ],
@@ -133,14 +133,14 @@ const campaigns = [
         tags: ['Content Strategy', 'YouTube', 'SEO', 'D2C'],
       },
       {
-        title: 'CSK Influencer Campaign',
+        title: 'Nutrivend Creator Partnership Program',
         metrics: [
-          { label: 'Influencer reach', value: '8.2M' },
-          { label: 'Engagement rate', value: '6.4%' },
-          { label: 'Campaign ROAS', value: '4.7x' },
+          { label: 'Creator reach', value: '12.4M' },
+          { label: 'Engagement rate', value: '8.9%' },
+          { label: 'Content ROI', value: '5.2x' },
         ],
-        description: 'Multi-tier influencer marketing campaign during IPL season with nano, micro, and macro influencers across Instagram and YouTube.',
-        tags: ['Influencer Marketing', 'IPL', 'Cricket', 'Meta Ads'],
+        description: 'Health & wellness creator partnership program featuring micro-influencers and wellness content creators to promote vending machine sustainability and healthy snacking across Instagram, TikTok, and YouTube Shorts.',
+        tags: ['Creator Marketing', 'Health & Wellness', 'UGC Content', 'Sustainability'],
       },
     ],
   },

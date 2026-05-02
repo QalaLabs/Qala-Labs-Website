@@ -35,13 +35,13 @@ const CaseStudySnapshots = () => {
             }
           },
           {
-            slug: 'kashmiri-movement',
-            title: "The Kashmiri Sound Movement",
-            category: "Cultural Movement",
-            description: "Launching Kashmir's first digital-first music label with zero previous audience or fanbase.",
+            slug: 'nutrivend-uk-expansion',
+            title: "Nutrivend: UK Market Expansion",
+            category: "International Expansion",
+            description: "Cold audience lead generation campaigns across the UK market for a health & wellness vending brand entering a new geography.",
             results: {
-              headline: "3.4M+ Views • 25.7K Subs",
-              learnings: [{ myth: "Drop all songs together for virality.", reality: "Staggered storytelling builds deeper digital momentum." }]
+              headline: "1,200+ Leads • 6.8x ROAS",
+              learnings: [{ myth: "Cold audiences are too expensive to convert.", reality: "Strategic targeting and localized creative unlocked profitable UK acquisition at £2.45 CPL." }]
             }
           }
         ]);
