@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Instagram, ArrowRight } from 'lucide-react';
+import { Linkedin, Instagram, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
@@ -41,30 +41,64 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
           {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-1 space-y-8">
             <Logo size={44} />
             <p className="text-slate-400 leading-relaxed max-w-xs">
               India's full-service AI growth agency — performance marketing, AI automation, and AI search visibility. We build brands that scale.
             </p>
             <div className="flex gap-4">
-              <a 
-                href="https://www.linkedin.com/company/qalalabs/" 
-                target="_blank" 
+              <a
+                href="https://www.linkedin.com/company/qalalabs/"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors" 
+                className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a 
-                href="https://www.instagram.com/qalalabs/" 
-                target="_blank" 
+              <a
+                href="https://www.instagram.com/qalalabs/"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors" 
+                className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
+            </div>
+          </div>
+
+          {/* Contact Column */}
+          <div className="space-y-6">
+            <h4 className="text-lg font-bold">Contact</h4>
+            <div className="space-y-4 text-slate-400">
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-white">Email</p>
+                  <a href="mailto:hello@qalalabs.com" className="hover:text-white transition-colors">
+                    hello@qalalabs.com
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-white">Phone</p>
+                  <a href="tel:+916006760151" className="hover:text-white transition-colors">
+                    +91 60067 60151
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-white">Office</p>
+                  <p className="text-xs leading-relaxed">
+                    2nd Floor, SE 30, Gyan Shakti Mandir Marg, above CSB Bank, Block BT, West Shalimar Bagh, New Delhi, Delhi 110088
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

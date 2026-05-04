@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Mail, Phone, Instagram, Linkedin } from 'lucide-react';
+import { Loader2, Mail, Phone, Instagram, Linkedin, MapPin } from 'lucide-react';
 import { motion } from "framer-motion";
 
 const services = [
@@ -117,7 +117,16 @@ const Contact = () => {
                   <p className="text-slate-500">+91 60067 60151</p>
                 </div>
               </div>
-              
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0">
+                  <MapPin className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Business location</h4>
+                  <p className="text-slate-500">2nd Floor, SE 30, Gyan Shakti Mandir Marg, above CSB Bank, Block BT, West Shalimar Bagh, New Delhi, Delhi 110088</p>
+                </div>
+              </div>
+
               <div className="pt-8 border-t border-slate-200">
                 <h4 className="font-bold text-slate-900 mb-4">Follow Our Frameworks</h4>
                 <div className="flex gap-4">
@@ -257,6 +266,20 @@ const Contact = () => {
               </CardContent>
             </Card>
           </motion.div>
+        </div>
+
+        {/* Map Section */}
+        <div className="mt-20 rounded-[2.5rem] overflow-hidden shadow-2xl h-96">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.3841485549757!2d77.12344!3d28.75638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d019be4000001%3A0x1234567890!2sQala%20Labs!5e0!3m2!1sen!2sin!4v1234567890"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="rounded-[2.5rem]"
+          ></iframe>
         </div>
       </div>
       <Footer />
