@@ -1,0 +1,17 @@
+{
+  "name": "qala-labs-website",
+  "version": "1.0.0",
+  "description": "Qala Labs Website",
+  "main": "db.js",
+  "scripts": {
+    "start": "node db.js",
+    "dev": "node db.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
