@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 interface HeroProps {
@@ -40,6 +40,19 @@ const Hero = ({
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const bgLayerRef = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const orb1X = useTransform(mouseX, [-1, 1], [-30, 30]);
+  const orb1Y = useTransform(mouseY, [-1, 1], [-20, 20]);
+  const orb2X = useTransform(mouseX, [-1, 1], [15, -15]);
+  const orb2Y = useTransform(mouseY, [-1, 1], [15, -15]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width * 2 - 1);
+    mouseY.set((e.clientY - rect.top) / rect.height * 2 - 1);
+  };
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -102,6 +115,7 @@ const Hero = ({
   return (
     <section
       ref={heroRef}
+      onMouseMove={handleMouseMove}
       className="relative min-h-[85vh] flex items-center pt-32 pb-20 overflow-hidden transition-colors duration-500"
       style={{
         backgroundColor: bgColor || '#06070D',
@@ -143,8 +157,8 @@ const Hero = ({
         ref={bgLayerRef}
         className="absolute inset-0 z-0 pointer-events-none"
       >
-        <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-indigo-600/10 rounded-full blur-3xl" />
+        <motion.div style={{ x: orb1X, y: orb1Y }} className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
+        <motion.div style={{ x: orb2X, y: orb2Y }} className="absolute bottom-[10%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-indigo-600/10 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 z-10">
