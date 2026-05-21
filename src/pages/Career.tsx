@@ -14,6 +14,7 @@ import {
   TrendingUp,
   User,
   Code2,
+  Palette,
   ArrowRight,
   CheckCircle2,
   Loader2,
@@ -79,6 +80,14 @@ const jobs = [
     type: "Full-time / Remote",
     salary: "₹30,000 - ₹40,000",
     desc: "Own Meta and Google ad accounts for DTC clients from ₹50K to ₹5L/month ad spend. You'll set up campaigns, test creative variations, analyze attribution data, and scale winners. ROAS targets are real — you'll be held accountable to them. Prior experience managing paid media budgets of at least ₹1L/month is required."
+  },
+  {
+    id: 'graphic-designer',
+    title: "Graphic Designer",
+    icon: <Palette className="w-6 h-6" />,
+    type: "Full-time / Remote",
+    salary: "₹30,000 - ₹40,000",
+    desc: "Design static and animated ad creatives, social media assets, and brand collateral for DTC clients. You'll produce scroll-stopping visuals for Meta, Google Display, and email campaigns — fast. Proficiency in Figma and Adobe Creative Suite required. A portfolio of performance-oriented design (not just pretty work) is a must."
   },
   {
     id: 'vibe-coder',
