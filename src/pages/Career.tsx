@@ -145,7 +145,9 @@ const Career = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     portfolio: '',
+    resume_link: '',
     message: ''
   });
 
@@ -237,7 +239,7 @@ const Career = () => {
         setSelectedJob(null);
         setSuccess(false);
         setResumeFile(null);
-        setFormData({ name: '', email: '', portfolio: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', portfolio: '', resume_link: '', message: '' });
       }, 3000);
     }
   };
@@ -297,7 +299,9 @@ const Career = () => {
                     <div className="mb-6"><Badge className="bg-blue-600 mb-2">Applying for {selectedJob.title}</Badge><h3 className="text-2xl font-black text-slate-900">Show us your best work.</h3></div>
                     <div className="space-y-1"><Label className="text-xs font-bold text-slate-700">Full Name</Label><Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="h-12 rounded-xl" /></div>
                     <div className="space-y-1"><Label className="text-xs font-bold text-slate-700">Email Address</Label><Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="h-12 rounded-xl" /></div>
+                    <div className="space-y-1"><Label className="text-xs font-bold text-slate-700">Phone Number</Label><Input type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="h-12 rounded-xl" placeholder="+91 98765 43210" /></div>
                     <div className="space-y-1"><Label className="text-xs font-bold text-slate-700">Portfolio / LinkedIn URL</Label><Input required value={formData.portfolio} onChange={e => setFormData({...formData, portfolio: e.target.value})} className="h-12 rounded-xl" placeholder="https://..." /></div>
+                    <div className="space-y-1"><Label className="text-xs font-bold text-slate-700">Resume Link <span className="text-slate-400 font-normal">(Google Drive / Dropbox)</span></Label><Input value={formData.resume_link} onChange={e => setFormData({...formData, resume_link: e.target.value})} className="h-12 rounded-xl" placeholder="https://drive.google.com/..." /></div>
                     <div className="space-y-1">
                       <Label className="text-xs font-bold text-slate-700">Resume / CV <span className="text-slate-400 font-normal">(PDF or Word, max 5 MB)</span></Label>
                       <label className="flex items-center gap-3 h-12 px-4 rounded-xl border border-input bg-background cursor-pointer hover:bg-slate-50 transition-colors">
