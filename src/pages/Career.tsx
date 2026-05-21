@@ -39,7 +39,7 @@ const jobs = [
     icon: <Video className="w-6 h-6" />,
     type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
-    desc: "Cut high-converting short-form ad creatives for DTC brands across Meta, Instagram Reels, and YouTube Shorts. You'll work from raw footage and UGC clips to produce 10–30 second ads that stop the scroll. Proficiency in Premiere Pro or CapCut is required. Bonus points for motion graphics and subtitle styling."
+    desc: "Shoot and edit high-converting UGC, creator funnels, and direct-response video ads for Meta, Reels, and YouTube Shorts. You'll own the full pipeline — from capturing product b-roll and creator-style footage to engineering hooks, pacing, and transitions that maximise watch-time. Adobe Premiere Pro and After Effects are non-negotiable. Hands-on cinematography skills (lighting, audio, vertical formats) required. Bonus: experience with AI pipelines (OpenAI, Claude, AI audio/video tools) to accelerate post-production."
   },
   {
     id: 'copywriter',
