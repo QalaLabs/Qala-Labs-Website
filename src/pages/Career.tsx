@@ -37,7 +37,7 @@ const jobs = [
     id: 'video-editor',
     title: "Video Editor",
     icon: <Video className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Cut high-converting short-form ad creatives for DTC brands across Meta, Instagram Reels, and YouTube Shorts. You'll work from raw footage and UGC clips to produce 10–30 second ads that stop the scroll. Proficiency in Premiere Pro or CapCut is required. Bonus points for motion graphics and subtitle styling."
   },
@@ -45,7 +45,7 @@ const jobs = [
     id: 'copywriter',
     title: "Copywriter",
     icon: <PenTool className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Write ad hooks, primary text, and landing page copy that converts cold traffic into buyers. You'll craft 3–5 ad variants per creative batch, A/B test headline angles, and iterate based on CTR and hook-rate data. Strong grasp of pain-point-led copywriting frameworks (PAS, AIDA) is essential."
   },
@@ -53,7 +53,7 @@ const jobs = [
     id: 'content-creator',
     title: "Content Creator (UGC)",
     icon: <User className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Be the face of our clients' brands in authentic, on-camera UGC ad creatives. You'll film yourself using products, reviewing them, or narrating problem-solution stories — all from your phone. Comfortable on camera, natural delivery, and quick turnaround are non-negotiables."
   },
@@ -61,7 +61,7 @@ const jobs = [
     id: 'automation-specialist',
     title: "Automation Specialist",
     icon: <Zap className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Build the operational backbone. You'll design and deploy automated workflows using n8n, Make.com, and AI agents to eliminate repetitive work across client reporting, lead routing, and content operations. Hands-on experience with at least one automation platform and a hunger to learn AI tooling is required."
   },
@@ -69,7 +69,7 @@ const jobs = [
     id: 'ecom-manager',
     title: "eCommerce Manager",
     icon: <ShoppingCart className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Manage Shopify storefronts end-to-end — product listings, collection pages, conversion rate optimization, and Amazon/Flipkart marketplace presence. You'll coordinate with ad managers to align offers with campaigns and monitor store metrics daily. 1+ year of hands-on Shopify experience required."
   },
@@ -77,7 +77,7 @@ const jobs = [
     id: 'performance-marketing',
     title: "Performance Marketing Manager",
     icon: <TrendingUp className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Own Meta and Google ad accounts for DTC clients from ₹50K to ₹5L/month ad spend. You'll set up campaigns, test creative variations, analyze attribution data, and scale winners. ROAS targets are real — you'll be held accountable to them. Prior experience managing paid media budgets of at least ₹1L/month is required."
   },
@@ -85,7 +85,7 @@ const jobs = [
     id: 'graphic-designer',
     title: "Graphic Designer",
     icon: <Palette className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Design static and animated ad creatives, social media assets, and brand collateral for DTC clients. You'll produce scroll-stopping visuals for Meta, Google Display, and email campaigns — fast. Proficiency in Figma and Adobe Creative Suite required. A portfolio of performance-oriented design (not just pretty work) is a must."
   },
@@ -93,7 +93,7 @@ const jobs = [
     id: 'vibe-coder',
     title: "Vibe Coder",
     icon: <Code2 className="w-6 h-6" />,
-    type: "Full-time / Remote",
+    type: "Full-time / On-site",
     salary: "₹30,000 - ₹40,000",
     desc: "Ship internal tools, client dashboards, and automation integrations using AI-assisted development. You'll use Cursor, Copilot, or Replit to prototype fast — no red tape, no legacy codebase politics. Stack: React, Supabase, n8n, and whatever gets the job done. Show us something you built with AI and we'll talk."
   }
@@ -112,7 +112,7 @@ const jobPostingSchema = {
     },
     "datePosted": "2025-05-01",
     "validThrough": "2025-12-31T23:59",
-    "employmentType": "FULL_TIME",
+    "employmentType": ["FULL_TIME"],
     "hiringOrganization": {
       "@type": "Organization",
       "name": "Qala Labs",
@@ -127,11 +127,6 @@ const jobPostingSchema = {
         "addressRegion": "Delhi",
         "addressCountry": "IN"
       }
-    },
-    "jobLocationType": "TELECOMMUTE",
-    "applicantLocationRequirements": {
-      "@type": "Country",
-      "name": "India"
     },
     "baseSalary": {
       "@type": "MonetaryAmount",
