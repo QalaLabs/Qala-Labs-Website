@@ -8,9 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { ProjectCardSkeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
-import TeamLogos from '@/assets/ipl/team-logos.png';
-import WPLHero from '@/assets/pickleball/wpl-hero.png';
-
 const PortfolioGrid = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,24 +23,6 @@ const PortfolioGrid = () => {
       category: "AI Creative",
       result: "80% Lower Production Cost",
       image: "/clients/wwf.png",
-      isFeatured: true
-    },
-    {
-      id: 'ipl-merch-featured',
-      title: "playR: IPL Merchandise Partner",
-      slug: "ipl-merchandise-partner-playr",
-      category: "Merchandise Design",
-      result: "Full Ecosystem • 8 Franchises",
-      image: TeamLogos,
-      isFeatured: true
-    },
-    {
-      id: 'pickleball-featured',
-      title: "World Pickleball League: Apparel",
-      slug: "merchandise-design-apparel",
-      category: "Merchandise Design",
-      result: "Full Kit & Retail System",
-      image: WPLHero,
       isFeatured: true
     },
     {
