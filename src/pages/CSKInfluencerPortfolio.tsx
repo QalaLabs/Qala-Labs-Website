@@ -44,36 +44,36 @@ const CSKInfluencerPortfolio = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-yellow-100">
       <SEO
-        title="Influencer Marketing Case Study — CSK IPL Campaign 5M+ Reach | Qala Labs"
-        description="How Qala Labs drove 5M+ reach and 12% engagement for the CSK jersey drop using real-fan UGC and influencer marketing — without a single paid placement."
+        title=”Influencer Marketing Case Study — playR IPL Campaign 5M+ Reach | Qala Labs”
+        description=”How Qala Labs drove 5M+ reach and 12% engagement for the playR jersey drop using real-fan UGC and influencer marketing — without a single paid placement.”
 
         breadcrumbs={[
-          { name: 'Home', url: '/' },
-          { name: 'Portfolio', url: '/portfolio' },
-          { name: 'CSK Influencer Marketing Campaign', url: '/portfolio/influencer-marketing-campaign-chennai-super-kings' }
+          { name: ‘Home’, url: ‘/’ },
+          { name: ‘Portfolio’, url: ‘/portfolio’ },
+          { name: ‘playR Influencer Marketing Campaign’, url: ‘/portfolio/influencer-marketing-campaign-chennai-super-kings’ }
         ]}
       />
       <Navbar />
-      
-      <div className="pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <Link to="/portfolio" className="inline-flex items-center gap-2 text-slate-500 hover:text-yellow-600 font-bold mb-12 transition-colors group">
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Portfolio
+
+      <div className=”pt-32 pb-20”>
+        <div className=”max-w-6xl mx-auto px-4”>
+          <Link to=”/portfolio” className=”inline-flex items-center gap-2 text-slate-500 hover:text-yellow-600 font-bold mb-12 transition-colors group”>
+            <ArrowLeft className=”w-4 h-4 group-hover:-translate-x-1 transition-transform” /> Back to Portfolio
           </Link>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-16 text-center"
+            className=”mb-16 text-center”
           >
-            <Badge className="bg-yellow-500 text-slate-900 mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]">
-              Behind the CSK jersey drop
+            <Badge className=”bg-yellow-500 text-slate-900 mb-6 px-4 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]”>
+              Behind the playR jersey drop
             </Badge>
-            <h1 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 leading-tight tracking-tight">
-              Real Fans. Real Reels. <span className="text-yellow-500 text-stroke-black">Real Roar.</span>
+            <h1 className=”text-4xl md:text-7xl font-black text-slate-900 mb-8 leading-tight tracking-tight”>
+              Real Fans. Real Reels. <span className=”text-yellow-500 text-stroke-black”>Real Roar.</span>
             </h1>
-            <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
-              We didn’t hire actors. We didn’t write scripts. We simply handed the official CSK jersey to Chennai Super Kings’ most passionate fans—and hit “record.”
+            <p className=”text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto”>
+              We didn’t hire actors. We didn’t write scripts. We simply handed the official playR jersey to Chennai Super Kings’ most passionate fans—and hit “record.”
             </p>
           </motion.div>
 
