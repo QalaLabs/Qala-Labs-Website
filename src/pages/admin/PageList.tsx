@@ -94,7 +94,7 @@ const PageList = () => {
             { id: 'h4', type: 'client_logos', props: {} },
             { id: 'h5', type: 'quick_metrics', props: { title: "Recent Results", subtitle: "Proven Performance.", results: [
               { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }, { label: "Monthly Sales", value: "₹2.7L+", iconType: 'trending' }], color: "from-blue-600/20 to-indigo-600/20" },
-              { brand: "CSK: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }, { label: "Engagement", value: "12%", iconType: 'heart' }], color: "from-yellow-600/20 to-orange-600/20" }
+              { brand: "playR: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }, { label: "Engagement", value: "12%", iconType: 'heart' }], color: "from-yellow-600/20 to-orange-600/20" }
             ] } },
             { id: 'h6', type: 'what_we_do', props: { title: "What we do" } },
             { id: 'h7', type: 'how_we_work', props: { title: "How we work" } },
