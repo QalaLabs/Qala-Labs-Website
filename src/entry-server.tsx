@@ -27,8 +27,6 @@ import AmazonAdsPortfolio from './pages/AmazonAdsPortfolio';
 import InstagramUGCPortfolio from './pages/InstagramUGCPortfolio';
 import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
 import CapitalKeysPortfolio from './pages/CapitalKeysPortfolio';
-import PickleballPortfolio from './pages/PickleballPortfolio';
-import IPLMerchPortfolio from './pages/IPLMerchPortfolio';
 import BNPLStrategy from './pages/BNPLStrategy';
 import WWFIndiaPortfolio from './pages/WWFIndiaPortfolio';
 
@@ -78,8 +76,6 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
                   <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
-                  <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
-                  <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
                   <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
