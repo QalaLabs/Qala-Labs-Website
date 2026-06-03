@@ -52,8 +52,6 @@ const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio")
 const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
 const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
 const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
-const PickleballPortfolio = React.lazy(() => import("./pages/PickleballPortfolio"));
-const IPLMerchPortfolio = React.lazy(() => import("./pages/IPLMerchPortfolio"));
 const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
 const WWFIndiaPortfolio = React.lazy(() => import("./pages/WWFIndiaPortfolio"));
 
@@ -141,8 +139,6 @@ const AppRoutes = () => {
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
-            <Route path="/portfolio/merchandise-design-apparel" element={<PickleballPortfolio />} />
-            <Route path="/portfolio/ipl-merchandise-partner-playr" element={<IPLMerchPortfolio />} />
             <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
