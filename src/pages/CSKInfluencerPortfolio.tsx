@@ -44,8 +44,8 @@ const CSKInfluencerPortfolio = () => {
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-yellow-100">
       <SEO
-        title=”Influencer Marketing Case Study — playR IPL Campaign 5M+ Reach | Qala Labs”
-        description=”How Qala Labs drove 5M+ reach and 12% engagement for the playR jersey drop using real-fan UGC and influencer marketing — without a single paid placement.”
+        title=”Influencer Marketing Case Study - playR IPL Campaign 5M+ Reach | Qala Labs”
+        description=”How Qala Labs drove 5M+ reach and 12% engagement for the playR jersey drop using real-fan UGC and influencer marketing - without a single paid placement.”
 
         breadcrumbs={[
           { name: ‘Home’, url: ‘/’ },
