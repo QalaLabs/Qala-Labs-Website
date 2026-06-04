@@ -73,7 +73,7 @@ const CSKInfluencerPortfolio = () => {
               Real Fans. Real Reels. <span className="text-yellow-500 text-stroke-black">Real Roar.</span>
             </h1>
             <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
-              We didn't hire actors. We didn't write scripts. We simply handed the official playR jersey to Chennai Super Kings' most passionate fans—and hit "record."
+              We didn't hire actors. We didn't write scripts. We simply handed the official playR jersey to playR's most passionate fans—and hit "record."
             </p>
           </motion.div>
 

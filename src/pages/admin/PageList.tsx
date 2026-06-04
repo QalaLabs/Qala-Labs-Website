@@ -155,7 +155,7 @@ const PageList = () => {
           title: 'Portfolio',
           description: 'Portfolio listing page.',
           blocks: [
-            { id: 'p1', type: 'hero', props: { title: "The Creative Edge.", subtitle: "From the #WhistlePodu army for CSK to high-ticket real estate lead generation, we deploy creative that doesn't just look good—it converts.", ctaText: "View All Work", ctaUrl: "/portfolio" } },
+            { id: 'p1', type: 'hero', props: { title: "The Creative Edge.", subtitle: "From the #WhistlePodu army for playR to high-ticket real estate lead generation, we deploy creative that doesn't just look good—it converts.", ctaText: "View All Work", ctaUrl: "/portfolio" } },
             { id: 'p2', type: 'portfolio_snapshots', props: {} }
           ]
         },
