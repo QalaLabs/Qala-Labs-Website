@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from "./components/ScrollToTop";
@@ -138,6 +138,7 @@ const AppRoutes = () => {
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
+            <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playR" replace />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
