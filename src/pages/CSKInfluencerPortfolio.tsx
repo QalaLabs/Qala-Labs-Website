@@ -114,7 +114,7 @@ const CSKInfluencerPortfolio = () => {
               <div className="prose prose-lg max-w-none text-slate-600">
                 <h2 className="text-3xl font-black text-slate-900 mb-6">The Fandom Engine</h2>
                 <p>
-                  From fan unboxings to mirror try-ons, Dhoni signature reveals to poll-driven showdowns, this series exploded across Reels. Each creator brought their own version of what it means to bleed yellow.
+                  From fan unboxings to mirror try-ons, this series exploded across Reels. Each creator brought their own version of what it means to bleed yellow.
                 </p>
                 
                 <div className="p-10 bg-yellow-50 rounded-[3rem] border border-yellow-100 my-12">
