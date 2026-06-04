@@ -55,7 +55,7 @@ const PortfolioGrid = () => {
     {
       id: 'csk-influencer-featured',
       title: "playR: Real Fans, Real Roar",
-      slug: "influencer-marketing-campaign-chennai-super-kings",
+      slug: "influencer-marketing-campaign-playR",
       category: "User Generated Content",
       result: "Viral Fandom Momentum",
       image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",

@@ -137,7 +137,7 @@ const AppRoutes = () => {
             {/* Specific Portfolio Routes */}
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
-            <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<CSKInfluencerPortfolio />} />
+            <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />

@@ -50,7 +50,7 @@ const CSKInfluencerPortfolio = () => {
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Portfolio', url: '/portfolio' },
-          { name: 'playR Influencer Marketing Campaign', url: '/portfolio/influencer-marketing-campaign-chennai-super-kings' }
+          { name: 'playR Influencer Marketing Campaign', url: '/portfolio/influencer-marketing-campaign-playR' }
         ]}
       />
       <Navbar />
