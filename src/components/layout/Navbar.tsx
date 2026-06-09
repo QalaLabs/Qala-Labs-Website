@@ -30,12 +30,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Industries', href: '/industries' },
     { name: 'Results', href: '/results' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Case Studies', href: '/case-studies' },
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Blogs', href: '/blog' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   const solutionsLinks = [
@@ -43,12 +42,6 @@ const Navbar = () => {
     { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation', desc: 'AI agents & workflows' },
     { name: 'Free AI Audit', href: '/ai-audit', desc: '48-hr personalised report' },
     { name: 'Growth Tools', href: '/tools', desc: 'ROI, LTV & scale calculators' },
-  ];
-
-  const collaborateLinks = [
-    { name: 'Agency Network', href: '/agency-network' },
-    { name: 'Creator Collective', href: '/creator-collective' },
-    { name: 'Careers', href: '/career' },
   ];
 
   React.useEffect(() => {
@@ -119,24 +112,6 @@ const Navbar = () => {
                       >
                         <span className="font-bold text-slate-300 group-hover:text-white">{link.name}</span>
                         <span className="text-xs text-slate-600 group-hover:text-slate-400">{link.desc}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger className="text-sm font-bold text-slate-400 hover:text-white flex items-center gap-1 outline-none">
-                  Collaborate <ChevronDown className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="rounded-2xl p-2 border-white/5 shadow-2xl bg-[#0A0B12]">
-                  {collaborateLinks.map((link) => (
-                    <DropdownMenuItem key={link.name} asChild>
-                      <Link
-                        to={link.href}
-                        className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
-                      >
-                        {link.name}
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -214,7 +189,7 @@ const Navbar = () => {
               <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
                 <div className="space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
-                  {[...navLinks, ...solutionsLinks.map(l => ({ name: l.name, href: l.href })), ...collaborateLinks].map((link, i) => (
+                  {[...navLinks, ...solutionsLinks.map(l => ({ name: l.name, href: l.href }))].map((link, i) => (
                     <motion.div
                       key={link.name}
                       initial={{ opacity: 0, x: 20 }}

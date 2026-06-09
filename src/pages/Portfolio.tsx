@@ -10,7 +10,7 @@ const Portfolio = () => {
     <div className="min-h-screen bg-slate-50">
       <SEO
         title="Creative Portfolio | UGC, Influencer & Ecommerce Marketing Work | Qala Labs"
-        description="Browse Qala Labs' portfolio — Amazon Ads, CSK influencer campaigns, UGC content, AI ad creatives, merchandise design, and real estate platforms for DTC brands."
+        description="Browse Qala Labs' portfolio — Amazon Ads, playR influencer campaigns, UGC content, AI ad creatives, merchandise design, and real estate platforms for DTC brands."
       />
       <Navbar />
       
@@ -38,7 +38,7 @@ const Portfolio = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-slate-600 leading-relaxed"
             >
-              From the #WhistlePodu army for CSK to high-ticket real estate lead generation, we deploy creative that doesn't just look good—it converts.
+              From the #WhistlePodu army for playR to high-ticket real estate lead generation, we deploy creative that doesn't just look good—it converts.
             </motion.p>
           </div>
 

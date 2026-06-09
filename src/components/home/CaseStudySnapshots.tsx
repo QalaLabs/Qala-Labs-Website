@@ -76,9 +76,10 @@ const CaseStudySnapshots = () => {
               key={study.slug || study.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8, scale: 1.015, boxShadow: "0 40px 80px -20px rgba(59,130,246,0.3)" }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-8 md:p-14 bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] border border-white/10 flex flex-col h-full hover:border-blue-500/50 transition-colors group"
+              transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 22 }}
+              className="p-8 md:p-14 bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] border border-white/10 flex flex-col h-full hover:border-blue-500/50 transition-colors group cursor-default"
             >
               <div className="mb-6 md:mb-8">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-2 block">

@@ -56,15 +56,17 @@ const WhatWeDo = ({ title = "What we do", services = [] }: WhatWeDoProps) => {
           </h2>
           <h3 className="text-3xl md:text-6xl font-black text-slate-900 dark:text-white mb-6">{title}</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" style={{ perspective: 1200 }}>
           {displayServices.map((service, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ rotateY: 5, rotateX: -3, scale: 1.03, boxShadow: "0 30px 60px -15px rgba(59,130,246,0.2)" }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-8 md:p-10 bg-white dark:bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:shadow-2xl dark:hover:shadow-blue-900/10 transition-all group"
+              transition={{ delay: i * 0.1, type: "spring", stiffness: 350, damping: 20 }}
+              style={{ transformStyle: "preserve-3d" }}
+              className="p-8 md:p-10 bg-white dark:bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 dark:border-slate-800 dark:hover:shadow-blue-900/10 transition-colors group cursor-default"
             >
               <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 md:mb-8 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-500 transition-colors">
                 {icons[i % icons.length]}
