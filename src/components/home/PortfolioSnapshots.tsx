@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import ProjectCard from '../portfolio/ProjectCard';
+import CSKUGCHero from '@/assets/csk-ugc-hero.png';
 import TeamLogos from '@/assets/ipl/team-logos.png';
 import WPLHero from '@/assets/pickleball/wpl-hero.png';
 
@@ -17,20 +18,20 @@ const PortfolioSnapshots = () => {
 
   const featuredProjects = [
     {
-      id: 'ipl-merch-featured',
-      title: "playR: IPL Merchandise Partner",
-      slug: "ipl-merchandise-partner-playr",
-      category: "Merchandise Design",
-      result: "Full Ecosystem • 8 Franchises",
-      image: TeamLogos
+      id: 'ugc-featured',
+      title: "Instagram UGC: Creator Content Campaign",
+      slug: "Instagram-user-generated-content",
+      category: "Social Media",
+      result: "100K+ Views • 8.4% Engagement",
+      image: CSKUGCHero
     },
     {
-      id: 'pickleball-featured',
-      title: "World Pickleball League: Apparel",
-      slug: "merchandise-design-apparel",
-      category: "Merchandise Design",
-      result: "Full Kit & Retail System",
-      image: WPLHero
+      id: 'wwf-featured',
+      title: "WWF India: AI Ad Creatives",
+      slug: "ai-ad-creatives-wwfindia",
+      category: "AI Creative",
+      result: "-80% Production Time • 42% Lift",
+      image: "/clients/wwf.png"
     },
     {
       id: 'capital-keys-featured',
