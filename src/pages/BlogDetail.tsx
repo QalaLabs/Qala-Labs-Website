@@ -27,11 +27,19 @@ const BlogDetail = () => {
         .select('*')
         .eq('slug', slug)
         .single();
-      
+
       if (error || !data) {
         navigate('/blog');
       } else {
         setPost(data);
+        // Track blog post view in Google Analytics
+        if (window.gtag) {
+          window.gtag('event', 'view_article', {
+            article_title: data.title,
+            article_category: data.category || 'Strategy',
+            article_slug: data.slug
+          });
+        }
       }
       setLoading(false);
     };
@@ -41,6 +49,14 @@ const BlogDetail = () => {
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     showSuccess("Link copied to clipboard!");
+    // Track share event in Google Analytics
+    if (window.gtag && post) {
+      window.gtag('event', 'share', {
+        method: 'copy_link',
+        content_type: 'article',
+        item_id: post.slug
+      });
+    }
   };
 
   if (loading) {

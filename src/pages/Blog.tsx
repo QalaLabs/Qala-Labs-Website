@@ -28,7 +28,7 @@ const Blog = () => {
 
       if (error) showError("Failed to load posts. Please refresh.");
       const dbPosts = data || [];
-      
+
       // Hardcoded featured post for BNPL
       const bnplPost = {
         id: 'bnpl-strategy-post',
@@ -45,6 +45,14 @@ const Blog = () => {
       const merged = [bnplPost, ...dbPosts.filter(p => p.slug !== bnplPost.slug)];
       setPosts(merged);
       setLoading(false);
+
+      // Track blog page view in Google Analytics
+      if (window.gtag) {
+        window.gtag('event', 'page_view', {
+          page_title: 'Blog',
+          page_path: '/blog'
+        });
+      }
     };
     fetchPosts();
   }, []);
