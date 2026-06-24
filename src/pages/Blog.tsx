@@ -53,6 +53,14 @@ const Blog = () => {
           page_path: '/blog'
         });
       }
+      // Track blog page view in Meta Pixel
+      if (window.fbq) {
+        window.fbq('track', 'ViewContent', {
+          content_name: 'Blog',
+          content_category: 'Insights',
+          content_type: 'product'
+        });
+      }
     };
     fetchPosts();
   }, []);
