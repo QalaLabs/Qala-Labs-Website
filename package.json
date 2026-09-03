@@ -2,15 +2,20 @@
   "name": "qala-labs-website",
   "version": "1.0.0",
   "description": "Qala Labs Website",
-  "main": "db.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node db.js",
-    "dev": "node db.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "sync-content": "npx ts-node sync-content.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0"
+    "@supabase/supabase-js": "^2.0.0",
+    "express": "^5.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

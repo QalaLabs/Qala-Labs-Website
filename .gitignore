@@ -1,0 +1,7 @@
+node_modules/
+.env
+.claude/
+.mcp.json
+admin/config.env
+admin/.claude/
+New folder/
