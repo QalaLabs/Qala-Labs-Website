@@ -3,16 +3,23 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ServiceCard from './ServiceCard';
-import { 
-  BarChart3, 
-  Zap, 
-  Globe2, 
-  Search, 
-  Database, 
+import {
+  BarChart3,
+  Zap,
+  Globe2,
+  Search,
+  Database,
   Rocket,
   Filter,
   Bot,
-  Users
+  Users,
+  Mail,
+  Palette,
+  MessageCircle,
+  ShoppingBag,
+  Package,
+  CreditCard,
+  Store
 } from 'lucide-react';
 
 const services = [
@@ -87,6 +94,70 @@ const services = [
     metric: "310% YoY Growth",
     icon: <Rocket className="w-7 h-7" />,
     href: "/services/strategy"
+  },
+  {
+    title: "Influencer Marketing",
+    category: "Creative",
+    description: "We run end-to-end influencer campaigns — creator matchmaking, deal negotiation, content briefs, and engagement analysis — across nano to celebrity tiers. From regional creator networks to national sports and entertainment partnerships, we deliver measurable reach, not vanity impressions.",
+    metric: "4M+ Reach per Campaign",
+    icon: <Users className="w-7 h-7" />,
+    href: "/services/influencer-marketing"
+  },
+  {
+    title: "Email & SMS Lifecycle",
+    category: "Growth",
+    description: "Retention is cheaper than acquisition. We design and run Klaviyo-grade lifecycle flows — welcome series, abandoned cart, post-purchase, win-back, and VIP segmentation — engineered to lift repeat purchase rate without adding a rupee of ad spend.",
+    metric: "+35% Repeat Revenue",
+    icon: <Mail className="w-7 h-7" />,
+    href: "/services/email-sms-lifecycle"
+  },
+  {
+    title: "Brand Identity",
+    category: "Creative",
+    description: "Full brand identity systems — naming, logo, visual language, packaging, and guidelines — built for brands that are rebranding or launching fresh. We've taken legacy manufacturers to modern D2C-ready identities without losing what made them recognisable.",
+    metric: "Full Identity in 6 Weeks",
+    icon: <Palette className="w-7 h-7" />,
+    href: "/services/brand-identity"
+  },
+  {
+    title: "WhatsApp Marketing",
+    category: "Growth",
+    description: "WhatsApp is India's highest-intent channel. We build broadcast campaigns, cart-recovery flows, and conversational commerce journeys on Interakt/Convertway-grade infrastructure — turning your customer list into a direct revenue channel with open rates traditional email can't touch.",
+    metric: "70%+ Open Rate",
+    icon: <MessageCircle className="w-7 h-7" />,
+    href: "/services/whatsapp-marketing"
+  },
+  {
+    title: "Marketplace Management",
+    category: "Strategy",
+    description: "Full-service seller operations for Amazon, Flipkart, and Myntra — listing optimisation, catalog health, A+ content, buy-box defense, and marketplace ads — backed by real inventory-sync infrastructure so what you sell online matches what's actually on the shelf.",
+    metric: "3 Marketplaces, 1 Team",
+    icon: <ShoppingBag className="w-7 h-7" />,
+    href: "/services/marketplace-management"
+  },
+  {
+    title: "Inventory & Fulfillment",
+    category: "Tech",
+    description: "Stock sync, reconciliation, and returns management across every channel you sell on. We connect your warehouse, marketplaces, and storefront into one live inventory truth — so you stop overselling and start planning fulfillment with real numbers.",
+    metric: "Zero Oversell Guarantee",
+    icon: <Package className="w-7 h-7" />,
+    href: "/services/inventory-fulfillment"
+  },
+  {
+    title: "Payment Reconciliation",
+    category: "Tech",
+    description: "GST, UTR, and multi-gateway reconciliation — automated. We match every payout across Razorpay, marketplace settlements, and bank statements against your books, flagging discrepancies before they become a finance headache.",
+    metric: "100% Ledger Match",
+    icon: <CreditCard className="w-7 h-7" />,
+    href: "/services/payment-reconciliation"
+  },
+  {
+    title: "D2C Storefront Build",
+    category: "Tech",
+    description: "A dedicated Shopify/headless storefront build for brands where the store itself is the buying decision — merchandising, subscriptions, and checkout customisation beyond what a general web-dev retainer covers.",
+    metric: "Launch in 4 Weeks",
+    icon: <Store className="w-7 h-7" />,
+    href: "/services/d2c-storefront"
   }
 ];
 
