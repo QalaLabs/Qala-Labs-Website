@@ -4,6 +4,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import ServicesGrid from '@/components/services/ServicesGrid';
+import AgentsGrid from '@/components/services/AgentsGrid';
+import PlatformBanner from '@/components/services/PlatformBanner';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
@@ -11,8 +13,8 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEO
-        title="AI Automation, Performance Marketing & SEO Services | Qala Labs"
-        description="Enterprise AI agents, SEO/AEO/GEO, Meta & Google Ads, creative production, and server-side analytics — full-service AI and growth agency for ambitious brands."
+        title="Qala OS Platform, AI Agents & Growth Services | Qala Labs"
+        description="Run your revenue stack on Qala OS, buy a single AI agent, or hire us for traditional agency work — performance marketing, SEO/AEO/GEO, creative, and e-commerce ops."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' }
@@ -30,13 +32,13 @@ const Services = () => {
             >
               Our Capabilities
             </motion.div>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tight"
             >
-              Full-Service AI &amp; <span className="text-blue-600">Growth Agency</span> Services.
+              Three ways to work with <span className="text-blue-600">Qala Labs.</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -44,8 +46,21 @@ const Services = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-slate-600 leading-relaxed"
             >
-              From enterprise AI automation to SEO/AEO/GEO and performance marketing — we build end-to-end revenue engines that combine intelligent systems with aggressive media buying and data-driven creative.
+              Buy the whole revenue platform, a single AI agent, or traditional agency work — whichever matches where you are. From enterprise AI automation to SEO/AEO/GEO, performance marketing, and e-commerce ops.
             </motion.p>
+          </div>
+
+          <PlatformBanner />
+
+          <div className="mb-8">
+            <p className="text-sm font-black text-blue-600 uppercase tracking-widest mb-2">Tier 2</p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10">AI Agents, à la carte.</h2>
+            <AgentsGrid />
+          </div>
+
+          <div className="mb-8 mt-24">
+            <p className="text-sm font-black text-blue-600 uppercase tracking-widest mb-2">Tier 3</p>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10">Agency services, à la carte.</h2>
           </div>
 
           <ServicesGrid />
