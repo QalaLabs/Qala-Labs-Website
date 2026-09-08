@@ -75,7 +75,17 @@ const Tools = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="mt-20 text-center p-12 bg-white rounded-[3rem] border border-slate-100 shadow-sm">
+        <div className="mt-20 text-center p-12 bg-slate-900 rounded-[3rem] shadow-sm">
+          <h3 className="text-2xl font-bold text-white mb-4">Not sure which service you actually need?</h3>
+          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+            Take our 2-minute Growth Bottleneck Finder — tell us what's broken and we'll match you to the exact service that fixes it.
+          </p>
+          <a href="/service-finder" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors">
+            Find My Growth Fix
+          </a>
+        </div>
+
+        <div className="mt-8 text-center p-12 bg-white rounded-[3rem] border border-slate-100 shadow-sm">
           <h3 className="text-2xl font-bold text-slate-900 mb-4">Need a custom growth model?</h3>
           <p className="text-slate-500 mb-8 max-w-xl mx-auto">
             Our team can build a bespoke 12-month revenue forecast for your brand based on your specific unit economics and market data.

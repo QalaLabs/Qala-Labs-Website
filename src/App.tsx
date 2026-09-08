@@ -30,6 +30,7 @@ const Pricing = React.lazy(() => import("./pages/Pricing"));
 const Contact = React.lazy(() => import("./pages/Contact"));
 const Tools = React.lazy(() => import("./pages/Tools"));
 const Quiz = React.lazy(() => import("./pages/Quiz"));
+const ServiceFinder = React.lazy(() => import("./pages/ServiceFinder"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Admin = React.lazy(() => import("./pages/Admin"));
 const About = React.lazy(() => import("./pages/About"));
@@ -152,6 +153,7 @@ const AppRoutes = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/quiz" element={<Quiz />} />
+            <Route path="/service-finder" element={<ServiceFinder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/career" element={<Career />} />
             <Route path="/agency-network" element={<AgencyNetwork />} />
