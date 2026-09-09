@@ -23,9 +23,8 @@
     fbq('init', '1767631260556983');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1767631260556983&ev=PageView&noscript=1"
-    /></noscript>
+    <!-- Meta Pixel noscript fallback lives in <body> below — parse5/HTML5 spec
+         disallows <img> as content of <noscript> while it's in <head> -->
     <!-- End Meta Pixel Code -->
 
     <meta charset="UTF-8" />
@@ -62,6 +61,10 @@
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PFN9PZRS" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
+    <!-- Meta Pixel noscript fallback -->
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1767631260556983&ev=PageView&noscript=1"
+    alt="" /></noscript>
     <div id="root"><!--app-html--></div>
     <!-- Main script loaded as module (deferred by default) -->
     <script type="module" src="/src/main.tsx"></script>
