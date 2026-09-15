@@ -330,7 +330,7 @@ const Career = () => {
       showError("Something went wrong. Please try again.");
     } else {
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -339,8 +339,13 @@ const Career = () => {
             data: leadData
           })
         });
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Application received, but the confirmation email couldn't be sent.");
+        }
       } catch (err) {
         console.error("Email trigger failed:", err);
+        showError("Application received, but the confirmation email couldn't be sent.");
       }
 
       setLoading(false);
