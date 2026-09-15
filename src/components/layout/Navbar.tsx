@@ -29,12 +29,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '/about' },
+    { name: 'Services', href: '/services' },
     { name: 'Results', href: '/results' },
-    { name: 'Case Studies', href: '/case-studies' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Blogs', href: '/blog' },
-    { name: 'Contact Us', href: '/contact' },
+    { name: 'Process', href: '/#process' },
+    { name: 'Proof', href: '/#proof' },
   ];
 
   const solutionsLinks = [
@@ -73,15 +71,22 @@ const Navbar = () => {
         className={cn(
           "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-xl border-b transition-colors duration-300",
           scrolled
-            ? "bg-[#06070D]/95 border-white/5 shadow-lg shadow-black/30"
+            ? "bg-background/95 border-border shadow-lg shadow-black/30"
             : "bg-transparent border-transparent"
         )}
         initial={false}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <Link to="/" className="relative z-[1020] flex items-center">
-              <Logo iconOnly size={36} />
+            <Link to="/" className="relative z-[1020] flex items-center gap-3">
+              <Logo iconOnly size={32} />
+              <span className="hidden min-[600px]:flex flex-col leading-none">
+                <span className="text-sm font-black tracking-tight text-white">Qala Labs</span>
+                {/* TODO: swap to --indigo/--cyan tokens once Prompt 0 lands */}
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400/80">
+                  Creative × Data × Impact
+                </span>
+              </span>
             </Link>
 
             {/* Desktop Menu */}
@@ -129,10 +134,10 @@ const Navbar = () => {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => navigate('/ai-audit')}
+                    onClick={() => navigate('/contact')}
                     className="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 rounded-xl shadow-lg shadow-blue-500/20"
                   >
-                    Free Audit
+                    Book a growth audit
                   </Button>
                 )}
               </div>
@@ -215,10 +220,10 @@ const Navbar = () => {
 
                 <div className="mt-auto pt-10 space-y-6">
                   <Button
-                    onClick={() => navigate(user ? '/admin' : '/ai-audit')}
+                    onClick={() => navigate(user ? '/admin' : '/contact')}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-8 rounded-2xl text-xl shadow-2xl shadow-blue-500/20"
                   >
-                    {user ? 'Go to Dashboard' : 'Get Free Audit'} <ArrowRight className="ml-2 w-6 h-6" />
+                    {user ? 'Go to Dashboard' : 'Book a growth audit'} <ArrowRight className="ml-2 w-6 h-6" />
                   </Button>
 
                   <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 pb-4">
