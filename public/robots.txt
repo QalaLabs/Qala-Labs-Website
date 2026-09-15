@@ -1,3 +1,6 @@
+# Robots.txt for Qala Labs
+# Allows all crawlers except for specific protected areas
+
 User-agent: *
 Allow: /
 Disallow: /admin
@@ -5,5 +8,65 @@ Disallow: /admin/
 Disallow: /login
 Disallow: /dashboard
 Disallow: /onboarding
+Disallow: /api/
+Disallow: /demo/
+Disallow: /employee/
+Disallow: /client/
+Disallow: /p/
 
+# Crawl delay for all bots (in seconds)
+Crawl-delay: 1
+
+# Sitemap reference
 Sitemap: https://qalalabs.com/sitemap.xml
+
+# Google-specific directives
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Specific disallows for Google
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /dashboard
+Disallow: /onboarding
+Disallow: /api/
+Disallow: /demo/
+Disallow: /employee/
+Disallow: /client/
+Disallow: /p/
+
+# Allow Google to index social metadata crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: linkedinbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

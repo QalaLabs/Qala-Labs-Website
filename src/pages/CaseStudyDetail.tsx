@@ -162,6 +162,23 @@ const ChartBlock = ({ block }: { block: any }) => {
   return null;
 };
 
+const GalleryBlock = ({ block }: { block: any }) => (
+  <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100">
+    {block.title && <h2 className="text-2xl font-black mb-2 text-slate-900">{block.title}</h2>}
+    {block.subtitle && <p className="text-slate-500 mb-8 text-sm">{block.subtitle}</p>}
+    <div className={`grid gap-4 ${block.images?.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+      {(block.images || []).map((img: any, i: number) => (
+        <figure key={i} className="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
+          <img src={img.url} alt={img.caption || block.title || ''} className="w-full h-auto" loading="lazy" />
+          {img.caption && (
+            <figcaption className="px-4 py-3 text-xs text-slate-500 font-semibold">{img.caption}</figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+  </div>
+);
+
 const CaseStudyDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -261,6 +278,8 @@ const CaseStudyDetail = () => {
               >
                 {block.type === 'chart' ? (
                   <ChartBlock block={block} />
+                ) : block.type === 'gallery' ? (
+                  <GalleryBlock block={block} />
                 ) : (
                   <div className="p-8 md:p-12 bg-white rounded-[2.5rem] border border-slate-100 hover:border-blue-200 hover:shadow-2xl transition-all group">
                     <h2 className="text-2xl md:text-3xl font-black mb-6 text-slate-900 group-hover:text-blue-600 transition-colors">

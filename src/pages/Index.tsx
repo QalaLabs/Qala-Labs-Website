@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import BlockRenderer from '@/components/cms/BlockRenderer';
+import HomeHero from '@/components/home/HomeHero';
 import { supabase } from '@/integrations/supabase/client';
 import { Page, Block, BlockType } from '@/types/editor';
 import LoadingScreen from '@/components/layout/LoadingScreen';
@@ -96,7 +97,14 @@ const Index = () => {
       )}
       <Navbar />
       <main id="main-content">
-        <BlockRenderer blocks={page.content} />
+        <HomeHero />
+        <BlockRenderer
+          blocks={
+            page.content?.[0]?.type === 'hero'
+              ? page.content.slice(1)
+              : page.content
+          }
+        />
       </main>
       <Footer />
     </div>
