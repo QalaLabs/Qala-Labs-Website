@@ -45,6 +45,77 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY || ''
 );
 
+const SITE_URL = process.env.SITE_URL || 'https://qalalabs.com';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
+
+function isSocialCrawler(ua = '') {
+  return /linkedinbot|whatsapp|facebookexternalhit|twitterbot|slackbot|telegrambot|discordbot|applebot|bingbot|googlebot/i.test(ua);
+}
+
+function escapeHtml(str = '') {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function buildOgTags({ title, description, image, url, type = 'website' }) {
+  const safeTitle = escapeHtml(title);
+  const safeDesc  = escapeHtml(description);
+  const imgUrl    = image?.startsWith('http') ? image : image ? `${SITE_URL}${image}` : DEFAULT_OG_IMAGE;
+  return `
+    <title>${safeTitle} | Qala Labs</title>
+    <meta name="description" content="${safeDesc}" />
+    <meta property="og:title" content="${safeTitle} | Qala Labs" />
+    <meta property="og:description" content="${safeDesc}" />
+    <meta property="og:image" content="${imgUrl}" />
+    <meta property="og:image:secure_url" content="${imgUrl}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="${url}" />
+    <meta property="og:type" content="${type}" />
+    <meta property="og:site_name" content="Qala Labs" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${safeTitle} | Qala Labs" />
+    <meta name="twitter:description" content="${safeDesc}" />
+    <meta name="twitter:image" content="${imgUrl}" />`.trim();
+}
+
+async function fetchOgData(pathname) {
+  const blogMatch = pathname.match(/^\/blog\/([^/]+)$/);
+  if (blogMatch) {
+    const { data } = await supabase
+      .from('blog_posts')
+      .select('title, excerpt, image_url')
+      .eq('slug', blogMatch[1])
+      .single();
+    if (data) return { title: data.title, description: data.excerpt, image: data.image_url, type: 'article' };
+  }
+
+  const caseMatch = pathname.match(/^\/case-studies\/([^/]+)$/);
+  if (caseMatch) {
+    const { data } = await supabase
+      .from('case_studies')
+      .select('title, excerpt, image_url')
+      .eq('slug', caseMatch[1])
+      .single();
+    if (data) return { title: data.title, description: data.excerpt, image: data.image_url, type: 'article' };
+  }
+
+  const portfolioMatch = pathname.match(/^\/portfolio\/([^/]+)$/);
+  if (portfolioMatch) {
+    const { data } = await supabase
+      .from('portfolio_projects')
+      .select('title, description, image_url')
+      .or(`slug.eq.${portfolioMatch[1]},id.eq.${portfolioMatch[1]}`)
+      .single();
+    if (data) return { title: data.title, description: data.description, image: data.image_url, type: 'article' };
+  }
+
+  return null;
+}
+
 // Create SMTP transporter using environment variables
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.hostinger.com',
@@ -131,6 +202,22 @@ app.get('*', async (req, res) => {
   if (req.path.startsWith('/admin') || req.path.startsWith('/login') || req.path.startsWith('/dashboard') || req.path.startsWith('/onboarding')) {
     res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     return res.status(200).set('Content-Type', 'text/html').send(template);
+  }
+
+  // For social crawlers, bypass React SSR and inject OG tags directly from Supabase
+  if (isSocialCrawler(req.headers['user-agent'])) {
+    try {
+      const ogData = await fetchOgData(req.path);
+      if (ogData) {
+        const tags = buildOgTags({ ...ogData, url: `${SITE_URL}${req.path}` });
+        const page = template
+          .replace('<!--app-head-->', tags)
+          .replace('<!--app-html-->', '');
+        return res.status(200).set('Content-Type', 'text/html').send(page);
+      }
+    } catch (err) {
+      console.error('[OG] Failed to fetch OG data:', err.message);
+    }
   }
 
   const render = await getSSRRenderer();
