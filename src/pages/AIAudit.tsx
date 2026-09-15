@@ -123,17 +123,26 @@ const AIAudit = () => {
       if (error) throw error;
 
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            ...formData,
-            source: 'ai_audit_page',
-            timestamp: new Date().toISOString(),
+            email: formData.email,
+            tool_used: 'ai_audit_form',
+            data: {
+              ...formData,
+              source: 'ai_audit_page',
+              timestamp: new Date().toISOString(),
+            },
           }),
         });
-      } catch {
-        // SMTP fallback silent fail — lead already captured in Supabase
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Audit request received, but the confirmation email couldn't be sent.");
+        }
+      } catch (err) {
+        console.error("Email trigger failed:", err);
+        showError("Audit request received, but the confirmation email couldn't be sent.");
       }
 
       setSubmitted(true);
