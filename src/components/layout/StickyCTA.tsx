@@ -66,17 +66,22 @@ const StickyCTA = () => {
     } else {
       // 2. Trigger immediate personalized email
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            email: formData.email, 
-            tool_used: 'sticky_cta_microform', 
-            data: leadData 
+          body: JSON.stringify({
+            email: formData.email,
+            tool_used: 'sticky_cta_microform',
+            data: leadData
           })
         });
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Request received, but the confirmation email couldn't be sent.");
+        }
       } catch (err) {
         console.error("Email trigger failed:", err);
+        showError("Request received, but the confirmation email couldn't be sent.");
       }
 
       setLoading(false);

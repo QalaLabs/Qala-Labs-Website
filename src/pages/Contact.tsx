@@ -56,19 +56,24 @@ const Contact = () => {
       setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
-      // 2. Trigger SMTP email delivery via Node.js backend
+      // 2. Trigger notification email via PHP endpoint
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            email: formData.email, 
-            tool_used: 'contact_form_v2', 
-            data: formData 
+          body: JSON.stringify({
+            email: formData.email,
+            tool_used: 'contact_form_v2',
+            data: formData
           })
         });
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Request received, but the confirmation email couldn't be sent.");
+        }
       } catch (smtpError) {
-        console.error("SMTP trigger failed:", smtpError);
+        console.error("Email trigger failed:", smtpError);
+        showError("Request received, but the confirmation email couldn't be sent.");
       }
 
       setLoading(false);
