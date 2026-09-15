@@ -2,144 +2,195 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, XCircle, Lightbulb, Loader2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import ProjectCard from '../portfolio/ProjectCard';
+import { CaseStudyCardSkeleton } from '@/components/ui/skeleton';
+import GaffarLogo from '@/assets/gaffar-new-logo.webp';
+import NutrivendThumbnail from '@/assets/nutrivend/training-boxers-gym.jpg?w=900&format=webp&quality=82';
+import TrotrFeatured from '@/assets/trotr-featured.jpeg?w=900&format=webp&quality=82';
+import KashmirFeatured from '@/assets/kashmir-street-musician.jpg?w=900&format=webp&quality=82';
+
+const CLIENT_LOGOS = [
+  { src: "/clients/special-olympics.webp", alt: "Special Olympics" },
+  { src: "/clients/human-race.png", alt: "Human Race" },
+  { src: "/clients/usaid.png", alt: "USAID" },
+  { src: "/clients/chrono-seconds.png", alt: "Chrono Seconds" },
+  { src: "/clients/cybint.png", alt: "Cybint" },
+  { src: "/clients/inkclick.png", alt: "Inkclick" },
+  { src: "/clients/super-teacher.png", alt: "Super Teacher" },
+  { src: "/clients/recomm.png", alt: "Recomm" },
+  { src: "/clients/playr-white.png", alt: "playR" },
+  { src: "/clients/wwf.png", alt: "WWF" },
+  { src: "/clients/shruum.png", alt: "Shruum" },
+];
+
+const FEATURED_STUDIES = [
+  {
+    id: 'nutrivend-uk-meta-lead-gen',
+    title: "Nutrivend UK: B2B Market Validation",
+    slug: "Meta-Lead-Generation-Ad-UK-Market",
+    category: "Meta Lead Generation",
+    result: "45 B2B Leads • 71% Untapped Market",
+    image: NutrivendThumbnail,
+    imageClassName: "object-center",
+    imageAlt: "Nutrivend UK Meta lead generation case study thumbnail showing boxing gym audience validation"
+  },
+  {
+    id: 'trotr-featured',
+    title: "Trotr: Spain Pivot",
+    slug: "Trotr-Meta-Lead-Generation",
+    category: "Lead Generation",
+    result: "28x ROAS • ₹14L Revenue",
+    image: TrotrFeatured,
+    imageClassName: "object-center",
+    imageAlt: "Trotr Meta lead generation case study thumbnail showing Spain travel campaign audience"
+  },
+  {
+    id: 'gaffar-featured',
+    title: "Gaffar India",
+    slug: "gaffar-india-rebrand",
+    category: "Brand Identity",
+    result: "Marketplace Rebrand",
+    image: GaffarLogo,
+    isLogo: true
+  },
+  {
+    id: 'kashmiri-featured',
+    title: "Kashmiri Sound",
+    slug: "kashmiri-movement",
+    category: "Cultural Movement",
+    result: "Zero Ad Spend • 25K Subs",
+    image: KashmirFeatured,
+    imageClassName: "object-center",
+    imageAlt: "Kashmiri music organic growth case study thumbnail showing a traditional street musician"
+  }
+];
+
+const FEATURED_SLUGS = new Set(FEATURED_STUDIES.map(s => s.slug));
 
 const CaseStudySnapshots = () => {
-  const [studies, setStudies] = useState<any[]>([]);
+  const [additionalStudies, setAdditionalStudies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const duplicatedLogos = [...CLIENT_LOGOS, ...CLIENT_LOGOS];
 
   useEffect(() => {
-    const fetchRecentStudies = async () => {
+    const fetchStudies = async () => {
       const { data, error } = await supabase
         .from('case_studies')
         .select('*')
         .order('created_at', { ascending: false })
-        .limit(2);
-      
-      if (!error && data && data.length > 0) {
-        setStudies(data);
-      } else {
-        // Fallback to high-quality defaults if DB is empty
-        setStudies([
-          {
-            slug: 'Trotr-Meta-Lead-Generation',
-            title: "Trotr: The Spain Strategy Pivot",
-            category: "Lead Generation",
-            description: "Scaling high-ticket travel conversions failed with standard WhatsApp ads due to a lack of trust.",
-            results: {
-              headline: "₹14L Revenue • 28x ROAS",
-              learnings: [{ myth: "Click-to-WhatsApp always converts.", reality: "High-ticket trust requires a frictionless website funnel." }]
-            }
-          },
-          {
-            slug: 'nutrivend-uk-expansion',
-            title: "Nutrivend: UK Market Expansion",
-            category: "International Expansion",
-            description: "Cold audience lead generation campaigns across the UK market for a health & wellness vending brand entering a new geography.",
-            results: {
-              headline: "1,200+ Leads • 6.8x ROAS",
-              learnings: [{ myth: "Cold audiences are too expensive to convert.", reality: "Strategic targeting and localized creative unlocked profitable UK acquisition at £2.45 CPL." }]
-            }
-          }
-        ]);
+        .limit(8);
+
+      if (!error && data) {
+        const extra = data
+          .filter(s => !FEATURED_SLUGS.has(s.slug))
+          .map(s => ({
+            ...s,
+            result: s.results?.headline || "View Results",
+            image: s.image_url || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+          }));
+        setAdditionalStudies(extra);
       }
       setLoading(false);
     };
-
-    fetchRecentStudies();
+    fetchStudies();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="py-24 bg-slate-900 flex justify-center">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-400" />
-      </div>
-    );
-  }
-
   return (
-    <section className="py-16 md:py-24 bg-slate-900 text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-12 md:mb-20">
-          <h2 className="text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-4">
-            Case study snapshots
-          </h2>
-          <h3 className="text-3xl md:text-6xl font-black mb-6 tracking-tight">Proven Results.</h3>
+    <>
+      <section className="py-20 bg-white dark:bg-slate-950 border-y border-slate-50 dark:border-slate-900 overflow-hidden transition-colors duration-500">
+        <div className="max-w-7xl mx-auto px-4 mb-12">
+          <div className="text-center">
+            <h2 className="text-[#94a3b8] dark:text-slate-500 text-[11px] font-black uppercase tracking-[0.4em] mb-4">
+              Strategic Partnerships
+            </h2>
+            <div className="h-px w-12 bg-blue-600/20 mx-auto" />
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
-          {studies.map((study, i) => (
-            <motion.div
-              key={study.slug || study.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -8, scale: 1.015, boxShadow: "0 40px 80px -20px rgba(59,130,246,0.3)" }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 22 }}
-              className="p-8 md:p-14 bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3.5rem] border border-white/10 flex flex-col h-full hover:border-blue-500/50 transition-colors group cursor-default"
-            >
-              <div className="mb-6 md:mb-8">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-2 block">
-                  {study.category}
-                </span>
-                <h3 className="text-2xl md:text-3xl font-black mb-6 md:mb-8 group-hover:text-blue-400 transition-colors">
-                  {study.title}
-                </h3>
+        <div className="relative flex">
+          <motion.div
+            className="flex whitespace-nowrap gap-20 md:gap-32 items-center py-6"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              ease: "linear",
+              duration: 35,
+              repeat: Infinity
+            }}
+          >
+            {duplicatedLogos.map((logo, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-center group shrink-0 px-4"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={160}
+                  height={64}
+                  loading="lazy"
+                  className="h-12 md:h-16 w-auto object-contain transition-all duration-500 filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+                />
               </div>
-              
-              <div className="space-y-6 md:space-y-8 flex-1">
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">The Challenge</p>
-                  <p className="text-slate-300 text-sm md:text-base leading-relaxed line-clamp-3">
-                    {study.description}
-                  </p>
-                </div>
+            ))}
+          </motion.div>
 
-                <div className="p-5 md:p-6 bg-blue-600/10 rounded-2xl md:rounded-3xl border border-blue-600/20">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-2">The Outcome</p>
-                  <p className="text-lg md:text-xl font-bold text-white">
-                    {study.results?.headline || "View Results"}
-                  </p>
-                </div>
-
-                {study.results?.learnings?.[0] && (
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
-                      <Lightbulb className="w-4 h-4 text-blue-400" /> Key Insight
-                    </p>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-1" />
-                        <div>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-red-400 block mb-1">Myth</span>
-                          <p className="text-xs md:text-sm font-bold text-slate-200">"{study.results.learnings[0].myth}"</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-1" />
-                        <div>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-green-400 block mb-1">Reality</span>
-                          <p className="text-xs md:text-sm text-slate-400 leading-relaxed">{study.results.learnings[0].reality}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <Link to={`/case-studies/${study.slug || study.id}`} className="mt-10 md:mt-12">
-                <Button variant="outline" className="w-full py-6 md:py-7 rounded-xl md:rounded-2xl border-white/10 text-white hover:bg-white hover:text-slate-900 font-black transition-all">
-                  View Full Case Study <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </motion.div>
-          ))}
+          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-white dark:from-slate-950 via-white/80 dark:via-slate-950/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-white dark:from-slate-950 via-white/80 dark:via-slate-950/80 to-transparent z-10 pointer-events-none" />
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-500">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="max-w-2xl">
+              <h2 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em] mb-4">
+                Case study snapshots
+              </h2>
+              <h3 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
+                Proven Results.
+              </h3>
+            </div>
+            <a href="/case-studies">
+              <Button variant="outline" className="rounded-2xl px-8 py-6 font-black border-2 border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-white group">
+                View All Work <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {FEATURED_STUDIES.map((study) => (
+              <ProjectCard
+                key={study.id}
+                project={study}
+                onClick={() => navigate(`/case-studies/${study.slug}`)}
+              />
+            ))}
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+              {Array.from({ length: 4 }).map((_, i) => <CaseStudyCardSkeleton key={i} />)}
+            </div>
+          ) : additionalStudies.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+              {additionalStudies.map((study) => (
+                <ProjectCard
+                  key={study.id || study.slug}
+                  project={study}
+                  onClick={() => navigate(`/case-studies/${study.slug}`)}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </section>
+    </>
   );
 };
 
