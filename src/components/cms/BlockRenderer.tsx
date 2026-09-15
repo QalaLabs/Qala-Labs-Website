@@ -13,7 +13,6 @@ import QuickMetrics from '@/components/home/QuickMetrics';
 import WhatWeDo from '@/components/home/WhatWeDo';
 import HowWeWork from '@/components/home/HowWeWork';
 import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
-import PortfolioSnapshots from '@/components/home/PortfolioSnapshots';
 import ResearchInsights from '@/components/home/ResearchInsights';
 import ClosingCTA from '@/components/home/ClosingCTA';
 
@@ -58,8 +57,7 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
         <WhatWeDo title="What we do" />
         <HowWeWork title="How we work" />
         <CaseStudySnapshots />
-        <PortfolioSnapshots />
-        <ResearchInsights 
+        <ResearchInsights
           title="Research & Insights" 
           description="We believe in doing the right research and finding the perfect insight for your brand to work on: from customer micro-segments to creative triggers and measurement design." 
         />
@@ -176,10 +174,8 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
             return <HowWeWork key={block.id} {...block.props} />;
           
           case 'case_study_snapshots':
-            return <CaseStudySnapshots key={block.id} />;
-
           case 'portfolio_snapshots':
-            return <PortfolioSnapshots key={block.id} />;
+            return <CaseStudySnapshots key={block.id} />;
 
           case 'research_insights':
             return <ResearchInsights key={block.id} {...block.props} />;
