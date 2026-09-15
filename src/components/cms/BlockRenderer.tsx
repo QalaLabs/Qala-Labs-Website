@@ -10,6 +10,7 @@ import TechStackRibbon from '@/components/home/TechStackRibbon';
 import WhyDifferent from '@/components/home/WhyDifferent';
 import ClientLogos from '@/components/home/ClientLogos';
 import QuickMetrics from '@/components/home/QuickMetrics';
+import Testimonial from '@/components/home/Testimonial';
 import WhatWeDo from '@/components/home/WhatWeDo';
 import HowWeWork from '@/components/home/HowWeWork';
 import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
@@ -46,14 +47,7 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
           description="We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution so every experiment has a clear hypothesis, an attribution plan, and measurable revenue impact." 
         />
         <ClientLogos />
-        <QuickMetrics 
-          title="Recent Results" 
-          subtitle="Proven Performance." 
-          results={[
-            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }, { label: "Monthly Sales", value: "₹2.7L+", iconType: 'trending' }], color: "from-blue-600/20 to-indigo-600/20" },
-            { brand: "playR: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }, { label: "Engagement", value: "12%", iconType: 'heart' }], color: "from-yellow-600/20 to-orange-600/20" }
-          ]}
-        />
+        <QuickMetrics />
         <WhatWeDo title="What we do" />
         <HowWeWork title="How we work" />
         <CaseStudySnapshots />
@@ -166,6 +160,9 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
           
           case 'quick_metrics':
             return <QuickMetrics key={block.id} {...block.props} />;
+          
+          case 'testimonial':
+            return <Testimonial key={block.id} {...block.props} />;
           
           case 'what_we_do':
             return <WhatWeDo key={block.id} {...block.props} />;
