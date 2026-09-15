@@ -186,13 +186,18 @@ const ServiceFinder = () => {
     }
 
     try {
-      await fetch('/api/lead', {
+      const res = await fetch('/api/lead.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, tool_used: 'service_finder', data: leadData })
       });
+      if (!res.ok) {
+        console.error("Email trigger failed:", await res.text());
+        showError("Recommendations ready, but the confirmation email couldn't be sent.");
+      }
     } catch (err) {
       console.error("Email trigger failed:", err);
+      showError("Recommendations ready, but the confirmation email couldn't be sent.");
     }
 
     setLoading(false);
