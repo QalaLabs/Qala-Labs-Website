@@ -1,0 +1,185 @@
+"use client";
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const statTiles = [
+  { label: "Peak ROAS", value: "28×", sub: "playR campaign" },
+  { label: "Avg ROAS", value: "3.8×", sub: "across D2C clients" },
+  { label: "Brands scaled", value: "40+", sub: "and counting" },
+];
+
+const chartBars = [38, 52, 46, 64, 58, 74, 88];
+
+const clientInitials = [
+  { initials: "PR", label: "playR" },
+  { initials: "WWF", label: "WWF" },
+  { initials: "TR", label: "Trotr" },
+  { initials: "CS", label: "Chrono Seconds" },
+];
+
+const HomeHero = () => {
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  return (
+    <section
+      className="relative overflow-hidden bg-[#06070D] pt-32 pb-20 md:pb-28"
+      aria-labelledby="home-hero-heading"
+    >
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+          {/* Left column */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 text-blue-300 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-500/30"
+            >
+              Creative × Data × Impact
+            </motion.div>
+
+            <motion.h1
+              id="home-hero-heading"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-4xl md:text-6xl font-black text-white leading-[1.1] mb-8 tracking-tight"
+            >
+              We are{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                revenue engineers.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-lg text-slate-300 mb-10 max-w-xl leading-relaxed"
+            >
+              Qala Labs fuses creative craft with data discipline to install the media buying, lifecycle automation, and revenue instrumentation your DTC brand needs to scale past ₹1Cr/mo — run by our team, tuned weekly against real unit economics, and handed off as a system you own.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 mb-12"
+            >
+              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-8 h-14 text-base">
+                <Link to="/contact">
+                  Book a growth audit
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white font-bold rounded-xl px-8 h-14 text-base"
+              >
+                <a href="#services">See what we install</a>
+              </Button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="flex items-center gap-4"
+            >
+              <div className="flex -space-x-3">
+                {clientInitials.map((c) => (
+                  <div
+                    key={c.label}
+                    title={c.label}
+                    className="h-10 w-10 rounded-full bg-slate-800 border-2 border-[#06070D] flex items-center justify-center text-[10px] font-black text-slate-200"
+                  >
+                    {c.initials}
+                  </div>
+                ))}
+              </div>
+              <span className="text-sm text-slate-400">
+                Trusted by <span className="text-white font-bold">40+ brands</span> scaling past ₹1Cr/mo
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Right column — live dashboard panel */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
+          >
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8 shadow-2xl">
+              <div className="flex items-center justify-between mb-8">
+                <span className="font-mono text-xs text-slate-400 tracking-wide">growth.forecast</span>
+                <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                  <span className="relative flex h-2 w-2">
+                    {!prefersReducedMotion && (
+                      <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    )}
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  Live
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 mb-8">
+                {statTiles.map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                    className="rounded-xl border border-white/10 bg-white/5 p-4"
+                  >
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1">{stat.value}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{stat.label}</div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">{stat.sub}</div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Revenue trend</span>
+                  <span className="text-[10px] text-emerald-400 font-bold">↑ trending up</span>
+                </div>
+                <div className="flex items-end gap-2 h-24">
+                  {chartBars.map((h, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ height: 0 }}
+                      animate={{ height: `${h}%` }}
+                      transition={{ duration: 0.6, delay: 0.7 + i * 0.06, ease: "easeOut" }}
+                      className={`flex-1 rounded-t-sm ${
+                        i === chartBars.length - 1
+                          ? 'bg-gradient-to-t from-blue-500 to-cyan-400'
+                          : 'bg-white/10'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HomeHero;
