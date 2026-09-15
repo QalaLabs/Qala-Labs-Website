@@ -212,3 +212,64 @@ export const generateBlogSchema = (post: any) => {
     "articleSection": post.category || "Strategy"
   });
 };
+
+export const generatePortfolioSchema = (project: any) => {
+  return generateJsonLd('CreativeWork', {
+    "@id": `${siteConfig.url}/portfolio/${project.slug}#work`,
+    "name": project.title,
+    "description": project.description,
+    "image": project.image_url,
+    "creator": {
+      "@type": "Organization",
+      "name": "Qala Labs",
+      "@id": `${siteConfig.url}/#organization`
+    },
+    "datePublished": project.created_at || new Date().toISOString(),
+    "dateModified": project.updated_at || project.created_at || new Date().toISOString(),
+    "url": `${siteConfig.url}/portfolio/${project.slug}`,
+    "keywords": project.category || "portfolio"
+  });
+};
+
+export const generateServiceSchema = (service: any) => {
+  return generateJsonLd('Service', {
+    "@id": `${siteConfig.url}/services/${service.slug}#service`,
+    "name": service.title || service.name,
+    "description": service.description,
+    "image": service.image_url,
+    "provider": {
+      "@type": "Organization",
+      "name": "Qala Labs",
+      "@id": `${siteConfig.url}/#organization`
+    },
+    "url": `${siteConfig.url}/services/${service.slug}`,
+    "areaServed": [
+      { "@type": "Country", "name": "India" },
+      { "@type": "Country", "name": "United States" },
+      { "@type": "Country", "name": "United Kingdom" }
+    ]
+  });
+};
+
+export const generateFAQSchema = (faqItems: Array<{ question: string; answer: string }>) => {
+  return generateJsonLd('FAQPage', {
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  });
+};
+
+export const generateReviewSchema = (reviews: Array<{ rating: number; text: string; author: string; date?: string }>) => {
+  return generateJsonLd('AggregateRating', {
+    "@type": "AggregateRating",
+    "ratingValue": (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1),
+    "ratingCount": reviews.length,
+    "bestRating": 5,
+    "worstRating": 1
+  });
+};

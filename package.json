@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "start": "node server.js",
     "import-xml": "tsx scripts/import_asenkai_xml.ts",
+    "sync-content": "tsx ../sync-content.ts",
     "postinstall": "find node_modules -name esbuild -type f -exec chmod +x {} + || true"
   },
   "engines": {
