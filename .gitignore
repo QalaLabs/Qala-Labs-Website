@@ -5,3 +5,5 @@ node_modules/
 admin/config.env
 admin/.claude/
 New folder/
+*.zip
+Website Themes/

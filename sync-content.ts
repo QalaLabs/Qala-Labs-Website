@@ -8,25 +8,40 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
-// Load environment variables from .env file
-const envPath = path.join(process.cwd(), '.env');
-const envContent = fs.readFileSync(envPath, 'utf-8');
+// Load environment variables from .env file, if present (falls back to
+// whatever is already in process.env, e.g. in CI).
 const envVars: Record<string, string> = {};
-envContent.split('\n').forEach(line => {
-  const [key, value] = line.split('=');
-  if (key && value) {
-    envVars[key.trim()] = value.trim();
-  }
-});
+const envPath = path.join(process.cwd(), '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf-8');
+  envContent.split('\n').forEach(line => {
+    const [key, value] = line.split('=');
+    if (key && value) {
+      envVars[key.trim()] = value.trim();
+    }
+  });
+}
 
-// Use service role key if available, otherwise use anon key
-const supabaseKey = envVars['SUPABASE_SERVICE_ROLE_KEY'] || process.env.SUPABASE_SERVICE_ROLE_KEY ||
-                    envVars['SUPABASE_ANON_KEY'] || process.env.SUPABASE_ANON_KEY || '';
+const supabaseUrl = envVars['SUPABASE_URL'] || process.env.SUPABASE_URL;
+const serviceRoleKey = envVars['SUPABASE_SERVICE_ROLE_KEY'] || process.env.SUPABASE_SERVICE_ROLE_KEY;
+const anonKey = envVars['SUPABASE_ANON_KEY'] || process.env.SUPABASE_ANON_KEY;
 
-const supabase = createClient(
-  envVars['SUPABASE_URL'] || process.env.SUPABASE_URL || '',
-  supabaseKey
-);
+if (!supabaseUrl) {
+  throw new Error('Missing SUPABASE_URL — set it in .env or the environment.');
+}
+if (!serviceRoleKey) {
+  console.warn(
+    '⚠️  SUPABASE_SERVICE_ROLE_KEY not set — falling back to the anon key. ' +
+    'Writes will likely fail under RLS.'
+  );
+}
+
+const supabaseKey = serviceRoleKey || anonKey;
+if (!supabaseKey) {
+  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY — set one in .env or the environment.');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ============================================================================
 // BLOG POSTS DATA
@@ -304,9 +319,10 @@ Orchestrated viral CSK fan engagement:
 
 async function syncBlogPosts() {
   console.log('🔄 Syncing blog posts...');
+  let hadError = false;
 
   for (const post of BLOG_POSTS) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('blog_posts')
       .upsert(
         [{
@@ -322,48 +338,25 @@ async function syncBlogPosts() {
       );
 
     if (error) {
+      hadError = true;
       console.error(`❌ Error syncing blog post "${post.title}":`, error);
     } else {
       console.log(`✅ Synced: ${post.title}`);
     }
   }
+
+  return hadError;
 }
 
 async function syncCaseStudies() {
   console.log('\n🔄 Syncing case studies...');
+  let hadError = false;
 
   for (const study of CASE_STUDIES) {
-    // First try to update if exists
-    const { data: existingData } = await supabase
+    const { error } = await supabase
       .from('case_studies')
-      .select('id')
-      .eq('slug', study.slug)
-      .single();
-
-    if (existingData) {
-      // Update existing
-      const { error } = await supabase
-        .from('case_studies')
-        .update({
-          title: study.title,
-          category: study.category,
-          image_url: study.image_url,
-          description: study.description,
-          results: study.results,
-          content: study.content,
-        })
-        .eq('slug', study.slug);
-
-      if (error) {
-        console.error(`❌ Error updating case study "${study.title}":`, error);
-      } else {
-        console.log(`✅ Updated: ${study.title}`);
-      }
-    } else {
-      // Insert new
-      const { error } = await supabase
-        .from('case_studies')
-        .insert([{
+      .upsert(
+        [{
           title: study.title,
           slug: study.slug,
           category: study.category,
@@ -371,66 +364,49 @@ async function syncCaseStudies() {
           description: study.description,
           results: study.results,
           content: study.content,
-        }]);
+        }],
+        { onConflict: 'slug' }
+      );
 
-      if (error) {
-        console.error(`❌ Error syncing case study "${study.title}":`, error);
-      } else {
-        console.log(`✅ Synced: ${study.title}`);
-      }
+    if (error) {
+      hadError = true;
+      console.error(`❌ Error syncing case study "${study.title}":`, error);
+    } else {
+      console.log(`✅ Synced: ${study.title}`);
     }
   }
+
+  return hadError;
 }
 
 async function syncPortfolio() {
   console.log('\n🔄 Syncing portfolio projects...');
+  let hadError = false;
 
   for (const project of PORTFOLIO_PROJECTS) {
-    // First try to update if exists
-    const { data: existingData } = await supabase
+    const { error } = await supabase
       .from('portfolio_projects')
-      .select('id')
-      .eq('slug', project.slug)
-      .single();
-
-    if (existingData) {
-      // Update existing
-      const { error } = await supabase
-        .from('portfolio_projects')
-        .update({
-          title: project.title,
-          category: project.category,
-          image_url: project.image_url,
-          description: project.description,
-          technologies: project.technologies,
-        })
-        .eq('slug', project.slug);
-
-      if (error) {
-        console.error(`❌ Error updating portfolio "${project.title}":`, error);
-      } else {
-        console.log(`✅ Updated: ${project.title}`);
-      }
-    } else {
-      // Insert new
-      const { error } = await supabase
-        .from('portfolio_projects')
-        .insert([{
+      .upsert(
+        [{
           title: project.title,
           slug: project.slug,
           category: project.category,
           image_url: project.image_url,
           description: project.description,
           technologies: project.technologies,
-        }]);
+        }],
+        { onConflict: 'slug' }
+      );
 
-      if (error) {
-        console.error(`❌ Error syncing portfolio "${project.title}":`, error);
-      } else {
-        console.log(`✅ Synced: ${project.title}`);
-      }
+    if (error) {
+      hadError = true;
+      console.error(`❌ Error syncing portfolio "${project.title}":`, error);
+    } else {
+      console.log(`✅ Synced: ${project.title}`);
     }
   }
+
+  return hadError;
 }
 
 // ============================================================================
@@ -441,17 +417,23 @@ async function main() {
   console.log('🚀 Starting content sync...\n');
 
   try {
-    await syncBlogPosts();
-    await syncCaseStudies();
-    await syncPortfolio();
+    const blogHadError = await syncBlogPosts();
+    const caseStudiesHadError = await syncCaseStudies();
+    const portfolioHadError = await syncPortfolio();
 
-    console.log('\n✅ Content sync completed successfully!');
     console.log(`
 📊 Summary:
   - ${BLOG_POSTS.length} blog post(s)
   - ${CASE_STUDIES.length} case studies
   - ${PORTFOLIO_PROJECTS.length} portfolio projects
     `);
+
+    if (blogHadError || caseStudiesHadError || portfolioHadError) {
+      console.error('❌ Content sync completed with errors — see above.');
+      process.exit(1);
+    }
+
+    console.log('✅ Content sync completed successfully!');
   } catch (error) {
     console.error('❌ Critical error during sync:', error);
     process.exit(1);

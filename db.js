@@ -1,18 +1,13 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const { SUPABASE_URL, SUPABASE_ANON_KEY } = process.env;
 
-// Test the connection
-supabase
-  .from('users')
-  .select('*')
-  .limit(1)
-  .then(({ data, error }) => {
-    if (error) console.error('Connection error:', error);
-    else console.log('Connected:', data);
-  });
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  throw new Error(
+    'Missing SUPABASE_URL or SUPABASE_ANON_KEY environment variable(s) — check your .env file.'
+  );
+}
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 module.exports = supabase;
