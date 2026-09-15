@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 .dyad/
 .env
+
+# Claude Code local config
 .claude/
