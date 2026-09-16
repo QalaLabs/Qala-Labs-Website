@@ -9,11 +9,18 @@ const Footer = () => {
 
   const links = {
     services: [
-      { name: 'Services', href: '/services' },
       { name: 'AI Search Visibility', href: '/ai-search-visibility' },
       { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation' },
-      { name: 'Free AI Audit', href: '/ai-audit' },
-      { name: 'Growth Tools', href: '/tools' },
+      { name: 'Performance Marketing', href: '/services/performance' },
+      { name: 'Social Media Management', href: '/services/social-media' },
+      { name: 'AI Creative Production', href: '/services/creative' },
+      { name: 'Production & Shoots', href: '/services/production-shoots' },
+      { name: 'Influencer Marketing', href: '/services/influencer-marketing' },
+      { name: 'Web Development', href: '/services/web-dev' },
+      { name: 'CRO + Retention Engineering', href: '/services/cro' },
+      { name: 'Analytics & Data', href: '/services/data' },
+      { name: 'eCommerce Growth', href: '/services/strategy' },
+      { name: 'View All Services →', href: '/services' },
     ],
     company: [
       { name: 'About Us', href: '/about' },
@@ -21,6 +28,8 @@ const Footer = () => {
       { name: 'Portfolio', href: '/portfolio' },
       { name: 'Case Studies', href: '/case-studies' },
       { name: 'Careers', href: '/career' },
+      { name: 'Free AI Audit', href: '/ai-audit' },
+      { name: 'Growth Tools', href: '/tools' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '/privacy' },

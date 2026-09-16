@@ -3,16 +3,25 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ServiceCard from './ServiceCard';
-import { 
-  BarChart3, 
-  Zap, 
-  Globe2, 
-  Search, 
-  Database, 
+import {
+  BarChart3,
+  Zap,
+  Globe2,
+  Search,
+  Database,
   Rocket,
   Filter,
   Bot,
-  Users
+  Users,
+  Sparkles,
+  Brain,
+  Facebook,
+  TrendingUp,
+  Ghost,
+  Cpu,
+  ShoppingCart,
+  Camera,
+  Megaphone
 } from 'lucide-react';
 
 const services = [
@@ -87,6 +96,86 @@ const services = [
     metric: "310% YoY Growth",
     icon: <Rocket className="w-7 h-7" />,
     href: "/services/strategy"
+  },
+  {
+    title: "SEO",
+    category: "Growth",
+    description: "Technical SEO, on-page optimization, and content architecture that gets you ranking — and staying ranked — on Google. The foundation every AI Overview and LLM citation is still built on.",
+    metric: "Technical + On-Page + Content",
+    icon: <Search className="w-7 h-7" />,
+    href: "/services/seo"
+  },
+  {
+    title: "AEO",
+    category: "Growth",
+    description: "Google's AI Overviews now answer the query before a click happens. We structure your content, schema, and entity signals so your brand is the answer Google surfaces — not just a ranked result.",
+    metric: "AI Overview Optimization",
+    icon: <Sparkles className="w-7 h-7" />,
+    href: "/services/aeo"
+  },
+  {
+    title: "GEO",
+    category: "Growth",
+    description: "ChatGPT, Perplexity, and Gemini are a real discovery channel now. We earn your brand actual citations inside AI-generated answers through entity building and LLM-readable content.",
+    metric: "LLM Citation Strategy",
+    icon: <Brain className="w-7 h-7" />,
+    href: "/services/geo"
+  },
+  {
+    title: "Meta Ads",
+    category: "Growth",
+    description: "Facebook and Instagram account architecture, creative testing cadence, and server-side tracking built to survive iOS privacy changes — run by a dedicated Meta specialist team.",
+    metric: "Dedicated Meta Specialist Team",
+    icon: <Facebook className="w-7 h-7" />,
+    href: "/services/meta-ads"
+  },
+  {
+    title: "Google Ads",
+    category: "Growth",
+    description: "Search, Shopping, Performance Max, and YouTube — run by a team that lives in the auction insights report and builds structures that scale spend without letting CPCs run away.",
+    metric: "Search + Shopping + PMax + YouTube",
+    icon: <TrendingUp className="w-7 h-7" />,
+    href: "/services/google-ads"
+  },
+  {
+    title: "Snapchat Ads",
+    category: "Growth",
+    description: "An underused channel for reaching a younger, high-intent audience at typically lower CPMs than Meta or Google — Snap Ads, Collection Ads, and AR Lens campaigns.",
+    metric: "Lower-Competition Channel",
+    icon: <Ghost className="w-7 h-7" />,
+    href: "/services/snapchat-ads"
+  },
+  {
+    title: "OpenAI / ChatGPT Ads",
+    category: "Growth",
+    description: "As ad placements arrive inside ChatGPT and other AI assistants, we're building playbooks now so our clients are ready to advertise directly inside AI conversations early.",
+    metric: "Early-Access Emerging Channel",
+    icon: <Cpu className="w-7 h-7" />,
+    href: "/services/openai-ads"
+  },
+  {
+    title: "Ecommerce & Marketplace Ads",
+    category: "Growth",
+    description: "Amazon and Flipkart advertising run with the same rigor as our Meta and Google accounts — Sponsored Products, Sponsored Display, and search-term mining that turns marketplace traffic into sales.",
+    metric: "11.2x ROAS (Amazon)",
+    icon: <ShoppingCart className="w-7 h-7" />,
+    href: "/services/ecommerce-ads"
+  },
+  {
+    title: "Production & Shoots",
+    category: "Creative",
+    description: "On-location and studio photo/video production for brands that need real-world footage — full-day shoots, creative direction, and post-production, like our work with Airtel Business and Mizuno India.",
+    metric: "On-Location + Studio Production",
+    icon: <Camera className="w-7 h-7" />,
+    href: "/services/production-shoots"
+  },
+  {
+    title: "Influencer Marketing",
+    category: "Creative",
+    description: "Creator partnerships that feel native, not sponsored — from micro-influencer seeding to founder-led storytelling campaigns like our Billu Campaign, sourced, briefed, and tracked end-to-end.",
+    metric: "5M+ Organic Reach (playR)",
+    icon: <Megaphone className="w-7 h-7" />,
+    href: "/services/influencer-marketing"
   }
 ];
 

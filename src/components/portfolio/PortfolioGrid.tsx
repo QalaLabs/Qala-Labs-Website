@@ -60,6 +60,42 @@ const PortfolioGrid = () => {
       result: "Viral Fandom Momentum",
       image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
+    },
+    {
+      id: 'mizuno-india-featured',
+      title: "Mizuno India: Launch Campaign",
+      slug: "mizuno-india-launch-campaign",
+      category: "Production & Shoots",
+      result: "2-Day Shoot • 5 Content Themes",
+      image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'hi-astro-featured',
+      title: "Hi Astro: AI Character Videos",
+      slug: "hi-astro-ai-character-videos",
+      category: "AI Content Production",
+      result: "48 Videos • 9:16 Vertical",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'billu-campaign-featured',
+      title: "Billu: Salon-at-Home Content",
+      slug: "billu-salon-social-content",
+      category: "Influencer Marketing",
+      result: "15 Posts/Month • Creator-Led",
+      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'airtel-business-featured',
+      title: "Airtel Business: Exhibition Coverage",
+      slug: "airtel-business-exhibition",
+      category: "Production & Shoots",
+      result: "Enterprise B2B Launch Coverage",
+      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
     }
   ];
 
