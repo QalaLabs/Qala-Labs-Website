@@ -50,6 +50,10 @@ const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPor
 const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
 const BNPLStrategy = React.lazy(() => import("./pages/BNPLStrategy"));
 const WWFIndiaPortfolio = React.lazy(() => import("./pages/WWFIndiaPortfolio"));
+const MizunoIndiaPortfolio = React.lazy(() => import("./pages/MizunoIndiaPortfolio"));
+const HiAstroPortfolio = React.lazy(() => import("./pages/HiAstroPortfolio"));
+const BilluCampaignPortfolio = React.lazy(() => import("./pages/BilluCampaignPortfolio"));
+const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessPortfolio"));
 
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
@@ -98,6 +102,10 @@ const AppRoutes = () => {
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playR" replace />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
+            <Route path="/portfolio/mizuno-india-launch-campaign" element={<MizunoIndiaPortfolio />} />
+            <Route path="/portfolio/hi-astro-ai-character-videos" element={<HiAstroPortfolio />} />
+            <Route path="/portfolio/billu-salon-social-content" element={<BilluCampaignPortfolio />} />
+            <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 

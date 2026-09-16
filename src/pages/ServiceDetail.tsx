@@ -5,12 +5,12 @@ import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  CheckCircle2, 
-  Zap, 
-  BarChart3, 
-  Target, 
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Zap,
+  BarChart3,
+  Target,
   ArrowRight,
   Globe2,
   Search,
@@ -19,7 +19,15 @@ import {
   Bot,
   Workflow,
   Cpu,
-  Users
+  Users,
+  Sparkles,
+  Brain,
+  Facebook,
+  TrendingUp,
+  Ghost,
+  ShoppingCart,
+  Camera,
+  Megaphone
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
@@ -198,6 +206,196 @@ const serviceData: Record<string, any> = {
       { title: "Discovery", desc: "Deep dive into unit economics." },
       { title: "Roadmap", desc: "Build a 12-month scale plan." },
       { title: "Execute", desc: "Weekly sprints to hit growth targets." }
+    ]
+  },
+  'seo': {
+    title: "SEO",
+    description: "Technical SEO, on-page optimization, and content architecture that gets you ranking — and staying ranked — on Google. It's the foundation every AI Overview, ChatGPT citation, and Perplexity answer is still built on, which is why we run it alongside our AEO and GEO practices rather than as a standalone checklist item.",
+    icon: <Search className="w-12 h-12" />,
+    metric: "Technical + On-Page + Content",
+    features: [
+      "Technical SEO Audits & Core Web Vitals Fixes",
+      "On-Page Optimization & Internal Linking",
+      "Keyword Research & Content Gap Analysis",
+      "Site Architecture & Crawlability",
+      "Backlink Strategy & Authority Building",
+      "Local & International SEO"
+    ],
+    process: [
+      { title: "Audit", desc: "Full technical crawl, Core Web Vitals check, and content gap analysis against competitors." },
+      { title: "Optimize", desc: "Fix crawlability and indexation issues, restructure on-page elements, build out topical authority." },
+      { title: "Rank", desc: "Ongoing content production, internal linking, and authority building with monthly ranking reports." }
+    ]
+  },
+  'aeo': {
+    title: "AEO",
+    description: "Google's AI Overviews now answer the query before a user ever clicks a blue link — and they reduced click-through rates for top-ranking content by 58%. Answer Engine Optimization structures your content, schema, and entity signals so your brand is the answer Google surfaces, not just a ranked result underneath it.",
+    icon: <Sparkles className="w-12 h-12" />,
+    metric: "AI Overview Optimization",
+    features: [
+      "AI Overview Content Structuring",
+      "Schema Markup & Structured Data",
+      "Entity & Knowledge Graph Building",
+      "Featured Snippet & FAQ Optimization",
+      "Question-Led Content Architecture",
+      "AI Overview Presence Monitoring"
+    ],
+    process: [
+      { title: "Map", desc: "Identify which of your target queries already trigger AI Overviews and who currently gets cited." },
+      { title: "Structure", desc: "Rebuild content and schema so it's directly answer-extractable by Google's AI systems." },
+      { title: "Monitor", desc: "Track AI Overview presence and citation share over time, iterating on what earns placement." }
+    ]
+  },
+  'geo': {
+    title: "GEO",
+    description: "ChatGPT, Perplexity, and Gemini are becoming a real discovery channel, with over a billion ChatGPT users alone. Generative Engine Optimization earns your brand actual citations inside AI-generated answers — through entity building, LLM-readable content structure, and a citation-worthy source profile.",
+    icon: <Brain className="w-12 h-12" />,
+    metric: "LLM Citation Strategy",
+    features: [
+      "LLM Citation Strategy — ChatGPT, Gemini, Perplexity",
+      "Entity & Brand Knowledge Graph Building",
+      "Content Restructuring for AI Discoverability",
+      "Source & Authority Signal Building",
+      "Brand Voice Alignment Across AI Channels",
+      "LLM Citation Monitoring & Reporting"
+    ],
+    process: [
+      { title: "Audit", desc: "Test how ChatGPT, Perplexity, and Gemini currently describe your brand and cite (or don't cite) you." },
+      { title: "Build", desc: "Strengthen entity signals, publish citation-worthy source content, and align brand facts across the web." },
+      { title: "Track", desc: "Monitor citation frequency and accuracy across LLMs with monthly visibility reports." }
+    ]
+  },
+  'meta-ads': {
+    title: "Meta Ads",
+    description: "Facebook and Instagram account architecture, creative testing cadence, and server-side tracking built to survive iOS privacy changes and platform noise — run by a dedicated Meta specialist team rather than a generalist media buyer splitting attention across platforms.",
+    icon: <Facebook className="w-12 h-12" />,
+    metric: "Dedicated Meta Specialist Team",
+    features: [
+      "Account Architecture & Campaign Structure",
+      "Advantage+ & Broad Targeting Strategy",
+      "Creative Testing Cadence",
+      "Server-Side CAPI Tracking",
+      "Retargeting & Lookalike Audience Builds",
+      "Daily Budget & Bid Management"
+    ],
+    process: [
+      { title: "Audit", desc: "Review historical account performance, pixel/CAPI health, and existing audience architecture." },
+      { title: "Rebuild", desc: "Restructure campaigns for signal quality, set up server-side tracking, and launch a creative testing cadence." },
+      { title: "Scale", desc: "Expand budgets against winning ad sets while continuously refreshing creative to fight fatigue." }
+    ]
+  },
+  'google-ads': {
+    title: "Google Ads",
+    description: "Search, Shopping, Performance Max, and YouTube — run by a team that lives in the auction insights report. We build account structures that scale spend without letting CPCs run away, with the same rigor across every Google surface rather than a Search-only playbook.",
+    icon: <TrendingUp className="w-12 h-12" />,
+    metric: "Search + Shopping + PMax + YouTube",
+    features: [
+      "Search Campaign Structure & Keyword Strategy",
+      "Google Shopping Feed Optimization",
+      "Performance Max Campaign Management",
+      "YouTube Ads & Video Campaigns",
+      "Negative Keyword & Search Term Hygiene",
+      "Smart Bidding Strategy & Budget Pacing"
+    ],
+    process: [
+      { title: "Audit", desc: "Review account structure, search term reports, Merchant Center feed health, and conversion tracking." },
+      { title: "Rebuild", desc: "Restructure campaigns, clean the product feed, and set bidding strategies matched to your margin." },
+      { title: "Scale", desc: "Expand budget on winning campaigns and layer in Performance Max and YouTube for incremental reach." }
+    ]
+  },
+  'snapchat-ads': {
+    title: "Snapchat Ads",
+    description: "An underused channel for reaching a younger, high-intent audience at typically lower CPMs than Meta or Google. We build Snap Ads, Collection Ads, and AR Lens campaigns for brands looking for an edge outside the two most saturated ad platforms.",
+    icon: <Ghost className="w-12 h-12" />,
+    metric: "Lower-Competition Channel",
+    features: [
+      "Snap Ads & Collection Ads Setup",
+      "AR Lens Campaign Production",
+      "Audience Targeting & Lookalikes",
+      "Creative Built for Gen Z Attention Spans",
+      "Cross-Platform Budget Allocation",
+      "Performance Reporting & Optimization"
+    ],
+    process: [
+      { title: "Audit", desc: "Assess audience fit and whether Snapchat's demographic overlaps with your actual buyer." },
+      { title: "Launch", desc: "Build out Snap Ads and Collection Ads with creative designed for the platform's format and pace." },
+      { title: "Scale", desc: "Optimize toward the audiences and placements converting, expanding budget incrementally." }
+    ]
+  },
+  'openai-ads': {
+    title: "OpenAI / ChatGPT Ads",
+    description: "As ad placements arrive inside ChatGPT and other AI assistants, early movers will own the cheapest inventory before the auction gets competitive. We're building playbooks now so our clients are ready to advertise directly inside AI conversations the moment placements open up broadly — an emerging channel, not yet a mature one.",
+    icon: <Cpu className="w-12 h-12" />,
+    metric: "Early-Access Emerging Channel",
+    features: [
+      "Early-Access Account Setup & Onboarding",
+      "AI-Assistant Ad Format Testing",
+      "Placement Strategy as the Channel Opens",
+      "Creative Built for Conversational Surfaces",
+      "Cross-Channel Budget Planning",
+      "First-Mover Positioning Advisory"
+    ],
+    process: [
+      { title: "Position", desc: "Assess fit and get your brand queued for early access as placements become available." },
+      { title: "Pilot", desc: "Test conversational ad formats at small scale as soon as the channel supports it." },
+      { title: "Scale", desc: "Expand spend ahead of the competition once the channel matures and auction dynamics settle." }
+    ]
+  },
+  'ecommerce-ads': {
+    title: "Ecommerce & Marketplace Ads",
+    description: "Amazon and Flipkart advertising run with the same rigor as our Meta and Google accounts — Sponsored Products, Sponsored Display, and search-term mining that turns marketplace traffic into profitable, repeatable sales. Our apparel client work on Amazon hit 11.2x ROAS on the top campaign using exactly this playbook.",
+    icon: <ShoppingCart className="w-12 h-12" />,
+    metric: "11.2x ROAS (Amazon)",
+    features: [
+      "Sponsored Products & Sponsored Display",
+      "Search Term Mining & Negative Keyword Hygiene",
+      "Campaign Segmentation by ASIN/SKU",
+      "Marketplace Listing Optimization",
+      "Amazon DSP & Retargeting",
+      "Cross-Marketplace Budget Allocation"
+    ],
+    process: [
+      { title: "Audit", desc: "Review campaign structure, search term reports, and listing quality against category benchmarks." },
+      { title: "Segment", desc: "Restructure campaigns by ASIN/SKU and mine search terms to cut wasted spend." },
+      { title: "Scale", desc: "Expand budget on proven segments and layer in DSP retargeting for incremental sales." }
+    ]
+  },
+  'production-shoots': {
+    title: "Production & Shoots",
+    description: "On-location and studio photo/video production for brands that need real-world footage, not just AI-generated assets — full-day shoots, creative direction, and post-production for campaigns like our work with Airtel Business and Mizuno India.",
+    icon: <Camera className="w-12 h-12" />,
+    metric: "On-Location + Studio Production",
+    features: [
+      "Creative Concept & Shoot Planning",
+      "On-Location & Studio Photography",
+      "Video Production & Direction",
+      "Talent & Location Coordination",
+      "Post-Production & Editing",
+      "Multi-Format Delivery (Social, OOH, Web)"
+    ],
+    process: [
+      { title: "Concept", desc: "Develop the creative brief, shot list, and production plan against the campaign brief." },
+      { title: "Shoot", desc: "Execute on-location or studio production with full creative and technical direction on set." },
+      { title: "Deliver", desc: "Edit, grade, and export final assets in every format the campaign needs, from social to OOH." }
+    ]
+  },
+  'influencer-marketing': {
+    title: "Influencer Marketing",
+    description: "Creator partnerships that feel native, not sponsored — from micro-influencer seeding to founder-led storytelling campaigns like our Billu Campaign, and fan-driven UGC drives like the playR jersey drop that hit 5M+ reach without a single paid placement. We handle creator sourcing, negotiation, briefing, and performance tracking end-to-end.",
+    icon: <Megaphone className="w-12 h-12" />,
+    metric: "5M+ Organic Reach (playR)",
+    features: [
+      "Creator Sourcing & Vetting",
+      "Campaign Briefing & Creative Direction",
+      "Contract Negotiation & Usage Rights",
+      "Micro & Macro-Influencer Programs",
+      "UGC Rights Management",
+      "Performance Tracking & Reporting"
+    ],
+    process: [
+      { title: "Source", desc: "Identify and vet creators whose audience and content style actually match the brand." },
+      { title: "Brief", desc: "Give creators a clear creative direction while preserving the authentic, native format that performs." },
+      { title: "Track", desc: "Measure reach, engagement, and conversion lift, then double down on what's working." }
     ]
   }
 };
