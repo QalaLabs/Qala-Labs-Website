@@ -57,8 +57,8 @@ const HomeHero = () => {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="hidden lg:block absolute top-10 right-8 xl:right-16 opacity-[0.35] pointer-events-auto">
-          <InteractiveAsciiPhoenix />
+        <div className="hidden lg:block absolute top-4 right-4 xl:right-10 opacity-60 pointer-events-auto">
+          <InteractiveAsciiPhoenix width={440} height={540} />
         </div>
       </div>
 
