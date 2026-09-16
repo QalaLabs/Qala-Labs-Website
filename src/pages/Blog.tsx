@@ -11,7 +11,7 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import BNPLFeatured from '@/assets/bnpl-featured.png';
+import BNPLFeatured from '@/assets/bnpl-featured.webp';
 import { BlogFeaturedSkeleton, BlogCardSkeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
 

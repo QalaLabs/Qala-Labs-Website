@@ -1,18 +1,30 @@
 import express from 'express';
+import compression from 'compression';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(compression());
 app.use(express.json());
 
-// Serve static assets (JS, CSS, images) — index:false so SSR catch-all handles HTML requests
-app.use(express.static(path.join(__dirname, 'dist'), { index: false }));
+// Serve static assets with aggressive caching for hashed assets
+app.use(express.static(path.join(__dirname, 'dist'), {
+  index: false,
+  maxAge: '1d',
+  setHeaders: (res, filePath) => {
+    if (filePath.includes(`${path.sep}assets${path.sep}`) || filePath.includes('/assets/')) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+  }
+}));
 
 // Read the HTML template once at startup
 const templatePath = path.join(__dirname, 'dist', 'index.html');
@@ -30,7 +42,7 @@ async function getSSRRenderer() {
   const ssrPath = path.join(__dirname, 'dist', 'server', 'entry-server.js');
   if (!fs.existsSync(ssrPath)) return null;
   try {
-    const mod = await import(ssrPath);
+    const mod = await import(pathToFileURL(ssrPath).href);
     ssrRender = mod.render;
     console.log('[SSR] Renderer loaded');
   } catch (err) {
@@ -40,10 +52,10 @@ async function getSSRRenderer() {
 }
 
 // Initialize Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_ANON_KEY || ''
-);
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "https://kyllkrozprazwdrzwugq.supabase.co";
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5bGxrcm96cHJhendkcnp3dWdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNzUzODgsImV4cCI6MjA4Nzg1MTM4OH0._PXlfkxKQmT_gV23PahRaJzjaaX7Z30nucy0ix-SQvI";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const SITE_URL = process.env.SITE_URL || 'https://qalalabs.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
@@ -191,7 +203,7 @@ app.post('/api/test-smtp', async (req, res) => {
 });
 
 // SSR catch-all — serves all non-API, non-admin GET requests with server-rendered HTML
-app.get('*', async (req, res) => {
+app.get('{*path}', async (req, res) => {
   if (req.path.startsWith('/api')) return;
 
   if (!template) {

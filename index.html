@@ -1,30 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) - MUST be first in head -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9PM7WKEVHT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-9PM7WKEVHT');
-    </script>
-
-    <!-- Meta Pixel Code - SECOND in head for optimal tracking -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1767631260556983');
-    fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Performance Marketing Agency for DTC Brands | Qala Labs</title>
@@ -34,8 +10,15 @@
     <link rel="dns-prefetch" href="https://kyllkrozprazwdrzwugq.supabase.co" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+
+    <!-- Non-blocking Google Fonts with swap fallback -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" />
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -45,16 +28,64 @@
     <meta name="theme-color" content="#2563eb" />
     <meta name="description" content="Performance marketing &amp; AI automation agency for DTC brands in India. We scale revenue, lower CAC, and build predictable growth systems." />
 
-    <!--app-head-->
-
-    <!-- Google Tag Manager - Optimized Loading -->
+    <!-- Analytics Stubs (safe in-memory queues for gtag and fbq without blocking initial mobile paint) -->
     <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-PFN9PZRS');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9PM7WKEVHT');
+
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      window._loadMetaPixel = function() {
+        if (!window._metaLoaded) {
+          window._metaLoaded = true;
+          s.parentNode.insertBefore(t,s);
+        }
+      };
+      }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1767631260556983');
+      fbq('track', 'PageView');
+
+      // Deferred Analytics Loader: fires on user interaction, browser idle, or max 2.5s fallback
+      (function() {
+        var analyticsFired = false;
+        function initAnalytics() {
+          if (analyticsFired) return;
+          analyticsFired = true;
+
+          // 1. Google Analytics
+          var ga = document.createElement('script');
+          ga.async = true;
+          ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-9PM7WKEVHT';
+          document.head.appendChild(ga);
+
+          // 2. Google Tag Manager
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PFN9PZRS');
+
+          // 3. Meta Pixel
+          if (window._loadMetaPixel) window._loadMetaPixel();
+        }
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(function() { setTimeout(initAnalytics, 1500); });
+        } else {
+          setTimeout(initAnalytics, 2500);
+        }
+
+        window.addEventListener('scroll', initAnalytics, { passive: true, once: true });
+        window.addEventListener('touchstart', initAnalytics, { passive: true, once: true });
+        window.addEventListener('click', initAnalytics, { passive: true, once: true });
+      })();
     </script>
+
+    <!--app-head-->
   </head>
   <body>
     <noscript>

@@ -1,7 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import * as HelmetAsync from 'react-helmet-async';
+const Helmet = HelmetAsync.Helmet || (HelmetAsync as any).default?.Helmet;
 import { siteConfig, getBaseJsonLd, generateBreadcrumbSchema } from '@/lib/seo';
 import { useLocation } from 'react-router-dom';
 

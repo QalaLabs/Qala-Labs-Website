@@ -3,11 +3,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
-import AashirwadImg from '@/assets/Aashirwad.png';
-import AayushImg from '@/assets/Aayush.png';
-import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.png';
-import ManpreetImg from '@/assets/Manpreet.png';
+import AashirwadImg from '@/assets/Aashirwad.webp';
+import AayushImg from '@/assets/Aayush.webp';
+import DipikaImg from '@/assets/Dipika.webp';
+import AryamanImg from '@/assets/Aryaman.webp';
+import ManpreetImg from '@/assets/Manpreet.webp';
 
 interface TeamMember {
   name: string;

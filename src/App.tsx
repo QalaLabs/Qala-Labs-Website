@@ -61,7 +61,7 @@ const Results = React.lazy(() => import("./pages/Results"));
 // Layout Components
 import StickyCTA from "./components/layout/StickyCTA";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
-import AIChatWidget from "./components/layout/AIChatWidget";
+const AIChatWidget = React.lazy(() => import("./components/layout/AIChatWidget"));
 
 const queryClient = new QueryClient();
 
@@ -131,7 +131,9 @@ const AppRoutes = () => {
           </Routes>
           <StickyCTA />
           <WhatsAppButton />
-          <AIChatWidget />
+          <React.Suspense fallback={null}>
+            <AIChatWidget />
+          </React.Suspense>
         </React.Suspense>
       </motion.div>
     </AnimatePresence>

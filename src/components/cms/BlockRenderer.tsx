@@ -18,29 +18,32 @@ import ResearchInsights from '@/components/home/ResearchInsights';
 import ClosingCTA from '@/components/home/ClosingCTA';
 
 // Import images for fallback
-import AashirwadImg from '@/assets/Aashirwad.png';
-import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.png';
-import ManpreetImg from '@/assets/Manpreet.png';
-import AayushImg from '@/assets/Aayush.png';
+import AashirwadImg from '@/assets/Aashirwad.webp';
+import DipikaImg from '@/assets/Dipika.webp';
+import AryamanImg from '@/assets/Aryaman.webp';
+import ManpreetImg from '@/assets/Manpreet.webp';
+import AayushImg from '@/assets/Aayush.webp';
 
 export interface BlockRendererProps {
   blocks: Block[];
   editingId?: string | null;
   onUpdateBlock?: (id: string, props: any) => void;
+  skipHero?: boolean;
 }
 
-const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpdateBlock }) => {
+const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpdateBlock, skipHero = false }) => {
   if (!blocks || blocks.length === 0) {
     // Fallback: If no blocks are defined, render the homepage structure anyway
     return (
       <>
-        <Hero 
-          title="India's Full-Service AI Growth Agency."
-          subtitle="Performance marketing, AI automation, and AI search visibility — we build brands that scale." 
-          ctaText="Get Proposal" 
-          ctaUrl="/contact" 
-        />
+        {!skipHero && (
+          <Hero 
+            title="India's Full-Service AI Growth Agency."
+            subtitle="Performance marketing, AI automation, and AI search visibility — we build brands that scale." 
+            ctaText="Get Proposal" 
+            ctaUrl="/contact" 
+          />
+        )}
         <TechStackRibbon />
         <WhyDifferent 
           title="Why we're different" 

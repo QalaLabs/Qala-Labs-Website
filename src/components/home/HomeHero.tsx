@@ -34,11 +34,19 @@ const clientInitials = [
   { initials: "CS", label: "Chrono Seconds" },
 ];
 
+const LiveTicker = React.memo(() => {
+  const secondsAgo = useLiveTicker();
+  return (
+    <span className="font-mono text-[10px] text-slate-500" aria-live="off">
+      synced {secondsAgo}s ago
+    </span>
+  );
+});
+
 const HomeHero = () => {
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const secondsAgo = useLiveTicker();
 
   return (
     <section
@@ -153,9 +161,7 @@ const HomeHero = () => {
               <div className="flex items-center justify-between mb-8">
                 <span className="font-mono text-xs text-slate-400 tracking-wide">growth.forecast</span>
                 <span className="flex items-center gap-3">
-                  <span className="font-mono text-[10px] text-slate-500" aria-live="off">
-                    synced {secondsAgo}s ago
-                  </span>
+                  <LiveTicker />
                   <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
                     <span className="relative flex h-2 w-2">
                       {!prefersReducedMotion && (
