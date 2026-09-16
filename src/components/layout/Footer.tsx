@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
+import SectionWaveDivider from './SectionWaveDivider';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Footer = () => {
@@ -29,8 +30,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-background text-foreground pt-24 pb-12 border-t border-border">
-      <div className="max-w-7xl mx-auto px-4">
+    <footer className="bg-background text-foreground pt-0 pb-12 border-t border-border">
+      <SectionWaveDivider />
+      <div className="max-w-7xl mx-auto px-4 pt-12 md:pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           {/* Brand Column */}
           <div className="space-y-6">
@@ -144,6 +146,16 @@ const Footer = () => {
             ))}
           </div>
           <MadeWithDyad />
+        </div>
+
+        {/* Bookend wordmark — mirrors the hero's bold opening statement */}
+        <div className="mt-16 md:mt-20 overflow-hidden select-none" aria-hidden="true">
+          <p
+            className="font-black uppercase tracking-tight leading-[0.85] text-center bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 bg-clip-text text-transparent whitespace-nowrap"
+            style={{ fontSize: 'clamp(2.5rem, 11vw, 8rem)' }}
+          >
+            Revenue Engineers
+          </p>
         </div>
       </div>
     </footer>

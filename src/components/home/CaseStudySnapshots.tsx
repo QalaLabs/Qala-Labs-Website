@@ -165,13 +165,15 @@ const CaseStudySnapshots = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {FEATURED_STUDIES.map((study) => (
-              <ProjectCard
-                key={study.id}
-                project={study}
-                onClick={() => navigate(`/case-studies/${study.slug}`)}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-8">
+            {FEATURED_STUDIES.map((study, idx) => (
+              <div key={study.id} className={idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}>
+                <ProjectCard
+                  project={study}
+                  featured={idx === 0}
+                  onClick={() => navigate(`/case-studies/${study.slug}`)}
+                />
+              </div>
             ))}
           </div>
 
