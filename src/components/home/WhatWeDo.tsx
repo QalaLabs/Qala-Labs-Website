@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BarChart3, Bot, LineChart, Check } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import GrowthAttributionMesh from '@/components/three/GrowthAttributionMesh';
 
 interface Module {
   eyebrow: string;
@@ -57,12 +58,29 @@ const WhatWeDo = ({ title = "What we do" }: { title?: string }) => {
   return (
     <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
-            Creative × Data × Impact
-          </h2>
-          <h3 className="text-3xl md:text-6xl font-black text-slate-900 dark:text-white mb-6">{title}</h3>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+          <div>
+            <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
+              Creative × Data × Impact
+            </h2>
+            <h3 className="text-3xl md:text-6xl font-black text-slate-900 dark:text-white">{title}</h3>
+          </div>
+          <p className="max-w-md text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed">
+            Three engineered revenue pillars that work in synchronization to generate scalable, predictable contribution margin.
+          </p>
         </div>
+
+        {/* 3D Interactive Attribution & Growth Network Mesh */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10"
+        >
+          <GrowthAttributionMesh />
+        </motion.div>
+
+        {/* 3 Core Delivery Modules */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {modules.map((mod, i) => {
             const Icon = mod.icon;

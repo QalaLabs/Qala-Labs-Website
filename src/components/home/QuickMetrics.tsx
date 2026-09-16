@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import StatusChip from '@/components/ui/status-chip';
+import TiltCard from '@/components/ui/tilt-card';
 import { 
   Quote, 
   TrendingUp, 
@@ -14,6 +15,7 @@ import {
   ArrowRight 
 } from 'lucide-react';
 import GaffarLogo from '@/assets/gaffar-new-logo.webp';
+import ScaleHorizonTerrain from '@/components/three/ScaleHorizonTerrain';
 
 export interface StatItem {
   value: string;
@@ -143,56 +145,58 @@ const QuickMetrics: React.FC<QuickMetricsProps> = ({
             transition={{ duration: 0.5 }}
             className="lg:col-span-7 flex"
           >
-            <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group">
-              {/* Subtle ambient lighting */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <TiltCard maxTilt={5} maxGlare={0.15} scale={1.01} className="w-full h-full rounded-[2.5rem] md:rounded-[3rem]">
+              <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group">
+                {/* Subtle ambient lighting */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div>
-                {/* Header Row */}
-                <div className="flex items-center justify-between gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-sm">
-                    <Quote className="w-6 h-6 fill-current opacity-80" />
+                <div style={{ transform: 'translateZ(20px)' }}>
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between gap-4 mb-8">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-sm">
+                      <Quote className="w-6 h-6 fill-current opacity-80" />
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                      <span>Verified Client Story</span>
+                    </div>
                   </div>
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                    <span>Verified Client Story</span>
-                  </div>
+
+                  {/* The Quote */}
+                  <blockquote className="text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white leading-snug tracking-tight mb-8">
+                    “{quote}”
+                  </blockquote>
                 </div>
 
-                {/* The Quote */}
-                <blockquote className="text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white leading-snug tracking-tight mb-8">
-                  “{quote}”
-                </blockquote>
-              </div>
+                {/* Author & Proof Footer */}
+                <div style={{ transform: 'translateZ(15px)' }} className="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2 overflow-hidden flex items-center justify-center shrink-0">
+                      <img 
+                        src={companyLogo} 
+                        alt={author} 
+                        className="w-full h-full object-contain" 
+                        loading="lazy" 
+                      />
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-900 dark:text-white text-base md:text-lg">{author}</p>
+                      <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">{role}</p>
+                    </div>
+                  </div>
 
-              {/* Author & Proof Footer */}
-              <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2 overflow-hidden flex items-center justify-center shrink-0">
-                    <img 
-                      src={companyLogo} 
-                      alt={author} 
-                      className="w-full h-full object-contain" 
-                      loading="lazy" 
-                    />
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900 dark:text-white text-base md:text-lg">{author}</p>
-                    <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">{role}</p>
-                  </div>
+                  {caseStudyUrl && (
+                    <Link 
+                      to={caseStudyUrl}
+                      className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors py-2 px-3.5 rounded-full bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 w-fit"
+                    >
+                      <span>Read Case Study</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
                 </div>
-
-                {caseStudyUrl && (
-                  <Link 
-                    to={caseStudyUrl}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors py-2 px-3.5 rounded-full bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 w-fit"
-                  >
-                    <span>Read Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                )}
               </div>
-            </div>
+            </TiltCard>
           </motion.div>
 
           {/* Right Column: Stacked Pair of Stat Cards (lg:col-span-5) */}
@@ -205,41 +209,43 @@ const QuickMetrics: React.FC<QuickMetricsProps> = ({
               transition={{ duration: 0.5, delay: 0.1 }}
               className="flex-1"
             >
-              <div className="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 md:p-8 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all">
-                <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-blue-600/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+              <TiltCard maxTilt={6} maxGlare={0.18} scale={1.015} className="h-full rounded-[2.5rem]">
+                <div className="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 md:p-8 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/40 dark:hover:border-blue-500/40 transition-all">
+                  <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-blue-600/10 to-transparent rounded-full blur-2xl pointer-events-none" />
 
-                {/* Top Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-sm">
-                    <IndianRupee className="w-5 h-5" />
+                  {/* Top Badge */}
+                  <div style={{ transform: 'translateZ(20px)' }} className="flex items-center justify-between mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-sm">
+                      <IndianRupee className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50">
+                      Revenue Impact
+                    </span>
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50">
-                    Revenue Impact
-                  </span>
-                </div>
 
-                {/* Main Stat */}
-                <div className="my-2">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
-                    <StatValue value={revenueStat} isVisible={isVisible} />
+                  {/* Main Stat */}
+                  <div style={{ transform: 'translateZ(25px)' }} className="my-2">
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
+                      <StatValue value={revenueStat} isVisible={isVisible} />
+                    </div>
+                    <p className="text-base font-bold text-slate-800 dark:text-slate-200 mt-1">
+                      {revenueLabel}
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                      Direct attributable revenue generated across client storefronts and high-intent campaigns.
+                    </p>
                   </div>
-                  <p className="text-base font-bold text-slate-800 dark:text-slate-200 mt-1">
-                    {revenueLabel}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Direct attributable revenue generated across client storefronts and high-intent campaigns.
-                  </p>
-                </div>
 
-                {/* Bottom Benchmark */}
-                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold">
-                  <span className="text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                    <TrendingUp className="w-4 h-4 text-emerald-500" />
-                    <span>{roasStat} Average Campaign ROAS</span>
-                  </span>
-                  <span className="text-slate-400 dark:text-slate-500 font-medium">Meta & Google</span>
+                  {/* Bottom Benchmark */}
+                  <div style={{ transform: 'translateZ(15px)' }} className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold">
+                    <span className="text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                      <TrendingUp className="w-4 h-4 text-emerald-500" />
+                      <span>{roasStat} Average Campaign ROAS</span>
+                    </span>
+                    <span className="text-slate-400 dark:text-slate-500 font-medium">Meta & Google</span>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             </motion.div>
 
             {/* Stat Card 2: Scale & Autonomous Systems */}
@@ -250,44 +256,66 @@ const QuickMetrics: React.FC<QuickMetricsProps> = ({
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex-1"
             >
-              <div className="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 md:p-8 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/40 dark:hover:border-amber-500/40 transition-all">
-                <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-amber-500/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+              <TiltCard maxTilt={6} maxGlare={0.18} scale={1.015} className="h-full rounded-[2.5rem]">
+                <div className="h-full bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 md:p-8 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/40 dark:hover:border-amber-500/40 transition-all">
+                  <div className="absolute top-0 right-0 w-44 h-44 bg-gradient-to-br from-amber-500/10 to-transparent rounded-full blur-2xl pointer-events-none" />
 
-                {/* Top Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-sm">
-                    <Zap className="w-5 h-5" />
+                  {/* Top Badge */}
+                  <div style={{ transform: 'translateZ(20px)' }} className="flex items-center justify-between mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-sm">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50">
+                      Scale & Systems
+                    </span>
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50">
-                    Scale & Systems
-                  </span>
-                </div>
 
-                {/* Main Stat */}
-                <div className="my-2">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
-                    <StatValue value={reachStat} isVisible={isVisible} />
+                  {/* Main Stat */}
+                  <div style={{ transform: 'translateZ(25px)' }} className="my-2">
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
+                      <StatValue value={reachStat} isVisible={isVisible} />
+                    </div>
+                    <p className="text-base font-bold text-slate-800 dark:text-slate-200 mt-1">
+                      {reachLabel}
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                      Organic creator distribution and viral brand reach engineered for DTC and high-growth brands.
+                    </p>
                   </div>
-                  <p className="text-base font-bold text-slate-800 dark:text-slate-200 mt-1">
-                    {reachLabel}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Organic creator distribution and viral brand reach engineered for DTC and high-growth brands.
-                  </p>
-                </div>
 
-                {/* Bottom Benchmark */}
-                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold">
-                  <span className="text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-amber-500" />
-                    <span>{automationStat} Automations Built</span>
-                  </span>
-                  <span className="text-slate-400 dark:text-slate-500 font-medium">10+ Yrs Exp.</span>
+                  {/* Bottom Benchmark */}
+                  <div style={{ transform: 'translateZ(15px)' }} className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold">
+                    <span className="text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-amber-500" />
+                      <span>{automationStat} Automations Built</span>
+                    </span>
+                    <span className="text-slate-400 dark:text-slate-500 font-medium">10+ Yrs Exp.</span>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             </motion.div>
           </div>
         </div>
+
+        {/* 3D Scale Horizon & Unit Economics Terrain Visualizer */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-12"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              Scale Architecture // 3D Volumetric Horizon
+            </span>
+            <span className="text-xs text-slate-500 font-mono hidden sm:inline-block">
+              Unit economics held stable across revenue tiers
+            </span>
+          </div>
+          <ScaleHorizonTerrain />
+        </motion.div>
       </div>
     </section>
   );
