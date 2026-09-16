@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Section from '@/components/layout/Section';
+import StatusChip from '@/components/ui/status-chip';
 
 interface WhyDifferentProps {
   title?: string;
@@ -21,6 +22,7 @@ const WhyDifferent = ({
         viewport={{ once: true }}
         className="max-w-4xl"
       >
+        <StatusChip label="3 experiments running" className="mb-4" />
         <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-6">
           {title}
         </h2>

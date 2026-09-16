@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import ProjectCard from '../portfolio/ProjectCard';
+import StatusChip from '@/components/ui/status-chip';
 import { CaseStudyCardSkeleton } from '@/components/ui/skeleton';
 import GaffarLogo from '@/assets/gaffar-new-logo.webp';
 import NutrivendThumbnail from '@/assets/nutrivend/training-boxers-gym.jpg?w=900&format=webp&quality=82';
@@ -149,6 +150,7 @@ const CaseStudySnapshots = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-2xl">
+              <StatusChip label="Live portfolio" className="mb-4" />
               <h2 className="text-sm font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em] mb-4">
                 Case study snapshots
               </h2>

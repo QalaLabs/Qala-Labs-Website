@@ -11,18 +11,24 @@ export interface SEOData {
 
 export const fetchPageSEO = async (slug: string): Promise<SEOData> => {
   // 1. Try to fetch specific page SEO from the pages table
-  const { data: pageData } = await supabase
+  // (Using .limit(1) + array indexing instead of .single()/.maybeSingle():
+  // PostgREST's single-object Accept header returns an HTTP 406 whenever
+  // zero rows match, which .maybeSingle() still triggers under the hood —
+  // it only suppresses the JS-level error, not the network-level 406.)
+  const { data: pageRows } = await supabase
     .from('pages')
     .select('title, description')
     .eq('slug', slug)
-    .single();
+    .limit(1);
+  const pageData = pageRows?.[0];
 
   // 2. Fetch global defaults from site_settings
-  const { data: settingsData } = await supabase
+  const { data: settingsRows } = await supabase
     .from('site_settings')
     .select('value')
     .eq('key', 'global_config')
-    .single();
+    .limit(1);
+  const settingsData = settingsRows?.[0];
 
   const globalSEO = settingsData?.value?.seo?.global || {};
   const defaultTitle = globalSEO.site_name || "Qala Labs";

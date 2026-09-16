@@ -20,6 +20,7 @@ const QUICK_REPLIES = [
 
 const AIChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: "Hi! I'm the Qala Growth Assistant. How can I help you scale your brand today?" }
@@ -32,6 +33,15 @@ const AIChatWidget = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    // Keep the launcher hidden while the hero's own CTAs are on screen so it
+    // never sits on top of them — only appear once the user has scrolled past.
+    const handleScroll = () => setIsVisible(window.scrollY > 400);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSend = async (text?: string) => {
     const messageToSend = text || input.trim();
@@ -99,33 +109,48 @@ const AIChatWidget = () => {
 
   return (
     <>
-      <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-6 z-[100] flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full shadow-2xl hover:bg-blue-700 transition-colors"
-      >
-        {isOpen ? <X className="w-8 h-8" /> : <MessageSquare className="w-8 h-8" />}
-        {!isOpen && (
-          <span className="absolute -top-1 -right-1 flex h-5 w-5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-5 w-5 bg-blue-500 border-2 border-white flex items-center justify-center">
-              <Sparkles className="w-3 h-3 text-white" />
+      <AnimatePresence>
+        {isVisible && !isOpen && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-28 right-4 sm:right-6 z-[100] flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 text-white rounded-full shadow-2xl hover:bg-blue-700 transition-colors"
+          >
+            <MessageSquare className="w-8 h-8" />
+            <span className="absolute -top-1 -right-1 flex h-5 w-5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-5 w-5 bg-blue-500 border-2 border-white flex items-center justify-center">
+                <Sparkles className="w-3 h-3 text-white" />
+              </span>
             </span>
-          </span>
+          </motion.button>
         )}
-      </motion.button>
+      </AnimatePresence>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-44 right-6 z-[100] w-[90vw] md:w-[400px] h-[600px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
-          >
+          <>
+            <motion.button
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed bottom-28 right-4 sm:right-6 z-[100] flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 text-white rounded-full shadow-2xl hover:bg-blue-700 transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </motion.button>
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="fixed bottom-48 right-4 sm:right-6 z-[100] w-[90vw] md:w-[400px] h-[60vh] sm:h-[600px] max-h-[600px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
+            >
             <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
@@ -209,6 +234,7 @@ const AIChatWidget = () => {
               </form>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

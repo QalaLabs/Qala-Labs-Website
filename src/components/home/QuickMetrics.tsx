@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from "@/components/ui/card";
+import StatusChip from '@/components/ui/status-chip';
 import { TrendingUp, Zap, Share2, Heart, Users, Play, BarChart3, ShoppingBag } from 'lucide-react';
 
 interface Stat {
@@ -117,6 +118,7 @@ const QuickMetrics = ({
     <section ref={sectionRef} className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-12 md:mb-16">
+          <StatusChip label="Verified data" className="mb-4" />
           <h2 className="text-sm font-black text-blue-600 uppercase tracking-[0.2em] mb-4">
             {title}
           </h2>

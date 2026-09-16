@@ -6,6 +6,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const useLiveTicker = (intervalSeconds = 1) => {
+  const [secondsAgo, setSecondsAgo] = React.useState(0);
+
+  React.useEffect(() => {
+    const id = window.setInterval(() => {
+      setSecondsAgo((s) => (s >= 59 ? 0 : s + intervalSeconds));
+    }, intervalSeconds * 1000);
+    return () => window.clearInterval(id);
+  }, [intervalSeconds]);
+
+  return secondsAgo;
+};
+
 const statTiles = [
   { label: "Peak ROAS", value: "28×", sub: "playR campaign" },
   { label: "Avg ROAS", value: "3.8×", sub: "across D2C clients" },
@@ -25,6 +38,7 @@ const HomeHero = () => {
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const secondsAgo = useLiveTicker();
 
   return (
     <section
@@ -47,6 +61,18 @@ const HomeHero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/15 text-blue-300 text-[10px] md:text-xs font-black uppercase tracking-widest mb-8 border border-blue-500/30"
             >
               Creative × Data × Impact
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="font-mono text-xs text-slate-500 mb-6 flex items-center gap-2"
+              aria-hidden="true"
+            >
+              <span className="text-emerald-400">$</span>
+              <span>qala scale --target 8-figures --status live</span>
+              <span className="inline-block w-[7px] h-[14px] bg-slate-500/70 motion-safe:animate-pulse" />
             </motion.div>
 
             <motion.h1
@@ -126,14 +152,19 @@ const HomeHero = () => {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8 shadow-2xl">
               <div className="flex items-center justify-between mb-8">
                 <span className="font-mono text-xs text-slate-400 tracking-wide">growth.forecast</span>
-                <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
-                  <span className="relative flex h-2 w-2">
-                    {!prefersReducedMotion && (
-                      <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    )}
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-[10px] text-slate-500" aria-live="off">
+                    synced {secondsAgo}s ago
                   </span>
-                  Live
+                  <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                    <span className="relative flex h-2 w-2">
+                      {!prefersReducedMotion && (
+                        <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      )}
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                    Live
+                  </span>
                 </span>
               </div>
 
