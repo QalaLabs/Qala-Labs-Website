@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import InteractiveAsciiPhoenix from './InteractiveAsciiPhoenix';
 
 const useLiveTicker = (intervalSeconds = 1) => {
   const [secondsAgo, setSecondsAgo] = React.useState(0);
@@ -26,28 +27,6 @@ const statTiles = [
 ];
 
 const chartBars = [38, 52, 46, 64, 58, 74, 88];
-
-const PHOENIX_ASCII_LINES = [
-  '            _,.-------.,_',
-  '        ,;~\'             \'~;,',
-  '     ,;                     ;,',
-  '    ;                         ;',
-  '   ,                           ,',
-  '   ;          /\\   /\\          ;',
-  '   |         /  \\ /  \\         |',
-  '   |    _,--\'    V    \'--,_    |',
-  '    \\  /       /\\ /\\       \\  /',
-  '     \\/       /  V  \\       \\/',
-  '      \\      /       \\      /',
-  '       \\    /  QALA   \\    /',
-  '        \\  /   LABS    \\  /',
-  '         \\/             \\/',
-  '          \\.           ./',
-  '            \\.       ./',
-  '              \\.   ./',
-  '                \\ /',
-  '                 V',
-].join('\n');
 
 const clientInitials = [
   { initials: "PR", label: "playR" },
@@ -78,12 +57,9 @@ const HomeHero = () => {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
-        <pre
-          aria-hidden="true"
-          className="hidden lg:block absolute top-10 right-8 xl:right-16 font-mono text-[9px] xl:text-[10px] leading-[1.15] text-blue-400/[0.14] select-none whitespace-pre"
-        >
-          {PHOENIX_ASCII_LINES}
-        </pre>
+        <div className="hidden lg:block absolute top-10 right-8 xl:right-16 opacity-[0.35] pointer-events-auto">
+          <InteractiveAsciiPhoenix />
+        </div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
