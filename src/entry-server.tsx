@@ -30,6 +30,10 @@ import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
 import CapitalKeysPortfolio from './pages/CapitalKeysPortfolio';
 import BNPLStrategy from './pages/BNPLStrategy';
 import WWFIndiaPortfolio from './pages/WWFIndiaPortfolio';
+import MizunoIndiaPortfolio from './pages/MizunoIndiaPortfolio';
+import HiAstroPortfolio from './pages/HiAstroPortfolio';
+import BilluCampaignPortfolio from './pages/BilluCampaignPortfolio';
+import AirtelBusinessPortfolio from './pages/AirtelBusinessPortfolio';
 
 // Homepage — direct import so SSR renders the loading state with static meta tags
 import Index from './pages/Index';
@@ -78,6 +82,10 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
                   <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
+                  <Route path="/portfolio/mizuno-india-launch-campaign" element={<MizunoIndiaPortfolio />} />
+                  <Route path="/portfolio/hi-astro-ai-character-videos" element={<HiAstroPortfolio />} />
+                  <Route path="/portfolio/billu-salon-social-content" element={<BilluCampaignPortfolio />} />
+                  <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 
