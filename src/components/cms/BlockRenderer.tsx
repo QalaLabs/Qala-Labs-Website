@@ -174,8 +174,12 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
             return <HowWeWork key={block.id} {...block.props} />;
           
           case 'case_study_snapshots':
-          case 'portfolio_snapshots':
             return <CaseStudySnapshots key={block.id} />;
+
+          case 'portfolio_snapshots':
+            // Renders identical content to case_study_snapshots — skip to avoid
+            // showing the same case-study grid twice on the same page.
+            return null;
 
           case 'research_insights':
             return <ResearchInsights key={block.id} {...block.props} />;

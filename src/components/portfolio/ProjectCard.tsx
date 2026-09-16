@@ -8,9 +8,10 @@ import { Badge } from "@/components/ui/badge";
 interface ProjectCardProps {
   project: any;
   onClick: () => void;
+  featured?: boolean;
 }
 
-const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
+const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -39,10 +40,12 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       role="button"
       tabIndex={0}
       aria-label={`View ${project.title}`}
-      className="group relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer border border-slate-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+      className={`group relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer border focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600 focus-visible:ring-offset-2 h-full ${
+        featured ? 'border-blue-600/30 ring-1 ring-blue-600/20' : 'border-slate-100'
+      }`}
     >
       {/* Media Container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-slate-900">
+      <div className={`relative overflow-hidden bg-slate-900 h-full ${featured ? 'aspect-[16/10] md:aspect-auto' : 'aspect-[4/5]'}`}>
         <img 
           src={project.image} 
           alt={project.imageAlt || project.title}
@@ -67,10 +70,15 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
         {/* Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
         
-        <div className="absolute top-6 left-6">
+        <div className="absolute top-6 left-6 flex items-center gap-2">
           <Badge className="bg-white/20 backdrop-blur-md text-white border-none px-4 py-1 rounded-full font-bold">
             {project.category}
           </Badge>
+          {featured && (
+            <Badge className="bg-blue-600 text-white border-none px-3 py-1 rounded-full font-mono text-[10px] uppercase tracking-widest">
+              Featured
+            </Badge>
+          )}
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
@@ -80,7 +88,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
         </div>
 
         <div className="absolute bottom-8 left-8 right-8">
-          <h3 className="text-2xl font-black text-white mb-2 group-hover:translate-y-[-5px] transition-transform duration-500">
+          <h3 className={`font-black text-white mb-2 group-hover:translate-y-[-5px] transition-transform duration-500 ${featured ? 'text-3xl md:text-4xl' : 'text-2xl'}`}>
             {project.title}
           </h3>
           <p className="text-blue-400 font-bold text-sm opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
