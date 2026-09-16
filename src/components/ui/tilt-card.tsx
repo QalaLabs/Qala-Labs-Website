@@ -117,7 +117,7 @@ export const TiltCard: React.FC<TiltCardProps> = ({
 
     window.addEventListener('deviceorientation', handleOrientation, true);
     return () => window.removeEventListener('deviceorientation', handleOrientation, true);
-  }, [gyroscope, reducedMotion, maxTilt, perspective]);
+  }, [gyroscope, reducedMotion, maxTilt, perspective, scale]);
 
   return (
     <div
