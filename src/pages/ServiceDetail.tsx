@@ -27,7 +27,13 @@ import {
   Ghost,
   ShoppingCart,
   Camera,
-  Megaphone
+  Megaphone,
+  FileText,
+  CreditCard,
+  Truck,
+  Calculator,
+  Package,
+  MessageSquare
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
@@ -396,6 +402,166 @@ const serviceData: Record<string, any> = {
       { title: "Source", desc: "Identify and vet creators whose audience and content style actually match the brand." },
       { title: "Brief", desc: "Give creators a clear creative direction while preserving the authentic, native format that performs." },
       { title: "Track", desc: "Measure reach, engagement, and conversion lift, then double down on what's working." }
+    ]
+  },
+  'crm-lead-automation': {
+    title: "CRM & Lead Intake Automation",
+    description: "A production AI agent that ingests inbound leads from website forms, WhatsApp, and email — classifying intent, extracting structured contact data, and staging qualified leads directly into your CRM pipeline with automatic follow-up scheduling. Built and running in production as part of our MarksOps agent suite.",
+    icon: <Users className="w-12 h-12" />,
+    metric: "5-Way Intent Classification",
+    features: [
+      "Omnichannel Lead Ingestion — Web, WhatsApp, Email",
+      "AI Intent Classification (B2C, B2B Bulk, Dealer, Support, General)",
+      "Structured Entity Extraction (contact, company, quantity, SKUs)",
+      "Automated CRM Pipeline Staging",
+      "24-Hour Follow-Up Activity Scheduling",
+      "B2B & Dealer Tagging for Dunning Eligibility",
+      "Real-Time High-Value Lead Alerts"
+    ],
+    process: [
+      { title: "Ingest", desc: "Capture leads across website forms, WhatsApp, and inbox scans in real time or on a schedule." },
+      { title: "Classify", desc: "Claude-powered intent classification and structured entity extraction for every inbound inquiry." },
+      { title: "Route", desc: "Stage qualified leads into your CRM pipeline with tags, follow-up activities, and instant alerts to sales." }
+    ]
+  },
+  'customer-support-automation': {
+    title: "Customer Support AI Agent",
+    description: "An AI support agent that handles order status, returns, complaints, and product queries across WhatsApp and email — replying in your brand's specific voice with live shipment and return-policy lookups, and a 4-point escalation matrix that hands off to humans the moment it matters.",
+    icon: <MessageSquare className="w-12 h-12" />,
+    metric: "Sub-2-Minute Brand-Voiced Replies",
+    features: [
+      "6-Category Intent Classification",
+      "Live Courier Tracking & Order Lookups",
+      "Return & Refund Policy Validation",
+      "Multi-Brand Persona Response Generation",
+      "4-Point Human Escalation Matrix",
+      "Automated Helpdesk Ticket Staging",
+      "Sentiment Detection & Fraud/Legal Keyword Alerts"
+    ],
+    process: [
+      { title: "Classify", desc: "Detect intent and sentiment across every inbound WhatsApp and email message." },
+      { title: "Resolve", desc: "Pull live tracking and order data, then reply in the correct brand voice within minutes." },
+      { title: "Escalate", desc: "Automatically hand off to human agents on negative sentiment, high order value, or legal/fraud risk." }
+    ]
+  },
+  'finance-bill-automation': {
+    title: "Finance & Bill Ingestion Automation",
+    description: "An AI agent that parses vendor invoices, ad platform bills, logistics freight bills, and bank transaction alerts — extracting tax breakdowns, classifying spend, and staging draft ERP entries with a strict zero-auto-posting mandate so a human always approves before anything posts.",
+    icon: <FileText className="w-12 h-12" />,
+    metric: "Zero Auto-Posting Safeguard",
+    features: [
+      "Multi-Source Bill Ingestion (Email, PDF, SMS Alerts)",
+      "Tax Breakdown Extraction (CGST / SGST / IGST)",
+      "5-Category Spend Classification",
+      "Draft ERP Bill Staging — Never Auto-Posted",
+      "Original Invoice Attachment Archiving",
+      "Instant WhatsApp Approval Alerts",
+      "SaaS Subscription & Renewal Tracking"
+    ],
+    process: [
+      { title: "Ingest", desc: "Scan financial emails, PDF invoices, and card alerts from every vendor and platform you use." },
+      { title: "Extract", desc: "Pull vendor, invoice number, PO reference, and full tax breakdown with high accuracy." },
+      { title: "Stage", desc: "Create draft ERP bills and notify finance for approval — never posted automatically." }
+    ]
+  },
+  'marketplace-price-monitoring': {
+    title: "Marketplace Price Monitoring",
+    description: "An AI agent that crawls your marketplace listings on Amazon and Flipkart twice daily, flags price deviations beyond 5% against your master pricing, and classifies the root cause — your own listing error, an unauthorized seller deviation, or a competitor undercutting you.",
+    icon: <Search className="w-12 h-12" />,
+    metric: "Twice-Daily Automated Crawls",
+    features: [
+      "Catalog Benchmark & MAP Management",
+      "Automated Amazon & Flipkart Price Crawling",
+      "5% Deviation Detection & Alerting",
+      "Root-Cause Classification (Listing / Seller / Competitor)",
+      "Anti-Bot Crawl Hygiene & Rate-Limit Handling",
+      "Instant WhatsApp Deviation Alerts",
+      "Weekly Price Health & Compliance Reporting"
+    ],
+    process: [
+      { title: "Crawl", desc: "Pull live buy-box prices, seller identity, and stock across every active SKU, twice daily." },
+      { title: "Detect", desc: "Compare against master pricing and MAP, flagging any deviation beyond the 5% tolerance band." },
+      { title: "Alert", desc: "Classify root cause and dispatch high-priority alerts, backed by a weekly compliance report." }
+    ]
+  },
+  'payment-reconciliation-automation': {
+    title: "Payment Reconciliation Automation",
+    description: "An AI agent that reconciles daily payment gateway settlements — Razorpay, CCAvenue — against your ERP sales orders, stages balanced draft bank journal entries, and flags failed payments, unmatched settlements, and refund spikes the moment they happen.",
+    icon: <CreditCard className="w-12 h-12" />,
+    metric: "4-Way Balanced Journal Staging",
+    features: [
+      "Daily Gateway Ingestion (Razorpay, CCAvenue)",
+      "ERP Sales Order Matching by Order ID",
+      "4-Way Draft Bank Journal Entry Staging",
+      "Zero Auto-Posting — Human Approval Required",
+      "High-Value Failed Payment Alerts (>₹5,000)",
+      "Unmatched Settlement & UTR Discrepancy Flags",
+      "Refund Spike Anomaly Detection"
+    ],
+    process: [
+      { title: "Ingest", desc: "Pull T-1 captured, authorized, and failed payments plus settlement batches from every gateway." },
+      { title: "Match", desc: "Cross-reference against ERP sales orders and classify each transaction as matched, unmatched, refund, or failed." },
+      { title: "Stage", desc: "Create balanced draft journal entries and alert finance to anomalies in real time." }
+    ]
+  },
+  'logistics-shipment-automation': {
+    title: "Logistics & Shipment Automation",
+    description: "An AI agent that processes real-time courier webhooks, runs scheduled customer tracking broadcasts in your brand voice, flags shipments delayed past their estimated delivery date, logs RTO events automatically, and reconciles daily COD remittances against your ERP.",
+    icon: <Truck className="w-12 h-12" />,
+    metric: "Real-Time Shipment Status Sync",
+    features: [
+      "Real-Time Courier Webhook Ingestion",
+      "Daily Brand-Voiced Tracking Broadcasts",
+      "Delayed Shipment Detection (>2 Days Past EDD)",
+      "Automated RTO Event Logging",
+      "Proactive Customer Delay Notifications",
+      "Daily COD Remittance Reconciliation",
+      "Multi-Brand Persona Messaging (playR.in, streetPlayR, Players Club)"
+    ],
+    process: [
+      { title: "Track", desc: "Ingest live shipment status events and normalize them into your order records in real time." },
+      { title: "Notify", desc: "Send scheduled, brand-voiced tracking updates and proactive alerts on delays." },
+      { title: "Reconcile", desc: "Match daily COD remittance reports against orders, staging discrepancies for finance review." }
+    ]
+  },
+  'accounting-sync-automation': {
+    title: "Accounting Sync (Tally Integration)",
+    description: "An AI agent that bridges your ERP into TallyPrime via Tally's native XML Gateway — validating GSTIN and state codes, mapping your chart of accounts to Tally ledgers, and staging unaccepted vouchers that always require accountant sign-off before they post.",
+    icon: <Calculator className="w-12 h-12" />,
+    metric: "GST-Compliant Voucher Staging",
+    features: [
+      "Sales, Purchase, Payment & Receipt Voucher Staging",
+      "Zero Auto-Acceptance — Accountant Sign-Off Required",
+      "Chart of Accounts to Tally Ledger Mapping",
+      "GSTIN & State Code Syntax Validation",
+      "Inter-State vs. Intra-State Tax Classification",
+      "Day Book & Trial Balance Extraction",
+      "Period-End ERP-to-Tally Reconciliation"
+    ],
+    process: [
+      { title: "Validate", desc: "Check GSTIN format, state codes, and tax classification before building any voucher." },
+      { title: "Map", desc: "Translate ERP accounts to the correct Tally ledgers and construct the XML voucher envelope." },
+      { title: "Stage", desc: "Push unaccepted vouchers into Tally for accountant review — never auto-posted." }
+    ]
+  },
+  'inventory-sync-automation': {
+    title: "Inventory Sync (OMS ↔ ERP)",
+    description: "An AI agent that keeps multi-warehouse stock aligned between your OMS and ERP in near real time — enforcing clear source-of-truth rules for live stock versus costing, flagging discrepancies over a defined threshold, and handling fulfillment and return stock events automatically.",
+    icon: <Package className="w-12 h-12" />,
+    metric: "Multi-Warehouse Stock Sync",
+    features: [
+      "Multi-Warehouse Inventory Synchronization",
+      "OMS-Authoritative Live Stock, ERP-Authoritative Costing",
+      "Discrepancy Alerts Beyond 10-Unit Threshold",
+      "Resilient Ingestion with CSV Fallback",
+      "SKU Catalog Mapping Integrity Checks",
+      "Event-Driven Fulfillment Stock Decrements",
+      "Automated QC & Return Restocking"
+    ],
+    process: [
+      { title: "Sync", desc: "Reconcile live available stock across every warehouse against ERP records on a scheduled sweep." },
+      { title: "Detect", desc: "Flag any SKU discrepancy beyond threshold and generate structured audit logs." },
+      { title: "Resolve", desc: "Process fulfillment and return events automatically, isolating damaged stock to quarantine." }
     ]
   }
 };
