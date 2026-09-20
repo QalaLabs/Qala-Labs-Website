@@ -25,6 +25,39 @@ const AirtelBusinessPortfolio = () => {
     { label: "Products Covered", value: "3", icon: <Layers className="w-6 h-6" /> }
   ];
 
+  const gallery = [
+    {
+      image: "/portfolio/airtel-business/hero.jpg",
+      label: "Airtel Growth Forum — Main Stage",
+      caption: "Full stage backdrop for the Airtel Growth Forum, built around the \"Unlock Growth with Next-Gen Connectivity and Digital Solutions\" theme."
+    },
+    {
+      image: "/portfolio/airtel-business/exhibition-floor.jpg",
+      label: "Telco-Grade Cloud Booth",
+      caption: "Dedicated booth display for Airtel's Telco-Grade Cloud, built in India for India, with a live product screen and takeaway collateral."
+    },
+    {
+      image: "/portfolio/airtel-business/speaker-session-1.jpg",
+      label: "Keynote Coverage",
+      caption: "On-stage keynote photography captured live against the event's branded backdrop."
+    },
+    {
+      image: "/portfolio/airtel-business/speaker-session-2.jpg",
+      label: "Panel & Product Walkthroughs",
+      caption: "Speaker sessions covering Airtel Business's enterprise product line for the assembled delegates."
+    },
+    {
+      image: "/portfolio/airtel-business/delegate-roundtable.jpg",
+      label: "Delegate Roundtables",
+      caption: "Candid coverage of enterprise delegates at their roundtables throughout the forum."
+    },
+    {
+      image: "/portfolio/airtel-business/networking-moment.jpg",
+      label: "Networking & Engagement",
+      caption: "Unscripted networking moments between sessions, delivered alongside the formal event coverage."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-red-100">
       <SEO
@@ -56,7 +89,7 @@ const AirtelBusinessPortfolio = () => {
               Airtel Business: <span className="text-red-600">On the Ground</span> at Launch.
             </h1>
             <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl">
-              On-site exhibition photography for Airtel Business's enterprise product line — booth displays, signage, and launch coverage for SD-Branch, Secure Workforce, and their telco-grade cloud platform.
+              On-site exhibition photography at the Airtel Growth Forum for Airtel Business's enterprise product line — stage and keynote coverage, booth displays, and delegate engagement across SD-Branch, Secure Workforce, and their telco-grade cloud platform.
             </p>
           </motion.div>
 
@@ -77,13 +110,55 @@ const AirtelBusinessPortfolio = () => {
             ))}
           </div>
 
+          <section className="mb-24">
+            <div className="mb-10">
+              <p className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-2">On-Site Gallery</p>
+              <h2 className="text-3xl font-black text-slate-900">From the Floor</h2>
+            </div>
+
+            <div className="rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 mb-10">
+              <img
+                src="/portfolio/airtel-business/hero.jpg"
+                alt="Airtel Growth Forum main stage backdrop photographed by Qala Labs"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {gallery.slice(1).map((shot, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="group rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all bg-slate-50"
+                >
+                  <div className="relative overflow-hidden aspect-[4/3]">
+                    <img
+                      src={shot.image}
+                      alt={`${shot.label} — Airtel Business exhibition photography by Qala Labs`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="font-black text-slate-900 mb-1">{shot.label}</p>
+                    <p className="text-sm text-slate-500 leading-relaxed">{shot.caption}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
           <section className="grid lg:grid-cols-3 gap-16 mb-24">
             <div className="lg:col-span-2 space-y-12">
               <div>
                 <h2 className="text-3xl font-black text-slate-900 mb-6">The Coverage</h2>
                 <div className="text-lg text-slate-600 leading-relaxed space-y-6">
                   <p>
-                    Airtel Business used a live exhibition to showcase three enterprise products — SD-Branch for unifying fragmented branch networks, Secure Workforce for anytime-anywhere device and data security, and a telco-grade cloud platform built for India. We covered the activation on-site: booth builds, signage, product displays, and the broader event environment.
+                    Airtel Business hosted the Airtel Growth Forum to showcase three enterprise products — SD-Branch for unifying fragmented branch networks, Secure Workforce for anytime-anywhere device and data security, and a telco-grade cloud platform built for India. We covered the activation on-site: keynote and panel sessions on the main stage, booth builds and signage, product displays, delegate roundtables, and networking moments across the venue.
                   </p>
                   <p>
                     The brief was straightforward — deliver clean, usable brand and event photography enterprise marketing teams can drop straight into decks, case studies, and internal recaps without a separate editing pass.
@@ -95,8 +170,10 @@ const AirtelBusinessPortfolio = () => {
                 <h3 className="text-2xl font-black mb-8 text-red-400">Production Scope</h3>
                 <ul className="space-y-4">
                   {[
+                    "Main-stage keynote and panel photography",
                     "On-site exhibition and booth photography",
                     "Coverage across three enterprise product launches",
+                    "Delegate roundtable and networking coverage",
                     "Signage, display, and environment documentation",
                     "Deck- and case-study-ready image delivery"
                   ].map((item, i) => (

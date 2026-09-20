@@ -94,7 +94,7 @@ const PortfolioGrid = () => {
       slug: "airtel-business-exhibition",
       category: "Production & Shoots",
       result: "Enterprise B2B Launch Coverage",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
+      image: "/portfolio/airtel-business/hero.jpg",
       isFeatured: true
     },
     {
