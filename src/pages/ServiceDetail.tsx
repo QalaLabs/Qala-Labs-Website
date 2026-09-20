@@ -724,6 +724,39 @@ const ServiceDetail = () => {
               </Link>
             </div>
           </div>
+
+          <div className="mb-20">
+            <div className="max-w-3xl mb-10">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/5 text-slate-700 text-xs font-black uppercase tracking-widest mb-6">
+                Our Execution Process
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
+                Research tells us what to fix. This is how we actually fix it.
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                Every {data.title.toLowerCase()} engagement runs through the same four-stage execution cycle — tracked live in{' '}
+                <Link to="/q-manager" className="text-blue-600 font-bold hover:underline">Q Manager</Link>, our client dashboard, so you always know exactly what stage you're in.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { step: '01', title: 'Audit & Diagnose', duration: 'Week 1', desc: 'We apply the research findings to your specific accounts, tracking, and unit economics to lock the highest-leverage fixes.' },
+                { step: '02', title: 'Architect & Build', duration: 'Weeks 2–4', desc: 'We build the campaigns, systems, or agents this service requires — instrumented from day one, not bolted on after.' },
+                { step: '03', title: 'Run & Tune', duration: 'Weeks 5–8', desc: 'We test, tune, and iterate against weekly reviews — every change logged and visible in your dashboard in real time.' },
+                { step: '04', title: 'Report & Compound', duration: 'Ongoing', desc: 'Weekly reporting and monthly strategy reviews inside Q Manager keep the roadmap current as results compound.' },
+              ].map((s, i) => (
+                <div key={i} className="relative p-6 bg-white border border-slate-200 rounded-2xl">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-3xl font-black text-slate-100">{s.step}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">{s.duration}</span>
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">{s.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

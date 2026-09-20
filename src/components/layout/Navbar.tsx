@@ -38,6 +38,7 @@ const Navbar = () => {
   const solutionsLinks = [
     { name: 'AI Search Visibility', href: '/ai-search-visibility', desc: 'SEO + AEO + GEO' },
     { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation', desc: 'AI agents & workflows' },
+    { name: 'Q Manager', href: '/q-manager', desc: 'Client dashboard — desktop & mobile' },
     { name: 'Performance Marketing', href: '/services/performance', desc: 'Meta, Google, Snapchat & more' },
     { name: 'Social Media Management', href: '/services/social-media', desc: 'Content, community & growth' },
     { name: 'Production & Shoots', href: '/services/production-shoots', desc: 'On-location & studio production' },
