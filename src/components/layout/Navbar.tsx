@@ -38,12 +38,14 @@ const Navbar = () => {
   const solutionsLinks = [
     { name: 'AI Search Visibility', href: '/ai-search-visibility', desc: 'SEO + AEO + GEO' },
     { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation', desc: 'AI agents & workflows' },
+    { name: 'Q Manager', href: '/q-manager', desc: 'Client dashboard — desktop & mobile' },
     { name: 'Performance Marketing', href: '/services/performance', desc: 'Meta, Google, Snapchat & more' },
     { name: 'Social Media Management', href: '/services/social-media', desc: 'Content, community & growth' },
     { name: 'Production & Shoots', href: '/services/production-shoots', desc: 'On-location & studio production' },
     { name: 'Influencer Marketing', href: '/services/influencer-marketing', desc: 'Creator sourcing to tracking' },
     { name: 'Free AI Audit', href: '/ai-audit', desc: '48-hr personalised report' },
     { name: 'Growth Tools', href: '/tools', desc: 'ROI, LTV & scale calculators' },
+    { name: 'AI Agent Finder', href: '/ai-agent-finder', desc: 'Which AI agent do you need?' },
     { name: 'View All Services →', href: '/services', desc: 'Browse all 19 services' },
   ];
 

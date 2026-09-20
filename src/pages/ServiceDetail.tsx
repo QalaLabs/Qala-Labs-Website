@@ -27,7 +27,13 @@ import {
   Ghost,
   ShoppingCart,
   Camera,
-  Megaphone
+  Megaphone,
+  FileText,
+  CreditCard,
+  Truck,
+  Calculator,
+  Package,
+  MessageSquare
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
@@ -397,6 +403,166 @@ const serviceData: Record<string, any> = {
       { title: "Brief", desc: "Give creators a clear creative direction while preserving the authentic, native format that performs." },
       { title: "Track", desc: "Measure reach, engagement, and conversion lift, then double down on what's working." }
     ]
+  },
+  'crm-lead-automation': {
+    title: "CRM & Lead Intake Automation",
+    description: "A production AI agent that ingests inbound leads from website forms, WhatsApp, and email — classifying intent, extracting structured contact data, and staging qualified leads directly into your CRM pipeline with automatic follow-up scheduling. Built and running in production as part of our MarksOps agent suite.",
+    icon: <Users className="w-12 h-12" />,
+    metric: "5-Way Intent Classification",
+    features: [
+      "Omnichannel Lead Ingestion — Web, WhatsApp, Email",
+      "AI Intent Classification (B2C, B2B Bulk, Dealer, Support, General)",
+      "Structured Entity Extraction (contact, company, quantity, SKUs)",
+      "Automated CRM Pipeline Staging",
+      "24-Hour Follow-Up Activity Scheduling",
+      "B2B & Dealer Tagging for Dunning Eligibility",
+      "Real-Time High-Value Lead Alerts"
+    ],
+    process: [
+      { title: "Ingest", desc: "Capture leads across website forms, WhatsApp, and inbox scans in real time or on a schedule." },
+      { title: "Classify", desc: "Claude-powered intent classification and structured entity extraction for every inbound inquiry." },
+      { title: "Route", desc: "Stage qualified leads into your CRM pipeline with tags, follow-up activities, and instant alerts to sales." }
+    ]
+  },
+  'customer-support-automation': {
+    title: "Customer Support AI Agent",
+    description: "An AI support agent that handles order status, returns, complaints, and product queries across WhatsApp and email — replying in your brand's specific voice with live shipment and return-policy lookups, and a 4-point escalation matrix that hands off to humans the moment it matters.",
+    icon: <MessageSquare className="w-12 h-12" />,
+    metric: "Sub-2-Minute Brand-Voiced Replies",
+    features: [
+      "6-Category Intent Classification",
+      "Live Courier Tracking & Order Lookups",
+      "Return & Refund Policy Validation",
+      "Multi-Brand Persona Response Generation",
+      "4-Point Human Escalation Matrix",
+      "Automated Helpdesk Ticket Staging",
+      "Sentiment Detection & Fraud/Legal Keyword Alerts"
+    ],
+    process: [
+      { title: "Classify", desc: "Detect intent and sentiment across every inbound WhatsApp and email message." },
+      { title: "Resolve", desc: "Pull live tracking and order data, then reply in the correct brand voice within minutes." },
+      { title: "Escalate", desc: "Automatically hand off to human agents on negative sentiment, high order value, or legal/fraud risk." }
+    ]
+  },
+  'finance-bill-automation': {
+    title: "Finance & Bill Ingestion Automation",
+    description: "An AI agent that parses vendor invoices, ad platform bills, logistics freight bills, and bank transaction alerts — extracting tax breakdowns, classifying spend, and staging draft ERP entries with a strict zero-auto-posting mandate so a human always approves before anything posts.",
+    icon: <FileText className="w-12 h-12" />,
+    metric: "Zero Auto-Posting Safeguard",
+    features: [
+      "Multi-Source Bill Ingestion (Email, PDF, SMS Alerts)",
+      "Tax Breakdown Extraction (CGST / SGST / IGST)",
+      "5-Category Spend Classification",
+      "Draft ERP Bill Staging — Never Auto-Posted",
+      "Original Invoice Attachment Archiving",
+      "Instant WhatsApp Approval Alerts",
+      "SaaS Subscription & Renewal Tracking"
+    ],
+    process: [
+      { title: "Ingest", desc: "Scan financial emails, PDF invoices, and card alerts from every vendor and platform you use." },
+      { title: "Extract", desc: "Pull vendor, invoice number, PO reference, and full tax breakdown with high accuracy." },
+      { title: "Stage", desc: "Create draft ERP bills and notify finance for approval — never posted automatically." }
+    ]
+  },
+  'marketplace-price-monitoring': {
+    title: "Marketplace Price Monitoring",
+    description: "An AI agent that crawls your marketplace listings on Amazon and Flipkart twice daily, flags price deviations beyond 5% against your master pricing, and classifies the root cause — your own listing error, an unauthorized seller deviation, or a competitor undercutting you.",
+    icon: <Search className="w-12 h-12" />,
+    metric: "Twice-Daily Automated Crawls",
+    features: [
+      "Catalog Benchmark & MAP Management",
+      "Automated Amazon & Flipkart Price Crawling",
+      "5% Deviation Detection & Alerting",
+      "Root-Cause Classification (Listing / Seller / Competitor)",
+      "Anti-Bot Crawl Hygiene & Rate-Limit Handling",
+      "Instant WhatsApp Deviation Alerts",
+      "Weekly Price Health & Compliance Reporting"
+    ],
+    process: [
+      { title: "Crawl", desc: "Pull live buy-box prices, seller identity, and stock across every active SKU, twice daily." },
+      { title: "Detect", desc: "Compare against master pricing and MAP, flagging any deviation beyond the 5% tolerance band." },
+      { title: "Alert", desc: "Classify root cause and dispatch high-priority alerts, backed by a weekly compliance report." }
+    ]
+  },
+  'payment-reconciliation-automation': {
+    title: "Payment Reconciliation Automation",
+    description: "An AI agent that reconciles daily payment gateway settlements — Razorpay, CCAvenue — against your ERP sales orders, stages balanced draft bank journal entries, and flags failed payments, unmatched settlements, and refund spikes the moment they happen.",
+    icon: <CreditCard className="w-12 h-12" />,
+    metric: "4-Way Balanced Journal Staging",
+    features: [
+      "Daily Gateway Ingestion (Razorpay, CCAvenue)",
+      "ERP Sales Order Matching by Order ID",
+      "4-Way Draft Bank Journal Entry Staging",
+      "Zero Auto-Posting — Human Approval Required",
+      "High-Value Failed Payment Alerts (>₹5,000)",
+      "Unmatched Settlement & UTR Discrepancy Flags",
+      "Refund Spike Anomaly Detection"
+    ],
+    process: [
+      { title: "Ingest", desc: "Pull T-1 captured, authorized, and failed payments plus settlement batches from every gateway." },
+      { title: "Match", desc: "Cross-reference against ERP sales orders and classify each transaction as matched, unmatched, refund, or failed." },
+      { title: "Stage", desc: "Create balanced draft journal entries and alert finance to anomalies in real time." }
+    ]
+  },
+  'logistics-shipment-automation': {
+    title: "Logistics & Shipment Automation",
+    description: "An AI agent that processes real-time courier webhooks, runs scheduled customer tracking broadcasts in your brand voice, flags shipments delayed past their estimated delivery date, logs RTO events automatically, and reconciles daily COD remittances against your ERP.",
+    icon: <Truck className="w-12 h-12" />,
+    metric: "Real-Time Shipment Status Sync",
+    features: [
+      "Real-Time Courier Webhook Ingestion",
+      "Daily Brand-Voiced Tracking Broadcasts",
+      "Delayed Shipment Detection (>2 Days Past EDD)",
+      "Automated RTO Event Logging",
+      "Proactive Customer Delay Notifications",
+      "Daily COD Remittance Reconciliation",
+      "Multi-Brand Persona Messaging (playR.in, streetPlayR, Players Club)"
+    ],
+    process: [
+      { title: "Track", desc: "Ingest live shipment status events and normalize them into your order records in real time." },
+      { title: "Notify", desc: "Send scheduled, brand-voiced tracking updates and proactive alerts on delays." },
+      { title: "Reconcile", desc: "Match daily COD remittance reports against orders, staging discrepancies for finance review." }
+    ]
+  },
+  'accounting-sync-automation': {
+    title: "Accounting Sync (Tally Integration)",
+    description: "An AI agent that bridges your ERP into TallyPrime via Tally's native XML Gateway — validating GSTIN and state codes, mapping your chart of accounts to Tally ledgers, and staging unaccepted vouchers that always require accountant sign-off before they post.",
+    icon: <Calculator className="w-12 h-12" />,
+    metric: "GST-Compliant Voucher Staging",
+    features: [
+      "Sales, Purchase, Payment & Receipt Voucher Staging",
+      "Zero Auto-Acceptance — Accountant Sign-Off Required",
+      "Chart of Accounts to Tally Ledger Mapping",
+      "GSTIN & State Code Syntax Validation",
+      "Inter-State vs. Intra-State Tax Classification",
+      "Day Book & Trial Balance Extraction",
+      "Period-End ERP-to-Tally Reconciliation"
+    ],
+    process: [
+      { title: "Validate", desc: "Check GSTIN format, state codes, and tax classification before building any voucher." },
+      { title: "Map", desc: "Translate ERP accounts to the correct Tally ledgers and construct the XML voucher envelope." },
+      { title: "Stage", desc: "Push unaccepted vouchers into Tally for accountant review — never auto-posted." }
+    ]
+  },
+  'inventory-sync-automation': {
+    title: "Inventory Sync (OMS ↔ ERP)",
+    description: "An AI agent that keeps multi-warehouse stock aligned between your OMS and ERP in near real time — enforcing clear source-of-truth rules for live stock versus costing, flagging discrepancies over a defined threshold, and handling fulfillment and return stock events automatically.",
+    icon: <Package className="w-12 h-12" />,
+    metric: "Multi-Warehouse Stock Sync",
+    features: [
+      "Multi-Warehouse Inventory Synchronization",
+      "OMS-Authoritative Live Stock, ERP-Authoritative Costing",
+      "Discrepancy Alerts Beyond 10-Unit Threshold",
+      "Resilient Ingestion with CSV Fallback",
+      "SKU Catalog Mapping Integrity Checks",
+      "Event-Driven Fulfillment Stock Decrements",
+      "Automated QC & Return Restocking"
+    ],
+    process: [
+      { title: "Sync", desc: "Reconcile live available stock across every warehouse against ERP records on a scheduled sweep." },
+      { title: "Detect", desc: "Flag any SKU discrepancy beyond threshold and generate structured audit logs." },
+      { title: "Resolve", desc: "Process fulfillment and return events automatically, isolating damaged stock to quarantine." }
+    ]
   }
 };
 
@@ -508,6 +674,87 @@ const ServiceDetail = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-50 border border-slate-100 rounded-[2.5rem] p-10 md:p-14 mb-20">
+            <div className="max-w-3xl mb-10">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10 text-blue-700 text-xs font-black uppercase tracking-widest mb-6">
+                How We Research
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
+                We build every strategy on what we've actually audited — not assumptions.
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                Before we recommend anything, we run the same audit process on your category that we run on our own work: a structured teardown across content, services, pricing, SEO, and AI answer-engine visibility (AEO). Here's what that looked like the last time we ran it.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 1</div>
+                <h4 className="font-bold text-slate-900 mb-2">Competitive Teardown</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We audited 6 direct competitor sites across positioning, service lines, and pricing transparency to find where the category is under-serving buyers.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 2</div>
+                <h4 className="font-bold text-slate-900 mb-2">SEO & AEO Audit</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We checked meta structure, H1 usage, and — critically — structured data (FAQPage, HowTo, Organization schema) to see who's actually built to be cited by ChatGPT, Gemini, and Perplexity, not just ranked by Google.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 3</div>
+                <h4 className="font-bold text-slate-900 mb-2">Gap &amp; Pattern Analysis</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We compared every finding into one table — content, services, pricing, SEO, AEO side by side — to isolate what's rare, valuable, and repeatable rather than cosmetic.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 4</div>
+                <h4 className="font-bold text-slate-900 mb-2">Ship &amp; Prove It</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We apply the findings to our own site first — schema markup, pricing clarity, service pages like this one — before we ever recommend it to a client. Our MarksOps agent suite is the same standard: built and running in production, not a pitch deck.</p>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-10 border-t border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <p className="text-slate-600 text-sm max-w-xl">
+                Want the same audit run on your category before we scope {data.title.toLowerCase()}? We'll show you exactly where your competitors are weak — with evidence, not opinions.
+              </p>
+              <Link to="/contact" className="flex-shrink-0">
+                <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 rounded-2xl font-bold">
+                  Request Our Audit <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="mb-20">
+            <div className="max-w-3xl mb-10">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/5 text-slate-700 text-xs font-black uppercase tracking-widest mb-6">
+                Our Execution Process
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
+                Research tells us what to fix. This is how we actually fix it.
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                Every {data.title.toLowerCase()} engagement runs through the same four-stage execution cycle — tracked live in{' '}
+                <Link to="/q-manager" className="text-blue-600 font-bold hover:underline">Q Manager</Link>, our client dashboard, so you always know exactly what stage you're in.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { step: '01', title: 'Audit & Diagnose', duration: 'Week 1', desc: 'We apply the research findings to your specific accounts, tracking, and unit economics to lock the highest-leverage fixes.' },
+                { step: '02', title: 'Architect & Build', duration: 'Weeks 2–4', desc: 'We build the campaigns, systems, or agents this service requires — instrumented from day one, not bolted on after.' },
+                { step: '03', title: 'Run & Tune', duration: 'Weeks 5–8', desc: 'We test, tune, and iterate against weekly reviews — every change logged and visible in your dashboard in real time.' },
+                { step: '04', title: 'Report & Compound', duration: 'Ongoing', desc: 'Weekly reporting and monthly strategy reviews inside Q Manager keep the roadmap current as results compound.' },
+              ].map((s, i) => (
+                <div key={i} className="relative p-6 bg-white border border-slate-200 rounded-2xl">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-3xl font-black text-slate-100">{s.step}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">{s.duration}</span>
+                  </div>
+                  <h4 className="font-bold text-slate-900 mb-2">{s.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

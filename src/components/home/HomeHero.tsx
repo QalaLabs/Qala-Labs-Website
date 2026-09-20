@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import InteractiveAsciiPhoenix from './InteractiveAsciiPhoenix';
+import ImageAsciiArt from './ImageAsciiArt';
 import TiltCard from '@/components/ui/tilt-card';
 import RevenueEngine3D from '@/components/3d/RevenueEngine3D';
 import RevenueEngineGyroscope from '@/components/three/RevenueEngineGyroscope';
@@ -71,9 +71,14 @@ const HomeHero = () => {
         {!isMobile && <AmbientParticleField />}
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="hidden lg:block absolute top-4 right-4 xl:right-10 opacity-60 pointer-events-auto">
-          <InteractiveAsciiPhoenix width={440} height={540} />
+        <div className="absolute inset-0 opacity-70 lg:opacity-90 pointer-events-auto">
+          <ImageAsciiArt />
         </div>
+        {/* Legibility scrim: near-solid veil on mobile (content spans full width there),
+            a left-to-right reveal at desktop (content sits in the left column only) */}
+        <div className="absolute inset-0 bg-[#06070D]/80 lg:bg-gradient-to-r lg:from-[#06070D] lg:via-[#06070D]/80 lg:to-[#06070D]/10" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#06070D] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#06070D] to-transparent" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
