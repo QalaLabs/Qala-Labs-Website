@@ -103,7 +103,7 @@ const PortfolioGrid = () => {
       slug: "airborne-aviation-academy",
       category: "Web Development",
       result: "Course Catalog + Alumni Route Map",
-      image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800",
+      image: "/portfolio/airborne-aviation/hero.jpg",
       isFeatured: true
     }
   ];
