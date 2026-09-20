@@ -27,6 +27,7 @@ import TrotrCaseStudy from './pages/TrotrCaseStudy';
 import GaffarCaseStudy from './pages/GaffarCaseStudy';
 import NutrivendUKCaseStudy from './pages/NutrivendUKCaseStudy';
 import AmazonAdsPortfolio from './pages/AmazonAdsPortfolio';
+import StreetplayrPortfolio from './pages/StreetplayrPortfolio';
 import InstagramUGCPortfolio from './pages/InstagramUGCPortfolio';
 import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
 import CapitalKeysPortfolio from './pages/CapitalKeysPortfolio';
@@ -80,6 +81,7 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
                   <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+                  <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
                   <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
                   <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />

@@ -46,6 +46,7 @@ const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
 const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
 const NutrivendUKCaseStudy = React.lazy(() => import("./pages/NutrivendUKCaseStudy"));
 const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
+const StreetplayrPortfolio = React.lazy(() => import("./pages/StreetplayrPortfolio"));
 const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
 const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
 const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
@@ -99,6 +100,7 @@ const AppRoutes = () => {
 
             {/* Specific Portfolio Routes */}
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+            <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playR" replace />} />

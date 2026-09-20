@@ -44,6 +44,15 @@ const PortfolioGrid = () => {
       isFeatured: true
     },
     {
+      id: 'streetplayr-featured',
+      title: "StreetplayR: Brand, UX & Storefront",
+      slug: "streetplayr",
+      category: "Web Development",
+      result: "Brand System + Commerce Build",
+      image: "/src/assets/streetplayr/hero.jpg",
+      isFeatured: true
+    },
+    {
       id: 'instagram-ugc-featured',
       title: "Instagram UGC: Style Meets Real Life",
       slug: "Instagram-user-generated-content",
