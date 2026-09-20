@@ -37,16 +37,25 @@ const PortfolioGrid = () => {
     {
       id: 'amazon-ads-featured',
       title: "Amazon Ads: Performance Scaling",
-      slug: "Amazon-ads",
+      slug: "amazon-ads",
       category: "Performance Marketing",
       result: "11.2x ROAS • ₹2.7L Sales",
       image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
     },
     {
+      id: 'streetplayr-featured',
+      title: "StreetplayR: Brand, UX & Storefront",
+      slug: "streetplayr",
+      category: "Web Development",
+      result: "Brand System + Commerce Build",
+      image: "/src/assets/streetplayr/hero.jpg",
+      isFeatured: true
+    },
+    {
       id: 'instagram-ugc-featured',
       title: "Instagram UGC: Style Meets Real Life",
-      slug: "Instagram-user-generated-content",
+      slug: "instagram-user-generated-content",
       category: "Content Creation",
       result: "Relatability Converts Better",
       image: "/ugc-hero.jpg",
@@ -55,7 +64,7 @@ const PortfolioGrid = () => {
     {
       id: 'csk-influencer-featured',
       title: "playR: Real Fans, Real Roar",
-      slug: "influencer-marketing-campaign-playR",
+      slug: "influencer-marketing-campaign-playr",
       category: "User Generated Content",
       result: "Viral Fandom Momentum",
       image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
@@ -104,6 +113,24 @@ const PortfolioGrid = () => {
       category: "Web Development",
       result: "Course Catalog + Alumni Route Map",
       image: "/portfolio/airborne-aviation/hero.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'gaffar-india-featured',
+      title: "Gaffar India: Wholesale & Retail Marketplace",
+      slug: "gaffar-india-marketplace",
+      category: "Web Development",
+      result: "Multi-Vendor Marketplace • 1,000+ SKUs",
+      image: "/portfolio/gaffar-india/hero-thumb.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'shakti-bhog-featured',
+      title: "Shakti Bhog: Recipe-Led UGC Content",
+      slug: "shakti-bhog-ugc-content",
+      category: "Content Creation",
+      result: "Creator-Led Recipe Reel",
+      image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
     }
   ];

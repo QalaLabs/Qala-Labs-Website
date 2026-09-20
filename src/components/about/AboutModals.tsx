@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Loader2, CheckCircle2, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ interface ModalProps {
 }
 
 const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -83,12 +85,15 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
 
       setLoading(false);
       setSuccess(true);
-      showSuccess(type === 'book' ? "Qualifying request sent!" : "Case pack sent to your inbox!");
+      showSuccess(type === 'book' ? "Qualifying request captured! Redirecting to calendar..." : "Case pack sent to your inbox!");
       setTimeout(() => {
         onClose();
         setSuccess(false);
         setFormData({ name: '', email: '', company: '', revenue: '', channel: '' });
-      }, 3000);
+        if (type === 'book') {
+          navigate('/book-call');
+        }
+      }, type === 'book' ? 800 : 3000);
     }
   };
 

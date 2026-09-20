@@ -33,7 +33,22 @@ import {
   Truck,
   Calculator,
   Package,
-  MessageSquare
+  MessageSquare,
+  Briefcase,
+  ShieldCheck,
+  Compass,
+  Map,
+  ClipboardCheck,
+  Palette,
+  MousePointerClick,
+  Layout,
+  Smartphone,
+  FileCode2,
+  Layers,
+  Link2,
+  Wand2,
+  Mail,
+  MailPlus
 } from 'lucide-react';
 import { motion } from "framer-motion";
 import { generateJsonLd } from '@/lib/seo';
@@ -402,6 +417,348 @@ const serviceData: Record<string, any> = {
       { title: "Source", desc: "Identify and vet creators whose audience and content style actually match the brand." },
       { title: "Brief", desc: "Give creators a clear creative direction while preserving the authentic, native format that performs." },
       { title: "Track", desc: "Measure reach, engagement, and conversion lift, then double down on what's working." }
+    ]
+  },
+  'it-consulting': {
+    title: "IT Consulting",
+    description: "A senior technical review of your stack — hosting, integrations, security posture, and tooling — before we, or anyone else, touch a single line of code. We tell you what's actually broken versus what's just old, and what's worth fixing first.",
+    icon: <Briefcase className="w-12 h-12" />,
+    metric: "Full Stack Audit",
+    features: [
+      "Hosting & Infrastructure Review",
+      "Third-Party Integration Audit",
+      "Security Posture Assessment",
+      "Tooling & Vendor Rationalization",
+      "Scalability Bottleneck Identification",
+      "Prioritized Remediation Roadmap"
+    ],
+    process: [
+      { title: "Audit", desc: "Map your full stack — hosting, integrations, security, and tooling — end to end." },
+      { title: "Diagnose", desc: "Separate what's genuinely broken from what's simply old but working fine." },
+      { title: "Roadmap", desc: "Deliver a prioritized fix list ranked by business impact, not just technical severity." }
+    ]
+  },
+  'brand-audit': {
+    title: "Brand Audit",
+    description: "A structured teardown of your visual identity, messaging, and market position against your real competitive set — surfacing exactly where the brand is inconsistent, dated, or simply invisible next to who you're actually competing with.",
+    icon: <ShieldCheck className="w-12 h-12" />,
+    metric: "6-Point Brand Teardown",
+    features: [
+      "Visual Identity Consistency Check",
+      "Messaging & Positioning Audit",
+      "Competitive Brand Benchmarking",
+      "Tone of Voice Assessment",
+      "Touchpoint-by-Touchpoint Review",
+      "Prioritized Brand Fix List"
+    ],
+    process: [
+      { title: "Collect", desc: "Pull every brand touchpoint — site, social, packaging, ads — into one audit view." },
+      { title: "Benchmark", desc: "Compare against your real competitive set, not aspirational reference brands." },
+      { title: "Report", desc: "Deliver a scored teardown with the highest-impact fixes ranked first." }
+    ]
+  },
+  'digital-presence-review': {
+    title: "Digital Presence Review",
+    description: "A full sweep of every place your brand shows up online — website, social profiles, marketplaces, organic search, and AI answer engines — mapped against competitors to show exactly where you're losing visibility and to whom.",
+    icon: <Compass className="w-12 h-12" />,
+    metric: "Cross-Channel Visibility Map",
+    features: [
+      "Website & SEO Health Check",
+      "Social Profile & Content Audit",
+      "Marketplace Listing Review",
+      "AI Answer Engine Presence Check (AEO/GEO)",
+      "Competitor Channel Benchmarking",
+      "Channel Prioritization Roadmap"
+    ],
+    process: [
+      { title: "Scan", desc: "Crawl every channel your brand touches — web, social, marketplace, and AI search." },
+      { title: "Map", desc: "Plot your presence against direct competitors channel by channel." },
+      { title: "Prioritize", desc: "Rank channels by visibility gap and revenue potential, not vanity metrics." }
+    ]
+  },
+  'strategy-planning': {
+    title: "Strategy & Planning",
+    description: "The roadmap before the build — goals, budget allocation, channel mix, and a 90-day execution plan that every subsequent engagement, whether design, development, or marketing, is scoped against.",
+    icon: <Map className="w-12 h-12" />,
+    metric: "90-Day Execution Roadmap",
+    features: [
+      "Goal & KPI Definition",
+      "Budget Allocation Modeling",
+      "Channel Mix Planning",
+      "90-Day Execution Roadmap",
+      "Resourcing & Timeline Planning",
+      "Quarterly Review Cadence Setup"
+    ],
+    process: [
+      { title: "Align", desc: "Lock business goals, budget, and success metrics with stakeholders up front." },
+      { title: "Plan", desc: "Build the channel mix and 90-day roadmap every downstream engagement scopes against." },
+      { title: "Review", desc: "Set a recurring review cadence so the plan adapts as real data comes in." }
+    ]
+  },
+  'technical-assessment': {
+    title: "Technical Assessment",
+    description: "A deep technical audit of your site or app — performance, security, scalability, and code quality — with a prioritized fix list ranked by business impact rather than raw severity score.",
+    icon: <ClipboardCheck className="w-12 h-12" />,
+    metric: "Prioritized Fix List",
+    features: [
+      "Performance & Core Web Vitals Audit",
+      "Security Vulnerability Scan",
+      "Scalability & Load Testing",
+      "Code Quality & Tech Debt Review",
+      "Dependency & Vendor Risk Check",
+      "Business-Impact-Ranked Fix List"
+    ],
+    process: [
+      { title: "Scan", desc: "Run performance, security, and scalability checks against your live environment." },
+      { title: "Diagnose", desc: "Review code quality and architecture for tech debt and hidden risk." },
+      { title: "Prioritize", desc: "Rank every finding by business impact so engineering time goes to what matters." }
+    ]
+  },
+  'branding': {
+    title: "Branding",
+    description: "Logo, visual identity system, and brand guidelines built to hold up across packaging, ads, and product — not just a logo file with no rules attached to keep it consistent as the brand scales.",
+    icon: <Palette className="w-12 h-12" />,
+    metric: "Full Identity System",
+    features: [
+      "Logo & Wordmark Design",
+      "Color, Type & Visual System",
+      "Brand Guidelines Documentation",
+      "Packaging & Merchandise Application",
+      "Tone of Voice Definition",
+      "Brand Asset Library Handoff"
+    ],
+    process: [
+      { title: "Discover", desc: "Understand positioning, audience, and competitive visual landscape before designing anything." },
+      { title: "Design", desc: "Build the identity system — logo, color, type, and voice — as one coherent system." },
+      { title: "Document", desc: "Ship brand guidelines and an asset library so the identity stays consistent at scale." }
+    ]
+  },
+  'ui-ux-design': {
+    title: "UI/UX Design",
+    description: "Wireframes, prototypes, and interface design grounded in user research and conversion psychology — every screen justified by how it moves someone toward the action you actually want them to take.",
+    icon: <MousePointerClick className="w-12 h-12" />,
+    metric: "Research-Led Prototyping",
+    features: [
+      "User Research & Journey Mapping",
+      "Wireframing & Information Architecture",
+      "High-Fidelity Interactive Prototypes",
+      "Conversion-Focused UI Design",
+      "Usability Testing",
+      "Design System Documentation"
+    ],
+    process: [
+      { title: "Research", desc: "Map user journeys and friction points before touching a single wireframe." },
+      { title: "Prototype", desc: "Build interactive, high-fidelity prototypes tested against real user behaviour." },
+      { title: "Refine", desc: "Iterate against usability testing results and hand off a documented design system." }
+    ]
+  },
+  'web-design': {
+    title: "Web Design",
+    description: "High-conversion website design — information architecture, visual system, and responsive layouts — handed off dev-ready so build doesn't stall waiting on design decisions mid-sprint.",
+    icon: <Layout className="w-12 h-12" />,
+    metric: "Dev-Ready Handoff",
+    features: [
+      "Information Architecture & Sitemap",
+      "Visual System & Page Templates",
+      "Responsive & Mobile-First Layouts",
+      "Conversion-Focused Page Structure",
+      "Dev-Ready Design File Handoff",
+      "Design QA During Build"
+    ],
+    process: [
+      { title: "Architect", desc: "Map the sitemap and information hierarchy against what actually converts." },
+      { title: "Design", desc: "Build responsive, on-brand page templates ready to hand straight to development." },
+      { title: "QA", desc: "Review the live build against design intent before launch, not after." }
+    ]
+  },
+  'mobile-app-design': {
+    title: "Mobile App Design",
+    description: "iOS and Android interface design built around platform-native patterns — onboarding, navigation, and micro-interactions designed for retention, not just first-screen aesthetics.",
+    icon: <Smartphone className="w-12 h-12" />,
+    metric: "iOS + Android Native Patterns",
+    features: [
+      "Platform-Native UI Patterns (iOS/Android)",
+      "Onboarding Flow Design",
+      "Navigation & Information Architecture",
+      "Micro-Interaction & Motion Design",
+      "Accessibility-First Screen Design",
+      "Developer Handoff Specs"
+    ],
+    process: [
+      { title: "Map", desc: "Define the core user flows and platform conventions the app needs to respect." },
+      { title: "Design", desc: "Build screens and micro-interactions around retention, not just visual polish." },
+      { title: "Handoff", desc: "Deliver developer-ready specs and assets for a friction-free build." }
+    ]
+  },
+  'landing-page-design': {
+    title: "Landing Page Design",
+    description: "Single-purpose, conversion-first landing pages built for a specific campaign or offer — structured around one clear call to action and tested against the exact traffic source it's built for.",
+    icon: <Wand2 className="w-12 h-12" />,
+    metric: "Single-CTA Conversion Focus",
+    features: [
+      "Offer-Specific Page Structure",
+      "Single-CTA Conversion Design",
+      "Copywriting & Messaging Hierarchy",
+      "Mobile-First Responsive Build",
+      "A/B Test-Ready Variants",
+      "Speed-Optimized Page Build"
+    ],
+    process: [
+      { title: "Brief", desc: "Lock the offer, audience, and traffic source the page needs to convert." },
+      { title: "Design", desc: "Build a single-CTA page structured around that one conversion action." },
+      { title: "Test", desc: "Ship A/B-ready variants and iterate against real conversion data." }
+    ]
+  },
+  'mobile-app-development': {
+    title: "Mobile App Development",
+    description: "Native and cross-platform app builds — React Native or Swift/Kotlin depending on the requirement — shipped through App Store and Play Store review, not just handed off as source code and left for you to figure out.",
+    icon: <Smartphone className="w-12 h-12" />,
+    metric: "Native + Cross-Platform",
+    features: [
+      "React Native Cross-Platform Builds",
+      "Native iOS (Swift) & Android (Kotlin)",
+      "API & Backend Integration",
+      "Push Notification & Deep Linking Setup",
+      "App Store & Play Store Submission",
+      "Post-Launch Monitoring & Updates"
+    ],
+    process: [
+      { title: "Architect", desc: "Choose native or cross-platform based on performance and budget requirements." },
+      { title: "Build", desc: "Develop and integrate against your backend and APIs with continuous QA." },
+      { title: "Ship", desc: "Handle store submission, review, and post-launch monitoring end to end." }
+    ]
+  },
+  'software-development': {
+    title: "Software Development",
+    description: "Custom internal tools and SaaS builds — from admin dashboards to full multi-tenant platforms — architected for the specific workflow you actually run, not a generic template you have to bend your process around.",
+    icon: <FileCode2 className="w-12 h-12" />,
+    metric: "Custom Internal Tooling",
+    features: [
+      "Custom Admin Dashboard Builds",
+      "Multi-Tenant SaaS Architecture",
+      "API Design & Third-Party Integration",
+      "Role-Based Access Control",
+      "Scalable Cloud Infrastructure Setup",
+      "Ongoing Maintenance & Support"
+    ],
+    process: [
+      { title: "Scope", desc: "Map the exact workflow the software needs to support, not a generic template." },
+      { title: "Build", desc: "Architect and develop against real usage patterns, with scalability built in." },
+      { title: "Support", desc: "Hand off with documentation and stay on for ongoing maintenance and iteration." }
+    ]
+  },
+  'cms-development': {
+    title: "CMS Development",
+    description: "Headless and traditional CMS builds — Shopify, WordPress, Sanity, or a custom admin — so your team can ship content and product changes without filing a dev ticket for every small edit.",
+    icon: <Layers className="w-12 h-12" />,
+    metric: "Self-Serve Content Ops",
+    features: [
+      "Headless CMS Architecture (Sanity, etc.)",
+      "Shopify & WordPress Custom Builds",
+      "Content Modeling & Editor Experience",
+      "Custom Admin Panel Development",
+      "Migration From Legacy CMS",
+      "Editor Training & Documentation"
+    ],
+    process: [
+      { title: "Model", desc: "Define the content structure your team actually needs to move fast day to day." },
+      { title: "Build", desc: "Implement the CMS and editor experience, headless or traditional as required." },
+      { title: "Train", desc: "Hand off with documentation and training so the team is self-sufficient from day one." }
+    ]
+  },
+  'blockchain-development': {
+    title: "Blockchain Development",
+    description: "Smart contract and dApp development for brands building loyalty, provenance, or token-gated experiences on-chain — engineered with the same security discipline as a payments system, because it functionally is one.",
+    icon: <Link2 className="w-12 h-12" />,
+    metric: "Audited Smart Contracts",
+    features: [
+      "Smart Contract Development (Solidity)",
+      "Token & Loyalty Program Architecture",
+      "dApp Frontend Development",
+      "Security Audits & Testing",
+      "Gas Optimization",
+      "Multi-Chain Deployment Support"
+    ],
+    process: [
+      { title: "Architect", desc: "Design the token, contract, and access logic against the exact use case." },
+      { title: "Build & Audit", desc: "Develop and security-audit smart contracts before anything touches mainnet." },
+      { title: "Deploy", desc: "Ship the dApp and contracts with gas-optimized, monitored deployment." }
+    ]
+  },
+  'blockchain-integration': {
+    title: "Blockchain Integration",
+    description: "Wiring existing wallets, payment rails, or NFT/loyalty systems into your current stack — checkout, CRM, and backend — without a ground-up rebuild of infrastructure that already works.",
+    icon: <Link2 className="w-12 h-12" />,
+    metric: "Zero-Rebuild Wallet Integration",
+    features: [
+      "Wallet Connect & Authentication",
+      "Crypto Payment Rail Integration",
+      "NFT & Loyalty System Wiring",
+      "Checkout & CRM Integration",
+      "On-Chain Data Sync to Backend",
+      "Compliance & Transaction Monitoring"
+    ],
+    process: [
+      { title: "Audit", desc: "Review the existing stack to find the lowest-risk integration path." },
+      { title: "Integrate", desc: "Wire wallets, payment rails, or on-chain systems into checkout, CRM, and backend." },
+      { title: "Monitor", desc: "Set up transaction monitoring and compliance checks post-launch." }
+    ]
+  },
+  'meme-marketing': {
+    title: "MEME Marketing",
+    description: "Culturally fluent, trend-jacked meme content built for organic reach — the kind of native, unmistakably-not-an-ad post that gets shared and saved instead of scrolled straight past.",
+    icon: <Sparkles className="w-12 h-12" />,
+    metric: "Native Trend-Jacked Content",
+    features: [
+      "Trend & Format Monitoring",
+      "Rapid-Turnaround Meme Production",
+      "Platform-Native Voice & Tone",
+      "Brand-Safe Trend Filtering",
+      "Community Reaction Tracking",
+      "Weekly Content Batching"
+    ],
+    process: [
+      { title: "Monitor", desc: "Track trending formats and cultural moments relevant to your audience daily." },
+      { title: "Produce", desc: "Turn around brand-safe, on-trend content fast enough to still be relevant." },
+      { title: "Measure", desc: "Track shares, saves, and sentiment to refine what actually lands next batch." }
+    ]
+  },
+  'email-marketing': {
+    title: "Email Marketing",
+    description: "Campaign and newsletter strategy that turns your list into a genuine revenue channel — segmentation, copy, and design built to earn the open and the click, not just land in the inbox.",
+    icon: <Mail className="w-12 h-12" />,
+    metric: "List-to-Revenue Strategy",
+    features: [
+      "List Segmentation Strategy",
+      "Campaign Calendar Planning",
+      "Subject Line & Copywriting",
+      "Template Design & Testing",
+      "Deliverability & Sender Reputation Management",
+      "Campaign Performance Reporting"
+    ],
+    process: [
+      { title: "Segment", desc: "Break the list into groups that actually warrant different messaging." },
+      { title: "Send", desc: "Plan and execute a campaign calendar built around real product and content moments." },
+      { title: "Optimize", desc: "Test subject lines, send times, and design to lift open and click rates over time." }
+    ]
+  },
+  'email-automation': {
+    title: "Email Automation",
+    description: "Welcome series, abandoned cart, post-purchase, and win-back flows built once and running forever — the highest-ROI channel in ecommerce, set up properly instead of left on a default template.",
+    icon: <MailPlus className="w-12 h-12" />,
+    metric: "Always-On Revenue Flows",
+    features: [
+      "Welcome & Onboarding Series",
+      "Abandoned Cart & Browse Abandonment Flows",
+      "Post-Purchase & Cross-Sell Sequences",
+      "Win-Back & Re-Engagement Flows",
+      "Dynamic Personalization & Segmentation",
+      "Flow Performance Monitoring"
+    ],
+    process: [
+      { title: "Map", desc: "Identify every lifecycle moment worth automating, from signup to win-back." },
+      { title: "Build", desc: "Set up flows with proper segmentation and dynamic content, not generic templates." },
+      { title: "Tune", desc: "Monitor flow performance monthly and iterate on the highest-revenue sequences." }
     ]
   },
   'crm-lead-automation': {

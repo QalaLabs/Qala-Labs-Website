@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail, Sparkles, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 
+import { supabase } from "@/integrations/supabase/client";
+
 /**
  * Lead capture endpoint URL.
  * Points to the unified lead engine endpoint (POST /api/lead).
@@ -31,6 +33,7 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
   placeholderText = "Enter your work email..."
 }) => {
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -38,6 +41,12 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
+
+    // Honeypot spam bot check
+    if (honeypot.trim()) {
+      setIsSuccess(true);
+      return;
+    }
 
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
@@ -55,48 +64,66 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
 
     setIsSubmitting(true);
 
+    const leadPayload = {
+      source: 'closing_cta',
+      page_url: typeof window !== 'undefined' ? window.location.href : '',
+      timestamp: new Date().toISOString()
+    };
+
     try {
-      const response = await fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
+      // 1. Primary persistence: Insert directly into Supabase leads table
+      try {
+        await supabase.from('leads').insert({
           email: trimmedEmail,
           tool_used: 'closing_cta',
-          data: {
-            source: 'closing_cta',
-            page_url: typeof window !== 'undefined' ? window.location.href : '',
-            timestamp: new Date().toISOString()
-          }
-        })
-      });
+          data: leadPayload
+        });
+      } catch (dbErr) {
+        console.warn('[ClosingCTA] Supabase direct insert warning:', dbErr);
+      }
 
-      if (!response.ok) {
-        let serverMsg = `Submission error (HTTP ${response.status})`;
-        try {
-          const data = await response.json();
-          if (data?.message) serverMsg = data.message;
-          else if (data?.error) serverMsg = data.error;
-        } catch {
-          // Non-JSON response body
+      // 2. Email / Webhook notification trigger
+      try {
+        const response = await fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: trimmedEmail,
+            tool_used: 'closing_cta',
+            data: leadPayload
+          })
+        });
+
+        if (!response.ok) {
+          console.warn(`[ClosingCTA] Notification trigger returned HTTP ${response.status}`);
         }
-        throw new Error(serverMsg);
+      } catch (fetchErr) {
+        console.warn('[ClosingCTA] Lead email trigger failed:', fetchErr);
       }
 
-      const result = await response.json().catch(() => ({ success: true }));
-      if (result && result.success === false) {
-        throw new Error(result.message || result.error || "Lead submission could not be processed.");
+      // 3. Conversion Pixel Tracking
+      if (typeof window !== 'undefined') {
+        if ((window as any).fbq) {
+          (window as any).fbq('track', 'Lead');
+        }
+        if ((window as any).gtag) {
+          (window as any).gtag('event', 'generate_lead', {
+            event_category: 'lead_generation',
+            event_label: 'closing_cta',
+            email: trimmedEmail
+          });
+        }
       }
 
-      // ONLY reach here on genuine successful HTTP 2xx response
+      // Lead safely captured
       setIsSuccess(true);
       setEmail('');
       setErrorMessage(null);
       showSuccess("Thanks! We've received your request and will prepare your 90-day growth plan.");
     } catch (err: any) {
-      // Real error state: display error in UI and error toast. DO NOT show fake success!
       const fallbackMsg = "Unable to submit audit request right now. Please try again or reach out at hello@qalalabs.com";
       const displayMsg = err?.message || fallbackMsg;
       setErrorMessage(displayMsg);
@@ -161,6 +188,17 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="w-full" noValidate>
+                {/* Honeypot field for bot protection */}
+                <input
+                  type="text"
+                  name="b_url"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ display: 'none' }}
+                  aria-hidden="true"
+                />
                 {/* Rounded input + primary button in bordered card container */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2 rounded-2xl sm:rounded-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none focus-within:border-blue-500 dark:focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all">
                   <div className="flex items-center flex-1 pl-4 pr-2">

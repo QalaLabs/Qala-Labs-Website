@@ -350,7 +350,7 @@ const KashmiriMusicCaseStudy = () => {
               </p>
               <div className="space-y-3 text-sm font-bold text-slate-700">
                 <Link to="/services" className="block text-blue-600 hover:underline">Explore Qala Labs growth services</Link>
-                <Link to="/case-studies/Trotr-Meta-Lead-Generation" className="block text-blue-600 hover:underline">Read a paid media storytelling case study</Link>
+                <Link to="/case-studies/trotr-meta-lead-generation" className="block text-blue-600 hover:underline">Read a paid media storytelling case study</Link>
                 <Link to="/contact" className="block text-blue-600 hover:underline">Plan an organic launch campaign</Link>
               </div>
             </div>

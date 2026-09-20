@@ -130,13 +130,13 @@ const NutrivendUKCaseStudy = () => {
           image: heroImage,
           author: { "@type": "Organization", name: "Qala Labs" },
           publisher: { "@type": "Organization", name: "Qala Labs" },
-          mainEntityOfPage: "https://qalalabs.com/case-studies/Meta-Lead-Generation-Ad-UK-Market",
+          mainEntityOfPage: "https://qalalabs.com/case-studies/meta-lead-generation-ad-uk-market",
           keywords: "Meta lead generation case study, B2B lead generation UK, fitness facility leads, Meta Ads for B2B, audience testing strategy"
         }}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Case Studies', url: '/case-studies' },
-          { name: 'Nutrivend UK Meta Lead Generation', url: '/case-studies/Meta-Lead-Generation-Ad-UK-Market' }
+          { name: 'Nutrivend UK Meta Lead Generation', url: '/case-studies/meta-lead-generation-ad-uk-market' }
         ]}
       />
       <Navbar />
@@ -334,7 +334,7 @@ const NutrivendUKCaseStudy = () => {
               </p>
               <div className="mt-8 space-y-3 text-sm font-bold">
                 <Link to="/services/performance" className="block text-blue-600 hover:underline">Explore Meta Ads and performance marketing services</Link>
-                <Link to="/case-studies/Trotr-Meta-Lead-Generation" className="block text-blue-600 hover:underline">Read another Meta lead generation case study</Link>
+                <Link to="/case-studies/trotr-meta-lead-generation" className="block text-blue-600 hover:underline">Read another Meta lead generation case study</Link>
                 <Link to="/contact" className="block text-blue-600 hover:underline">Book a B2B lead generation audit</Link>
               </div>
             </div>

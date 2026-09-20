@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
@@ -33,23 +34,32 @@ const revenueRanges = [
 const WHATSAPP_URL = "https://wa.me/916006760151?text=Hi%20Qala%20Labs%2C%20I'd%20like%20to%20request%20a%20growth%20audit%20for%20my%20DTC%20brand.";
 
 const Contact = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+
+  const initialService = searchParams.get('service') || 'Performance Media';
+  const initialBudget = searchParams.get('budget') || '₹5L - ₹15L';
+
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    surname: '',
     email: '',
     phone: '',
+    companyName: '',
     website: '',
-    service: 'Performance Media',
-    revenue: '₹5L - ₹15L',
-    message: ''
+    service: initialService,
+    revenue: initialBudget,
+    issue: ''
   });
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.website.trim()) {
-      showError("Please enter your website or brand link.");
+      showError("Please enter your company website URL.");
       return;
     }
     setStep(2);
@@ -57,14 +67,31 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      showError("Please complete your contact details.");
+
+    if (honeypot.trim()) {
+      setSubmitted(true);
       return;
     }
+
+    if (!formData.firstName.trim() || !formData.email.trim() || !formData.phone.trim()) {
+      showError("Please fill in your first name, email, and phone number.");
+      return;
+    }
+
+    const cleanPhone = formData.phone.replace(/[^0-9+]/g, '');
+    if (cleanPhone.length < 8) {
+      showError("Please enter a valid phone number with area/country code.");
+      return;
+    }
+
     setLoading(true);
 
+    const fullName = `${formData.firstName} ${formData.surname}`.trim();
     const payload = {
       ...formData,
+      name: fullName,
+      company: formData.companyName || formData.website,
+      message: formData.issue,
       source_url: typeof window !== 'undefined' ? window.location.href : '',
       timestamp: new Date().toISOString()
     };
@@ -98,9 +125,28 @@ const Contact = () => {
       console.error("Email trigger failed:", smtpError);
     }
 
+    // 3. Fire conversion tracking pixels
+    if (typeof window !== 'undefined') {
+      if ((window as any).fbq) {
+        (window as any).fbq('track', 'Lead');
+      }
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'generate_lead', {
+          event_category: 'lead_generation',
+          event_label: 'contact_form',
+          email: formData.email.trim()
+        });
+      }
+    }
+
     setLoading(false);
     setSubmitted(true);
-    showSuccess("Audit request received! We'll be in touch within 24 hours.");
+    showSuccess("Details captured! Redirecting to select your 30-minute call slot...");
+
+    // Forward to calendar booking schedule with prefilled query
+    setTimeout(() => {
+      navigate(`/book-call?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(formData.email.trim())}`);
+    }, 500);
   };
 
   return (
@@ -201,12 +247,12 @@ const Contact = () => {
                   <span className="text-xs text-slate-400 font-mono">48-Hr Delivery</span>
                 </div>
                 <CardTitle className="text-2xl sm:text-3xl font-black">
-                  {step === 1 ? "Diagnose Your Growth Potential" : "Where Should We Send The Plan?"}
+                  {step === 1 ? "Diagnose Your Growth Potential" : "Reserve Your 30-Min Strategy Call"}
                 </CardTitle>
                 <p className="text-slate-400 text-xs sm:text-sm mt-1">
                   {step === 1 
-                    ? "Tell us about your brand to customize the 90-day roadmap." 
-                    : "Enter your contact info to receive the confidential teardown."}
+                    ? "Tell us about your brand to customize your 30-minute diagnostic session." 
+                    : "Enter your contact details to lock in your 1-on-1 strategy call."}
                 </p>
 
                 {/* Progress Bar */}
@@ -225,10 +271,17 @@ const Contact = () => {
                     <div className="w-16 h-16 bg-green-100 dark:bg-green-950/60 rounded-full flex items-center justify-center mx-auto mb-5 text-green-600">
                       <CheckCircle2 className="w-10 h-10" />
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Diagnosis Scheduled!</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm max-w-sm mx-auto">
-                      Our growth engineering team is running initial funnel checks on <span className="font-bold text-slate-900 dark:text-white">{formData.website}</span>. Expect your audit via email & WhatsApp within 24 hours.
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Audit Details Captured!</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm max-w-sm mx-auto mb-6">
+                      Redirecting to our 30-minute calendar... If you are not redirected automatically, click below to select your slot:
                     </p>
+                    <Button
+                      onClick={() => navigate('/book-call')}
+                      className="h-12 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-sm shadow-xl shadow-blue-600/25 inline-flex items-center gap-2"
+                    >
+                      <span>Pick Your 30-Minute Call Slot</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
                   </div>
                 ) : (
                   <AnimatePresence mode="wait">
@@ -289,22 +342,39 @@ const Contact = () => {
                           </div>
                         </div>
 
-                        {/* Website URL */}
-                        <div className="space-y-1">
-                          <Label htmlFor="website" className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                            Brand / Website URL *
-                          </Label>
-                          <Input 
-                            id="website"
-                            name="website"
-                            type="url"
-                            autoComplete="url"
-                            placeholder="https://yourbrand.com"
-                            required
-                            value={formData.website}
-                            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                            className="rounded-xl h-12 text-sm"
-                          />
+                        {/* Company Name & Website URL */}
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          <div className="space-y-1">
+                            <Label htmlFor="companyName" className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                              Company Name
+                            </Label>
+                            <Input 
+                              id="companyName"
+                              name="companyName"
+                              autoComplete="organization"
+                              placeholder="e.g. Acme DTC"
+                              value={formData.companyName}
+                              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
+
+                          <div className="space-y-1">
+                            <Label htmlFor="website" className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                              Company Website *
+                            </Label>
+                            <Input 
+                              id="website"
+                              name="website"
+                              type="url"
+                              autoComplete="url"
+                              placeholder="https://yourbrand.com"
+                              required
+                              value={formData.website}
+                              onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
                         </div>
 
                         <Button 
@@ -324,25 +394,54 @@ const Contact = () => {
                         onSubmit={handleSubmit}
                         className="space-y-4"
                       >
-                        <div className="space-y-1">
-                          <Label htmlFor="name" className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                            Full Name *
-                          </Label>
-                          <Input 
-                            id="name"
-                            name="name"
-                            autoComplete="name"
-                            required
-                            placeholder="Aarav Sharma"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="rounded-xl h-12 text-sm"
-                          />
+                        {/* Honeypot field for bot protection */}
+                        <input
+                          type="text"
+                          name="b_url"
+                          value={honeypot}
+                          onChange={(e) => setHoneypot(e.target.value)}
+                          tabIndex={-1}
+                          autoComplete="off"
+                          style={{ display: 'none' }}
+                          aria-hidden="true"
+                        />
+                        {/* First Name & Surname */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-1">
+                            <Label htmlFor="firstName" className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                              First Name *
+                            </Label>
+                            <Input 
+                              id="firstName"
+                              name="firstName"
+                              autoComplete="given-name"
+                              required
+                              placeholder="Aarav"
+                              value={formData.firstName}
+                              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
+
+                          <div className="space-y-1">
+                            <Label htmlFor="surname" className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                              Surname
+                            </Label>
+                            <Input 
+                              id="surname"
+                              name="surname"
+                              autoComplete="family-name"
+                              placeholder="Sharma"
+                              value={formData.surname}
+                              onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
                         </div>
 
                         <div className="space-y-1">
                           <Label htmlFor="email" className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                            Work Email *
+                            Email Address *
                           </Label>
                           <Input 
                             id="email"
@@ -359,7 +458,7 @@ const Contact = () => {
 
                         <div className="space-y-1">
                           <Label htmlFor="phone" className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                            WhatsApp Number * <span className="text-[10px] text-slate-400 font-normal">(for 24-hr roadmap delivery)</span>
+                            Phone Number * <span className="text-[10px] text-slate-400 font-normal">(WhatsApp enabled for calendar updates)</span>
                           </Label>
                           <Input 
                             id="phone"
@@ -375,16 +474,16 @@ const Contact = () => {
                         </div>
 
                         <div className="space-y-1">
-                          <Label htmlFor="message" className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                            Current Bottleneck <span className="text-[10px] text-slate-400 font-normal">(Optional)</span>
+                          <Label htmlFor="issue" className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                            Issue You Are Facing <span className="text-[10px] text-slate-400 font-normal">(Primary growth bottleneck)</span>
                           </Label>
                           <Textarea 
-                            id="message"
-                            name="message"
-                            placeholder="E.g., high ad fatigue, ROAS dropped below 2.5x, scaling from ₹20L to ₹1Cr/mo..."
+                            id="issue"
+                            name="issue"
+                            placeholder="E.g., high ad fatigue, ROAS dropped below 2.5x, scaling bottlenecks past ₹20L/mo..."
                             rows={2}
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            value={formData.issue}
+                            onChange={(e) => setFormData({ ...formData, issue: e.target.value })}
                             className="rounded-xl text-sm resize-none"
                           />
                         </div>
@@ -408,12 +507,12 @@ const Contact = () => {
                             {loading ? (
                               <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                <span>Generating roadmap...</span>
+                                <span>Saving details...</span>
                               </>
                             ) : (
                               <>
-                                <span>Get 90-Day Roadmap</span>
-                                <Sparkles className="w-4 h-4 text-cyan-300" />
+                                <span>Lock In Details & Pick 30-Min Slot</span>
+                                <ArrowRight className="w-4 h-4 ml-1" />
                               </>
                             )}
                           </Button>

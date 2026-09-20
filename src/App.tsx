@@ -31,12 +31,16 @@ const Quiz = React.lazy(() => import("./pages/Quiz"));
 const ServiceFinder = React.lazy(() => import("./pages/ServiceFinder"));
 const AIAgentFinder = React.lazy(() => import("./pages/AIAgentFinder"));
 const Login = React.lazy(() => import("./pages/Login"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const Onboarding = React.lazy(() => import("./pages/Onboarding"));
 const About = React.lazy(() => import("./pages/About"));
 const Career = React.lazy(() => import("./pages/Career"));
 const AgencyNetwork = React.lazy(() => import("./pages/AgencyNetwork"));
 const CreatorCollective = React.lazy(() => import("./pages/CreatorCollective"));
 const DynamicPage = React.lazy(() => import("./pages/DynamicPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
+const ThankYou = React.lazy(() => import("./pages/ThankYou"));
+const BookCall = React.lazy(() => import("./pages/BookCall"));
 const Privacy = React.lazy(() => import("./pages/Privacy"));
 const Terms = React.lazy(() => import("./pages/Terms"));
 
@@ -46,6 +50,7 @@ const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
 const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
 const NutrivendUKCaseStudy = React.lazy(() => import("./pages/NutrivendUKCaseStudy"));
 const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
+const StreetplayrPortfolio = React.lazy(() => import("./pages/StreetplayrPortfolio"));
 const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
 const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
 const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
@@ -56,6 +61,8 @@ const HiAstroPortfolio = React.lazy(() => import("./pages/HiAstroPortfolio"));
 const BilluCampaignPortfolio = React.lazy(() => import("./pages/BilluCampaignPortfolio"));
 const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessPortfolio"));
 const AirborneAviationPortfolio = React.lazy(() => import("./pages/AirborneAviationPortfolio"));
+const GaffarIndiaPortfolio = React.lazy(() => import("./pages/GaffarIndiaPortfolio"));
+const ShaktiBhogPortfolio = React.lazy(() => import("./pages/ShaktiBhogPortfolio"));
 
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
@@ -92,17 +99,18 @@ const AppRoutes = () => {
 
             {/* Specific Case Study Routes */}
             <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
-            <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
+            <Route path="/case-studies/trotr-meta-lead-generation" element={<TrotrCaseStudy />} />
             <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
-            <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
+            <Route path="/case-studies/meta-lead-generation-ad-uk-market" element={<NutrivendUKCaseStudy />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
             {/* Specific Portfolio Routes */}
-            <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
-            <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
-            <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
-            <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playR" replace />} />
+            <Route path="/portfolio/amazon-ads" element={<AmazonAdsPortfolio />} />
+            <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
+            <Route path="/portfolio/instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
+            <Route path="/portfolio/influencer-marketing-campaign-playr" element={<CSKInfluencerPortfolio />} />
+            <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playr" replace />} />
             <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
             <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
             <Route path="/portfolio/mizuno-india-launch-campaign" element={<MizunoIndiaPortfolio />} />
@@ -110,6 +118,9 @@ const AppRoutes = () => {
             <Route path="/portfolio/billu-salon-social-content" element={<BilluCampaignPortfolio />} />
             <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
             <Route path="/portfolio/airborne-aviation-academy" element={<AirborneAviationPortfolio />} />
+            <Route path="/portfolio/gaffar-india-marketplace" element={<GaffarIndiaPortfolio />} />
+            <Route path="/portfolio/gaffar-india" element={<Navigate to="/portfolio/gaffar-india-marketplace" replace />} />
+            <Route path="/portfolio/shakti-bhog-ugc-content" element={<ShaktiBhogPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 
@@ -137,6 +148,17 @@ const AppRoutes = () => {
             <Route path="/results" element={<Results />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/book-call" element={<BookCall />} />
+            <Route path="/schedule" element={<Navigate to="/book-call" replace />} />
+
+            {/* Authenticated Staff & Client Portal Routes */}
+            <Route path="/admin" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/admin/leads" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/employee" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/client" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
 
             {/* Dynamic CMS Pages */}
             <Route path="/p/:slug" element={<DynamicPage />} />

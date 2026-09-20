@@ -46,13 +46,13 @@ const TrotrCaseStudy = () => {
           image: TrotrFeaturedImage,
           author: { "@type": "Organization", name: "Qala Labs" },
           publisher: { "@type": "Organization", name: "Qala Labs" },
-          mainEntityOfPage: "https://qalalabs.com/case-studies/Trotr-Meta-Lead-Generation",
+          mainEntityOfPage: "https://qalalabs.com/case-studies/trotr-meta-lead-generation",
           keywords: "Meta lead generation case study, travel marketing case study, high-ticket funnel, 28x ROAS, Qala Labs"
         }}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Case Studies', url: '/case-studies' },
-          { name: '28x ROAS — Trotr Meta Lead Generation', url: '/case-studies/Trotr-Meta-Lead-Generation' }
+          { name: '28x ROAS — Trotr Meta Lead Generation', url: '/case-studies/trotr-meta-lead-generation' }
         ]}
       />
       <Navbar />
@@ -264,7 +264,7 @@ const TrotrCaseStudy = () => {
               </p>
               <div className="space-y-3 text-sm font-bold text-slate-700">
                 <Link to="/services/performance" className="block text-blue-600 hover:underline">Explore our Meta Ads and performance marketing service</Link>
-                <Link to="/case-studies/Meta-Lead-Generation-Ad-UK-Market" className="block text-blue-600 hover:underline">Read another B2B Meta lead generation case study</Link>
+                <Link to="/case-studies/meta-lead-generation-ad-uk-market" className="block text-blue-600 hover:underline">Read another B2B Meta lead generation case study</Link>
                 <Link to="/contact" className="block text-blue-600 hover:underline">Book a Meta lead generation audit</Link>
               </div>
             </div>

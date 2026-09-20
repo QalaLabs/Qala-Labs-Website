@@ -180,12 +180,23 @@ const AIAgentFinder = () => {
         body: JSON.stringify({ email, tool_used: 'ai_agent_finder', data: leadData })
       });
       if (!res.ok) {
-        console.error("Email trigger failed:", await res.text());
-        showError("Recommendations ready, but the confirmation email couldn't be sent.");
+        console.warn("[AIAgentFinder] Email trigger status:", res.status);
       }
     } catch (err) {
-      console.error("Email trigger failed:", err);
-      showError("Recommendations ready, but the confirmation email couldn't be sent.");
+      console.warn("[AIAgentFinder] Email trigger error:", err);
+    }
+
+    if (typeof window !== 'undefined') {
+      if ((window as any).fbq) {
+        (window as any).fbq('track', 'Lead');
+      }
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'generate_lead', {
+          event_category: 'lead_generation',
+          event_label: 'ai_agent_finder',
+          email
+        });
+      }
     }
 
     setLoading(false);

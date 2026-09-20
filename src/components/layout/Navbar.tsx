@@ -8,16 +8,12 @@ import Logo from './Logo';
 import { useUser } from '@/hooks/useUser';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [megaOpen, setMegaOpen] = React.useState(false);
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout>>();
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useUser();
@@ -29,28 +25,79 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Services', href: '/services' },
     { name: 'Results', href: '/results' },
     { name: 'Process', href: '/#process' },
     { name: 'Proof', href: '/#proof' },
   ];
 
-  const solutionsLinks = [
-    { name: 'AI Search Visibility', href: '/ai-search-visibility', desc: 'SEO + AEO + GEO' },
-    { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation', desc: 'AI agents & workflows' },
-    { name: 'Q Manager', href: '/q-manager', desc: 'Client dashboard — desktop & mobile' },
-    { name: 'Performance Marketing', href: '/services/performance', desc: 'Meta, Google, Snapchat & more' },
-    { name: 'Social Media Management', href: '/services/social-media', desc: 'Content, community & growth' },
-    { name: 'Production & Shoots', href: '/services/production-shoots', desc: 'On-location & studio production' },
-    { name: 'Influencer Marketing', href: '/services/influencer-marketing', desc: 'Creator sourcing to tracking' },
-    { name: 'Free AI Audit', href: '/ai-audit', desc: '48-hr personalised report' },
-    { name: 'Growth Tools', href: '/tools', desc: 'ROI, LTV & scale calculators' },
-    { name: 'AI Agent Finder', href: '/ai-agent-finder', desc: 'Which AI agent do you need?' },
-    { name: 'View All Services →', href: '/services', desc: 'Browse all 19 services' },
+  // Mega menu, grouped as a classic agency journey — mirrors digiPanda's Discovery → Design → Development → Marketing
+  const megaMenu = [
+    {
+      title: 'Discovery',
+      tagline: 'Audit & planning',
+      links: [
+        { name: 'Strategy & Planning', href: '/services/strategy-planning' },
+        { name: 'IT Consulting', href: '/services/it-consulting' },
+        { name: 'Brand Audit', href: '/services/brand-audit' },
+        { name: 'Digital Presence Review', href: '/services/digital-presence-review' },
+        { name: 'Technical Assessment', href: '/services/technical-assessment' },
+        { name: 'Analytics & Data', href: '/services/data' },
+        { name: 'Free AI Audit', href: '/ai-audit' },
+      ],
+    },
+    {
+      title: 'Design',
+      tagline: 'Brand & interface',
+      links: [
+        { name: 'Branding', href: '/services/branding' },
+        { name: 'UI/UX Design', href: '/services/ui-ux-design' },
+        { name: 'Web Design', href: '/services/web-design' },
+        { name: 'Mobile App Design', href: '/services/mobile-app-design' },
+        { name: 'Landing Page Design', href: '/services/landing-page-design' },
+        { name: 'Production & Shoots', href: '/services/production-shoots' },
+      ],
+    },
+    {
+      title: 'Development',
+      tagline: 'Build & automate',
+      links: [
+        { name: 'Web Development', href: '/services/web-dev' },
+        { name: 'Mobile App Development', href: '/services/mobile-app-development' },
+        { name: 'Software Development', href: '/services/software-development' },
+        { name: 'CMS Development', href: '/services/cms-development' },
+        { name: 'Blockchain Development', href: '/services/blockchain-development' },
+        { name: 'Blockchain Integration', href: '/services/blockchain-integration' },
+        { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation' },
+        { name: 'Q Manager', href: '/q-manager', desc: 'Client dashboard' },
+      ],
+    },
+    {
+      title: 'Marketing',
+      tagline: 'Growth & scale',
+      links: [
+        { name: 'AI Search Visibility', href: '/ai-search-visibility', desc: 'SEO + AEO + GEO' },
+        { name: 'Performance Marketing', href: '/services/performance' },
+        { name: 'Social Media Management', href: '/services/social-media' },
+        { name: 'CRO + Retention', href: '/services/cro' },
+        { name: 'Influencer Marketing', href: '/services/influencer-marketing' },
+        { name: 'Email Marketing', href: '/services/email-marketing' },
+        { name: 'Email Automation', href: '/services/email-automation' },
+        { name: 'MEME Marketing', href: '/services/meme-marketing' },
+      ],
+    },
   ];
+
+  const openMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setMegaOpen(true);
+  };
+  const scheduleCloseMega = () => {
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
+  };
 
   React.useEffect(() => {
     setIsOpen(false);
+    setMegaOpen(false);
   }, [location.pathname]);
 
   React.useEffect(() => {
@@ -98,6 +145,24 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-5">
+              <div
+                className="relative"
+                onMouseEnter={openMega}
+                onMouseLeave={scheduleCloseMega}
+              >
+                <Link
+                  to="/services"
+                  className={cn(
+                    "text-sm font-bold transition-colors flex items-center gap-1",
+                    location.pathname === '/services' ? "text-blue-400" : "text-slate-400 hover:text-white"
+                  )}
+                  aria-expanded={megaOpen}
+                >
+                  Services
+                  <ChevronDown className={cn("w-4 h-4 transition-transform", megaOpen && "rotate-180")} />
+                </Link>
+              </div>
+
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -110,25 +175,6 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-
-              <DropdownMenu>
-                <DropdownMenuTrigger className="text-sm font-bold text-slate-400 hover:text-white flex items-center gap-1 outline-none">
-                  Solutions <ChevronDown className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="rounded-2xl p-2 border-white/5 shadow-2xl bg-[#0A0B12] w-56">
-                  {solutionsLinks.map((link) => (
-                    <DropdownMenuItem key={link.name} asChild>
-                      <Link
-                        to={link.href}
-                        className="flex flex-col gap-0.5 px-4 py-3 rounded-xl text-sm cursor-pointer hover:bg-white/5 group"
-                      >
-                        <span className="font-bold text-slate-300 group-hover:text-white">{link.name}</span>
-                        <span className="text-xs text-slate-600 group-hover:text-slate-400">{link.desc}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
 
               <div className="flex items-center gap-2 ml-2">
                 {user ? (
@@ -177,6 +223,66 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+
+        {/* Services mega menu — full-width panel, Strategy / Creative / Tech / Growth */}
+        <AnimatePresence>
+          {megaOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              onMouseEnter={openMega}
+              onMouseLeave={scheduleCloseMega}
+              className="hidden lg:block absolute top-full left-0 right-0 border-t border-white/5 bg-[#0A0B12]/98 backdrop-blur-xl shadow-2xl shadow-black/40"
+            >
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-4 gap-8">
+                {megaMenu.map((col) => (
+                  <div key={col.title} className="flex flex-col">
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-500 mb-1">
+                      {col.title}
+                    </p>
+                    <p className="text-xs text-slate-600 mb-4">{col.tagline}</p>
+                    <ul className="space-y-3 flex-1">
+                      {col.links.map((link) => (
+                        <li key={link.name}>
+                          <Link
+                            to={link.href}
+                            className="text-sm font-bold text-slate-300 hover:text-white transition-colors block"
+                          >
+                            {link.name}
+                            {'desc' in link && link.desc && (
+                              <span className="block text-xs font-medium text-slate-600 mt-0.5">{link.desc}</span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      onClick={() => navigate('/contact')}
+                      variant="outline"
+                      size="sm"
+                      className="mt-6 border-blue-600/40 text-blue-400 hover:bg-blue-900/20 font-bold w-fit"
+                    >
+                      Book a Call
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <div className="border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                  <span className="text-xs text-slate-600">35+ services across discovery, design, development & marketing</span>
+                  <Link
+                    to="/services"
+                    className="text-sm font-black text-blue-400 hover:text-blue-300 flex items-center gap-1"
+                  >
+                    View all services <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Mobile Menu Overlay */}
@@ -201,7 +307,7 @@ const Navbar = () => {
               <div className="flex-1 flex flex-col pt-24 px-8 pb-10 overflow-y-auto relative z-10">
                 <div className="space-y-2">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-6">Navigation</p>
-                  {[...navLinks, ...solutionsLinks.map(l => ({ name: l.name, href: l.href }))].map((link, i) => (
+                  {navLinks.map((link, i) => (
                     <motion.div
                       key={link.name}
                       initial={{ opacity: 0, x: 20 }}
@@ -223,6 +329,48 @@ const Navbar = () => {
                       </Link>
                     </motion.div>
                   ))}
+                </div>
+
+                {/* Services, grouped by Strategy / Creative / Tech / Growth — mirrors desktop mega menu */}
+                <div className="space-y-8 mt-8">
+                  {megaMenu.map((col, colIdx) => (
+                    <div key={col.title}>
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-3">
+                        {col.title}
+                      </p>
+                      <div className="space-y-0.5">
+                        {col.links.map((link, i) => (
+                          <motion.div
+                            key={link.name}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: (colIdx * col.links.length + i) * 0.03 }}
+                          >
+                            <Link
+                              to={link.href}
+                              className={cn(
+                                "flex items-center justify-between py-3 text-lg font-black transition-all group border-b border-white/5",
+                                location.pathname === link.href ? "text-blue-400" : "text-white"
+                              )}
+                            >
+                              <span>{link.name}</span>
+                              <ChevronRight className={cn(
+                                "w-4 h-4 transition-transform group-hover:translate-x-2",
+                                location.pathname === link.href ? "text-blue-400" : "text-slate-600"
+                              )} />
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <Link
+                    to="/services"
+                    className="flex items-center justify-between py-4 text-2xl font-black text-blue-400 border-b border-white/5"
+                  >
+                    <span>All Services</span>
+                    <ChevronRight className="w-5 h-5 text-blue-400" />
+                  </Link>
                 </div>
 
                 <div className="mt-auto pt-10 space-y-6">

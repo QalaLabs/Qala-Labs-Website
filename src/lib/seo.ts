@@ -9,6 +9,26 @@ export const siteConfig = {
   },
 };
 
+// Shared areaServed list for all Service/ProfessionalService schema nodes —
+// Delhi NCR (home base) plus every country/city Qala Labs actively serves.
+export const areaServed = [
+  { "@type": "City", "name": "New Delhi" },
+  { "@type": "City", "name": "Gurugram" },
+  { "@type": "City", "name": "Noida" },
+  { "@type": "City", "name": "Greater Noida" },
+  { "@type": "AdministrativeArea", "name": "Delhi NCR" },
+  { "@type": "Country", "name": "India" },
+  { "@type": "Country", "name": "United Kingdom" },
+  { "@type": "Country", "name": "United States" },
+  { "@type": "Country", "name": "Germany" },
+  { "@type": "Country", "name": "Ireland" },
+  { "@type": "City", "name": "Dubai" },
+  { "@type": "Country", "name": "Saudi Arabia" },
+  { "@type": "City", "name": "Muscat" },
+  { "@type": "Country", "name": "Oman" },
+  { "@type": "Country", "name": "Singapore" },
+];
+
 export function constructMetadata({
   title = siteConfig.name,
   description = siteConfig.description,
@@ -83,11 +103,7 @@ export const getBaseJsonLd = () => {
         "description": siteConfig.description,
         "image": `${siteConfig.url}/og.svg`,
         "priceRange": "₹₹₹",
-        "areaServed": [
-          { "@type": "Country", "name": "India" },
-          { "@type": "Country", "name": "United States" },
-          { "@type": "Country", "name": "United Kingdom" }
-        ],
+        "areaServed": areaServed,
         "serviceType": [
           "Performance Marketing",
           "DTC Growth Agency",
@@ -243,11 +259,7 @@ export const generateServiceSchema = (service: any) => {
       "@id": `${siteConfig.url}/#organization`
     },
     "url": `${siteConfig.url}/services/${service.slug}`,
-    "areaServed": [
-      { "@type": "Country", "name": "India" },
-      { "@type": "Country", "name": "United States" },
-      { "@type": "Country", "name": "United Kingdom" }
-    ]
+    "areaServed": areaServed
   });
 };
 
