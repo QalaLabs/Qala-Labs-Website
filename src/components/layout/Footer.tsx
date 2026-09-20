@@ -8,21 +8,52 @@ import { MadeWithDyad } from "@/components/made-with-dyad";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // Services, grouped into the same Discovery / Design / Development / Marketing
+  // buckets used in the Navbar mega menu and the /services page filters.
+  const serviceBuckets = [
+    {
+      title: 'Discovery',
+      links: [
+        { name: 'Strategy & Planning', href: '/services/strategy-planning' },
+        { name: 'Brand Audit', href: '/services/brand-audit' },
+        { name: 'Digital Presence Review', href: '/services/digital-presence-review' },
+        { name: 'Analytics & Data', href: '/services/data' },
+        { name: 'Free AI Audit', href: '/ai-audit' },
+      ],
+    },
+    {
+      title: 'Design',
+      links: [
+        { name: 'Branding', href: '/services/branding' },
+        { name: 'UI/UX Design', href: '/services/ui-ux-design' },
+        { name: 'Web Design', href: '/services/web-design' },
+        { name: 'Mobile App Design', href: '/services/mobile-app-design' },
+        { name: 'Production & Shoots', href: '/services/production-shoots' },
+      ],
+    },
+    {
+      title: 'Development',
+      links: [
+        { name: 'Web Development', href: '/services/web-dev' },
+        { name: 'Mobile App Development', href: '/services/mobile-app-development' },
+        { name: 'Software Development', href: '/services/software-development' },
+        { name: 'Blockchain Development', href: '/services/blockchain-development' },
+        { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation' },
+      ],
+    },
+    {
+      title: 'Marketing',
+      links: [
+        { name: 'AI Search Visibility', href: '/ai-search-visibility' },
+        { name: 'Performance Marketing', href: '/services/performance' },
+        { name: 'Social Media Management', href: '/services/social-media' },
+        { name: 'Influencer Marketing', href: '/services/influencer-marketing' },
+        { name: 'Email Marketing', href: '/services/email-marketing' },
+      ],
+    },
+  ];
+
   const links = {
-    services: [
-      { name: 'AI Search Visibility', href: '/ai-search-visibility' },
-      { name: 'Enterprise AI Automation', href: '/enterprise-ai-automation' },
-      { name: 'Performance Marketing', href: '/services/performance' },
-      { name: 'Social Media Management', href: '/services/social-media' },
-      { name: 'AI Creative Production', href: '/services/creative' },
-      { name: 'Production & Shoots', href: '/services/production-shoots' },
-      { name: 'Influencer Marketing', href: '/services/influencer-marketing' },
-      { name: 'Web Development', href: '/services/web-dev' },
-      { name: 'CRO + Retention Engineering', href: '/services/cro' },
-      { name: 'Analytics & Data', href: '/services/data' },
-      { name: 'eCommerce Growth', href: '/services/strategy' },
-      { name: 'View All Services →', href: '/services' },
-    ],
     company: [
       { name: 'About Us', href: '/about' },
       { name: 'Results', href: '/results' },
@@ -42,7 +73,39 @@ const Footer = () => {
     <footer className="bg-background text-foreground pt-0 pb-12 border-t border-border">
       <SectionWaveDivider />
       <div className="max-w-7xl mx-auto px-4 pt-12 md:pt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        {/* Services, grouped into the same Discovery / Design / Development / Marketing
+            buckets as the Navbar mega menu and the /services page filters. */}
+        <div className="mb-16 pb-16 border-b border-slate-800">
+          <div className="flex items-center justify-between mb-8">
+            <h4 className="text-lg font-bold">Services</h4>
+            <Link to="/services" className="text-sm font-bold text-blue-500 hover:text-blue-400 transition-colors">
+              View all services →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+            {serviceBuckets.map((bucket) => (
+              <div key={bucket.title}>
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-500 mb-4">
+                  {bucket.title}
+                </p>
+                <ul className="space-y-3">
+                  {bucket.links.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        to={link.href}
+                        className="text-slate-400 hover:text-white transition-colors text-sm"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
           {/* Brand Column */}
           <div className="space-y-6">
             <Logo size={40} />
@@ -70,23 +133,6 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
-          </div>
-
-          {/* Services Column */}
-          <div>
-            <h4 className="text-lg font-bold mb-8">Services</h4>
-            <ul className="space-y-4">
-              {links.services.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-slate-400 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Company Column */}
