@@ -35,6 +35,33 @@ const MizunoIndiaPortfolio = () => {
     { title: "First Blood", desc: "High-energy launch-week content timed to the World Badminton Championship, Delhi." }
   ];
 
+  const rawFootage = [
+    {
+      id: "1VgImUdczLBoM70UHmaRgqfVRQDCE5r3-",
+      day: "Day 1 — The Park Hotel",
+      label: "Golden-Hour Lifestyle (GoPro)",
+      caption: "City-to-court coverage from the lifestyle shoot block."
+    },
+    {
+      id: "1-g3uASuE0FEMjueEgBad5t5bbCSqxRMw",
+      day: "Day 1 — The Park Hotel",
+      label: "On-Location B-Roll (GoPro)",
+      caption: "Wide-angle location b-roll captured alongside the primary rig."
+    },
+    {
+      id: "1jD_wvA_qVHczqhXAOcDLd5cyZhlzZ8U_",
+      day: "Day 2 — Indoor Court",
+      label: "Footwork Drill (Cine Camera)",
+      caption: "Pre-dawn footwork drills from the 6 AM indoor court call."
+    },
+    {
+      id: "17Z4YMaODa1RC4cp-I9eHmi66WhuDJihy",
+      day: "Day 2 — Indoor Court",
+      label: "Coach Testimonial Setup (Cine Camera)",
+      caption: "Direct-to-camera coach segment, cinema-grade kit."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-100">
       <SEO
@@ -105,6 +132,43 @@ const MizunoIndiaPortfolio = () => {
                 >
                   <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Raw Shoot Footage */}
+          <section className="mb-24">
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">From the Shoot</h2>
+              <p className="text-slate-500">Behind-the-scenes footage straight off the cards — GoPro coverage from the lifestyle block and cinema-camera clips from the indoor court day.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {rawFootage.map((clip, i) => (
+                <motion.div
+                  key={clip.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="rounded-3xl overflow-hidden border border-slate-100 shadow-sm bg-slate-50"
+                >
+                  <div className="relative aspect-video bg-black">
+                    <iframe
+                      src={`https://drive.google.com/file/d/${clip.id}/preview`}
+                      title={clip.label}
+                      className="absolute inset-0 w-full h-full"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">{clip.day}</p>
+                    <p className="font-black text-slate-900 mb-1">{clip.label}</p>
+                    <p className="text-sm text-slate-500 leading-relaxed">{clip.caption}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>

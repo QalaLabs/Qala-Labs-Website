@@ -35,6 +35,7 @@ import TrotrCaseStudy from './pages/TrotrCaseStudy';
 import GaffarCaseStudy from './pages/GaffarCaseStudy';
 import NutrivendUKCaseStudy from './pages/NutrivendUKCaseStudy';
 import AmazonAdsPortfolio from './pages/AmazonAdsPortfolio';
+import StreetplayrPortfolio from './pages/StreetplayrPortfolio';
 import InstagramUGCPortfolio from './pages/InstagramUGCPortfolio';
 import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
 import CapitalKeysPortfolio from './pages/CapitalKeysPortfolio';
@@ -46,6 +47,7 @@ import BilluCampaignPortfolio from './pages/BilluCampaignPortfolio';
 import AirtelBusinessPortfolio from './pages/AirtelBusinessPortfolio';
 import AirborneAviationPortfolio from './pages/AirborneAviationPortfolio';
 import GaffarIndiaPortfolio from './pages/GaffarIndiaPortfolio';
+import ShaktiBhogPortfolio from './pages/ShaktiBhogPortfolio';
 
 // Homepage — direct import so SSR renders the loading state with static meta tags
 import Index from './pages/Index';
@@ -90,6 +92,7 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
                   <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+                  <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
                   <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
                   <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
@@ -100,6 +103,7 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
                   <Route path="/portfolio/airborne-aviation-academy" element={<AirborneAviationPortfolio />} />
                   <Route path="/portfolio/gaffar-india-marketplace" element={<GaffarIndiaPortfolio />} />
+                  <Route path="/portfolio/shakti-bhog-ugc-content" element={<ShaktiBhogPortfolio />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 

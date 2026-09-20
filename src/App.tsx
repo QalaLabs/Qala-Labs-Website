@@ -50,6 +50,7 @@ const TrotrCaseStudy = React.lazy(() => import("./pages/TrotrCaseStudy"));
 const GaffarCaseStudy = React.lazy(() => import("./pages/GaffarCaseStudy"));
 const NutrivendUKCaseStudy = React.lazy(() => import("./pages/NutrivendUKCaseStudy"));
 const AmazonAdsPortfolio = React.lazy(() => import("./pages/AmazonAdsPortfolio"));
+const StreetplayrPortfolio = React.lazy(() => import("./pages/StreetplayrPortfolio"));
 const InstagramUGCPortfolio = React.lazy(() => import("./pages/InstagramUGCPortfolio"));
 const CSKInfluencerPortfolio = React.lazy(() => import("./pages/CSKInfluencerPortfolio"));
 const CapitalKeysPortfolio = React.lazy(() => import("./pages/CapitalKeysPortfolio"));
@@ -61,6 +62,7 @@ const BilluCampaignPortfolio = React.lazy(() => import("./pages/BilluCampaignPor
 const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessPortfolio"));
 const AirborneAviationPortfolio = React.lazy(() => import("./pages/AirborneAviationPortfolio"));
 const GaffarIndiaPortfolio = React.lazy(() => import("./pages/GaffarIndiaPortfolio"));
+const ShaktiBhogPortfolio = React.lazy(() => import("./pages/ShaktiBhogPortfolio"));
 
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
@@ -105,6 +107,7 @@ const AppRoutes = () => {
 
             {/* Specific Portfolio Routes */}
             <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+            <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
             <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
             <Route path="/portfolio/influencer-marketing-campaign-chennai-super-kings" element={<Navigate to="/portfolio/influencer-marketing-campaign-playR" replace />} />
@@ -117,6 +120,7 @@ const AppRoutes = () => {
             <Route path="/portfolio/airborne-aviation-academy" element={<AirborneAviationPortfolio />} />
             <Route path="/portfolio/gaffar-india-marketplace" element={<GaffarIndiaPortfolio />} />
             <Route path="/portfolio/gaffar-india" element={<Navigate to="/portfolio/gaffar-india-marketplace" replace />} />
+            <Route path="/portfolio/shakti-bhog-ugc-content" element={<ShaktiBhogPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 

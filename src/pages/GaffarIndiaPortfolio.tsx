@@ -705,8 +705,10 @@ const GaffarIndiaPortfolio = () => {
                       </div>
                     </div>
                   )}
-
+                    </div>
+                  )}
                 </div>
+              )}
 
                 {/* Persistent Gated Lock Indicator Banner */}
                 <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md text-white p-4 rounded-2xl border border-slate-700/80 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
