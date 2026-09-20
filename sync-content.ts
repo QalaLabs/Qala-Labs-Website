@@ -310,6 +310,24 @@ Orchestrated viral CSK fan engagement:
 - Generated 125M+ organic impressions
 - Built sustainable fan community momentum
 - Turned casual fans into brand advocates`
+  },
+  {
+    title: "Gaffar India: Wholesale & Retail Marketplace",
+    slug: "gaffar-india-marketplace",
+    category: "Web Development",
+    image_url: "/portfolio/gaffar-india/hero-thumb.jpg",
+    description: "Full-scale multi-vendor marketplace engine digitizing Delhi's Gaffar Market with vendor portals, 1,000+ live SKUs, and rapid 7-day launch architecture.",
+    result: "Multi-Vendor Marketplace • 1,000+ SKUs",
+    technologies: ["React", "Next.js", "PWA", "Multi-Vendor", "TailwindCSS"],
+    content: `# Gaffar India: Wholesale & Retail Marketplace
+
+Engineered a scalable multi-vendor digital marketplace for GaffarIndia.com:
+- Digitized 1,000+ products across Fold/Flip accessories, gadgets, and walkie talkies
+- Multi-seller onboarding with autonomous Seller Center portal
+- Super Admin command center for catalog verification and automated payouts
+- Direct wallet cashback mechanism credited at checkout
+- WhatsApp direct ordering engine (+91 6006760151)
+- Turnkey architecture launched in 7 days starting at ₹40,000`
   }
 ];
 
@@ -353,20 +371,33 @@ async function syncCaseStudies() {
   let hadError = false;
 
   for (const study of CASE_STUDIES) {
-    const { error } = await supabase
+    const payload = {
+      title: study.title,
+      slug: study.slug,
+      category: study.category,
+      image_url: study.image_url,
+      description: study.description,
+      results: study.results,
+      content: study.content,
+    };
+
+    const { data: existing } = await supabase
       .from('case_studies')
-      .upsert(
-        [{
-          title: study.title,
-          slug: study.slug,
-          category: study.category,
-          image_url: study.image_url,
-          description: study.description,
-          results: study.results,
-          content: study.content,
-        }],
-        { onConflict: 'slug' }
-      );
+      .select('id')
+      .eq('slug', study.slug)
+      .maybeSingle();
+
+    let error;
+    if (existing?.id) {
+      ({ error } = await supabase
+        .from('case_studies')
+        .update(payload)
+        .eq('id', existing.id));
+    } else {
+      ({ error } = await supabase
+        .from('case_studies')
+        .insert([payload]));
+    }
 
     if (error) {
       hadError = true;
@@ -384,19 +415,32 @@ async function syncPortfolio() {
   let hadError = false;
 
   for (const project of PORTFOLIO_PROJECTS) {
-    const { error } = await supabase
+    const payload = {
+      title: project.title,
+      slug: project.slug,
+      category: project.category,
+      image_url: project.image_url,
+      description: project.description,
+      technologies: project.technologies,
+    };
+
+    const { data: existing } = await supabase
       .from('portfolio_projects')
-      .upsert(
-        [{
-          title: project.title,
-          slug: project.slug,
-          category: project.category,
-          image_url: project.image_url,
-          description: project.description,
-          technologies: project.technologies,
-        }],
-        { onConflict: 'slug' }
-      );
+      .select('id')
+      .eq('slug', project.slug)
+      .maybeSingle();
+
+    let error;
+    if (existing?.id) {
+      ({ error } = await supabase
+        .from('portfolio_projects')
+        .update(payload)
+        .eq('id', existing.id));
+    } else {
+      ({ error } = await supabase
+        .from('portfolio_projects')
+        .insert([payload]));
+    }
 
     if (error) {
       hadError = true;
