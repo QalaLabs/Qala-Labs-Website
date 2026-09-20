@@ -152,6 +152,7 @@ const CaseStudies = () => {
                   <ProjectCard
                     key={study.id || study.slug}
                     project={study}
+                    href={`/case-studies/${study.slug}`}
                     onClick={() => navigate(`/case-studies/${study.slug}`)}
                   />
                 ))}

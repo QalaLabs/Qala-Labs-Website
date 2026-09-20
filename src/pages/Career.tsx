@@ -216,8 +216,8 @@ const jobPostingSchema = {
       "name": "Qala Labs",
       "value": job.id
     },
-    "datePosted": "2025-05-01",
-    "validThrough": "2025-12-31T23:59",
+    "datePosted": "2026-01-01",
+    "validThrough": "2026-12-31T23:59",
     "employmentType": ["FULL_TIME"],
     "hiringOrganization": {
       "@type": "Organization",

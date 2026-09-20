@@ -178,7 +178,8 @@ const PortfolioGrid = () => {
           {filteredProjects.map((project) => (
             <ProjectCard 
               key={project.id} 
-              project={project} 
+              project={project}
+              href={`/portfolio/${project.slug}`}
               onClick={() => navigate(`/portfolio/${project.slug}`)}
             />
           ))}
