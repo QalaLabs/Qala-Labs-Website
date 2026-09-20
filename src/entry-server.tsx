@@ -18,6 +18,8 @@ import CreatorCollective from './pages/CreatorCollective';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Tools from './pages/Tools';
+import ServiceFinder from './pages/ServiceFinder';
+import AIAgentFinder from './pages/AIAgentFinder';
 
 // Specific case study & portfolio pages (mostly static content)
 import KashmiriMusicCaseStudy from './pages/KashmiriMusicCaseStudy';
@@ -96,6 +98,8 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/tools" element={<Tools />} />
+                  <Route path="/service-finder" element={<ServiceFinder />} />
+                  <Route path="/ai-agent-finder" element={<AIAgentFinder />} />
                   <Route path="/quiz" element={<Quiz />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/career" element={<Career />} />
