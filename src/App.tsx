@@ -56,6 +56,7 @@ const HiAstroPortfolio = React.lazy(() => import("./pages/HiAstroPortfolio"));
 const BilluCampaignPortfolio = React.lazy(() => import("./pages/BilluCampaignPortfolio"));
 const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessPortfolio"));
 const AirborneAviationPortfolio = React.lazy(() => import("./pages/AirborneAviationPortfolio"));
+const AirborneAviationSEOCaseStudy = React.lazy(() => import("./pages/AirborneAviationSEOCaseStudy"));
 
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
@@ -95,6 +96,7 @@ const AppRoutes = () => {
             <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
             <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
             <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
+            <Route path="/case-studies/airborne-aviation-seo-aeo-geo" element={<AirborneAviationSEOCaseStudy />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 

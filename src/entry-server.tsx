@@ -26,6 +26,7 @@ import KashmiriMusicCaseStudy from './pages/KashmiriMusicCaseStudy';
 import TrotrCaseStudy from './pages/TrotrCaseStudy';
 import GaffarCaseStudy from './pages/GaffarCaseStudy';
 import NutrivendUKCaseStudy from './pages/NutrivendUKCaseStudy';
+import AirborneAviationSEOCaseStudy from './pages/AirborneAviationSEOCaseStudy';
 import AmazonAdsPortfolio from './pages/AmazonAdsPortfolio';
 import InstagramUGCPortfolio from './pages/InstagramUGCPortfolio';
 import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
@@ -77,6 +78,7 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
                   <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
                   <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
+                  <Route path="/case-studies/airborne-aviation-seo-aeo-geo" element={<AirborneAviationSEOCaseStudy />} />
                   <Route path="/case-studies" element={<CaseStudies />} />
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
