@@ -44,7 +44,7 @@ const ImageAsciiArt: React.FC<ImageAsciiArtProps> = ({
   className,
   width: fixedWidth,
   height: fixedHeight,
-  gridCols = 130,
+  gridCols: fixedGridCols,
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = React.useState({ width: fixedWidth ?? 0, height: fixedHeight ?? 0 });
@@ -62,6 +62,9 @@ const ImageAsciiArt: React.FC<ImageAsciiArtProps> = ({
 
   const width = fixedWidth ?? measured.width;
   const height = fixedHeight ?? measured.height;
+  // Scale character density with the container's width so mobile stays light
+  // and large desktop banners stay detailed, unless an explicit value is given.
+  const gridCols = fixedGridCols ?? Math.round(Math.min(220, Math.max(60, width / 6)));
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const particlesRef = React.useRef<Particle[]>([]);
   const mouseRef = React.useRef<{ x: number; y: number; active: boolean }>({
@@ -88,14 +91,30 @@ const ImageAsciiArt: React.FC<ImageAsciiArtProps> = ({
     img.src = sourceImageUrl;
     img.onload = () => {
       if (cancelled) return;
-      const rows = Math.max(1, Math.round((gridCols * height) / width));
+      const rows = Math.max(1, Math.min(260, Math.round((gridCols * height) / width)));
+
+      // Crop the source like CSS `object-fit: cover` so tall/narrow (mobile)
+      // containers don't stretch the photo — they just see a cropped slice.
+      const containerAspect = width / height;
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      let sx = 0;
+      let sy = 0;
+      let sWidth = img.naturalWidth;
+      let sHeight = img.naturalHeight;
+      if (imgAspect > containerAspect) {
+        sWidth = img.naturalHeight * containerAspect;
+        sx = (img.naturalWidth - sWidth) / 2;
+      } else {
+        sHeight = img.naturalWidth / containerAspect;
+        sy = (img.naturalHeight - sHeight) / 2;
+      }
 
       const sampleCanvas = document.createElement("canvas");
       sampleCanvas.width = gridCols;
       sampleCanvas.height = rows;
       const sctx = sampleCanvas.getContext("2d");
       if (!sctx) return;
-      sctx.drawImage(img, 0, 0, gridCols, rows);
+      sctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, gridCols, rows);
       const data = sctx.getImageData(0, 0, gridCols, rows).data;
 
       const cellW = width / gridCols;

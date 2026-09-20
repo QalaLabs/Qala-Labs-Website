@@ -63,12 +63,14 @@ const HomeHero = () => {
         <AmbientParticleField />
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="hidden lg:block absolute inset-0 opacity-90 pointer-events-auto">
-          <ImageAsciiArt gridCols={160} />
+        <div className="absolute inset-0 opacity-70 lg:opacity-90 pointer-events-auto">
+          <ImageAsciiArt />
         </div>
-        {/* Legibility scrim so the headline/copy stay readable over the art */}
-        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#06070D] via-[#06070D]/85 to-[#06070D]/10" />
+        {/* Legibility scrim: near-solid veil on mobile (content spans full width there),
+            a left-to-right reveal at desktop (content sits in the left column only) */}
+        <div className="absolute inset-0 bg-[#06070D]/80 lg:bg-gradient-to-r lg:from-[#06070D] lg:via-[#06070D]/80 lg:to-[#06070D]/10" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#06070D] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#06070D] to-transparent" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
