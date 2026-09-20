@@ -13,6 +13,7 @@ import GaffarLogo from '@/assets/gaffar-new-logo.webp';
 import NutrivendThumbnail from '@/assets/nutrivend/training-boxers-gym.jpg?w=900&format=webp&quality=82';
 import TrotrFeatured from '@/assets/trotr-featured.jpeg?w=900&format=webp&quality=82';
 import KashmirFeatured from '@/assets/kashmir-street-musician.jpg?w=900&format=webp&quality=82';
+import InteractiveRoasScrubber from '@/components/portfolio/InteractiveRoasScrubber';
 
 const CLIENT_LOGOS = [
   { src: "/clients/special-olympics.webp", alt: "Special Olympics" },
@@ -205,6 +206,9 @@ const CaseStudySnapshots = () => {
               ))}
             </div>
           ) : null}
+
+          {/* Interactive Unit Economics Scrubber */}
+          <InteractiveRoasScrubber />
         </div>
       </section>
     </>

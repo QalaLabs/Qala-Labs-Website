@@ -78,7 +78,7 @@ const StickyCTA = () => {
       }
 
       // 2. Trigger unified backend lead endpoint
-      const res = await fetch('/api/lead', {
+      const res = await fetch('/api/lead.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

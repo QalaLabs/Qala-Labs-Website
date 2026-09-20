@@ -11,7 +11,7 @@ import { showSuccess, showError } from '@/utils/toast';
  * Lead capture endpoint URL.
  * Points to the unified lead engine endpoint (POST /api/lead).
  */
-export const LEAD_ENDPOINT = '/api/lead';
+export const LEAD_ENDPOINT = '/api/lead.php';
 
 export interface ClosingCTAProps {
   title?: string;
