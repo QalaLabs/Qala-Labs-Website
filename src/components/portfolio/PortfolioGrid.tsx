@@ -96,6 +96,15 @@ const PortfolioGrid = () => {
       result: "Enterprise B2B Launch Coverage",
       image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
+    },
+    {
+      id: 'airborne-aviation-featured',
+      title: "Airborne Aviation: Pilot Academy Website",
+      slug: "airborne-aviation-academy",
+      category: "Web Development",
+      result: "Course Catalog + Alumni Route Map",
+      image: "/portfolio/airborne-aviation/hero.jpg",
+      isFeatured: true
     }
   ];
 
