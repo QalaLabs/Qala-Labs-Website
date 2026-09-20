@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ImageAsciiArt from './ImageAsciiArt';
+import TiltCard from '@/components/ui/tilt-card';
+import RevenueEngine3D from '@/components/3d/RevenueEngine3D';
+import RevenueEngineGyroscope from '@/components/three/RevenueEngineGyroscope';
+import AmbientParticleField from '@/components/three/AmbientParticleField';
 
 const useLiveTicker = (intervalSeconds = 1) => {
   const [secondsAgo, setSecondsAgo] = React.useState(0);
@@ -45,6 +49,7 @@ const LiveTicker = React.memo(() => {
 });
 
 const HomeHero = () => {
+  const [engineMode, setEngineMode] = React.useState<'gyro' | 'lattice'>('gyro');
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -55,6 +60,7 @@ const HomeHero = () => {
       aria-labelledby="home-hero-heading"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
+        <AmbientParticleField />
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
         <div className="hidden lg:block absolute inset-0 opacity-90 pointer-events-auto">
@@ -157,68 +163,115 @@ const HomeHero = () => {
             </motion.div>
           </div>
 
-          {/* Right column — live dashboard panel */}
+          {/* Right column — live dashboard panel with 3D Revenue Engine & Tilt */}
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8 shadow-2xl">
-              <div className="flex items-center justify-between mb-8">
-                <span className="font-mono text-xs text-slate-400 tracking-wide">growth.forecast</span>
-                <span className="flex items-center gap-3">
-                  <LiveTicker />
-                  <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
-                    <span className="relative flex h-2 w-2">
-                      {!prefersReducedMotion && (
-                        <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      )}
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                    </span>
-                    Live
+            <TiltCard maxTilt={8} maxGlare={0.22} scale={1.015} className="w-full rounded-2xl">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8 shadow-2xl transition-colors duration-300 hover:border-blue-500/30">
+                <div className="flex items-center justify-between mb-5">
+                  <span className="font-mono text-xs text-slate-400 tracking-wide flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-blue-500" />
+                    growth.forecast // core.engine
                   </span>
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-3 mb-8">
-                {statTiles.map((stat, i) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                    className="rounded-xl border border-white/10 bg-white/5 p-4"
-                  >
-                    <div className="text-2xl md:text-3xl font-black text-white mb-1">{stat.value}</div>
-                    <div className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{stat.label}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">{stat.sub}</div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Revenue trend</span>
-                  <span className="text-[10px] text-emerald-400 font-bold">↑ trending up</span>
+                  <span className="flex items-center gap-3">
+                    <LiveTicker />
+                    <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                      <span className="relative flex h-2 w-2">
+                        {!prefersReducedMotion && (
+                          <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        )}
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                      </span>
+                      Live
+                    </span>
+                  </span>
                 </div>
-                <div className="flex items-end gap-2 h-24">
-                  {chartBars.map((h, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ height: 0 }}
-                      animate={{ height: `${h}%` }}
-                      transition={{ duration: 0.6, delay: 0.7 + i * 0.06, ease: "easeOut" }}
-                      className={`flex-1 rounded-t-sm ${
-                        i === chartBars.length - 1
-                          ? 'bg-gradient-to-t from-blue-500 to-cyan-400'
-                          : 'bg-white/10'
-                      }`}
+
+                {/* 3D Web Experience: Procedural Qala Revenue Operating System Core */}
+                <div style={{ transform: 'translateZ(30px)' }} className="mb-6">
+                  <div className="flex items-center justify-between mb-2 px-1">
+                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+                      3D Core Mode
+                    </span>
+                    <div className="flex items-center gap-1 bg-white/5 p-0.5 rounded-lg border border-white/10 text-[10px] font-mono">
+                      <button
+                        onClick={() => setEngineMode('gyro')}
+                        className={`px-2 py-0.5 rounded transition-all ${
+                          engineMode === 'gyro'
+                            ? 'bg-blue-600 text-white font-bold shadow'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Gyroscope
+                      </button>
+                      <button
+                        onClick={() => setEngineMode('lattice')}
+                        className={`px-2 py-0.5 rounded transition-all ${
+                          engineMode === 'lattice'
+                            ? 'bg-blue-600 text-white font-bold shadow'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        Lattice
+                      </button>
+                    </div>
+                  </div>
+
+                  {engineMode === 'gyro' ? (
+                    <div className="h-[210px] w-full rounded-2xl bg-gradient-to-b from-blue-950/20 via-[#06070D]/90 to-[#06070D] border border-blue-500/20 overflow-hidden relative shadow-inner flex items-center justify-center">
+                      <RevenueEngineGyroscope size={260} className="w-full h-full" />
+                    </div>
+                  ) : (
+                    <RevenueEngine3D
+                      height="210px"
+                      className="bg-gradient-to-b from-blue-950/30 to-[#06070D]/80 border border-blue-500/20 shadow-inner"
                     />
+                  )}
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mb-6" style={{ transform: 'translateZ(20px)' }}>
+                  {statTiles.map((stat, i) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                      className="rounded-xl border border-white/10 bg-white/5 p-3.5 hover:border-blue-500/30 hover:bg-white/[0.07] transition-all"
+                    >
+                      <div className="text-xl md:text-2xl font-black text-white mb-1">{stat.value}</div>
+                      <div className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{stat.label}</div>
+                      <div className="text-[10px] text-slate-500 mt-0.5">{stat.sub}</div>
+                    </motion.div>
                   ))}
                 </div>
+
+                <div style={{ transform: 'translateZ(15px)' }}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Revenue trend</span>
+                    <span className="text-[10px] text-emerald-400 font-bold">↑ trending up</span>
+                  </div>
+                  <div className="flex items-end gap-2 h-20">
+                    {chartBars.map((h, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ height: 0 }}
+                        animate={{ height: `${h}%` }}
+                        transition={{ duration: 0.6, delay: 0.7 + i * 0.06, ease: "easeOut" }}
+                        className={`flex-1 rounded-t-sm ${
+                          i === chartBars.length - 1
+                            ? 'bg-gradient-to-t from-blue-500 to-cyan-400 shadow-[0_0_12px_rgba(56,189,248,0.5)]'
+                            : 'bg-white/10 hover:bg-white/20'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>

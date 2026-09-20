@@ -29,6 +29,7 @@ const Contact = React.lazy(() => import("./pages/Contact"));
 const Tools = React.lazy(() => import("./pages/Tools"));
 const Quiz = React.lazy(() => import("./pages/Quiz"));
 const ServiceFinder = React.lazy(() => import("./pages/ServiceFinder"));
+const AIAgentFinder = React.lazy(() => import("./pages/AIAgentFinder"));
 const Login = React.lazy(() => import("./pages/Login"));
 const About = React.lazy(() => import("./pages/About"));
 const Career = React.lazy(() => import("./pages/Career"));
@@ -58,6 +59,7 @@ const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessP
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
 const EnterpriseAIAutomation = React.lazy(() => import("./pages/EnterpriseAIAutomation"));
+const QManager = React.lazy(() => import("./pages/QManager"));
 const Industries = React.lazy(() => import("./pages/Industries"));
 const AIAudit = React.lazy(() => import("./pages/AIAudit"));
 const Results = React.lazy(() => import("./pages/Results"));
@@ -73,7 +75,7 @@ const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0 },
-  transition: { duration: 0.15, ease: "easeOut" },
+  transition: { duration: 0.15, ease: "easeOut" as const },
 };
 
 const AppRoutes = () => {
@@ -118,6 +120,7 @@ const AppRoutes = () => {
             <Route path="/tools" element={<Tools />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/service-finder" element={<ServiceFinder />} />
+            <Route path="/ai-agent-finder" element={<AIAgentFinder />} />
             <Route path="/login" element={<Login />} />
             <Route path="/career" element={<Career />} />
             <Route path="/agency-network" element={<AgencyNetwork />} />
@@ -126,6 +129,7 @@ const AppRoutes = () => {
             <Route path="/about" element={<About />} />
             <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
             <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
+            <Route path="/q-manager" element={<QManager />} />
             <Route path="/industries" element={<Industries />} />
             <Route path="/ai-audit" element={<AIAudit />} />
             <Route path="/results" element={<Results />} />

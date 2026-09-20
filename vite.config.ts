@@ -84,6 +84,8 @@ export default defineConfig(({ isSsrBuild }) => ({
           'vendor-charts': ['recharts'],
           // Supabase client — only core SDK
           'vendor-supabase': ['@supabase/supabase-js'],
+          // 3D WebGL library
+          'vendor-three': ['three'],
           // Utility helpers
           'vendor-utils': ['date-fns', 'clsx', 'tailwind-merge', 'class-variance-authority', 'zod'],
         }
