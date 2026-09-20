@@ -56,6 +56,7 @@ const HiAstroPortfolio = React.lazy(() => import("./pages/HiAstroPortfolio"));
 const BilluCampaignPortfolio = React.lazy(() => import("./pages/BilluCampaignPortfolio"));
 const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessPortfolio"));
 const AirborneAviationPortfolio = React.lazy(() => import("./pages/AirborneAviationPortfolio"));
+const ShaktiBhogPortfolio = React.lazy(() => import("./pages/ShaktiBhogPortfolio"));
 
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
@@ -110,6 +111,7 @@ const AppRoutes = () => {
             <Route path="/portfolio/billu-salon-social-content" element={<BilluCampaignPortfolio />} />
             <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
             <Route path="/portfolio/airborne-aviation-academy" element={<AirborneAviationPortfolio />} />
+            <Route path="/portfolio/shakti-bhog-ugc-content" element={<ShaktiBhogPortfolio />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 
