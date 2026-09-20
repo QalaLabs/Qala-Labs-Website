@@ -52,7 +52,15 @@ const AIChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const GEMINI_API_KEY = 'AIzaSyD24qdHytX23Ok6rSsk1DrG5jiKQ9wvyyM';
+      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+      if (!GEMINI_API_KEY) {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: "I'd love to help you build a personalized growth roadmap! You can connect with our strategy team directly by booking a free audit at /contact or messaging us on WhatsApp."
+        }]);
+        setIsLoading(false);
+        return;
+      }
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
       // Format history for Gemini (Gemini uses 'user' and 'model' roles)

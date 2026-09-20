@@ -1,0 +1,33 @@
+# Qala Labs
+
+> Qala Labs is India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility (GEO/AEO) to build brands that scale.
+
+## Core Growth Services
+
+- [Services Overview](https://qalalabs.com/services): Comprehensive growth architecture across paid ads, creative production, and AI systems.
+- [Performance Marketing](https://qalalabs.com/services/performance): Full-funnel Meta, Google, and Amazon ad management engineered for high ROAS and scalable CAC.
+- [AI Automation](https://qalalabs.com/services/ai-automation): Enterprise operational automation, custom agents, and automated lead capture workflows.
+- [AI Search Visibility & GEO](https://qalalabs.com/ai-search-visibility): Optimizing brands for Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO) across ChatGPT, Perplexity, and Gemini.
+- [AI Creative Production](https://qalalabs.com/services/creative): Scroll-stopping UGC, viral ad angles, and AI-accelerated video production.
+- [Web Development](https://qalalabs.com/services/web-dev): High-converting Headless and Shopify storefronts optimized for speed and conversion rate.
+- [CRO & Retention](https://qalalabs.com/services/cro): Conversion rate optimization, checkout funnel engineering, and LTV expansion.
+- [Analytics & Data](https://qalalabs.com/services/data): Server-side tracking (CAPI), multi-touch attribution, and profitability dashboards.
+
+## Verified Case Studies
+
+- [Trotr Spain Pivot](https://qalalabs.com/case-studies/Trotr-Meta-Lead-Generation): 28x ROAS and ₹14L revenue through high-converting Meta lead generation.
+- [Nutrivend UK](https://qalalabs.com/case-studies/Meta-Lead-Generation-Ad-UK-Market): B2B international market validation and automated lead capture.
+- [Gaffar India Rebrand](https://qalalabs.com/case-studies/gaffar-india-rebrand): Complete DTC marketplace positioning and identity re-engineering.
+- [Kashmiri Sound Movement](https://qalalabs.com/case-studies/kashmiri-movement): Zero-ad-spend cultural organic movement generating 25k subscribers.
+
+## Free Growth Tools & Calculators
+
+- [ROAS & Growth Calculators](https://qalalabs.com/tools): DTC profitability estimator, LTV calculator, and ecommerce cost analyzer.
+- [Service Diagnostic Finder](https://qalalabs.com/service-finder): Interactive tool to diagnose your current growth bottleneck and recommended agency service.
+- [Scale Quiz](https://qalalabs.com/quiz): 2-minute assessment evaluating your brand's readiness for 8-figure scale.
+
+## Contact & Engagements
+
+- [Book Free Growth Audit](https://qalalabs.com/contact): Request a 15-minute diagnostic audit and 90-day scale roadmap.
+- Email: hello@qalalabs.com
+- Phone: +91 60067 60151

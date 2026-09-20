@@ -20,6 +20,14 @@ import Terms from './pages/Terms';
 import Tools from './pages/Tools';
 import ServiceFinder from './pages/ServiceFinder';
 import AIAgentFinder from './pages/AIAgentFinder';
+import AISearchVisibility from './pages/AISearchVisibility';
+import EnterpriseAIAutomation from './pages/EnterpriseAIAutomation';
+import QManager from './pages/QManager';
+import Industries from './pages/Industries';
+import AIAudit from './pages/AIAudit';
+import Results from './pages/Results';
+import BookCall from './pages/BookCall';
+import ThankYou from './pages/ThankYou';
 
 // Specific case study & portfolio pages (mostly static content)
 import KashmiriMusicCaseStudy from './pages/KashmiriMusicCaseStudy';
@@ -28,6 +36,7 @@ import GaffarCaseStudy from './pages/GaffarCaseStudy';
 import NutrivendUKCaseStudy from './pages/NutrivendUKCaseStudy';
 import AirborneAviationSEOCaseStudy from './pages/AirborneAviationSEOCaseStudy';
 import AmazonAdsPortfolio from './pages/AmazonAdsPortfolio';
+import StreetplayrPortfolio from './pages/StreetplayrPortfolio';
 import InstagramUGCPortfolio from './pages/InstagramUGCPortfolio';
 import CSKInfluencerPortfolio from './pages/CSKInfluencerPortfolio';
 import CapitalKeysPortfolio from './pages/CapitalKeysPortfolio';
@@ -38,6 +47,8 @@ import HiAstroPortfolio from './pages/HiAstroPortfolio';
 import BilluCampaignPortfolio from './pages/BilluCampaignPortfolio';
 import AirtelBusinessPortfolio from './pages/AirtelBusinessPortfolio';
 import AirborneAviationPortfolio from './pages/AirborneAviationPortfolio';
+import GaffarIndiaPortfolio from './pages/GaffarIndiaPortfolio';
+import ShaktiBhogPortfolio from './pages/ShaktiBhogPortfolio';
 
 // Homepage — direct import so SSR renders the loading state with static meta tags
 import Index from './pages/Index';
@@ -83,6 +94,7 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
                   <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+                  <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
                   <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
                   <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
@@ -92,6 +104,8 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/portfolio/billu-salon-social-content" element={<BilluCampaignPortfolio />} />
                   <Route path="/portfolio/airtel-business-exhibition" element={<AirtelBusinessPortfolio />} />
                   <Route path="/portfolio/airborne-aviation-academy" element={<AirborneAviationPortfolio />} />
+                  <Route path="/portfolio/gaffar-india-marketplace" element={<GaffarIndiaPortfolio />} />
+                  <Route path="/portfolio/shakti-bhog-ugc-content" element={<ShaktiBhogPortfolio />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
 
@@ -111,6 +125,14 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/creator-collective" element={<CreatorCollective />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
+                  <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
+                  <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
+                  <Route path="/q-manager" element={<QManager />} />
+                  <Route path="/industries" element={<Industries />} />
+                  <Route path="/ai-audit" element={<AIAudit />} />
+                  <Route path="/results" element={<Results />} />
+                  <Route path="/book-call" element={<BookCall />} />
+                  <Route path="/thank-you" element={<ThankYou />} />
                   <Route path="/p/:slug" element={<DynamicPage />} />
 
                   {/* /login and /admin/* are intentionally absent — served as SPA shell by Express */}

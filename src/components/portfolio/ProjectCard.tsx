@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Play, ArrowUpRight } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
 interface ProjectCardProps {
   project: any;
-  onClick: () => void;
+  onClick?: () => void;
+  href?: string;
   featured?: boolean;
 }
 
-const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) => {
+const ProjectCard = ({ project, onClick, href, featured = false }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -26,7 +28,7 @@ const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) =
     if (videoRef.current) videoRef.current.currentTime = 0;
   };
 
-  return (
+  const cardContent = (
     <motion.div
       layout
       initial={{ opacity: 0, scale: 0.9 }}
@@ -36,10 +38,10 @@ const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) =
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
-      role="button"
-      tabIndex={0}
-      aria-label={`View ${project.title}`}
+      onKeyDown={(e) => !href && (e.key === 'Enter' || e.key === ' ') && onClick?.()}
+      role={href ? undefined : "button"}
+      tabIndex={href ? undefined : 0}
+      aria-label={href ? undefined : `View ${project.title}`}
       className={`group relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer border focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-600 focus-visible:ring-offset-2 h-full ${
         featured ? 'border-blue-600/30 ring-1 ring-blue-600/20' : 'border-slate-100'
       }`}
@@ -54,18 +56,20 @@ const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) =
           loading="lazy"
           className={`w-full h-full object-cover transition-opacity duration-500 ${project.imageClassName || ''} ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          preload="none"
-          width="400"
-          height="500"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <source src={project.video} type="video/mp4" />
-        </video>
+        {project.video && (
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="none"
+            width="400"
+            height="500"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <source src={project.video} type="video/mp4" />
+          </video>
+        )}
 
         {/* Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
@@ -104,6 +108,16 @@ const ProjectCard = ({ project, onClick, featured = false }: ProjectCardProps) =
       </div>
     </motion.div>
   );
+
+  if (href) {
+    return (
+      <Link to={href} aria-label={`View case study: ${project.title}`} className="block h-full outline-none focus-visible:ring-4 focus-visible:ring-blue-600 rounded-[2.5rem]">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 
 export default ProjectCard;

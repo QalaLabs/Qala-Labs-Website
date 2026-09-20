@@ -18,7 +18,9 @@ interface SEOProps {
 
 const SEO = ({ title, description, image, article, noIndex, jsonLd, breadcrumbs }: SEOProps) => {
   const location = useLocation();
-  const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+  const seoTitle = title
+    ? (title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`)
+    : siteConfig.name;
   const seoDescription = description || siteConfig.description;
   
   // Ensure the image URL is absolute for social crawlers
