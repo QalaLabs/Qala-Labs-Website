@@ -165,9 +165,21 @@ const CaseStudySnapshots = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-8">
+          {/* Mobile Swipe Hint */}
+          <div className="md:hidden flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-bold mb-4">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              Swipe to explore playbooks →
+            </span>
+            <span>{FEATURED_STUDIES.length} featured</span>
+          </div>
+
+          <div className="flex overflow-x-auto snap-x snap-mandatory pb-6 md:pb-0 md:grid md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-4 md:gap-8 -mx-4 px-4 md:mx-0 md:px-0">
             {FEATURED_STUDIES.map((study, idx) => (
-              <div key={study.id} className={idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}>
+              <div 
+                key={study.id} 
+                className={`min-w-[85vw] sm:min-w-[340px] snap-center shrink-0 md:min-w-0 md:shrink ${idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}
+              >
                 <ProjectCard
                   project={study}
                   featured={idx === 0}
@@ -178,17 +190,18 @@ const CaseStudySnapshots = () => {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mt-8">
               {Array.from({ length: 4 }).map((_, i) => <CaseStudyCardSkeleton key={i} />)}
             </div>
           ) : additionalStudies.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+            <div className="flex overflow-x-auto snap-x snap-mandatory pb-4 md:pb-0 md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mt-8 -mx-4 px-4 md:mx-0 md:px-0">
               {additionalStudies.map((study) => (
-                <ProjectCard
-                  key={study.id || study.slug}
-                  project={study}
-                  onClick={() => navigate(`/case-studies/${study.slug}`)}
-                />
+                <div key={study.id || study.slug} className="min-w-[85vw] sm:min-w-[320px] snap-center shrink-0 md:min-w-0 md:shrink">
+                  <ProjectCard
+                    project={study}
+                    onClick={() => navigate(`/case-studies/${study.slug}`)}
+                  />
+                </div>
               ))}
             </div>
           ) : null}

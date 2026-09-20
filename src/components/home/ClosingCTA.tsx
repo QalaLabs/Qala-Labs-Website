@@ -9,10 +9,9 @@ import { showSuccess, showError } from '@/utils/toast';
 
 /**
  * Lead capture endpoint URL.
- * Points to the PHP lead endpoint (POST /api/lead.php).
- * Coordinate with Prompt 6 or update this constant if the route changes.
+ * Points to the unified lead engine endpoint (POST /api/lead).
  */
-export const LEAD_ENDPOINT = '/api/lead.php';
+export const LEAD_ENDPOINT = '/api/lead';
 
 export interface ClosingCTAProps {
   title?: string;
@@ -65,9 +64,12 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
         },
         body: JSON.stringify({
           email: trimmedEmail,
-          source: 'closing_cta',
-          page_url: typeof window !== 'undefined' ? window.location.href : '',
-          timestamp: new Date().toISOString()
+          tool_used: 'closing_cta',
+          data: {
+            source: 'closing_cta',
+            page_url: typeof window !== 'undefined' ? window.location.href : '',
+            timestamp: new Date().toISOString()
+          }
         })
       });
 
@@ -227,18 +229,30 @@ const ClosingCTA: React.FC<ClosingCTAProps> = ({
             )}
           </div>
 
-          {/* Secondary Case Studies Path */}
-          <div className="relative z-10 mt-10 pt-8 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
-            <span className="text-slate-500 dark:text-slate-400 font-medium">
-              Want to see real growth playbooks first?
-            </span>
-            <Link 
-              to="/case-studies" 
-              className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center gap-1 hover:underline"
+          {/* Secondary Paths: WhatsApp + Case Studies */}
+          <div className="relative z-10 mt-10 pt-8 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+            <a 
+              href="https://wa.me/916006760151?text=Hi%20Qala%20Labs%2C%20I'd%20like%20to%20request%20a%20DTC%20growth%20audit%20for%20my%20brand."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 transition-colors"
             >
-              <span>{secondaryCtaText}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Fast Track: Chat with Growth Lead on WhatsApp →</span>
+            </a>
+
+            <div className="flex items-center gap-2">
+              <span className="text-slate-500 dark:text-slate-400 font-medium">
+                Want proof first?
+              </span>
+              <Link 
+                to="/case-studies" 
+                className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center gap-1 hover:underline"
+              >
+                <span>{secondaryCtaText}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>

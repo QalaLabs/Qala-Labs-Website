@@ -56,9 +56,9 @@ const Contact = () => {
       setLoading(false);
       showError("Something went wrong. Please try again.");
     } else {
-      // 2. Trigger notification email via PHP endpoint
+      // 2. Trigger notification email via unified lead endpoint
       try {
-        const res = await fetch('/api/lead.php', {
+        const res = await fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -69,11 +69,9 @@ const Contact = () => {
         });
         if (!res.ok) {
           console.error("Email trigger failed:", await res.text());
-          showError("Request received, but the confirmation email couldn't be sent.");
         }
       } catch (smtpError) {
         console.error("Email trigger failed:", smtpError);
-        showError("Request received, but the confirmation email couldn't be sent.");
       }
 
       setLoading(false);

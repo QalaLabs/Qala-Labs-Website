@@ -149,7 +149,7 @@ const AIChatWidget = () => {
               initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="fixed bottom-48 right-4 sm:right-6 z-[100] w-[90vw] md:w-[400px] h-[60vh] sm:h-[600px] max-h-[600px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
+              className="fixed bottom-24 md:bottom-28 right-4 sm:right-6 z-[100] w-[calc(100vw-32px)] sm:w-[400px] h-[65vh] sm:h-[600px] max-h-[600px] bg-white rounded-[2rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
             >
             <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex items-center justify-between">
               <div className="flex items-center gap-3">

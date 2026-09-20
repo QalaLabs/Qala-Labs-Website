@@ -123,7 +123,7 @@ const AIAudit = () => {
       if (error) throw error;
 
       try {
-        const res = await fetch('/api/lead.php', {
+        const res = await fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -138,11 +138,9 @@ const AIAudit = () => {
         });
         if (!res.ok) {
           console.error("Email trigger failed:", await res.text());
-          showError("Audit request received, but the confirmation email couldn't be sent.");
         }
       } catch (err) {
         console.error("Email trigger failed:", err);
-        showError("Audit request received, but the confirmation email couldn't be sent.");
       }
 
       setSubmitted(true);
