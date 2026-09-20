@@ -31,7 +31,7 @@ const WhatsAppButton = () => {
           exit={{ scale: 0, opacity: 0 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="hidden md:flex fixed bottom-28 left-4 sm:left-6 z-[100] items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] text-white rounded-full shadow-2xl hover:bg-[#20ba5a] transition-colors"
+          className="flex fixed bottom-28 left-4 sm:left-6 z-[100] items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] text-white rounded-full shadow-2xl hover:bg-[#20ba5a] transition-colors"
           aria-label="Chat with Qala Labs on WhatsApp"
         >
           <MessageCircle className="w-8 h-8 fill-current" aria-hidden="true" />

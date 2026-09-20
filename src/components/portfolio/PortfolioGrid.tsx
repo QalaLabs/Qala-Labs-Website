@@ -105,6 +105,15 @@ const PortfolioGrid = () => {
       result: "Course Catalog + Alumni Route Map",
       image: "/portfolio/airborne-aviation/hero.jpg",
       isFeatured: true
+    },
+    {
+      id: 'gaffar-india-featured',
+      title: "Gaffar India: Wholesale & Retail Marketplace",
+      slug: "gaffar-india-marketplace",
+      category: "Web Development",
+      result: "Multi-Vendor Marketplace • 1,000+ SKUs",
+      image: "/portfolio/gaffar-india/hero-thumb.jpg",
+      isFeatured: true
     }
   ];
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
@@ -87,9 +87,11 @@ const industries = [
 ];
 
 const AIAudit = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -111,6 +113,12 @@ const AIAudit = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (honeypot.trim()) {
+      setSubmitted(true);
+      return;
+    }
+
     if (!formData.name.trim() || !formData.email.trim() || !formData.website.trim()) {
       showError('Please fill in your name, email, and website.');
       return;
@@ -151,11 +159,26 @@ const AIAudit = () => {
         console.error('Email trigger failed:', err);
       }
 
-      setSubmitted(true);
-      showSuccess("Audit request confirmed! We'll deliver your report within 48 hours.");
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'ai_audit_form_submitted', { email: formData.email });
+      // Conversion Pixel Tracking
+      if (typeof window !== 'undefined') {
+        if ((window as any).fbq) {
+          (window as any).fbq('track', 'Lead');
+        }
+        if ((window as any).gtag) {
+          (window as any).gtag('event', 'generate_lead', {
+            event_category: 'lead_generation',
+            event_label: 'ai_audit_form',
+            email: formData.email.trim()
+          });
+        }
       }
+
+      setSubmitted(true);
+      showSuccess("Audit request confirmed! Redirecting to reserve your 15-minute strategy session...");
+
+      setTimeout(() => {
+        navigate(`/book-call?name=${encodeURIComponent(formData.name.trim())}&email=${encodeURIComponent(formData.email.trim())}`);
+      }, 500);
     } catch {
       showError('Something went wrong. Please try again or reach out on WhatsApp.');
     } finally {
@@ -373,6 +396,17 @@ const AIAudit = () => {
                       </form>
                     ) : (
                       <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Honeypot field for bot protection */}
+                        <input
+                          type="text"
+                          name="b_url"
+                          value={honeypot}
+                          onChange={(e) => setHoneypot(e.target.value)}
+                          tabIndex={-1}
+                          autoComplete="off"
+                          style={{ display: 'none' }}
+                          aria-hidden="true"
+                        />
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <Label htmlFor="audit-name" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">

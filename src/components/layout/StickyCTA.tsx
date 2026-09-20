@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Loader2, CheckCircle2, ChevronUp, MessageCircle, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,7 @@ const budgetOptions = [
 const WHATSAPP_URL = "https://wa.me/916006760151?text=Hi%20Qala%20Labs%2C%20I'm%20interested%20in%20scaling%20my%20DTC%20brand.%20Let's%20connect%20for%20a%20growth%20audit.";
 
 const StickyCTA = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,15 @@ const StickyCTA = () => {
   });
 
   useEffect(() => {
-    const handleScroll = () => setIsVisible(window.scrollY > 300);
+    const handleScroll = () => {
+      // Show only after scrolling past 300px
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -51,7 +61,7 @@ const StickyCTA = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email.trim() || !formData.phone.trim()) {
-      showError("Please provide your email and WhatsApp number.");
+      showError("Please provide both email and phone number.");
       return;
     }
 
@@ -94,12 +104,13 @@ const StickyCTA = () => {
 
       setLoading(false);
       setSuccess(true);
-      showSuccess("Strategy request received! Check your inbox.");
+      showSuccess("Strategy request received! Redirecting to calendar...");
       setTimeout(() => {
         setIsOpen(false);
         setSuccess(false);
         setFormData({ email: '', phone: '', service: 'Performance Media', budget: '₹5L - ₹15L' });
-      }, 3000);
+        navigate('/book-call');
+      }, 800);
     } catch (err: any) {
       console.error("Lead submission error:", err);
       setLoading(false);
@@ -198,10 +209,20 @@ const StickyCTA = () => {
                     <div className="w-16 h-16 bg-green-100 dark:bg-green-950/60 rounded-full flex items-center justify-center mx-auto mb-5 text-green-600">
                       <CheckCircle2 className="w-10 h-10" />
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Strategy Incoming!</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm">
-                      Our growth engineering team is preparing your custom teardown. Check your WhatsApp & Email within 24 hours.
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">Strategy Captured!</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">
+                      Redirecting to schedule your 30-minute growth diagnostic...
                     </p>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(false);
+                        navigate('/book-call');
+                      }}
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs inline-flex items-center gap-1.5"
+                    >
+                      <span>Pick Time Slot Now</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Button>
                   </div>
                 ) : (
                   <>
