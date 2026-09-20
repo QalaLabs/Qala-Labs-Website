@@ -44,6 +44,7 @@ const Navbar = () => {
     { name: 'Influencer Marketing', href: '/services/influencer-marketing', desc: 'Creator sourcing to tracking' },
     { name: 'Free AI Audit', href: '/ai-audit', desc: '48-hr personalised report' },
     { name: 'Growth Tools', href: '/tools', desc: 'ROI, LTV & scale calculators' },
+    { name: 'AI Agent Finder', href: '/ai-agent-finder', desc: 'Which AI agent do you need?' },
     { name: 'View All Services →', href: '/services', desc: 'Browse all 19 services' },
   ];
 
