@@ -62,6 +62,16 @@ const CaseStudies = () => {
       image: KashmirFeatured,
       imageClassName: "object-center",
       imageAlt: "Kashmiri music organic growth case study thumbnail showing a traditional street musician"
+    },
+    {
+      id: 'airborne-aviation-seo-featured',
+      title: "Airborne Aviation: SEO, AEO & GEO",
+      slug: "airborne-aviation-seo-aeo-geo",
+      category: "SEO, AEO & GEO",
+      result: "26.3K Impressions • Position 13.6 → 10.6",
+      image: "/portfolio/airborne-aviation/hero.jpg",
+      imageClassName: "object-center",
+      imageAlt: "Airborne Aviation Academy SEO, AEO, and GEO case study thumbnail showing Search Console performance"
     }
   ];
 
