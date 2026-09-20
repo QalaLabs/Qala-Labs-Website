@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import InteractiveAsciiPhoenix from './InteractiveAsciiPhoenix';
 import TiltCard from '@/components/ui/tilt-card';
 import RevenueEngine3D from '@/components/3d/RevenueEngine3D';
+import RevenueEngineGyroscope from '@/components/three/RevenueEngineGyroscope';
 import AmbientParticleField from '@/components/three/AmbientParticleField';
 
 const useLiveTicker = (intervalSeconds = 1) => {

@@ -73,7 +73,7 @@ const pageTransition = {
   initial: { opacity: 0, y: 6 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0 },
-  transition: { duration: 0.15, ease: "easeOut" },
+  transition: { duration: 0.15, ease: "easeOut" as const },
 };
 
 const AppRoutes = () => {
