@@ -37,7 +37,7 @@ const PortfolioGrid = () => {
     {
       id: 'amazon-ads-featured',
       title: "Amazon Ads: Performance Scaling",
-      slug: "Amazon-ads",
+      slug: "amazon-ads",
       category: "Performance Marketing",
       result: "11.2x ROAS • ₹2.7L Sales",
       image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
@@ -55,7 +55,7 @@ const PortfolioGrid = () => {
     {
       id: 'instagram-ugc-featured',
       title: "Instagram UGC: Style Meets Real Life",
-      slug: "Instagram-user-generated-content",
+      slug: "instagram-user-generated-content",
       category: "Content Creation",
       result: "Relatability Converts Better",
       image: "/ugc-hero.jpg",
@@ -64,7 +64,7 @@ const PortfolioGrid = () => {
     {
       id: 'csk-influencer-featured',
       title: "playR: Real Fans, Real Roar",
-      slug: "influencer-marketing-campaign-playR",
+      slug: "influencer-marketing-campaign-playr",
       category: "User Generated Content",
       result: "Viral Fandom Momentum",
       image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",

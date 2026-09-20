@@ -33,7 +33,7 @@ const FEATURED_STUDIES = [
   {
     id: 'nutrivend-uk-meta-lead-gen',
     title: "Nutrivend UK: B2B Market Validation",
-    slug: "Meta-Lead-Generation-Ad-UK-Market",
+    slug: "meta-lead-generation-ad-uk-market",
     category: "Meta Lead Generation",
     result: "45 B2B Leads • 71% Untapped Market",
     image: NutrivendThumbnail,
@@ -43,7 +43,7 @@ const FEATURED_STUDIES = [
   {
     id: 'trotr-featured',
     title: "Trotr: Spain Pivot",
-    slug: "Trotr-Meta-Lead-Generation",
+    slug: "trotr-meta-lead-generation",
     category: "Lead Generation",
     result: "28x ROAS • ₹14L Revenue",
     image: TrotrFeatured,

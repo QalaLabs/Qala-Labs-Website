@@ -86,17 +86,17 @@ export async function render(url: string): Promise<{ html: string; helmet: any }
                   <Route path="/services/:slug" element={<ServiceDetail />} />
 
                   <Route path="/case-studies/kashmiri-movement" element={<KashmiriMusicCaseStudy />} />
-                  <Route path="/case-studies/Trotr-Meta-Lead-Generation" element={<TrotrCaseStudy />} />
+                  <Route path="/case-studies/trotr-meta-lead-generation" element={<TrotrCaseStudy />} />
                   <Route path="/case-studies/gaffar-india-rebrand" element={<GaffarCaseStudy />} />
-                  <Route path="/case-studies/Meta-Lead-Generation-Ad-UK-Market" element={<NutrivendUKCaseStudy />} />
+                  <Route path="/case-studies/meta-lead-generation-ad-uk-market" element={<NutrivendUKCaseStudy />} />
                   <Route path="/case-studies/airborne-aviation-seo-aeo-geo" element={<AirborneAviationSEOCaseStudy />} />
                   <Route path="/case-studies" element={<CaseStudies />} />
                   <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
 
-                  <Route path="/portfolio/Amazon-ads" element={<AmazonAdsPortfolio />} />
+                  <Route path="/portfolio/amazon-ads" element={<AmazonAdsPortfolio />} />
                   <Route path="/portfolio/streetplayr" element={<StreetplayrPortfolio />} />
-                  <Route path="/portfolio/Instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
-                  <Route path="/portfolio/influencer-marketing-campaign-playR" element={<CSKInfluencerPortfolio />} />
+                  <Route path="/portfolio/instagram-user-generated-content" element={<InstagramUGCPortfolio />} />
+                  <Route path="/portfolio/influencer-marketing-campaign-playr" element={<CSKInfluencerPortfolio />} />
                   <Route path="/portfolio/real-estate-website-development" element={<CapitalKeysPortfolio />} />
                   <Route path="/portfolio/ai-ad-creatives-wwfindia" element={<WWFIndiaPortfolio />} />
                   <Route path="/portfolio/mizuno-india-launch-campaign" element={<MizunoIndiaPortfolio />} />
