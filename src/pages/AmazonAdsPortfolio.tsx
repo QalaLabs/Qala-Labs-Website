@@ -41,7 +41,7 @@ const AmazonAdsPortfolio = () => {
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Portfolio', url: '/portfolio' },
-          { name: 'Amazon Ads — 11.2x ROAS', url: '/portfolio/Amazon-ads' }
+          { name: 'Amazon Ads — 11.2x ROAS', url: '/portfolio/amazon-ads' }
         ]}
       />
       <Navbar />

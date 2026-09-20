@@ -47,7 +47,7 @@ const InstagramUGCPortfolio = () => {
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Portfolio', url: '/portfolio' },
-          { name: 'Instagram UGC Content Campaign', url: '/portfolio/Instagram-user-generated-content' }
+          { name: 'Instagram UGC Content Campaign', url: '/portfolio/instagram-user-generated-content' }
         ]}
       />
       <Navbar />

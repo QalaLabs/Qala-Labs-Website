@@ -569,6 +569,18 @@ app.get('/api/proxy-gaffar', async (req, res) => {
   }
 });
 
+// 301 redirects for legacy mixed-case case-study/portfolio slugs to their lowercase-hyphenated canonical URLs
+const LEGACY_SLUG_REDIRECTS = {
+  '/case-studies/Trotr-Meta-Lead-Generation': '/case-studies/trotr-meta-lead-generation',
+  '/case-studies/Meta-Lead-Generation-Ad-UK-Market': '/case-studies/meta-lead-generation-ad-uk-market',
+  '/portfolio/Amazon-ads': '/portfolio/amazon-ads',
+  '/portfolio/Instagram-user-generated-content': '/portfolio/instagram-user-generated-content',
+  '/portfolio/influencer-marketing-campaign-playR': '/portfolio/influencer-marketing-campaign-playr',
+};
+app.get(Object.keys(LEGACY_SLUG_REDIRECTS), (req, res) => {
+  res.redirect(301, LEGACY_SLUG_REDIRECTS[req.path]);
+});
+
 // SSR catch-all — serves all non-API, non-admin GET requests with server-rendered HTML
 app.get('{*path}', async (req, res) => {
   if (req.path.startsWith('/api')) return;
