@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, Mail } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -26,30 +27,36 @@ export const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center">
         {/* Qala Labs Brand Logo */}
-        <a href="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-3 group">
           <Logo size={36} />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
           >
             Home
-          </a>
-          <a
-            href="#about-qala"
+          </Link>
+          <Link
+            to="/who-we-are"
             className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
           >
             About Qala
-          </a>
-          <a
-            href="#team"
+          </Link>
+          <Link
+            to="/who-we-are#team"
             className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
           >
             Team
-          </a>
+          </Link>
+          <Link
+            to="/products"
+            className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
+          >
+            Products
+          </Link>
 
           {/* Services Mega Menu */}
           <div
@@ -77,7 +84,7 @@ export const Navbar: React.FC = () => {
                   <div className="w-14 h-14 rounded-2xl bg-[#06070D] border border-white/10 flex items-center justify-center mb-4 text-[#3FE0E0]">
                     <img src="/assets/AI-Services-icon.svg" alt="AI Services" className="w-8 h-8 object-contain" />
                   </div>
-                  <h4 className="font-bold text-white text-xl mb-3">AI & Automation</h4>
+                  <Link to="/services/ai-automation" className="font-bold text-white text-xl mb-3 hover:text-[#3FE0E0] block">AI & Automation</Link>
                   <ul className="space-y-2 text-sm">
                     <li>
                       <a href="#services" className="text-white/70 hover:text-[#3FE0E0] transition-colors block">
@@ -107,7 +114,7 @@ export const Navbar: React.FC = () => {
                   <div className="w-14 h-14 rounded-2xl bg-[#06070D] border border-white/10 flex items-center justify-center mb-4 text-[#3FE0E0]">
                     <img src="/assets/design.png" alt="Design" className="w-8 h-8 object-contain" />
                   </div>
-                  <h4 className="font-bold text-white text-xl mb-3">Brand & Craft</h4>
+                  <Link to="/services/branding" className="font-bold text-white text-xl mb-3 hover:text-[#3FE0E0] block">Brand & Craft</Link>
                   <ul className="space-y-2 text-sm">
                     <li>
                       <a href="#services" className="text-white/70 hover:text-[#3FE0E0] transition-colors block">
@@ -137,7 +144,7 @@ export const Navbar: React.FC = () => {
                   <div className="w-14 h-14 rounded-2xl bg-[#06070D] border border-white/10 flex items-center justify-center mb-4 text-[#3FE0E0]">
                     <img src="/assets/development.png" alt="Development" className="w-8 h-8 object-contain" />
                   </div>
-                  <h4 className="font-bold text-white text-xl mb-3">Engineering</h4>
+                  <Link to="/services/web-development" className="font-bold text-white text-xl mb-3 hover:text-[#3FE0E0] block">Engineering</Link>
                   <ul className="space-y-2 text-sm">
                     <li>
                       <a href="#services" className="text-white/70 hover:text-[#3FE0E0] transition-colors block">
@@ -167,7 +174,7 @@ export const Navbar: React.FC = () => {
                   <div className="w-14 h-14 rounded-2xl bg-[#06070D] border border-white/10 flex items-center justify-center mb-4 text-[#3FE0E0]">
                     <img src="/assets/marketing.png" alt="Marketing" className="w-8 h-8 object-contain" />
                   </div>
-                  <h4 className="font-bold text-white text-xl mb-3">Growth & Scale</h4>
+                  <Link to="/services/digital-marketing" className="font-bold text-white text-xl mb-3 hover:text-[#3FE0E0] block">Growth & Scale</Link>
                   <ul className="space-y-2 text-sm">
                     <li>
                       <a href="#services" className="text-white/70 hover:text-[#3FE0E0] transition-colors block">
@@ -233,9 +240,9 @@ export const Navbar: React.FC = () => {
             >
               <ul className="space-y-1">
                 <li>
-                  <a href="#case-studies" className="block px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-black hover:bg-[#3FE0E0] transition-colors font-medium">
+                  <Link to="/case-studies" className="block px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-black hover:bg-[#3FE0E0] transition-colors font-medium">
                     Case Studies & Proof
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#services" className="block px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-black hover:bg-[#3FE0E0] transition-colors font-medium">
@@ -251,24 +258,24 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
 
-          <a
-            href="#case-studies"
+          <Link
+            to="/case-studies"
             className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
           >
             Case Studies
-          </a>
-          <a
-            href="#contact-form"
+          </Link>
+          <Link
+            to="/contact-us"
             className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
           >
             Contact
-          </a>
+          </Link>
         </nav>
 
         {/* Right CTA Button ("Let's Build" with gradient + animated Qala badge) */}
         <div className="hidden md:flex items-center">
-          <a
-            href="#contact-form"
+          <Link
+            to="/contact-us"
             className="group relative bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white py-2.5 px-6 rounded-full font-semibold text-sm transition-all duration-300 flex items-center gap-3 overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(63,224,224,0.4)] hover:brightness-110"
           >
             <span className="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center font-bold text-xs transition-transform duration-500 transform group-hover:translate-x-14">
@@ -277,7 +284,7 @@ export const Navbar: React.FC = () => {
             <span className="transition-transform duration-500 transform group-hover:-translate-x-4">
               Let's Build
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -296,57 +303,64 @@ export const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-x-0 top-[72px] bg-[#06070D]/95 backdrop-blur-xl border-b border-white/10 p-6 shadow-2xl max-h-[85vh] overflow-y-auto">
           <nav className="flex flex-col space-y-4">
-            <a
-              href="/"
+            <Link
+              to="/"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Home
-            </a>
-            <a
-              href="#about-qala"
+            </Link>
+            <Link
+              to="/who-we-are"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               About Qala
-            </a>
-            <a
-              href="#team"
+            </Link>
+            <Link
+              to="/who-we-are#team"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Core Team
-            </a>
-            <a
-              href="#services"
+            </Link>
+            <Link
+              to="/services"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Capabilities & AI
-            </a>
-            <a
-              href="#case-studies"
+            </Link>
+            <Link
+              to="/products"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
+            >
+              Products
+            </Link>
+            <Link
+              to="/case-studies"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Case Studies
-            </a>
-            <a
-              href="#contact-form"
+            </Link>
+            <Link
+              to="/contact-us"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Contact Us
-            </a>
+            </Link>
 
             <div className="pt-4">
-              <a
-                href="#contact-form"
+              <Link
+                to="/contact-us"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white py-3 rounded-full font-bold text-center block text-sm shadow-lg hover:brightness-110"
               >
                 Let's Build
-              </a>
+              </Link>
             </div>
           </nav>
         </div>
