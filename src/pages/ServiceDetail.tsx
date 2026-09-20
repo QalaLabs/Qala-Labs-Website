@@ -676,6 +676,54 @@ const ServiceDetail = () => {
               </div>
             </div>
           </div>
+
+          <div className="bg-slate-50 border border-slate-100 rounded-[2.5rem] p-10 md:p-14 mb-20">
+            <div className="max-w-3xl mb-10">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10 text-blue-700 text-xs font-black uppercase tracking-widest mb-6">
+                How We Research
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
+                We build every strategy on what we've actually audited — not assumptions.
+              </h2>
+              <p className="text-slate-600 leading-relaxed">
+                Before we recommend anything, we run the same audit process on your category that we run on our own work: a structured teardown across content, services, pricing, SEO, and AI answer-engine visibility (AEO). Here's what that looked like the last time we ran it.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 1</div>
+                <h4 className="font-bold text-slate-900 mb-2">Competitive Teardown</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We audited 6 direct competitor sites across positioning, service lines, and pricing transparency to find where the category is under-serving buyers.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 2</div>
+                <h4 className="font-bold text-slate-900 mb-2">SEO & AEO Audit</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We checked meta structure, H1 usage, and — critically — structured data (FAQPage, HowTo, Organization schema) to see who's actually built to be cited by ChatGPT, Gemini, and Perplexity, not just ranked by Google.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 3</div>
+                <h4 className="font-bold text-slate-900 mb-2">Gap &amp; Pattern Analysis</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We compared every finding into one table — content, services, pricing, SEO, AEO side by side — to isolate what's rare, valuable, and repeatable rather than cosmetic.</p>
+              </div>
+              <div className="p-6 bg-white rounded-2xl border border-slate-100">
+                <div className="text-xs font-black text-blue-600 uppercase tracking-widest mb-3">Step 4</div>
+                <h4 className="font-bold text-slate-900 mb-2">Ship &amp; Prove It</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">We apply the findings to our own site first — schema markup, pricing clarity, service pages like this one — before we ever recommend it to a client. Our MarksOps agent suite is the same standard: built and running in production, not a pitch deck.</p>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-10 border-t border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <p className="text-slate-600 text-sm max-w-xl">
+                Want the same audit run on your category before we scope {data.title.toLowerCase()}? We'll show you exactly where your competitors are weak — with evidence, not opinions.
+              </p>
+              <Link to="/contact" className="flex-shrink-0">
+                <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 rounded-2xl font-bold">
+                  Request Our Audit <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
