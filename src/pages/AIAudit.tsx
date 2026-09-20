@@ -87,6 +87,7 @@ const industries = [
 ];
 
 const AIAudit = () => {
+  const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -94,63 +95,69 @@ const AIAudit = () => {
     email: '',
     phone: '',
     website: '',
-    industry: '',
-    monthly_revenue: '',
+    industry: 'D2C / eCommerce',
+    monthly_revenue: '5L-25L',
     biggest_challenge: '',
   });
 
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.website.trim()) {
+      showError('Please enter your brand or website URL.');
+      return;
+    }
+    setStep(2);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.website) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.website.trim()) {
       showError('Please fill in your name, email, and website.');
       return;
     }
     setLoading(true);
 
     try {
-      const { error } = await supabase.functions.invoke('lead-engine', {
-        body: {
-          email: formData.email,
-          tool_used: 'ai_audit_form',
-          data: {
-            ...formData,
-            source_url: window.location.href,
-            timestamp: new Date().toISOString(),
-          },
-        },
-      });
+      const payload = {
+        ...formData,
+        source_url: typeof window !== 'undefined' ? window.location.href : '',
+        timestamp: new Date().toISOString(),
+      };
 
-      if (error) throw error;
+      try {
+        await supabase.from('leads').insert({
+          email: formData.email.trim(),
+          tool_used: 'ai_audit_form',
+          data: payload,
+        });
+      } catch (dbErr) {
+        console.warn('Supabase insert warning:', dbErr);
+      }
 
       try {
         const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: formData.email,
+            email: formData.email.trim(),
             tool_used: 'ai_audit_form',
-            data: {
-              ...formData,
-              source: 'ai_audit_page',
-              timestamp: new Date().toISOString(),
-            },
+            data: payload,
           }),
         });
         if (!res.ok) {
-          console.error("Email trigger failed:", await res.text());
-          showError("Audit request received, but the confirmation email couldn't be sent.");
+          console.warn('Email trigger status:', res.status);
         }
       } catch (err) {
-        console.error("Email trigger failed:", err);
-        showError("Audit request received, but the confirmation email couldn't be sent.");
+        console.error('Email trigger failed:', err);
       }
 
       setSubmitted(true);
+      showSuccess("Audit request confirmed! We'll deliver your report within 48 hours.");
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'ai_audit_form_submitted', { email: formData.email });
       }
     } catch {
-      showError('Something went wrong. Please try again or email us directly.');
+      showError('Something went wrong. Please try again or reach out on WhatsApp.');
     } finally {
       setLoading(false);
     }
@@ -252,128 +259,213 @@ const AIAudit = () => {
                   </div>
                 ) : (
                   <>
-                    <div className="mb-8">
-                      <h2 className="text-2xl font-black text-slate-900 mb-2">Request Your Free Audit</h2>
-                      <p className="text-slate-500 text-sm">Takes 2 minutes. We'll do the rest.</p>
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-wider">
+                          Step {step} of 2
+                        </span>
+                        <span className="text-xs font-mono text-slate-400">48-Hr Delivery</span>
+                      </div>
+                      <h2 className="text-2xl font-black text-slate-900 mb-1">
+                        {step === 1 ? "Brand & Funnel Diagnostic" : "Where Should We Send The Report?"}
+                      </h2>
+                      <p className="text-slate-500 text-xs">
+                        {step === 1 ? "Step 1 of 2: Let's inspect your current channel efficiency." : "Step 2 of 2: Recipient contact for custom PDF + Loom breakdown."}
+                      </p>
+
+                      {/* Progress Bar */}
+                      <div className="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+                        <div 
+                          className="bg-blue-600 h-full rounded-full transition-all duration-300"
+                          style={{ width: step === 1 ? "50%" : "100%" }}
+                        />
+                      </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <div className="grid grid-cols-2 gap-4">
+                    {step === 1 ? (
+                      <form onSubmit={handleNext} className="space-y-4">
                         <div>
-                          <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                            Name *
+                          <Label htmlFor="audit-website" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                            Brand Website URL *
                           </Label>
                           <Input
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            placeholder="Arjun Mehta"
+                            id="audit-website"
+                            name="website"
+                            type="url"
+                            autoComplete="url"
+                            value={formData.website}
+                            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                            placeholder="https://yourbrand.com"
                             required
-                            className="rounded-xl"
+                            className="rounded-xl h-12 text-sm"
                           />
                         </div>
+
                         <div>
-                          <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                            Phone
+                          <Label className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                            Industry / Sector
+                          </Label>
+                          <div className="grid grid-cols-2 gap-2">
+                            {['D2C / eCommerce', 'SaaS / Tech', 'Real Estate', 'B2B / Other'].map((ind) => (
+                              <button
+                                key={ind}
+                                type="button"
+                                onClick={() => setFormData({ ...formData, industry: ind })}
+                                className={cn(
+                                  "h-10 px-3 rounded-xl border text-xs font-bold transition-all text-center flex items-center justify-center",
+                                  formData.industry === ind
+                                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                                    : "bg-slate-50 border-slate-200 text-slate-700 hover:border-blue-400"
+                                )}
+                              >
+                                {ind}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                            Current Monthly Revenue
+                          </Label>
+                          <div className="grid grid-cols-2 gap-2">
+                            {[
+                              { label: '< ₹5L/mo', val: 'under-5L' },
+                              { label: '₹5L - ₹25L', val: '5L-25L' },
+                              { label: '₹25L - ₹1Cr', val: '25L-1Cr' },
+                              { label: '₹1Cr+', val: '1Cr-5Cr' }
+                            ].map((rev) => (
+                              <button
+                                key={rev.val}
+                                type="button"
+                                onClick={() => setFormData({ ...formData, monthly_revenue: rev.val })}
+                                className={cn(
+                                  "h-10 px-3 rounded-xl border text-xs font-bold transition-all text-center flex items-center justify-center",
+                                  formData.monthly_revenue === rev.val
+                                    ? "bg-slate-900 text-white border-slate-900 shadow-sm"
+                                    : "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400"
+                                )}
+                              >
+                                {rev.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <Button
+                          type="submit"
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black h-13 min-h-[48px] rounded-xl text-sm shadow-lg shadow-blue-500/20 mt-2"
+                        >
+                          <span>Continue to Step 2</span>
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+
+                        <div className="text-center pt-2">
+                          <a 
+                            href="https://wa.me/916006760151?text=Hi%20Qala%20Labs%2C%20I'd%20like%20to%20request%20a%20quick%20growth%20audit."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold text-emerald-600 hover:underline inline-flex items-center gap-1"
+                          >
+                            <span>Prefer WhatsApp? Fast-track here →</span>
+                          </a>
+                        </div>
+                      </form>
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <Label htmlFor="audit-name" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                              Name *
+                            </Label>
+                            <Input
+                              id="audit-name"
+                              name="name"
+                              autoComplete="name"
+                              value={formData.name}
+                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              placeholder="Arjun Mehta"
+                              required
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="audit-phone" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                              WhatsApp Phone *
+                            </Label>
+                            <Input
+                              id="audit-phone"
+                              name="phone"
+                              type="tel"
+                              autoComplete="tel"
+                              value={formData.phone}
+                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                              placeholder="+91 98765 43210"
+                              required
+                              className="rounded-xl h-12 text-sm"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor="audit-email" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                            Work Email *
                           </Label>
                           <Input
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            placeholder="+91 98765 43210"
-                            className="rounded-xl"
+                            id="audit-email"
+                            name="email"
+                            type="email"
+                            autoComplete="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            placeholder="arjun@yourbrand.com"
+                            required
+                            className="rounded-xl h-12 text-sm"
                           />
                         </div>
-                      </div>
 
-                      <div>
-                        <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                          Work Email *
-                        </Label>
-                        <Input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="arjun@yourbrand.com"
-                          required
-                          className="rounded-xl"
-                        />
-                      </div>
+                        <div>
+                          <Label htmlFor="audit-bottleneck" className="text-xs font-black uppercase tracking-widest text-slate-600 mb-1.5 block">
+                            Biggest Bottleneck <span className="text-slate-400 font-normal">(Optional)</span>
+                          </Label>
+                          <textarea
+                            id="audit-bottleneck"
+                            name="biggest_challenge"
+                            value={formData.biggest_challenge}
+                            onChange={(e) => setFormData({ ...formData, biggest_challenge: e.target.value })}
+                            placeholder="E.g. rising CPAs, poor organic search, low retention..."
+                            rows={2}
+                            className="w-full border border-input bg-background rounded-xl px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 resize-none"
+                          />
+                        </div>
 
-                      <div>
-                        <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                          Website *
-                        </Label>
-                        <Input
-                          value={formData.website}
-                          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          placeholder="https://yourbrand.com"
-                          required
-                          className="rounded-xl"
-                        />
-                      </div>
+                        <div className="flex gap-3 pt-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setStep(1)}
+                            className="h-13 min-h-[48px] px-4 rounded-xl border-slate-200 text-slate-700"
+                          >
+                            Back
+                          </Button>
+                          <Button
+                            type="submit"
+                            disabled={loading}
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black h-13 min-h-[48px] rounded-xl text-sm shadow-lg shadow-blue-500/20"
+                          >
+                            {loading ? (
+                              <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Preparing...</>
+                            ) : (
+                              <>Get My Free 48-Hr Audit <ArrowRight className="w-4 h-4 ml-2" /></>
+                            )}
+                          </Button>
+                        </div>
 
-                      <div>
-                        <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                          Industry
-                        </Label>
-                        <select
-                          value={formData.industry}
-                          onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                          className="w-full border border-input bg-background rounded-xl px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        >
-                          <option value="">Select your industry</option>
-                          {industries.map((ind) => (
-                            <option key={ind} value={ind}>{ind}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                          Monthly Revenue (approx.)
-                        </Label>
-                        <select
-                          value={formData.monthly_revenue}
-                          onChange={(e) => setFormData({ ...formData, monthly_revenue: e.target.value })}
-                          className="w-full border border-input bg-background rounded-xl px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                        >
-                          <option value="">Select range</option>
-                          <option value="under-5L">Under ₹5L/month</option>
-                          <option value="5L-25L">₹5L – ₹25L/month</option>
-                          <option value="25L-1Cr">₹25L – ₹1Cr/month</option>
-                          <option value="1Cr-5Cr">₹1Cr – ₹5Cr/month</option>
-                          <option value="5Cr+">₹5Cr+/month</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <Label className="text-xs font-black uppercase tracking-widest text-slate-500 mb-1.5 block">
-                          Biggest marketing challenge right now
-                        </Label>
-                        <textarea
-                          value={formData.biggest_challenge}
-                          onChange={(e) => setFormData({ ...formData, biggest_challenge: e.target.value })}
-                          placeholder="E.g. rising CPAs, poor SEO, no idea which channels work, scaling beyond ₹X..."
-                          rows={3}
-                          className="w-full border border-input bg-background rounded-xl px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 resize-none"
-                        />
-                      </div>
-
-                      <Button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-6 rounded-2xl text-base shadow-lg shadow-blue-500/20"
-                      >
-                        {loading ? (
-                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</>
-                        ) : (
-                          <>Get My Free Audit <ArrowRight className="w-4 h-4 ml-2" /></>
-                        )}
-                      </Button>
-
-                      <p className="text-center text-xs text-slate-400">
-                        No spam. No sales calls unless you want one. Unsubscribe anytime.
-                      </p>
-                    </form>
+                        <p className="text-center text-[11px] text-slate-400 pt-1">
+                          Zero spam. Confidential 48-hr diagnosis tailored to your unit economics.
+                        </p>
+                      </form>
+                    )}
                   </>
                 )}
               </div>

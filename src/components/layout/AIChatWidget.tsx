@@ -52,7 +52,15 @@ const AIChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const GEMINI_API_KEY = 'AIzaSyD24qdHytX23Ok6rSsk1DrG5jiKQ9wvyyM';
+      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+      if (!GEMINI_API_KEY) {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: "I'd love to help you build a personalized growth roadmap! You can connect with our strategy team directly by booking a free audit at /contact or messaging us on WhatsApp."
+        }]);
+        setIsLoading(false);
+        return;
+      }
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
       // Format history for Gemini (Gemini uses 'user' and 'model' roles)
@@ -149,7 +157,7 @@ const AIChatWidget = () => {
               initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="fixed bottom-48 right-4 sm:right-6 z-[100] w-[90vw] md:w-[400px] h-[60vh] sm:h-[600px] max-h-[600px] bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
+              className="fixed bottom-24 md:bottom-28 right-4 sm:right-6 z-[100] w-[calc(100vw-32px)] sm:w-[400px] h-[65vh] sm:h-[600px] max-h-[600px] bg-white rounded-[2rem] shadow-2xl border border-slate-100 flex flex-col overflow-hidden"
             >
             <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex items-center justify-between">
               <div className="flex items-center gap-3">

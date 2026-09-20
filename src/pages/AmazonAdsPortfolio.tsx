@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from 'react-router-dom';
+import AmazonAds1 from '@/assets/amazon-ads-1.jpeg';
+import AmazonAds2 from '@/assets/amazon-ads-2.jpeg';
 
 const AmazonAdsPortfolio = () => {
   const metrics = [
@@ -103,8 +105,7 @@ const AmazonAdsPortfolio = () => {
                 className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-2"
               >
                 <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
-                  {/* Replace the src with your actual screenshot URL */}
-                  <img loading="lazy" src="/src/assets/amazon-ads-1.jpeg" alt="Dashboard Screenshot 1" className="w-full h-full object-cover" />
+                  <img loading="lazy" src={AmazonAds1} alt="Amazon Campaign Performance Overview Screenshot" width={800} height={450} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <p className="text-sm font-bold text-slate-900">Campaign Performance Overview</p>
@@ -119,8 +120,7 @@ const AmazonAdsPortfolio = () => {
                 className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-2"
               >
                 <div className="aspect-video bg-slate-200 rounded-[2rem] flex items-center justify-center overflow-hidden">
-                  {/* Replace the src with your actual screenshot URL */}
-                  <img loading="lazy" src="/src/assets/amazon-ads-2.jpeg" alt="Dashboard Screenshot 2" className="w-full h-full object-cover" />
+                  <img loading="lazy" src={AmazonAds2} alt="Amazon Keyword Level ROAS Analysis Screenshot" width={800} height={450} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <p className="text-sm font-bold text-slate-900">Keyword Level ROAS Analysis</p>

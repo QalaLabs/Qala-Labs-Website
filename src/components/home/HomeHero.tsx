@@ -50,9 +50,17 @@ const LiveTicker = React.memo(() => {
 
 const HomeHero = () => {
   const [engineMode, setEngineMode] = React.useState<'gyro' | 'lattice'>('gyro');
+  const [isMobile, setIsMobile] = React.useState(false);
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section
@@ -60,7 +68,7 @@ const HomeHero = () => {
       aria-labelledby="home-hero-heading"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <AmbientParticleField />
+        {!isMobile && <AmbientParticleField />}
         <div className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 rounded-full blur-3xl" />
         <div className="absolute bottom-[5%] left-[-5%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-cyan-500/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-70 lg:opacity-90 pointer-events-auto">
@@ -124,9 +132,9 @@ const HomeHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col sm:flex-row gap-3 mb-10"
             >
-              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-8 h-14 text-base">
+              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-7 h-14 text-base w-full sm:w-auto shadow-lg shadow-blue-600/30">
                 <Link to="/contact">
                   Book a growth audit
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -136,7 +144,7 @@ const HomeHero = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white font-bold rounded-xl px-8 h-14 text-base"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white font-bold rounded-xl px-7 h-14 text-base w-full sm:w-auto"
               >
                 <a href="#services">See what we install</a>
               </Button>
@@ -223,7 +231,25 @@ const HomeHero = () => {
                     </div>
                   </div>
 
-                  {engineMode === 'gyro' ? (
+                  {isMobile ? (
+                    <div className="h-[180px] w-full rounded-2xl bg-gradient-to-b from-blue-950/30 via-[#06070D] to-[#06070D] border border-blue-500/20 relative overflow-hidden flex flex-col items-center justify-center p-4 shadow-inner">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0,transparent_70%)]" />
+                      {/* Concentric radar rings */}
+                      <div className="relative flex items-center justify-center">
+                        <div className="w-24 h-24 rounded-full border border-blue-500/30 animate-ping opacity-50" />
+                        <div className="absolute w-20 h-20 rounded-full border border-cyan-400/30" />
+                        <div className="absolute w-12 h-12 rounded-full bg-blue-600/20 border border-blue-400/50 flex items-center justify-center">
+                          <span className="w-3.5 h-3.5 rounded-full bg-gradient-to-r from-blue-400 to-cyan-300 shadow-[0_0_12px_#38bdf8]" />
+                        </div>
+                      </div>
+                      <div className="relative mt-4 flex items-center gap-2">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-[11px] font-mono font-bold text-slate-300 tracking-wider">
+                          REAL-TIME ATTRIBUTION LIVE
+                        </span>
+                      </div>
+                    </div>
+                  ) : engineMode === 'gyro' ? (
                     <div className="h-[210px] w-full rounded-2xl bg-gradient-to-b from-blue-950/20 via-[#06070D]/90 to-[#06070D] border border-blue-500/20 overflow-hidden relative shadow-inner flex items-center justify-center">
                       <RevenueEngineGyroscope size={260} className="w-full h-full" />
                     </div>

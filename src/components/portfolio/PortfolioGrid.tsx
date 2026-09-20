@@ -105,6 +105,24 @@ const PortfolioGrid = () => {
       result: "Enterprise B2B Launch Coverage",
       image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
+    },
+    {
+      id: 'airborne-aviation-featured',
+      title: "Airborne Aviation: Pilot Academy Website",
+      slug: "airborne-aviation-academy",
+      category: "Web Development",
+      result: "Course Catalog + Alumni Route Map",
+      image: "/portfolio/airborne-aviation/hero.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'shakti-bhog-featured',
+      title: "Shakti Bhog: Recipe-Led UGC Content",
+      slug: "shakti-bhog-ugc-content",
+      category: "Content Creation",
+      result: "Creator-Led Recipe Reel",
+      image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
     }
   ];
 
@@ -178,7 +196,8 @@ const PortfolioGrid = () => {
           {filteredProjects.map((project) => (
             <ProjectCard 
               key={project.id} 
-              project={project} 
+              project={project}
+              href={`/portfolio/${project.slug}`}
               onClick={() => navigate(`/portfolio/${project.slug}`)}
             />
           ))}

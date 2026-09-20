@@ -134,20 +134,37 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || '465'),
   secure: true,
   auth: {
-    user: process.env.SMTP_USER || 'hello@qalalabs.com',
-    pass: process.env.SMTP_PASS || 'Qala_labs124'
+    user: process.env.SMTP_USER || '',
+    pass: process.env.SMTP_PASS || ''
   }
 });
 
-// Endpoint to receive lead submissions
-app.post('/api/lead', async (req, res) => {
-  const { email, tool_used, data } = req.body;
-  
-  if (!email || !tool_used) {
-    return res.status(400).json({ error: 'Missing required fields' });
+// Lead processing handler supporting /api/lead and /api/lead.php
+async function handleLeadSubmission(req, res) {
+  const email = req.body.email?.trim();
+  const tool_used = req.body.tool_used || req.body.source || 'website_lead';
+  const data = req.body.data || req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Missing email address' });
   }
 
   try {
+    // Optionally persist directly to Supabase leads table
+    try {
+      await supabase.from('leads').insert({
+        email,
+        tool_used,
+        data: {
+          ...data,
+          ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+          timestamp: new Date().toISOString()
+        }
+      });
+    } catch (dbErr) {
+      console.warn('[DB Lead Insert Warning]:', dbErr.message);
+    }
+
     const { data: template } = await supabase
       .from('email_templates')
       .select('subject, body')
@@ -156,7 +173,7 @@ app.post('/api/lead', async (req, res) => {
 
     const defaultTemplate = {
       subject: "We've received your request | Qala Labs",
-      body: "Hi {{name}},\n\nThanks for reaching out to Qala Labs. We'll be in touch within 24 hours."
+      body: "Hi {{name}},\n\nThanks for reaching out to Qala Labs. We'll be in touch within 24 hours to schedule your growth audit."
     };
 
     const activeTemplate = template || defaultTemplate;
@@ -166,26 +183,40 @@ app.post('/api/lead', async (req, res) => {
       return (data && data[k]) || (req.body[k]) || match;
     });
 
-    await transporter.sendMail({
-      from: `"Qala Labs" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
-      to: email,
-      subject: activeTemplate.subject,
-      text: personalizedBody
-    });
+    // Send confirmation to client
+    try {
+      await transporter.sendMail({
+        from: `"Qala Labs" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
+        to: email,
+        subject: activeTemplate.subject,
+        text: personalizedBody
+      });
+    } catch (mailErr) {
+      console.warn('[SMTP User Mail Warning]:', mailErr.message);
+    }
 
-    await transporter.sendMail({
-      from: `"Qala Labs Lead Engine" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
-      to: 'hello@qalalabs.com, qalakaar.qalalabs@gmail.com',
-      subject: `[NEW LEAD] ${tool_used} - ${email}`,
-      text: `New lead captured.\n\nEmail: ${email}\nTool: ${tool_used}\n\nData:\n${JSON.stringify(data, null, 2)}`
-    });
+    // Send notification to team
+    try {
+      await transporter.sendMail({
+        from: `"Qala Labs Lead Engine" <${process.env.SMTP_USER || 'hello@qalalabs.com'}>`,
+        to: 'hello@qalalabs.com, qalakaar.qalalabs@gmail.com',
+        subject: `[NEW LEAD] ${tool_used} - ${email}`,
+        text: `New lead captured.\n\nEmail: ${email}\nTool: ${tool_used}\n\nData:\n${JSON.stringify(data, null, 2)}`
+      });
+    } catch (teamMailErr) {
+      console.warn('[SMTP Team Notification Warning]:', teamMailErr.message);
+    }
 
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, message: 'Lead captured successfully' });
   } catch (error) {
-    console.error('Backend Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Backend Lead Error:', error);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
-});
+}
+
+// Endpoints to receive lead submissions (supporting standard and PHP legacy paths)
+app.post('/api/lead', handleLeadSubmission);
+app.post('/api/lead.php', handleLeadSubmission);
 
 app.post('/api/test-smtp', async (req, res) => {
   const { to } = req.body;
