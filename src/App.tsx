@@ -59,6 +59,7 @@ const AirtelBusinessPortfolio = React.lazy(() => import("./pages/AirtelBusinessP
 // New strategic pages
 const AISearchVisibility = React.lazy(() => import("./pages/AISearchVisibility"));
 const EnterpriseAIAutomation = React.lazy(() => import("./pages/EnterpriseAIAutomation"));
+const QManager = React.lazy(() => import("./pages/QManager"));
 const Industries = React.lazy(() => import("./pages/Industries"));
 const AIAudit = React.lazy(() => import("./pages/AIAudit"));
 const Results = React.lazy(() => import("./pages/Results"));
@@ -128,6 +129,7 @@ const AppRoutes = () => {
             <Route path="/about" element={<About />} />
             <Route path="/ai-search-visibility" element={<AISearchVisibility />} />
             <Route path="/enterprise-ai-automation" element={<EnterpriseAIAutomation />} />
+            <Route path="/q-manager" element={<QManager />} />
             <Route path="/industries" element={<Industries />} />
             <Route path="/ai-audit" element={<AIAudit />} />
             <Route path="/results" element={<Results />} />

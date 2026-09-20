@@ -6,7 +6,8 @@ import SEO from '@/components/layout/SEO';
 import { motion } from 'framer-motion';
 import {
   ArrowRight, Bot, Workflow, Shield, Clock, BarChart3,
-  MessageSquare, Database, Cpu, CheckCircle2, Zap, Users
+  MessageSquare, Database, Cpu, CheckCircle2, Zap, Users,
+  FileText, CreditCard, Truck, Calculator, Package, Search
 } from 'lucide-react';
 
 const metrics = [
@@ -52,6 +53,65 @@ const useCases = [
     title: 'Internal Knowledge Agents',
     description: 'Build private AI assistants trained on your SOPs, playbooks, and documentation — so every team member has instant access to institutional knowledge.',
     outcomes: ['Onboarding time reduced by 60%', 'SOP compliance enforcement', 'Version-controlled knowledge management'],
+  },
+];
+
+const agentsBuilt = [
+  {
+    icon: Users,
+    title: 'CRM & Lead Intake Agent',
+    description: 'Ingests inbound leads from website forms, WhatsApp, and email — classifies intent (B2C, B2B Bulk, Dealer/Distributor, Support), extracts structured contact data, and stages qualified leads directly into CRM with 24-hour follow-up scheduling.',
+    outcomes: ['5-way intent classification', 'Auto-tagged B2B & dealer pipelines', 'Real-time high-value lead alerts'],
+    slug: 'crm-lead-automation',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Customer Support Agent',
+    description: 'Handles order status, returns, complaints, and product queries across WhatsApp and email — replying in brand-specific voice with live shipment and return-policy lookups, and a 4-point escalation matrix that hands off to humans automatically.',
+    outcomes: ['Sub-2-minute brand-voiced replies', 'Multi-brand persona support', 'Auto-escalation on fraud/legal keywords'],
+    slug: 'customer-support-automation',
+  },
+  {
+    icon: FileText,
+    title: 'Finance & Bill Ingestion Agent',
+    description: 'Parses vendor invoices, ad platform bills, logistics freight bills, and bank transaction alerts — extracts tax breakdowns, classifies spend, and stages draft ERP entries with zero auto-posting until human approval.',
+    outcomes: ['5-category spend classification', 'Zero auto-posting safeguard', 'Instant WhatsApp approval alerts'],
+    slug: 'finance-bill-automation',
+  },
+  {
+    icon: Search,
+    title: 'Marketplace Price Monitoring Agent',
+    description: 'Crawls Amazon and Flipkart listings twice daily, flags price deviations beyond 5% against master pricing, and classifies root cause — own-listing error, unauthorized seller deviation, or competitor undercutting.',
+    outcomes: ['Twice-daily automated crawls', 'MAP violation detection', 'Weekly channel health reporting'],
+    slug: 'marketplace-price-monitoring',
+  },
+  {
+    icon: CreditCard,
+    title: 'Payment Reconciliation Agent',
+    description: 'Reconciles daily gateway settlements (Razorpay, CCAvenue) against sales orders, stages balanced draft bank journal entries, and flags failed payments, unmatched settlements, and refund spikes in real time.',
+    outcomes: ['4-way balanced journal staging', 'High-value failure alerts', 'Refund-spike anomaly detection'],
+    slug: 'payment-reconciliation-automation',
+  },
+  {
+    icon: Truck,
+    title: 'Logistics & Shipment Agent',
+    description: 'Processes real-time courier webhooks, runs scheduled customer tracking broadcasts in brand voice, flags shipments delayed past ETA, logs RTO events, and reconciles daily COD remittances.',
+    outcomes: ['Real-time shipment status sync', 'Automated delay escalation', 'Daily COD reconciliation'],
+    slug: 'logistics-shipment-automation',
+  },
+  {
+    icon: Calculator,
+    title: 'Accounting Sync Agent',
+    description: 'Bridges ERP data into TallyPrime via XML Gateway — validating GSTIN and state codes, mapping chart of accounts to Tally ledgers, and staging unaccepted vouchers that require accountant sign-off before posting.',
+    outcomes: ['GST-compliant voucher staging', 'Zero auto-acceptance mandate', 'Automated trial balance extraction'],
+    slug: 'accounting-sync-automation',
+  },
+  {
+    icon: Package,
+    title: 'Inventory Sync Agent',
+    description: 'Keeps multi-warehouse stock aligned between an OMS and ERP in near real time — enforcing clear source-of-truth rules, flagging discrepancies over 10 units, and handling fulfillment and return stock events automatically.',
+    outcomes: ['Multi-warehouse stock sync', 'Discrepancy alerts over threshold', 'Automatic return restocking'],
+    slug: 'inventory-sync-automation',
   },
 ];
 
@@ -222,6 +282,65 @@ const EnterpriseAIAutomation = () => {
                       </li>
                     ))}
                   </ul>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Agents Built */}
+      <section className="py-24 bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-2xl mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 text-xs font-black uppercase tracking-widest mb-6"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live in Production — MarksOps
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+              Agents we've already built.
+            </h2>
+            <p className="text-xl text-slate-400">
+              Not concepts — a production agent suite running an omnichannel commerce operation end-to-end: CRM, support, finance, pricing, payments, logistics, accounting, and inventory.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {agentsBuilt.map((agent, i) => {
+              const Icon = agent.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                >
+                  <Link
+                    to={`/services/${agent.slug}`}
+                    className="block h-full p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-emerald-400/30 hover:bg-white/[0.07] transition-all group"
+                  >
+                    <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-5 group-hover:bg-emerald-500/15 transition-colors">
+                      <Icon className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <h3 className="text-lg font-black text-white mb-2.5 leading-snug">{agent.title}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-5">{agent.description}</p>
+                    <ul className="space-y-2 mb-5">
+                      {agent.outcomes.map((o, j) => (
+                        <li key={j} className="flex items-start gap-2 text-xs">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-400">{o}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-400 uppercase tracking-wider">
+                      View Details <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </Link>
                 </motion.div>
               );
             })}
