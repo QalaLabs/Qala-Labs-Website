@@ -3,3 +3,5 @@ dist
 dist-ssr
 *.local
 .DS_Store
+api/.htaccess
+api/db-credentials.php

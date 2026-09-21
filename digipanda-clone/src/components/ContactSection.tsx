@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 const partnersList = [
   'WWF India',
@@ -33,17 +32,18 @@ export const ContactSection: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await supabase.from('leads').insert([
-        {
+      await fetch('/api/lead.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: formData.name,
-          email: formData.email,
+          companyName: formData.companyName,
           phone: formData.phone,
-          company: formData.companyName,
-          message: formData.description,
+          email: formData.email,
+          description: formData.description,
           source: 'contact_section',
-          status: 'new',
-        },
-      ]);
+        }),
+      });
     } catch (err) {
       console.warn('Lead insert notice:', err);
     } finally {
