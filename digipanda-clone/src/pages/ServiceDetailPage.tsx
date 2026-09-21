@@ -66,6 +66,33 @@ export const ServiceDetailPage: React.FC = () => {
         </div>
       </section>
 
+      {service.agents && service.agents.length > 0 && (
+        <section className="py-16 bg-[#06070D] border-t border-white/10">
+          <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>
+              Agents we've built
+            </h2>
+            <p className="text-white/50 text-sm mb-8 max-w-2xl">
+              Not a slide deck — these are live agents already running inside MarksOps, our own multi-agent operations platform.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {service.agents.map((agent, i) => (
+                <div
+                  key={i}
+                  className="p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition-colors"
+                >
+                  <h3 className="font-bold text-white mb-1.5 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} />
+                    {agent.name}
+                  </h3>
+                  <p className="text-white/65 text-sm leading-relaxed">{agent.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="py-16 bg-[#0b0c16] border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">

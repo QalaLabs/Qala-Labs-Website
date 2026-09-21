@@ -5,6 +5,7 @@ export interface ServiceItem {
   tagline: string;
   description: string;
   deliverables: string[];
+  agents?: { name: string; desc: string }[];
 }
 
 export const services: ServiceItem[] = [
@@ -21,6 +22,17 @@ export const services: ServiceItem[] = [
       'Marketplace price-discrepancy crawler and multichannel inventory sync (Unicommerce)',
       'Post-purchase logistics tracking, NDR handling, and payment reconciliation agents (Shiprocket, gateway feeds)',
       'AI ad-creative generation that cut cost 80% and produced 50+ on-brand creatives/week for WWF India',
+    ],
+    agents: [
+      { name: 'Financial Reconciliation Agent', desc: 'Matches payment-gateway settlements against orders and bank feeds automatically, flags mismatches for human review — never auto-posts.' },
+      { name: 'Finance Bills Agent', desc: 'Reads incoming vendor emails (Amazon VC, Meta/Google Ads, logistics, SaaS renewals), extracts and classifies spend, stages draft entries in Odoo ERP.' },
+      { name: 'AI Voice Agent / Receptionist', desc: 'RAG-grounded voice agent that answers, qualifies, and routes calls 24/7, grounded in our own knowledge base.' },
+      { name: 'CRM Leads Agent', desc: 'Scores inbound leads and enforces a 24-hour SLA-backed follow-up loop so nothing goes cold.' },
+      { name: 'Marketplace Crawler', desc: 'Watches competitor and marketplace listings for price discrepancies and alerts the team in real time.' },
+      { name: 'Inventory Sync Agent', desc: 'Keeps stock levels consistent across channels via Unicommerce, so nothing oversells.' },
+      { name: 'Logistics & NDR Agent', desc: 'Tracks post-purchase shipments end to end (Shiprocket) and manages non-delivery-report resolution automatically.' },
+      { name: 'Tally Connector Agent', desc: 'Syncs approved financial entries into Tally Prime via a native XML connector.' },
+      { name: 'Customer Support Agent', desc: 'Handles omnichannel support conversations, escalating only what a human genuinely needs to see.' },
     ],
   },
   {
