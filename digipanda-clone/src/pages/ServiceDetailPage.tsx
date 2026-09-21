@@ -97,6 +97,36 @@ export const ServiceDetailPage: React.FC = () => {
         </section>
       )}
 
+      {service.proof && service.proof.length > 0 && (
+        <section className="py-16 bg-[#06070D] border-t border-white/10">
+          <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+            <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>
+              Proof it works
+            </h2>
+            <p className="text-white/50 text-sm mb-8 max-w-2xl">
+              Real client work and our own shipped products, not case studies we made up for this page.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {service.proof.map((p, i) => (
+                <Link
+                  key={i}
+                  to={p.type === 'case-study' ? `/case-studies/${p.slug}` : `/products/${p.slug}`}
+                  className="group p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition-colors flex items-center justify-between gap-3"
+                >
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 block mb-1">
+                      {p.type === 'case-study' ? 'Case Study' : 'Our Product'}
+                    </span>
+                    <span className="text-white/85 font-medium">{p.label}</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white/80 transition-colors shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="py-16 bg-[#0b0c16] border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">

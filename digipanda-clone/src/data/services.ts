@@ -6,6 +6,7 @@ export interface ServiceItem {
   description: string;
   deliverables: string[];
   agents?: { slug: string; name: string; desc: string }[];
+  proof?: { type: 'case-study' | 'product'; slug: string; label: string }[];
 }
 
 export const services: ServiceItem[] = [
@@ -34,6 +35,9 @@ export const services: ServiceItem[] = [
       { slug: 'tally-connector-agent', name: 'Tally Connector Agent', desc: 'Syncs approved financial entries into Tally Prime via a native XML connector.' },
       { slug: 'customer-support-agent', name: 'Customer Support Agent', desc: 'Handles omnichannel support conversations, escalating only what a human genuinely needs to see.' },
     ],
+    proof: [
+      { type: 'product', slug: 'marksops', label: 'MarksOps — the platform these agents run on' },
+    ],
   },
   {
     slug: 'ai-voice-agents',
@@ -47,6 +51,9 @@ export const services: ServiceItem[] = [
       '24/7 call answering, qualification, and routing to the right team member',
       'Booking and follow-up capture wired straight into your CRM/lead pipeline',
       'Call transcripts and structured summaries for every conversation',
+    ],
+    proof: [
+      { type: 'product', slug: 'ai-receptionist', label: 'AI Receptionist — the product itself' },
     ],
   },
   {
@@ -62,6 +69,11 @@ export const services: ServiceItem[] = [
       'playR: 8 IPL franchise merchandise identity systems, ₹2.5Cr+ merchandise revenue',
       'Brand guideline kits, logo systems, and packaging design ready for production',
     ],
+    proof: [
+      { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — market stall to digital marketplace' },
+      { type: 'case-study', slug: 'kashmiri-sound-movement', label: 'The Kashmiri Sound Movement — label launch' },
+      { type: 'case-study', slug: 'playr-ipl-merchandise', label: 'playR IPL Merchandise — 8 franchise identity systems' },
+    ],
   },
   {
     slug: 'ui-ux-design',
@@ -75,6 +87,11 @@ export const services: ServiceItem[] = [
       'Marketplace UI/UX systems (Gaffar India multi-vendor storefront)',
       'CRM/dashboard interface design (MarksOps, Q Manager Work OS)',
       'Design-to-dev handoff as production-ready component specs, not static mockups',
+    ],
+    proof: [
+      { type: 'case-study', slug: 'capital-keys', label: 'Capital Keys — proptech web app & CRM' },
+      { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — marketplace UI/UX' },
+      { type: 'product', slug: 'q-manager', label: 'Q Manager — Work OS dashboard' },
     ],
   },
   {
@@ -90,6 +107,9 @@ export const services: ServiceItem[] = [
       'Design systems reusable across a growing page catalog',
       'Direct handoff into our own Web Development track — no design-to-dev drop-off',
     ],
+    proof: [
+      { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — full marketplace storefront' },
+    ],
   },
   {
     slug: 'mobile-app-designing',
@@ -102,6 +122,9 @@ export const services: ServiceItem[] = [
       'Mobile-first dashboard and portal UI (client-facing and internal)',
       'Component libraries shared between web and mobile builds for consistency',
       'Usability passes focused on task completion time, not just visual polish',
+    ],
+    proof: [
+      { type: 'product', slug: 'q-manager', label: 'Q Manager — client/team mobile-first portal' },
     ],
   },
   {
@@ -117,12 +140,15 @@ export const services: ServiceItem[] = [
       'On-page A/B test variants tied directly to ad creative hooks',
       'Server-side conversion tracking wired in from launch, not retrofitted',
     ],
+    proof: [
+      { type: 'case-study', slug: 'trotr-spain-pivot', label: 'Trotr: Spain Pivot — 28x ROAS funnel' },
+    ],
   },
   {
     slug: 'web-development',
     name: 'Web Development',
     track: 'Development',
-    tagline: "Next.js/React builds engineered for multi-vendor scale, not a template site.",
+    tagline: 'Next.js/React builds engineered for multi-vendor scale, not a template site.',
     description:
       'We build the marketplaces, CRM portals, and proptech platforms our design and marketing work runs on — Next.js/React on the frontend, Supabase/Postgres and custom APIs underneath, built to hold up under real transaction volume and multi-vendor complexity, not just to demo well.',
     deliverables: [
@@ -130,6 +156,10 @@ export const services: ServiceItem[] = [
       'Custom CRM/proptech web portals (Capital Keys, 64.7% conversion)',
       'Supabase/Postgres-backed data layers with row-level security',
       'Performance-tuned builds (SSR, code-splitting) engineered for Core Web Vitals',
+    ],
+    proof: [
+      { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — multi-vendor marketplace engine' },
+      { type: 'case-study', slug: 'capital-keys', label: 'Capital Keys — proptech CRM web portal' },
     ],
   },
   {
@@ -143,6 +173,9 @@ export const services: ServiceItem[] = [
       'React Native / mobile-web hybrid builds sharing one backend',
       'Push notification and offline-state handling for field/on-the-go use',
       'App builds tied to the same CI/build pipeline as the web product',
+    ],
+    proof: [
+      { type: 'product', slug: 'q-manager', label: 'Q Manager — shared backend across web & mobile' },
     ],
   },
   {
@@ -158,6 +191,10 @@ export const services: ServiceItem[] = [
       'Integration engineering: Odoo ERP, WhatsApp (Convertway), Unicommerce, Shiprocket, Tally Prime',
       'Safety-first automation: staged/draft writes with mandatory human approval on financial actions',
     ],
+    proof: [
+      { type: 'product', slug: 'marksops', label: 'MarksOps — multi-agent backend platform' },
+      { type: 'product', slug: 'q-manager', label: 'Q Manager — role-based multi-tenant Work OS' },
+    ],
   },
   {
     slug: 'digital-marketing',
@@ -172,6 +209,12 @@ export const services: ServiceItem[] = [
       'Nutrivend UK: 45 enterprise leads, 71% untapped market identified via B2B audience engineering',
       'D2C BNPL payment-architecture optimization: 15–30% conversion uplift',
       'Server-side conversion tracking (Meta CAPI, GA4) so attribution survives iOS/ad-blocker signal loss',
+    ],
+    proof: [
+      { type: 'case-study', slug: 'trotr-spain-pivot', label: 'Trotr: Spain Pivot — 28x ROAS' },
+      { type: 'case-study', slug: 'amazon-ads-scaling', label: 'Amazon Ads Scaling — 11.2x ROAS' },
+      { type: 'case-study', slug: 'nutrivend-uk', label: 'Nutrivend UK — 45 enterprise leads' },
+      { type: 'case-study', slug: 'd2c-bnpl-strategy', label: 'D2C BNPL Strategy — conversion uplift' },
     ],
   },
   {
@@ -200,6 +243,9 @@ export const services: ServiceItem[] = [
       'The Kashmiri Sound Movement: 3.4M+ organic views, zero ad spend',
       'Creator/UGC funnel design and management end to end',
       'Community loyalty and lifecycle programs layered on top of acquisition',
+    ],
+    proof: [
+      { type: 'case-study', slug: 'kashmiri-sound-movement', label: 'The Kashmiri Sound Movement — 3.4M+ organic views' },
     ],
   },
 ];
