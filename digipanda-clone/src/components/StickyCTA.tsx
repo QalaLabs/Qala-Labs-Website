@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronUp, ChevronDown, X, Sparkles, Send, CheckCircle2, MessageSquare, Loader2 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 export const StickyCTA: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,17 +17,18 @@ export const StickyCTA: React.FC = () => {
     if (!email && !phone) return;
     setLoading(true);
     try {
-      await supabase.from('leads').insert([
-        {
+      await fetch('/api/lead.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: name || 'Founder / Growth Lead',
-          email,
+          companyName: `Target Scale: ${targetScale}`,
           phone,
-          company: `Target Scale: ${targetScale}`,
-          message: `Requested Growth Plan for ${targetScale} scale horizon.`,
+          email,
+          description: `Requested Growth Plan for ${targetScale} scale horizon.`,
           source: 'sticky_growth_plan_drawer',
-          status: 'new',
-        },
-      ]);
+        }),
+      });
     } catch (err) {
       console.warn('Lead insert notice:', err);
     } finally {

@@ -1,0 +1,10 @@
+# Database credentials for db.php's getenv() calls.
+# Fill these in with the real values from Hostinger hPanel > Databases > MySQL Databases.
+# This file must never be committed with real credentials — see db-credentials.example.php
+# for the outside-webroot alternative if SetEnv is stripped by your hosting config.
+<IfModule mod_env.c>
+    SetEnv DB_HOST localhost
+    SetEnv DB_NAME your_database_name
+    SetEnv DB_USER your_database_user
+    SetEnv DB_PASS your_database_password
+</IfModule>
