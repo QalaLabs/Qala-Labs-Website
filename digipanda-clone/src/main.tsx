@@ -5,6 +5,7 @@ import App from './App';
 import { WhoWeArePage } from './pages/WhoWeArePage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
+import { AgentDetailPage } from './pages/AgentDetailPage';
 import { CaseStudiesPage } from './pages/CaseStudiesPage';
 import { CaseStudyDetailPage } from './pages/CaseStudyDetailPage';
 import { ContactPage } from './pages/ContactPage';
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/who-we-are" element={<WhoWeArePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
+        <Route path="/agents/:slug" element={<AgentDetailPage />} />
         <Route path="/case-studies" element={<CaseStudiesPage />} />
         <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
         <Route path="/contact-us" element={<ContactPage />} />

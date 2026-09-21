@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { PageLayout } from './PageLayout';
 import { services } from '../data/services';
 
@@ -77,16 +77,20 @@ export const ServiceDetailPage: React.FC = () => {
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {service.agents.map((agent, i) => (
-                <div
+                <Link
                   key={i}
-                  className="p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition-colors"
+                  to={`/agents/${agent.slug}`}
+                  className="group p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition-colors block"
                 >
-                  <h3 className="font-bold text-white mb-1.5 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                    {agent.name}
+                  <h3 className="font-bold text-white mb-1.5 flex items-center gap-2 justify-between">
+                    <span className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} />
+                      {agent.name}
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-white/80 transition-colors" />
                   </h3>
                   <p className="text-white/65 text-sm leading-relaxed">{agent.desc}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
