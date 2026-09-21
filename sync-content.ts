@@ -223,21 +223,19 @@ Designed and executed merchandise system for playR across all 8 IPL franchises:
 - Generated ₹2.5Cr+ in merchandise revenue across franchises`
   },
   {
-    title: "World Pickleball League: Apparel",
-    slug: "merchandise-design-apparel",
-    category: "Merchandise Design",
-    image_url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800",
-    description: "Professional apparel and kit design for World Pickleball League's inaugural season.",
-    result: "Full Kit & Retail System",
-    technologies: ["Apparel Design", "Retail", "Manufacturing"],
-    content: `# World Pickleball League: Official Apparel
+    title: "Mizuno India: Performance Sports Launch",
+    slug: "mizuno-india-performance-launch",
+    category: "Brand Campaign",
+    image_url: "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&q=80&w=800",
+    description: "Launch campaign for Mizuno timed to the World Badminton Championship in Delhi — lifestyle, technical footage, and coach authority.",
+    result: "World Championship Launch Runway",
+    technologies: ["Cinematography", "Influencer Runway", "Brand Strategy"],
+    content: `# Mizuno India: Performance Sports Launch
 
-Designed complete apparel system for WPL:
-- 6 team-specific kits with brand integration
-- Performance specification guidelines
-- Manufacturing-ready technical packages
-- Retail launch plan and partnership strategy
-- Became official merchandise partner for the league`
+Planned and ran full launch campaign for Mizuno's India launch:
+- Lifestyle and technical court footage timed to World Badminton Championship in Delhi
+- Direct-to-camera coach authority testimonials
+- 10-week influencer runway built around Japanese precision and elite athletic performance`
   },
   {
     title: "Capital Keys: Real Estate Platform",
@@ -294,22 +292,19 @@ Developed UGC strategy for fashion brand:
 - Achieved 2.3x higher conversion on UGC vs branded content`
   },
   {
-    title: "CSK: Real Fans, Real Roar",
-    slug: "influencer-marketing-campaign-chennai-super-kings",
-    category: "User Generated Content",
-    image_url: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&q=80&w=800",
-    description: "Fan engagement campaign for Chennai Super Kings leveraging organic supporter community.",
-    result: "Viral Fandom Momentum",
-    technologies: ["Influencer Marketing", "Community Engagement", "Social Media"],
-    content: `# CSK: Fandom Movement Campaign
+    title: "Chrono Seconds: Luxury Horology Platform",
+    slug: "chrono-seconds-luxury-horology",
+    category: "E-commerce & Web",
+    image_url: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=800",
+    description: "High-ticket pre-owned luxury watch marketplace architecture and lead acquisition engine.",
+    result: "34% Uplift in High-Ticket Inquiries",
+    technologies: ["Next.js", "Authentication", "Catalog Engine"],
+    content: `# Chrono Seconds: Luxury Horology Platform
 
-Orchestrated viral CSK fan engagement:
-- #WhistlePodu campaign reaching 2M+ impressions
-- Community creator partnerships with 50+ fan accounts
-- Match day activation strategy
-- Generated 125M+ organic impressions
-- Built sustainable fan community momentum
-- Turned casual fans into brand advocates`
+Architected verified high-ticket watch trading platform:
+- Catalog curation for certified pre-owned luxury timepieces
+- High-trust authentication verification badges and escrow workflows
+- 34% increase in qualified inquiries for ₹5L+ timepieces`
   },
   {
     title: "Gaffar India: Wholesale & Retail Marketplace",
@@ -413,6 +408,14 @@ async function syncCaseStudies() {
 async function syncPortfolio() {
   console.log('\n🔄 Syncing portfolio projects...');
   let hadError = false;
+
+  // Clean up any legacy non-client entries
+  const removedSlugs = [
+    'influencer-marketing-campaign-chennai-super-kings',
+    'merchandise-design-apparel',
+  ];
+  await supabase.from('portfolio_projects').delete().in('slug', removedSlugs);
+  await supabase.from('case_studies').delete().in('slug', removedSlugs);
 
   for (const project of PORTFOLIO_PROJECTS) {
     const payload = {

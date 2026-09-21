@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, Loader2 } from 'lucide-react';
+import { ArrowRight, Check, Loader2, AlertCircle } from 'lucide-react';
 
 const partnersList = [
   'WWF India',
@@ -27,28 +27,54 @@ export const ContactSection: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
     try {
-      await fetch('/api/lead.php', {
+      const payload = {
+        name: formData.name,
+        companyName: formData.companyName,
+        phone: formData.phone,
+        email: formData.email,
+        description: formData.description,
+        source: 'contact_section',
+      };
+
+      // Try serverless endpoint first, fallback to PHP if 404
+      let response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          companyName: formData.companyName,
-          phone: formData.phone,
-          email: formData.email,
-          description: formData.description,
-          source: 'contact_section',
-        }),
+        body: JSON.stringify(payload),
       });
+
+      if (response.status === 404) {
+        response = await fetch('/api/lead.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      if (!response.ok) {
+        let errMessage = `Server error (${response.status})`;
+        try {
+          const resData = await response.json();
+          if (resData?.error) errMessage = resData.error;
+        } catch {
+          // ignore parse error
+        }
+        throw new Error(errMessage);
+      }
+
+      setSubmitted(true);
     } catch (err) {
-      console.warn('Lead insert notice:', err);
+      console.error('Lead submission failed:', err);
+      setErrorMessage('Submission failed. Please email us directly at hello@qalalabs.com');
     } finally {
       setLoading(false);
-      setSubmitted(true);
     }
   };
 
@@ -90,6 +116,20 @@ export const ContactSection: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {errorMessage && (
+                    <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/40 text-red-200 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+                        <span>{errorMessage}</span>
+                      </div>
+                      <a
+                        href="mailto:hello@qalalabs.com"
+                        className="inline-flex items-center gap-1 font-semibold text-[#3FE0E0] hover:underline shrink-0 text-xs uppercase tracking-wider"
+                      >
+                        Email directly &rarr;
+                      </a>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="text"

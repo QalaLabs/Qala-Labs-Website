@@ -131,13 +131,13 @@ export const Hero: React.FC = () => {
                 
                 <a
                   href="#services"
-                  className="w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                  className="group relative w-12 h-12 rounded-full flex items-center justify-center p-1 bg-white/[0.04] border border-cyan-500/20 hover:border-cyan-400/60 shadow-[0_0_15px_rgba(63,224,224,0.15)] hover:shadow-[0_0_25px_rgba(63,224,224,0.35)] hover:scale-110 active:scale-95 transition-all duration-300"
                   title="Explore AI Capabilities"
                 >
                   <img
-                    src="/assets/ai-icon4.gif"
+                    src="/assets/ai-sparkle.svg"
                     alt="AI Sparkle"
-                    className="w-12 h-12 rounded-full object-contain"
+                    className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(63,224,224,0.5)] group-hover:rotate-12 transition-transform duration-500"
                   />
                 </a>
               </div>

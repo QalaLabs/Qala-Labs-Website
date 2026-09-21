@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronUp, ChevronDown, X, Sparkles, Send, CheckCircle2, MessageSquare, Loader2 } from 'lucide-react';
+import { ChevronUp, ChevronDown, X, Sparkles, Send, CheckCircle2, MessageSquare, Loader2, AlertCircle } from 'lucide-react';
 
 export const StickyCTA: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +9,7 @@ export const StickyCTA: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const scaleOptions = ['₹25L/mo', '₹50L/mo', '₹1Cr/mo', '₹5Cr/mo+'];
 
@@ -16,28 +17,55 @@ export const StickyCTA: React.FC = () => {
     e.preventDefault();
     if (!email && !phone) return;
     setLoading(true);
+    setErrorMessage(null);
     try {
-      await fetch('/api/lead.php', {
+      const payload = {
+        name: name || 'Founder / Growth Lead',
+        companyName: `Target Scale: ${targetScale}`,
+        phone,
+        email,
+        description: `Requested Growth Plan for ${targetScale} scale horizon.`,
+        source: 'sticky_growth_plan_drawer',
+      };
+
+      // Try serverless endpoint first, fallback to PHP if 404
+      let response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name || 'Founder / Growth Lead',
-          companyName: `Target Scale: ${targetScale}`,
-          phone,
-          email,
-          description: `Requested Growth Plan for ${targetScale} scale horizon.`,
-          source: 'sticky_growth_plan_drawer',
-        }),
+        body: JSON.stringify(payload),
       });
-    } catch (err) {
-      console.warn('Lead insert notice:', err);
-    } finally {
-      setLoading(false);
+
+      if (response.status === 404) {
+        response = await fetch('/api/lead.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      if (!response.ok) {
+        let errDetail = `Server error (${response.status})`;
+        try {
+          const resData = await response.json();
+          if (resData?.error) errDetail = resData.error;
+        } catch {
+          // ignore parse error
+        }
+        throw new Error(errDetail);
+      }
+
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
         setIsOpen(false);
       }, 4000);
+    } catch (err) {
+      console.error('Lead submission failed:', err);
+      setErrorMessage(
+        'Submission failed. Please email us directly at hello@qalalabs.com or chat on WhatsApp.'
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,6 +100,20 @@ export const StickyCTA: React.FC = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {errorMessage && (
+                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-200 text-xs flex items-center justify-between gap-2 animate-in fade-in duration-200">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                  <a
+                    href="mailto:hello@qalalabs.com"
+                    className="underline font-bold text-[#3FE0E0] hover:text-white shrink-0 text-[11px]"
+                  >
+                    Email
+                  </a>
+                </div>
+              )}
               <div>
                 <label className="block text-[11px] font-mono uppercase text-white/60 mb-2">
                   Select Your Target Revenue Horizon:

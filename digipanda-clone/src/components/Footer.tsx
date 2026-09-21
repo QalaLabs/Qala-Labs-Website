@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const offices = [
   { country: 'India (Delhi NCR)', flag: '/assets/india-flag.png', timezone: 'Asia/Kolkata' },
-  { country: 'United Kingdom (London)', flag: '/assets/aus-flag.png', timezone: 'Europe/London' },
+  { country: 'United Kingdom (London)', flag: '/assets/uk-flag.svg', timezone: 'Europe/London' },
   { country: 'UAE (Dubai)', flag: '/assets/uae-flag.png', timezone: 'Asia/Dubai' },
   { country: 'Netherlands (Amsterdam)', flag: '/assets/nl-flag.png', timezone: 'Europe/Amsterdam' },
 ];
@@ -70,45 +71,45 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">ABOUT QALA</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="#who-we-are" className="hover:text-[#3FE0E0] transition-colors">Philosophy & Team</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">Case Studies</a></li>
-              <li><a href="#services" className="hover:text-[#3FE0E0] transition-colors">Core Capabilities</a></li>
+              <li><a href="/#who-we-are" className="hover:text-[#3FE0E0] transition-colors">Philosophy & Team</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Case Studies</a></li>
+              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Core Capabilities</a></li>
             </ul>
 
             <h4 className="font-bold text-white mt-6 mb-4 uppercase tracking-wider text-xs">INSIGHTS</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="#blog" className="hover:text-[#3FE0E0] transition-colors">D2C BNPL Strategy Guide</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">28x ROAS Funnel Blueprint</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">B2B Market Validation Playbook</a></li>
+              <li><a href="/#blog" className="hover:text-[#3FE0E0] transition-colors">D2C BNPL Strategy Guide</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">28x ROAS Funnel Blueprint</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">B2B Market Validation Playbook</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CAPABILITIES</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="#services" className="hover:text-[#3FE0E0] transition-colors">Audience Engineering</a></li>
-              <li><a href="#services" className="hover:text-[#3FE0E0] transition-colors">AI Creative Systems</a></li>
-              <li><a href="#services" className="hover:text-[#3FE0E0] transition-colors">Full-Stack Engineering</a></li>
-              <li><a href="#services" className="hover:text-[#3FE0E0] transition-colors">Brand & Merchandise</a></li>
+              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Audience Engineering</a></li>
+              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">AI Creative Systems</a></li>
+              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Full-Stack Engineering</a></li>
+              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Brand & Merchandise</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CASE STUDIES</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">Nutrivend UK (B2B)</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">Trotr Travel (28x ROAS)</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">WWF India (AI Creative)</a></li>
-              <li><a href="#case-studies" className="hover:text-[#3FE0E0] transition-colors">playR (IPL Merchandising)</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Nutrivend UK (B2B)</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Trotr Travel (28x ROAS)</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">WWF India (AI Creative)</a></li>
+              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">playR (IPL Merchandising)</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CONNECT</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="#contact-form" className="hover:text-[#3FE0E0] transition-colors">Start a Project</a></li>
+              <li><a href="/#contact-form" className="hover:text-[#3FE0E0] transition-colors">Start a Project</a></li>
               <li><a href="mailto:hello@qalalabs.com" className="hover:text-[#3FE0E0] transition-colors">hello@qalalabs.com</a></li>
-              <li><a href="#contact-form" className="hover:text-[#3FE0E0] transition-colors">Schedule Call</a></li>
+              <li><a href="/#contact-form" className="hover:text-[#3FE0E0] transition-colors">Schedule Call</a></li>
             </ul>
           </div>
 
@@ -140,8 +141,15 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      <div className="bg-[#040509] border-t border-white/10 py-4 text-center text-xs text-white/50">
-        <p>Copyright © 2026 Qala Labs. Art Meets Engineering. All Rights Reserved.</p>
+      <div className="bg-[#040509] border-t border-white/10 py-4 text-xs text-white/50">
+        <div className="container mx-auto px-4 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <p>Copyright © 2026 Qala Labs. Art Meets Engineering. All Rights Reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

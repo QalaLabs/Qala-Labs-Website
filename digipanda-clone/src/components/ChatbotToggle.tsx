@@ -28,7 +28,7 @@ export const ChatbotToggle: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Qala Assistant"
@@ -42,7 +42,7 @@ export const ChatbotToggle: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-80 sm:w-96 rounded-3xl bg-[#0c0d18] border border-white/15 shadow-2xl overflow-hidden flex flex-col h-[440px] animate-fadeUp">
+        <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-3xl bg-[#0c0d18] border border-white/15 shadow-2xl overflow-hidden flex flex-col h-[440px] max-h-[calc(100vh-8rem)] animate-fadeUp">
           <div className="bg-[#121324] p-4 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] text-white font-extrabold flex items-center justify-center text-sm shadow-sm">

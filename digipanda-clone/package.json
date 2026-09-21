@@ -1,11 +1,12 @@
 {
-  "name": "digipanda-clone",
+  "name": "qala-labs-website",
+  "description": "Qala Labs official website - Creative × Data × Impact",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node -e \"const fs=require('fs'); if(fs.existsSync('api')) fs.cpSync('api', 'dist/api', {recursive:true});\"",
     "preview": "vite preview"
   },
   "dependencies": {

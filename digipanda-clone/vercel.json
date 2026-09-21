@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/lead.php",
+      "destination": "/api/lead"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

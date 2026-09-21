@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ai-grad-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3FE0E0"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="ai-grad-secondary" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3FE0E0"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <radialGradient id="ai-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3FE0E0" stop-opacity="0.8"/>
+      <stop offset="45%" stop-color="#6366F1" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow-blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(0.92); opacity: 0.6; }
+      50% { transform: scale(1.08); opacity: 0.95; }
+    }
+    @keyframes rotateRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes mainSparkle {
+      0%, 100% { transform: scale(0.95) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(90deg); }
+    }
+    @keyframes sparkleFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(0.8); opacity: 0.4; }
+      50% { transform: translate(-2px, -2px) scale(1.15); opacity: 1; }
+    }
+    @keyframes sparkleFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+      50% { transform: translate(2px, 1px) scale(0.7); opacity: 0.3; }
+    }
+    .bg-glow {
+      transform-origin: 32px 32px;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    .orbital-ring {
+      transform-origin: 32px 32px;
+      animation: rotateRing 12s linear infinite;
+    }
+    .center-star {
+      transform-origin: 32px 32px;
+      animation: mainSparkle 4s ease-in-out infinite;
+    }
+    .satellite-1 {
+      transform-origin: 48px 16px;
+      animation: sparkleFloat1 2.5s ease-in-out infinite;
+    }
+    .satellite-2 {
+      transform-origin: 16px 46px;
+      animation: sparkleFloat2 2.2s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Ambient Glow -->
+  <circle class="bg-glow" cx="32" cy="32" r="28" fill="url(#ai-glow)" />
+
+  <!-- High-Tech Dashed Orbit Ring -->
+  <circle class="orbital-ring" cx="32" cy="32" r="24" fill="none" stroke="url(#ai-grad-primary)" stroke-width="1.2" stroke-dasharray="6 4 2 4" stroke-opacity="0.65" />
+
+  <!-- Secondary subtle orbit ring -->
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#3FE0E0" stroke-width="0.75" stroke-dasharray="2 6" stroke-opacity="0.4" />
+
+  <!-- Main 4-Point AI Sparkle Star -->
+  <g class="center-star" filter="url(#glow-blur)">
+    <!-- Outer Cyan/Indigo Star Shape -->
+    <path d="M32 6 C32 18 34 26 46 32 C34 38 32 46 32 58 C32 46 30 38 18 32 C30 26 32 18 32 6 Z" fill="url(#ai-grad-primary)" />
+    <!-- Inner Core Bright White / Cyan Star -->
+    <path d="M32 15 C32 23 33.5 28.5 41 32 C33.5 35.5 32 41 32 49 C32 41 30.5 35.5 23 32 C30.5 28.5 32 23 32 15 Z" fill="#FFFFFF" fill-opacity="0.9" />
+    <!-- Bright center core dot -->
+    <circle cx="32" cy="32" r="2.5" fill="#3FE0E0" />
+  </g>
+
+  <!-- Top-Right Satellite Sparkle -->
+  <g class="satellite-1" filter="url(#glow-blur)">
+    <path d="M48 10 C48 14 49 15 53 16 C49 17 48 18 48 22 C48 18 47 17 43 16 C47 15 48 14 48 10 Z" fill="url(#ai-grad-secondary)" />
+    <circle cx="48" cy="16" r="1" fill="#FFFFFF" />
+  </g>
+
+  <!-- Bottom-Left Satellite Sparkle -->
+  <g class="satellite-2" filter="url(#glow-blur)">
+    <path d="M16 40 C16 44 17 45 21 46 C17 47 16 48 16 52 C16 48 15 47 11 46 C15 45 16 44 16 40 Z" fill="url(#ai-grad-primary)" />
+    <circle cx="16" cy="46" r="0.9" fill="#FFFFFF" />
+  </g>
+
+  <!-- Tiny micro sparkles -->
+  <circle cx="20" cy="18" r="1" fill="#3FE0E0" opacity="0.8">
+    <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="47" cy="45" r="1.2" fill="#A855F7" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+</svg>
