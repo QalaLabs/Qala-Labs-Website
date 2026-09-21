@@ -1,7 +1,15 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { PageLayout } from './PageLayout';
 import { services } from '../data/services';
+
+const trackColor: Record<string, string> = {
+  AI: '#3FE0E0',
+  Design: '#A78BFA',
+  Development: '#4F46E5',
+  Marketing: '#34D399',
+};
 
 export const ServiceDetailPage: React.FC = () => {
   const { slug } = useParams();
@@ -9,18 +17,89 @@ export const ServiceDetailPage: React.FC = () => {
 
   if (!service) return <Navigate to="/services" replace />;
 
+  const accent = trackColor[service.track] ?? '#3FE0E0';
+  const related = services.filter((s) => s.track === service.track && s.slug !== service.slug).slice(0, 3);
+
   return (
     <PageLayout>
-      <section className="pt-40 pb-24 bg-[#06070D]">
-        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
-          <Link to="/services" className="text-xs font-mono text-white/40 hover:text-[#3FE0E0] uppercase tracking-widest">
+      <section className="relative pt-40 pb-16 bg-[#06070D] overflow-hidden">
+        <div
+          className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none"
+          style={{ backgroundColor: `${accent}1A` }}
+        />
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
+          <Link to="/services" className="text-xs font-mono text-white/40 hover:text-[#3FE0E0] uppercase tracking-widest transition-colors">
             &larr; All services
           </Link>
-          <span className="block text-[10px] font-mono text-white/40 uppercase tracking-widest mt-6">{service.track}</span>
-          <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-tight mt-3 mb-4">{service.name}</h1>
-          <p className="text-xl text-white/70">{service.tagline}</p>
-          <p className="text-white/70 leading-relaxed mt-6">{service.description}</p>
-          {/* TODO(concurrent session: Services): add deliverables list, proof points, CTA */}
+          <span
+            className="inline-flex items-center gap-2 mt-6 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest border"
+            style={{ color: accent, borderColor: `${accent}40`, backgroundColor: `${accent}14` }}
+          >
+            {service.track}
+          </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight mt-4 mb-4">
+            {service.name}
+          </h1>
+          <p className="text-xl md:text-2xl font-medium" style={{ color: accent }}>
+            {service.tagline}
+          </p>
+          <p className="text-white/70 leading-relaxed mt-6 max-w-3xl">{service.description}</p>
+        </div>
+      </section>
+
+      <section className="py-16 bg-[#06070D]">
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-6" style={{ color: accent }}>
+            What this delivers
+          </h2>
+          <div className="grid gap-4">
+            {service.deliverables.map((d, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition-colors"
+              >
+                <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" style={{ color: accent }} />
+                <span className="text-white/85 leading-relaxed">{d}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section className="py-16 bg-[#0b0c16] border-t border-white/10">
+          <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-6">
+              Also in {service.track}
+            </h2>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {related.map((r) => (
+                <Link
+                  key={r.slug}
+                  to={`/services/${r.slug}`}
+                  className="p-5 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-[#3FE0E0]/40 transition-colors block"
+                >
+                  <h3 className="font-bold text-white mb-1">{r.name}</h3>
+                  <p className="text-white/60 text-sm">{r.tagline}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="py-20 bg-[#06070D] border-t border-white/10">
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl text-center">
+          <h2 className="text-2xl sm:text-3xl font-medium text-white mb-6">
+            Ready to put this to work on your growth?
+          </h2>
+          <Link
+            to="/contact-us"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 text-white rounded-full px-8 py-3.5 font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg"
+          >
+            Start a Project
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </PageLayout>
