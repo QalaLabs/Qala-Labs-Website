@@ -1,7 +1,7 @@
 <?php
 /**
  * Lead capture endpoint for Hostinger shared hosting (plain PHP, no framework).
- * Accepts the digiPanda-clone contact form's {name, companyName, phone, email,
+ * Accepts the Qala Labs contact form's {name, companyName, phone, email,
  * description} payload, inserts it into the MySQL `leads` table via a prepared
  * statement, and returns real JSON + HTTP status codes so the frontend can
  * tell success from failure.

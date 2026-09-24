@@ -1,4 +1,4 @@
--- Schema: leads table for the digiPanda-clone contact form (Hostinger MySQL)
+-- Schema: leads table for the Qala Labs contact form (Hostinger MySQL)
 -- Mirrors the production Supabase `leads` table shape, translated to plain MySQL.
 
 CREATE TABLE IF NOT EXISTS leads (

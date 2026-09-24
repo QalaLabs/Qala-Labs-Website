@@ -75,7 +75,7 @@ export const App: React.FC = () => {
       {/* Footer & Global Offices */}
       <Footer />
 
-      {/* Floating AI Panda Chatbot Toggle */}
+      {/* Floating Qala AI Chatbot Toggle */}
       <ChatbotToggle />
 
       {/* Persistent Floating Growth Plan Drawer (Images 1 & 2 bottom bar) */}

@@ -65,7 +65,7 @@
 ### Installation
 ```bash
 # Clone or open the repository
-cd "e:\Qala Labs\Website\digipanda-clone"
+cd qala-labs-website
 
 # Install dependencies
 npm install
