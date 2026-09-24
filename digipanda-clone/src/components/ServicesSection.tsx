@@ -149,7 +149,7 @@ const qalaPillars = [
       'Next.js & React',
       'Multi-Vendor Marketplaces',
       'Custom CRM Portals',
-      'Supabase & APIs',
+      'Databases & APIs',
       'Performance Tuning',
     ],
   },

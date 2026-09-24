@@ -150,11 +150,11 @@ export const services: ServiceItem[] = [
     track: 'Development',
     tagline: 'Next.js/React builds engineered for multi-vendor scale, not a template site.',
     description:
-      'We build the marketplaces, CRM portals, and proptech platforms our design and marketing work runs on — Next.js/React on the frontend, Supabase/Postgres and custom APIs underneath, built to hold up under real transaction volume and multi-vendor complexity, not just to demo well.',
+      'We build the marketplaces, CRM portals, and proptech platforms our design and marketing work runs on — Next.js/React on the frontend, MySQL/Postgres and custom APIs underneath, built to hold up under real transaction volume and multi-vendor complexity, not just to demo well.',
     deliverables: [
       'Multi-vendor marketplace engines (Gaffar India digital marketplace)',
       'Custom CRM/proptech web portals (Capital Keys, 64.7% conversion)',
-      'Supabase/Postgres-backed data layers with row-level security',
+      'High-performance MySQL/PostgreSQL-backed data layers with secure access controls',
       'Performance-tuned builds (SSR, code-splitting) engineered for Core Web Vitals',
     ],
     proof: [

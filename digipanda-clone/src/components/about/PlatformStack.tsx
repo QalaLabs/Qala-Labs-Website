@@ -55,7 +55,7 @@ const categories = [
       { name: "Next.js App Router", icon: Code2, color: "text-white" },
       { name: "Python Automation & Scrapers", icon: Cpu, color: "text-[#3b82f6]" },
       { name: "Node.js & TypeScript Microservices", icon: Code2, color: "text-[#3fe0e0]" },
-      { name: "Supabase & PostgreSQL Stacks", icon: Layers, color: "text-[#34d399]" },
+      { name: "MySQL & PostgreSQL Stacks", icon: Layers, color: "text-[#34d399]" },
     ]
   }
 ];

@@ -312,12 +312,14 @@ export const Hero: React.FC = () => {
                     <span className="text-xs font-medium text-white/80 group-hover/pill:text-white transition-colors">Shopify Plus Ecosystem</span>
                   </div>
 
-                  {/* Supabase Architecture */}
-                  <div className="group/pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 hover:border-[#3ECF8E]/50 hover:bg-white/[0.07] backdrop-blur-md transition-all duration-300">
-                    <svg className="w-3.5 h-3.5 text-[#3ECF8E] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M21.362 9.354H12V.343a.343.343 0 0 0-.586-.242L.101 11.41a.343.343 0 0 0 .242.586H9.72v9.011a.343.343 0 0 0 .586.242l11.313-11.309a.343.343 0 0 0-.257-.586z"/>
+                  {/* Cloud Database Architecture */}
+                  <div className="group/pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 hover:border-[#3FE0E0]/50 hover:bg-white/[0.07] backdrop-blur-md transition-all duration-300">
+                    <svg className="w-3.5 h-3.5 text-[#3FE0E0] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
                     </svg>
-                    <span className="text-xs font-medium text-white/80 group-hover/pill:text-white transition-colors">Supabase Architecture</span>
+                    <span className="text-xs font-medium text-white/80 group-hover/pill:text-white transition-colors">Cloud Database Architecture</span>
                   </div>
                 </div>
               </div>

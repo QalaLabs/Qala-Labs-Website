@@ -103,7 +103,7 @@ const comparisonDimensions: ComparisonItem[] = [
       badge: 'Fragile Stack',
     },
     qala: {
-      title: 'Custom AI pipelines & scalable React/Supabase architectures',
+      title: 'Custom AI pipelines & scalable React/Cloud architectures',
       sub: 'Autonomous agent swarms, vector knowledge bases, and real-time headless high-converting web applications.',
       badge: 'Enterprise Architecture',
     },

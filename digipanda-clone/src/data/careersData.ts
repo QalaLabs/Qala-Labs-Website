@@ -155,7 +155,7 @@ export const openRoles: JobRole[] = [
     responsibilities: [
       'Lead architecture and development of scalable React/Next.js and Node.js microservices.',
       'Ensure resilient client-side UX with optimistic mutations, error boundaries, and dual-target API fallbacks.',
-      'Design modular database schemas (PostgreSQL / Supabase / Redis) with high data integrity.',
+      'Design modular database schemas (PostgreSQL / MySQL / Redis) with high data integrity.',
       'Mentor junior engineers and establish rigorous CI/CD, testing, and performance budgets.',
     ],
     requirements: [

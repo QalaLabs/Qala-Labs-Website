@@ -30,7 +30,7 @@ describe('WhyDifferentSection Component (Split Comparison Slider)', () => {
     expect(screen.getByText('Verified ROAS & bottom-line GMV')).toBeInTheDocument();
     expect(screen.getByText('48-hour autonomous creative loops')).toBeInTheDocument();
     expect(screen.getByText('Server-side CAPI telemetry & margin attribution')).toBeInTheDocument();
-    expect(screen.getByText('Custom AI pipelines & scalable React/Supabase architectures')).toBeInTheDocument();
+    expect(screen.getByText('Custom AI pipelines & scalable React/Cloud architectures')).toBeInTheDocument();
   });
 
   it('allows interacting with preset buttons and range slider', () => {
