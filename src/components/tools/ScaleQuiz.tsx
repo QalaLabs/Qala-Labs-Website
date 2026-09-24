@@ -107,17 +107,22 @@ const ScaleQuiz = () => {
     } else {
       // 2. Trigger immediate personalized email
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            email, 
-            tool_used: 'scale_potential_quiz', 
-            data: leadData 
+          body: JSON.stringify({
+            email,
+            tool_used: 'scale_potential_quiz',
+            data: leadData
           })
         });
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Results ready, but the emailed copy couldn't be sent.");
+        }
       } catch (err) {
         console.error("Email trigger failed:", err);
+        showError("Results ready, but the emailed copy couldn't be sent.");
       }
 
       setLoading(false);

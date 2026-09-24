@@ -18,7 +18,14 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["Manrope", "sans-serif"],
+        mono: ["IBM Plex Mono", "monospace"],
+      },
       colors: {
+        indigo: "hsl(var(--indigo))",
+        cyan: "hsl(var(--cyan))",
+        good: "hsl(var(--good))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -68,6 +75,8 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "var(--radius-2xl)",
+        "3xl": "var(--radius-3xl)",
       },
       keyframes: {
         "accordion-down": {
@@ -86,10 +95,15 @@ export default {
             height: "0",
           },
         },
+        "wave-scroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wave-scroll": "wave-scroll 18s linear infinite",
       },
     },
   },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SEO from '@/components/layout/SEO';
@@ -21,6 +22,7 @@ const Pricing = () => {
         "Bi-weekly Strategy Sprints"
       ],
       cta: "Start Scaling",
+      href: "/contact?service=Performance%20Media&tier=growth_engine&budget=%E2%82%B95L%20-%20%E2%82%B915L",
       highlight: false
     },
     {
@@ -36,6 +38,7 @@ const Pricing = () => {
         "Dedicated Growth Engineer"
       ],
       cta: "Scale to 8 Figures",
+      href: "/contact?service=Performance%20Media&tier=market_dominator&budget=%E2%82%B915L%20-%20%E2%82%B950L",
       highlight: true
     },
     {
@@ -51,6 +54,7 @@ const Pricing = () => {
         "24/7 Priority Support"
       ],
       cta: "Get Custom Proposal",
+      href: "/contact?service=Web%20%26%20Conversion&tier=enterprise&budget=%E2%82%B950L%2B",
       highlight: false
     }
   ];
@@ -117,9 +121,9 @@ const Pricing = () => {
                       : "bg-slate-100 hover:bg-slate-200 text-slate-900"
                   }`}
                 >
-                  <a href="/contact">
+                  <Link to={tier.href}>
                     {tier.cta} <ArrowRight className="ml-2 w-5 h-5" />
-                  </a>
+                  </Link>
                 </Button>
               </motion.div>
             ))}
@@ -171,12 +175,12 @@ const Pricing = () => {
 
           <div className="mt-16 text-center">
             <p className="text-slate-500 mb-6">Not sure which tier fits? We'll tell you in 15 minutes.</p>
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-colors"
             >
               Book a free growth audit <ArrowRight className="w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </main>

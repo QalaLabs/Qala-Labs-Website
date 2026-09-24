@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .dyad/
+
+# Lead notification PHP endpoint SMTP config (real credentials, never commit)
+config/lead-mail.config.php
+.env
+
+# Claude Code local config
+.claude/

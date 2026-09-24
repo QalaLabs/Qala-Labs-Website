@@ -1,9 +1,39 @@
+# Robots.txt for Qala Labs
+# Allows search and AI crawlers while protecting private admin areas
+
 User-agent: *
 Allow: /
-Disallow: /admin
 Disallow: /admin/
 Disallow: /login
-Disallow: /dashboard
-Disallow: /onboarding
+Disallow: /dashboard/
+Disallow: /onboarding/
+Disallow: /api/
+Disallow: /employee/
+Disallow: /client/
 
+# Google-specific directives
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /dashboard/
+Disallow: /onboarding/
+Disallow: /api/
+Disallow: /employee/
+Disallow: /client/
+
+# Allow social media preview crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Sitemap & LLMs Reference
 Sitemap: https://qalalabs.com/sitemap.xml

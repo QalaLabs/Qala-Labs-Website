@@ -13,11 +13,14 @@ interface SEOProps {
   noIndex?: boolean;
   jsonLd?: any;
   breadcrumbs?: Array<{ name: string; url: string }>;
+  lang?: string;
 }
 
 const SEO = ({ title, description, image, article, noIndex, jsonLd, breadcrumbs }: SEOProps) => {
   const location = useLocation();
-  const seoTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+  const seoTitle = title
+    ? (title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`)
+    : siteConfig.name;
   const seoDescription = description || siteConfig.description;
   
   // Ensure the image URL is absolute for social crawlers
@@ -33,7 +36,7 @@ const SEO = ({ title, description, image, article, noIndex, jsonLd, breadcrumbs 
   const baseJsonLd = getBaseJsonLd();
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang: "en" }}>
       <title>{seoTitle}</title>
       <meta name="description" content={seoDescription} />
       <meta name="image" content={seoImage} />

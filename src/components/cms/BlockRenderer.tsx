@@ -10,56 +10,51 @@ import TechStackRibbon from '@/components/home/TechStackRibbon';
 import WhyDifferent from '@/components/home/WhyDifferent';
 import ClientLogos from '@/components/home/ClientLogos';
 import QuickMetrics from '@/components/home/QuickMetrics';
+import Testimonial from '@/components/home/Testimonial';
 import WhatWeDo from '@/components/home/WhatWeDo';
 import HowWeWork from '@/components/home/HowWeWork';
 import CaseStudySnapshots from '@/components/home/CaseStudySnapshots';
-import PortfolioSnapshots from '@/components/home/PortfolioSnapshots';
 import ResearchInsights from '@/components/home/ResearchInsights';
 import ClosingCTA from '@/components/home/ClosingCTA';
 
 // Import images for fallback
-import AashirwadImg from '@/assets/Aashirwad.png';
-import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.png';
-import ManpreetImg from '@/assets/Manpreet.png';
-import AayushImg from '@/assets/Aayush.png';
+import AashirwadImg from '@/assets/Aashirwad.webp';
+import DipikaImg from '@/assets/Dipika.webp';
+import AryamanImg from '@/assets/Aryaman.webp';
+import ManpreetImg from '@/assets/Manpreet.webp';
+import AayushImg from '@/assets/Aayush.webp';
 
 export interface BlockRendererProps {
   blocks: Block[];
   editingId?: string | null;
   onUpdateBlock?: (id: string, props: any) => void;
+  skipHero?: boolean;
 }
 
-const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpdateBlock }) => {
+const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpdateBlock, skipHero = false }) => {
   if (!blocks || blocks.length === 0) {
     // Fallback: If no blocks are defined, render the homepage structure anyway
     return (
       <>
-        <Hero 
-          title="India's Full-Service AI Growth Agency."
-          subtitle="Performance marketing, AI automation, and AI search visibility — we build brands that scale." 
-          ctaText="Get Proposal" 
-          ctaUrl="/contact" 
-        />
+        {!skipHero && (
+          <Hero 
+            title="India's Full-Service AI Growth Agency."
+            subtitle="Performance marketing, AI automation, and AI search visibility — we build brands that scale." 
+            ctaText="Get Proposal" 
+            ctaUrl="/contact" 
+          />
+        )}
         <TechStackRibbon />
         <WhyDifferent 
           title="Why we're different" 
           description="We're revenue engineers, not growth hackers. We pair rigorous research with hands-on execution so every experiment has a clear hypothesis, an attribution plan, and measurable revenue impact." 
         />
         <ClientLogos />
-        <QuickMetrics 
-          title="Recent Results" 
-          subtitle="Proven Performance." 
-          results={[
-            { brand: "Amazon Ads: Apparel Scale", stats: [{ label: "Top ROAS", value: "11.2x", iconType: 'zap' }, { label: "Monthly Sales", value: "₹2.7L+", iconType: 'trending' }], color: "from-blue-600/20 to-indigo-600/20" },
-            { brand: "playR: Real Fans, Real Roar", stats: [{ label: "Viral Reach", value: "5M+", iconType: 'share' }, { label: "Engagement", value: "12%", iconType: 'heart' }], color: "from-yellow-600/20 to-orange-600/20" }
-          ]}
-        />
+        <QuickMetrics />
         <WhatWeDo title="What we do" />
         <HowWeWork title="How we work" />
         <CaseStudySnapshots />
-        <PortfolioSnapshots />
-        <ResearchInsights 
+        <ResearchInsights
           title="Research & Insights" 
           description="We believe in doing the right research and finding the perfect insight for your brand to work on: from customer micro-segments to creative triggers and measurement design." 
         />
@@ -169,6 +164,9 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
           case 'quick_metrics':
             return <QuickMetrics key={block.id} {...block.props} />;
           
+          case 'testimonial':
+            return <Testimonial key={block.id} {...block.props} />;
+          
           case 'what_we_do':
             return <WhatWeDo key={block.id} {...block.props} />;
           
@@ -179,7 +177,9 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ blocks, editingId, onUpda
             return <CaseStudySnapshots key={block.id} />;
 
           case 'portfolio_snapshots':
-            return <PortfolioSnapshots key={block.id} />;
+            // Renders identical content to case_study_snapshots — skip to avoid
+            // showing the same case-study grid twice on the same page.
+            return null;
 
           case 'research_insights':
             return <ResearchInsights key={block.id} {...block.props} />;

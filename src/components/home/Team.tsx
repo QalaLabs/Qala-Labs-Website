@@ -3,11 +3,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
-import AashirwadImg from '@/assets/Aashirwad.png';
-import AayushImg from '@/assets/Aayush.png';
-import DipikaImg from '@/assets/Dipika.jpg';
-import AryamanImg from '@/assets/Aryaman.png';
-import ManpreetImg from '@/assets/Manpreet.png';
+import AashirwadImg from '@/assets/Aashirwad.webp';
+import AayushImg from '@/assets/Aayush.webp';
+import DipikaImg from '@/assets/Dipika.webp';
+import AryamanImg from '@/assets/Aryaman.webp';
+import ManpreetImg from '@/assets/Manpreet.webp';
 
 interface TeamMember {
   name: string;
@@ -94,9 +94,11 @@ const Team = ({ title = "The Team", members = [] }: TeamProps) => {
                     href={member.linkedin || "#"} 
                     target="_blank" 
                     rel="noopener noreferrer" 
+                    aria-label={`Connect with ${member.name} on LinkedIn`}
                     className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white hover:bg-blue-700 transition-all shadow-xl hover:scale-110"
                   >
-                    <Linkedin className="w-6 h-6" />
+                    <Linkedin className="w-6 h-6" aria-hidden="true" />
+                    <span className="sr-only">{`Connect with ${member.name} on LinkedIn`}</span>
                   </a>
                 </div>
               </div>

@@ -1,4 +1,42 @@
+# Qala Labs Hostinger Server Configuration
 Options -MultiViews
 RewriteEngine On
+
+# 1. Canonical HTTPS & Non-WWW Redirection
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\.qalalabs\.com$ [NC]
+RewriteRule ^(.*)$ https://qalalabs.com/$1 [L,R=301]
+
+# 2. Lead API Endpoint Mapping
+RewriteRule ^api/lead/?$ api/lead.php [L,QSA]
+
+# 3. Protect Sensitive Files & Directories
+<FilesMatch "^\.|\.(env|json|config|lock|yaml|yml|md|ts|tsx)$">
+    Require all denied
+</FilesMatch>
+
+# 4. Security Response Headers
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# 5. Static Asset Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# 6. SPA Fallback Routing
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]

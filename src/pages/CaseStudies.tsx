@@ -27,7 +27,7 @@ const CaseStudies = () => {
     {
       id: 'nutrivend-uk-meta-lead-gen',
       title: "Nutrivend UK: B2B Market Validation",
-      slug: "Meta-Lead-Generation-Ad-UK-Market",
+      slug: "meta-lead-generation-ad-uk-market",
       category: "Meta Lead Generation",
       result: "45 B2B Leads • 71% Untapped Market",
       image: NutrivendThumbnail,
@@ -37,7 +37,7 @@ const CaseStudies = () => {
     {
       id: 'trotr-featured',
       title: "Trotr: Spain Pivot",
-      slug: "Trotr-Meta-Lead-Generation",
+      slug: "trotr-meta-lead-generation",
       category: "Lead Generation",
       result: "28x ROAS • ₹14L Revenue",
       image: TrotrFeatured,
@@ -62,6 +62,16 @@ const CaseStudies = () => {
       image: KashmirFeatured,
       imageClassName: "object-center",
       imageAlt: "Kashmiri music organic growth case study thumbnail showing a traditional street musician"
+    },
+    {
+      id: 'airborne-aviation-seo-featured',
+      title: "Airborne Aviation: SEO, AEO & GEO",
+      slug: "airborne-aviation-seo-aeo-geo",
+      category: "SEO, AEO & GEO",
+      result: "26.3K Impressions • Position 13.6 → 10.6",
+      image: "/portfolio/airborne-aviation/hero.jpg",
+      imageClassName: "object-center",
+      imageAlt: "Airborne Aviation Academy SEO, AEO, and GEO case study thumbnail showing Search Console performance"
     }
   ];
 
@@ -152,6 +162,7 @@ const CaseStudies = () => {
                   <ProjectCard
                     key={study.id || study.slug}
                     project={study}
+                    href={`/case-studies/${study.slug}`}
                     onClick={() => navigate(`/case-studies/${study.slug}`)}
                   />
                 ))}

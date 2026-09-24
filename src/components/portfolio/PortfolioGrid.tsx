@@ -37,16 +37,25 @@ const PortfolioGrid = () => {
     {
       id: 'amazon-ads-featured',
       title: "Amazon Ads: Performance Scaling",
-      slug: "Amazon-ads",
+      slug: "amazon-ads",
       category: "Performance Marketing",
       result: "11.2x ROAS • ₹2.7L Sales",
       image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
     },
     {
+      id: 'streetplayr-featured',
+      title: "StreetplayR: Brand, UX & Storefront",
+      slug: "streetplayr",
+      category: "Web Development",
+      result: "Brand System + Commerce Build",
+      image: "/src/assets/streetplayr/hero.jpg",
+      isFeatured: true
+    },
+    {
       id: 'instagram-ugc-featured',
       title: "Instagram UGC: Style Meets Real Life",
-      slug: "Instagram-user-generated-content",
+      slug: "instagram-user-generated-content",
       category: "Content Creation",
       result: "Relatability Converts Better",
       image: "/ugc-hero.jpg",
@@ -55,10 +64,73 @@ const PortfolioGrid = () => {
     {
       id: 'csk-influencer-featured',
       title: "playR: Real Fans, Real Roar",
-      slug: "influencer-marketing-campaign-playR",
+      slug: "influencer-marketing-campaign-playr",
       category: "User Generated Content",
       result: "Viral Fandom Momentum",
       image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'mizuno-india-featured',
+      title: "Mizuno India: Launch Campaign",
+      slug: "mizuno-india-launch-campaign",
+      category: "Production & Shoots",
+      result: "2-Day Shoot • 5 Content Themes",
+      image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'hi-astro-featured',
+      title: "Hi Astro: AI Character Videos",
+      slug: "hi-astro-ai-character-videos",
+      category: "AI Content Production",
+      result: "48 Videos • 9:16 Vertical",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'billu-campaign-featured',
+      title: "Billu: Salon-at-Home Content",
+      slug: "billu-salon-social-content",
+      category: "Influencer Marketing",
+      result: "15 Posts/Month • Creator-Led",
+      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800",
+      isFeatured: true
+    },
+    {
+      id: 'airtel-business-featured',
+      title: "Airtel Business: Exhibition Coverage",
+      slug: "airtel-business-exhibition",
+      category: "Production & Shoots",
+      result: "Enterprise B2B Launch Coverage",
+      image: "/portfolio/airtel-business/hero.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'airborne-aviation-featured',
+      title: "Airborne Aviation: Pilot Academy Website",
+      slug: "airborne-aviation-academy",
+      category: "Web Development",
+      result: "Course Catalog + Alumni Route Map",
+      image: "/portfolio/airborne-aviation/hero.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'gaffar-india-featured',
+      title: "Gaffar India: Wholesale & Retail Marketplace",
+      slug: "gaffar-india-marketplace",
+      category: "Web Development",
+      result: "Multi-Vendor Marketplace • 1,000+ SKUs",
+      image: "/portfolio/gaffar-india/hero-thumb.jpg",
+      isFeatured: true
+    },
+    {
+      id: 'shakti-bhog-featured',
+      title: "Shakti Bhog: Recipe-Led UGC Content",
+      slug: "shakti-bhog-ugc-content",
+      category: "Content Creation",
+      result: "Creator-Led Recipe Reel",
+      image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=800",
       isFeatured: true
     }
   ];
@@ -133,7 +205,8 @@ const PortfolioGrid = () => {
           {filteredProjects.map((project) => (
             <ProjectCard 
               key={project.id} 
-              project={project} 
+              project={project}
+              href={`/portfolio/${project.slug}`}
               onClick={() => navigate(`/portfolio/${project.slug}`)}
             />
           ))}

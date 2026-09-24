@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "start": "node server.js",
     "import-xml": "tsx scripts/import_asenkai_xml.ts",
+    "sync-content": "tsx ../sync-content.ts",
     "postinstall": "find node_modules -name esbuild -type f -exec chmod +x {} + || true"
   },
   "engines": {
@@ -55,9 +56,11 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.98.0",
     "@tanstack/react-query": "^5.56.2",
+    "@types/three": "^0.186.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "compression": "^1.8.2",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
     "express": "^5.2.1",
@@ -80,6 +83,7 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.186.0",
     "tsx": "^4.19.3",
     "vaul": "^0.9.3",
     "zod": "^3.23.8"
@@ -88,6 +92,7 @@
     "@dyad-sh/react-vite-component-tagger": "^0.8.0",
     "@eslint/js": "^9.9.0",
     "@tailwindcss/typography": "^0.5.15",
+    "@types/compression": "^1.8.1",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
@@ -104,6 +109,6 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^6.3.4",
-    "vite-imagetools": "^10.0.0"
+    "vite-imagetools": "^9.0.3"
   }
 }

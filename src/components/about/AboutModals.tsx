@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Loader2, CheckCircle2, Calendar } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ interface ModalProps {
 }
 
 const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -63,27 +65,35 @@ const AboutModals = ({ isOpen, onClose, type }: ModalProps) => {
     } else {
       // 2. Trigger immediate personalized email
       try {
-        await fetch('/api/lead', {
+        const res = await fetch('/api/lead.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            email: formData.email, 
-            tool_used: toolUsed, 
-            data: formData 
+          body: JSON.stringify({
+            email: formData.email,
+            tool_used: toolUsed,
+            data: formData
           })
         });
+        if (!res.ok) {
+          console.error("Email trigger failed:", await res.text());
+          showError("Request received, but the confirmation email couldn't be sent.");
+        }
       } catch (err) {
         console.error("Email trigger failed:", err);
+        showError("Request received, but the confirmation email couldn't be sent.");
       }
 
       setLoading(false);
       setSuccess(true);
-      showSuccess(type === 'book' ? "Qualifying request sent!" : "Case pack sent to your inbox!");
+      showSuccess(type === 'book' ? "Qualifying request captured! Redirecting to calendar..." : "Case pack sent to your inbox!");
       setTimeout(() => {
         onClose();
         setSuccess(false);
         setFormData({ name: '', email: '', company: '', revenue: '', channel: '' });
-      }, 3000);
+        if (type === 'book') {
+          navigate('/book-call');
+        }
+      }, type === 'book' ? 800 : 3000);
     }
   };
 

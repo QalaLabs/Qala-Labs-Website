@@ -82,12 +82,10 @@ export default defineConfig(({ isSsrBuild }) => ({
           'vendor-icons': ['lucide-react'],
           // Charts — only used on analytics/admin pages
           'vendor-charts': ['recharts'],
-          // Supabase — only loaded when auth/DB needed
-          'vendor-supabase': [
-            '@supabase/supabase-js',
-            '@supabase/auth-ui-react',
-            '@supabase/auth-ui-shared',
-          ],
+          // Supabase client — only core SDK
+          'vendor-supabase': ['@supabase/supabase-js'],
+          // 3D WebGL library
+          'vendor-three': ['three'],
           // Utility helpers
           'vendor-utils': ['date-fns', 'clsx', 'tailwind-merge', 'class-variance-authority', 'zod'],
         }

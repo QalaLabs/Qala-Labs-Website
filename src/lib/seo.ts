@@ -2,12 +2,32 @@ export const siteConfig = {
   name: "Qala Labs",
   description: "India's full-service AI growth agency — combining performance marketing, AI automation, and AI search visibility to build brands that scale.",
   url: "https://qalalabs.com",
-  ogImage: "https://qalalabs.com/og.svg",
+  ogImage: "https://qalalabs.com/og.png",
   links: {
     twitter: "https://twitter.com/qalalabs",
     linkedin: "https://www.linkedin.com/company/qalalabs/",
   },
 };
+
+// Shared areaServed list for all Service/ProfessionalService schema nodes —
+// Delhi NCR (home base) plus every country/city Qala Labs actively serves.
+export const areaServed = [
+  { "@type": "City", "name": "New Delhi" },
+  { "@type": "City", "name": "Gurugram" },
+  { "@type": "City", "name": "Noida" },
+  { "@type": "City", "name": "Greater Noida" },
+  { "@type": "AdministrativeArea", "name": "Delhi NCR" },
+  { "@type": "Country", "name": "India" },
+  { "@type": "Country", "name": "United Kingdom" },
+  { "@type": "Country", "name": "United States" },
+  { "@type": "Country", "name": "Germany" },
+  { "@type": "Country", "name": "Ireland" },
+  { "@type": "City", "name": "Dubai" },
+  { "@type": "Country", "name": "Saudi Arabia" },
+  { "@type": "City", "name": "Muscat" },
+  { "@type": "Country", "name": "Oman" },
+  { "@type": "Country", "name": "Singapore" },
+];
 
 export function constructMetadata({
   title = siteConfig.name,
@@ -83,11 +103,7 @@ export const getBaseJsonLd = () => {
         "description": siteConfig.description,
         "image": `${siteConfig.url}/og.svg`,
         "priceRange": "₹₹₹",
-        "areaServed": [
-          { "@type": "Country", "name": "India" },
-          { "@type": "Country", "name": "United States" },
-          { "@type": "Country", "name": "United Kingdom" }
-        ],
+        "areaServed": areaServed,
         "serviceType": [
           "Performance Marketing",
           "DTC Growth Agency",
@@ -210,5 +226,62 @@ export const generateBlogSchema = (post: any) => {
     },
     "keywords": `${post.category || "performance marketing"}, DTC ecommerce India, growth strategy`,
     "articleSection": post.category || "Strategy"
+  });
+};
+
+export const generatePortfolioSchema = (project: any) => {
+  return generateJsonLd('CreativeWork', {
+    "@id": `${siteConfig.url}/portfolio/${project.slug}#work`,
+    "name": project.title,
+    "description": project.description,
+    "image": project.image_url,
+    "creator": {
+      "@type": "Organization",
+      "name": "Qala Labs",
+      "@id": `${siteConfig.url}/#organization`
+    },
+    "datePublished": project.created_at || new Date().toISOString(),
+    "dateModified": project.updated_at || project.created_at || new Date().toISOString(),
+    "url": `${siteConfig.url}/portfolio/${project.slug}`,
+    "keywords": project.category || "portfolio"
+  });
+};
+
+export const generateServiceSchema = (service: any) => {
+  return generateJsonLd('Service', {
+    "@id": `${siteConfig.url}/services/${service.slug}#service`,
+    "name": service.title || service.name,
+    "description": service.description,
+    "image": service.image_url,
+    "provider": {
+      "@type": "Organization",
+      "name": "Qala Labs",
+      "@id": `${siteConfig.url}/#organization`
+    },
+    "url": `${siteConfig.url}/services/${service.slug}`,
+    "areaServed": areaServed
+  });
+};
+
+export const generateFAQSchema = (faqItems: Array<{ question: string; answer: string }>) => {
+  return generateJsonLd('FAQPage', {
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  });
+};
+
+export const generateReviewSchema = (reviews: Array<{ rating: number; text: string; author: string; date?: string }>) => {
+  return generateJsonLd('AggregateRating', {
+    "@type": "AggregateRating",
+    "ratingValue": (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1),
+    "ratingCount": reviews.length,
+    "bestRating": 5,
+    "worstRating": 1
   });
 };
