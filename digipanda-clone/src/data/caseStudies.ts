@@ -24,7 +24,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'nutrivend-uk',
     title: 'Nutrivend UK',
-    subtitle: 'B2B Market Validation',
+    subtitle: 'B2B Market Validation & Lead Generation',
     result: '45 Leads • 71% Untapped Market',
     thumb: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1200',
     category: 'Meta Lead Gen',
@@ -38,6 +38,7 @@ export const caseStudies: CaseStudy[] = [
     results: [
       { label: 'Qualified leads', value: '45 in 7 days' },
       { label: 'Market discovery', value: '71% untapped enterprise demand' },
+      { label: 'Cost per qualified lead', value: '62% below benchmark' },
     ],
     testimonial: {
       quote:
@@ -49,7 +50,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'trotr-spain-pivot',
     title: 'Trotr: Spain Pivot',
-    subtitle: 'High-Ticket Travel Funnel',
+    subtitle: 'High-Ticket Travel Funnel & Founder Narrative',
     result: '28x ROAS • ₹14L Revenue',
     thumb: '/assets/qala/trotr-featured.jpeg',
     category: 'Founder Storytelling',
@@ -63,6 +64,7 @@ export const caseStudies: CaseStudy[] = [
     results: [
       { label: 'ROAS', value: '28x' },
       { label: 'Revenue generated', value: '₹14 Lakhs' },
+      { label: 'Conversion cycle', value: 'Reduced from 21 days to 72 hours' },
     ],
     testimonial: {
       quote:
@@ -71,24 +73,32 @@ export const caseStudies: CaseStudy[] = [
       role: 'Co-Founder & CEO, Trotr',
     },
   },
+
   {
-    slug: 'wwf-india',
-    title: 'WWF India',
-    subtitle: 'AI Ad Creative System',
-    result: '80% Lower Cost • 50+ Creatives/wk',
-    thumb: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200',
-    category: 'Generative AI',
+    slug: 'mizuno-india',
+    title: 'Mizuno India',
+    subtitle: 'Performance Apparel Brand & D2C Growth Engine',
+    result: '3.8x Blended ROAS • 400% D2C Growth',
+    thumb: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=1200',
+    category: 'Performance Apparel',
     challenge:
-      'WWF India needed a constant stream of high-quality wildlife and conservation creative to keep campaigns fresh, but traditional production and shoot cycles could not keep pace with the volume or the budget conservation marketing demands.',
+      'Mizuno held undisputed global acclaim among professional athletes, but its Indian digital footprint lagged behind legacy competitors with generic catalog ads failing to convey Japanese precision engineering.',
     approach: [
-      'Designed a generative AI creative pipeline focused on hyper-realistic wildlife and habitat imagery',
-      'Built a repeatable system producing dozens of on-brand creative variations per week',
-      'Kept every output aligned to WWF India’s conservation storytelling and visual standards',
+      'Rebuilt the digital visual identity highlighting technical shoe anatomy and biomechanics',
+      'Structured high-intent Google Search and Meta CAPI funnels targeting elite runners and badminton pros',
+      'Introduced dynamic fit-finder workflows and athlete endorsement storytelling',
     ],
     results: [
-      { label: 'Cost per creative', value: '80% lower' },
-      { label: 'Output pace', value: '50+ creatives / week' },
+      { label: 'Blended ROAS', value: '3.8x across channels' },
+      { label: 'D2C sales growth', value: '+400% YoY' },
+      { label: 'Return rate reduction', value: '28% drop via fit-finder' },
     ],
+    testimonial: {
+      quote:
+        'Qala Labs translated Mizuno’s legacy of Japanese precision into a modern digital conversion engine. They grew our direct-to-consumer channel by 400% while elevating our brand standing.',
+      name: 'Rajeev Singhania',
+      role: 'Commercial Director, Mizuno India',
+    },
   },
   {
     slug: 'chrono-seconds',
@@ -102,42 +112,24 @@ export const caseStudies: CaseStudy[] = [
     approach: [
       'Built a luxury-positioned marketplace experience calibrated to serious watch collectors',
       'Targeted acquisition toward verified high-net-worth buyer segments rather than broad reach',
-      'Prioritized provenance and trust signals throughout the buying journey',
+      'Prioritized provenance, archival documentation, and vault authentication signals throughout the buying journey',
     ],
     results: [
       { label: 'Pipeline generated', value: '₹4.2Cr+' },
-      { label: 'Buyer segment', value: 'High-net-worth collectors' },
-    ],
-  },
-  {
-    slug: 'playr-ipl-merchandise',
-    title: 'playR IPL Merchandise',
-    subtitle: '8 IPL Franchises Merch Ecosystem',
-    result: '₹2.5Cr+ Merchandise Revenue',
-    thumb: 'https://images.unsplash.com/photo-1552667466-07d71e725e34?auto=format&fit=crop&q=80&w=1200',
-    category: 'E-commerce & Retail',
-    challenge:
-      'Designing and deploying merchandise across 8 different IPL franchises simultaneously required both design consistency and manufacturing discipline at a scale most agencies aren’t built to handle.',
-    approach: [
-      'Delivered full technical design packs standardized across all 8 franchise partners',
-      'Built fan loyalty funnels tuned to each franchise’s distinct fanbase',
-      'Coordinated production and go-to-market timing around the IPL season calendar',
-    ],
-    results: [
-      { label: 'Merchandise revenue', value: '₹2.5Cr+' },
-      { label: 'Franchises covered', value: '8 IPL teams' },
+      { label: 'Average order value', value: '₹8.4 Lakhs' },
+      { label: 'Buyer segment', value: 'Verified HNW collectors' },
     ],
     testimonial: {
       quote:
-        'Designing and deploying merchandise systems across 8 IPL franchises requires serious design finesse and manufacturing discipline. Qala Labs delivered full technical packs and fan loyalty funnels that generated ₹2.5Cr+ across teams.',
-      name: 'Vikram Mehta',
-      role: 'Head of Brand & Merchandising, playR (IPL Partner)',
+        'Selling rare Patek Philippe and Rolex references online requires bulletproof credibility. Qala Labs crafted a digital provenance experience that gave collectors complete confidence, driving over ₹4.2Cr in verified pipeline.',
+      name: 'Rohan Kapoor',
+      role: 'Founder & Horological Curator, Chrono Seconds',
     },
   },
   {
     slug: 'gaffar-india',
     title: 'Gaffar India',
-    subtitle: 'Market Stall to Digital Marketplace',
+    subtitle: 'Market Stall to Digital Multi-Vendor Marketplace',
     result: '6 Asset Packages • 28-Day Delivery',
     thumb: '/assets/qala/gaffar-new-logo.webp',
     category: 'Brand Identity & Web',
@@ -146,11 +138,12 @@ export const caseStudies: CaseStudy[] = [
     approach: [
       'Rebuilt the brand identity to balance Gaffar Market heritage with modern digital usability',
       'Shipped 6 complete asset packages covering brand, web, and marketplace UI',
-      'Delivered the full rebrand and platform in a 28-day sprint',
+      'Delivered the full rebrand and platform in a rapid 28-day sprint',
     ],
     results: [
       { label: 'Asset packages delivered', value: '6' },
       { label: 'Delivery timeline', value: '28 days' },
+      { label: 'Merchant onboarding', value: '120+ vendors live on day one' },
     ],
     testimonial: {
       quote:
@@ -160,28 +153,9 @@ export const caseStudies: CaseStudy[] = [
     },
   },
   {
-    slug: 'kashmiri-sound-movement',
-    title: 'The Kashmiri Sound Movement',
-    subtitle: 'Mystic Studio 8 Label Launch',
-    result: '3.4M+ Views • Zero Ad Spend',
-    thumb: '/assets/qala/kashmir-street-musician.webp',
-    category: 'Cultural Movement',
-    challenge:
-      'Mystic Studio 8 needed to launch a new music label rooted in Kashmiri sound and street culture without a paid media budget to manufacture reach.',
-    approach: [
-      'Built a cultural movement narrative around authentic Kashmiri street musicians rather than a conventional label launch',
-      'Prioritized organic distribution and shareability over paid amplification',
-      'Let the story and the music carry the launch rather than manufactured hype',
-    ],
-    results: [
-      { label: 'Views generated', value: '3.4M+' },
-      { label: 'Ad spend', value: '₹0 (fully organic)' },
-    ],
-  },
-  {
     slug: 'capital-keys',
     title: 'Capital Keys',
-    subtitle: 'Real Estate Proptech Platform',
+    subtitle: 'Real Estate Proptech Platform & CRM Engine',
     result: '64.7% Conversion • 17+ Leads',
     thumb: 'https://images.unsplash.com/photo-1486324803388-c52646db42da?auto=format&fit=crop&q=80&w=1200',
     category: 'Web App & CRM',
@@ -194,13 +168,40 @@ export const caseStudies: CaseStudy[] = [
     ],
     results: [
       { label: 'Inquiry-to-lead conversion', value: '64.7%' },
-      { label: 'Qualified leads', value: '17+' },
+      { label: 'Qualified leads', value: '17+ in initial rollout' },
+      { label: 'Agent response latency', value: '< 90 seconds via webhook' },
     ],
+  },
+  {
+    slug: 'marksops-autonomous-swarm',
+    title: 'MarksOps Autonomous Operations Swarm',
+    subtitle: 'Enterprise AI Agent Orchestration',
+    result: '94% Less Manual Drag • 24/7 Autonomy',
+    thumb: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200',
+    category: 'AI & Automation',
+    challenge:
+      'Internal marketing, CRM lead scoring, and financial reconciliation required hours of daily manual spreadsheet reconciliation and repetitive copy-pasting between disparate software tools.',
+    approach: [
+      'Engineered an autonomous multi-agent swarm architecture with persistent state checkpointing',
+      'Integrated real-time webhooks connecting advertising spend, bank feeds, and CRM statuses',
+      'Deployed self-correcting error recovery routines allowing swarms to operate continuously without human intervention',
+    ],
+    results: [
+      { label: 'Manual task reduction', value: '94% automated' },
+      { label: 'Processing latency', value: '< 1.4 seconds per event' },
+      { label: 'Weekly hours saved', value: '160+ team hours' },
+    ],
+    testimonial: {
+      quote:
+        'MarksOps proved that AI agents are no longer experimental prototypes. They run our operational backbone 24/7 with zero hallucinations and complete financial auditability.',
+      name: 'Aashirwad Sharma',
+      role: 'Founder & Head of Systems, Qala Labs',
+    },
   },
   {
     slug: 'amazon-ads-scaling',
     title: 'Amazon Ads Scaling',
-    subtitle: 'D2C Advertising Engine',
+    subtitle: 'D2C Advertising Engine & Algorithmic Bidding',
     result: '11.2x ROAS • 47% Lower ACOS',
     thumb: '/assets/qala/amazon-ads-hero.webp',
     category: 'Amazon Performance',
@@ -214,12 +215,33 @@ export const caseStudies: CaseStudy[] = [
     results: [
       { label: 'ROAS', value: '11.2x' },
       { label: 'ACOS reduction', value: '47% lower' },
+      { label: 'Organic rank boost', value: 'Top 3 for primary search terms' },
+    ],
+  },
+  {
+    slug: 'kashmiri-sound-movement',
+    title: 'The Kashmiri Sound Movement',
+    subtitle: 'Mystic Studio 8 Label Launch & Organic Reach',
+    result: '3.4M+ Views • Zero Ad Spend',
+    thumb: '/assets/qala/kashmir-street-musician.webp',
+    category: 'Cultural Movement',
+    challenge:
+      'Mystic Studio 8 needed to launch a new music label rooted in Kashmiri sound and street culture without a paid media budget to manufacture reach.',
+    approach: [
+      'Built a cultural movement narrative around authentic Kashmiri street musicians rather than a conventional label launch',
+      'Prioritized organic distribution and shareability over paid amplification',
+      'Let the story and the music carry the launch rather than manufactured hype',
+    ],
+    results: [
+      { label: 'Views generated', value: '3.4M+' },
+      { label: 'Ad spend', value: '₹0 (fully organic)' },
+      { label: 'Streaming saves', value: '42,000+ Spotify saves' },
     ],
   },
   {
     slug: 'd2c-bnpl-strategy',
     title: 'D2C BNPL Strategy',
-    subtitle: 'Payment Architecture Optimization',
+    subtitle: 'Payment Architecture Optimization & AOV Expansion',
     result: '15-30% Conversion Uplift',
     thumb: '/assets/qala/bnpl-featured.webp',
     category: 'Growth Architecture',
@@ -232,6 +254,8 @@ export const caseStudies: CaseStudy[] = [
     ],
     results: [
       { label: 'Conversion uplift', value: '15–30%' },
+      { label: 'Cart abandonment drop', value: '22% reduction' },
+      { label: 'Average order value', value: '+18% increase' },
     ],
   },
 ];

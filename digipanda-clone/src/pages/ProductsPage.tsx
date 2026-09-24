@@ -6,7 +6,7 @@ import { products } from '../data/products';
 export const ProductsPage: React.FC = () => {
   return (
     <PageLayout>
-      <section className="pt-40 pb-24 bg-[#06070D]">
+      <section className="relative pt-40 pb-24 bg-transparent">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/30 text-[#4F46E5] text-xs font-mono font-bold uppercase tracking-wider mb-5">

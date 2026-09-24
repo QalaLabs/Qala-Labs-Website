@@ -40,8 +40,8 @@ export const FaqAccordion: React.FC = () => {
   };
 
   return (
-    <section className="relative py-28 bg-[#06070D] overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/assets/bgrk2.webp')] bg-center bg-cover opacity-15 pointer-events-none" />
+    <section className="relative py-28 bg-transparent overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/assets/bgrk2.webp')] bg-center bg-cover opacity-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10 max-w-4xl">
         <div className="text-center mb-16">

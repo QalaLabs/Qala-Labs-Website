@@ -4,8 +4,8 @@ import { TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
 export const ScaleArchitectureSection: React.FC = () => {
   return (
-    <section id="scale-architecture" className="relative py-24 bg-[#06070D] border-t border-white/10 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#38bdf8]/5 via-transparent to-transparent pointer-events-none" />
+    <section id="scale-architecture" className="relative py-24 bg-transparent border-t border-white/10 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#38bdf8]/8 via-transparent to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-12">

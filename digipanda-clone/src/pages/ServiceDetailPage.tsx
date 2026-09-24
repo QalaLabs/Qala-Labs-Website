@@ -22,7 +22,7 @@ export const ServiceDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <section className="relative pt-40 pb-16 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-16 bg-transparent overflow-hidden">
         <div
           className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none"
           style={{ backgroundColor: `${accent}1A` }}
@@ -47,7 +47,7 @@ export const ServiceDetailPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-[#06070D]">
+      <section className="py-16 bg-transparent">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
           <h2 className="text-sm font-bold uppercase tracking-widest mb-6" style={{ color: accent }}>
             What this delivers
@@ -67,7 +67,7 @@ export const ServiceDetailPage: React.FC = () => {
       </section>
 
       {service.agents && service.agents.length > 0 && (
-        <section className="py-16 bg-[#06070D] border-t border-white/10">
+        <section className="py-16 bg-transparent border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>
               Agents we've built
@@ -98,7 +98,7 @@ export const ServiceDetailPage: React.FC = () => {
       )}
 
       {service.proof && service.proof.length > 0 && (
-        <section className="py-16 bg-[#06070D] border-t border-white/10">
+        <section className="py-16 bg-transparent border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             <h2 className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>
               Proof it works
@@ -128,7 +128,7 @@ export const ServiceDetailPage: React.FC = () => {
       )}
 
       {related.length > 0 && (
-        <section className="py-16 bg-[#0b0c16] border-t border-white/10">
+        <section className="py-16 bg-white/[0.02] border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
             <h2 className="text-sm font-bold uppercase tracking-widest text-white/40 mb-6">
               Also in {service.track}
@@ -149,7 +149,7 @@ export const ServiceDetailPage: React.FC = () => {
         </section>
       )}
 
-      <section className="py-20 bg-[#06070D] border-t border-white/10">
+      <section className="py-20 bg-transparent border-t border-white/10">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl text-center">
           <h2 className="text-2xl sm:text-3xl font-medium text-white mb-6">
             Ready to put this to work on your growth?

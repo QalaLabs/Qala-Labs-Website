@@ -18,6 +18,15 @@ const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage').t
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
 const PrivacyPolicyPage = React.lazy(() => import('./pages/PrivacyPolicyPage').then((m) => ({ default: m.PrivacyPolicyPage })));
 const TermsPage = React.lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
+const CareersPage = React.lazy(() => import('./pages/CareersPage').then((m) => ({ default: m.CareersPage })));
+const CreatorCollectivePage = React.lazy(() => import('./pages/CreatorCollectivePage').then((m) => ({ default: m.CreatorCollectivePage })));
+const AgencyCollectivePage = React.lazy(() => import('./pages/AgencyCollectivePage').then((m) => ({ default: m.AgencyCollectivePage })));
+const PortfolioPage = React.lazy(() => import('./pages/PortfolioPage').then((m) => ({ default: m.PortfolioPage })));
+const PortfolioDetailPage = React.lazy(() => import('./pages/PortfolioDetailPage').then((m) => ({ default: m.PortfolioDetailPage })));
+const ToolsPage = React.lazy(() => import('./pages/ToolsPage').then((m) => ({ default: m.ToolsPage })));
+const BlogPage = React.lazy(() => import('./pages/BlogPage').then((m) => ({ default: m.BlogPage })));
+const BlogDetailPage = React.lazy(() => import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage })));
+const OurWorkPage = React.lazy(() => import('./pages/OurWorkPage').then((m) => ({ default: m.OurWorkPage })));
 
 // Elegant minimal loading spinner matching Qala Labs futuristic aesthetic
 const PageLoadingFallback: React.FC = () => (
@@ -40,12 +49,33 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <React.Suspense fallback={<PageLoadingFallback />}>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/about" element={<WhoWeArePage />} />
           <Route path="/who-we-are" element={<WhoWeArePage />} />
+          <Route path="/team" element={<WhoWeArePage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/service" element={<ServicesPage />} />
           <Route path="/services/:slug" element={<ServiceDetailPage />} />
+          <Route path="/service/:slug" element={<ServiceDetailPage />} />
           <Route path="/agents/:slug" element={<AgentDetailPage />} />
+          <Route path="/work" element={<OurWorkPage />} />
+          <Route path="/our-work" element={<OurWorkPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/:slug" element={<PortfolioDetailPage />} />
+          <Route path="/tools" element={<ToolsPage />} />
+          <Route path="/growth-tools" element={<ToolsPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/career" element={<CareersPage />} />
+          <Route path="/creator-collective" element={<CreatorCollectivePage />} />
+          <Route path="/creators" element={<CreatorCollectivePage />} />
+          <Route path="/agency-collective" element={<AgencyCollectivePage />} />
+          <Route path="/agencies" element={<AgencyCollectivePage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blogs" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/blogs/:slug" element={<BlogDetailPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/contact-us" element={<ContactPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:slug" element={<ProductDetailPage />} />

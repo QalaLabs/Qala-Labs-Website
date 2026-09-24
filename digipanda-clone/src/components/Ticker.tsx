@@ -15,9 +15,9 @@ export const Ticker: React.FC = () => {
   const items = [...tickerItems, ...tickerItems, ...tickerItems];
 
   return (
-    <div className="relative w-full overflow-hidden py-4 border-y border-white/10 bg-[#06070D]/80 backdrop-blur-sm select-none">
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#06070D] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#06070D] to-transparent z-10 pointer-events-none" />
+    <div className="relative w-full overflow-hidden py-4 border-y border-slate-200/80 dark:border-white/10 bg-white/70 dark:bg-[#06070D]/80 backdrop-blur-sm select-none">
+      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-[#06070D] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-[#06070D] to-transparent z-10 pointer-events-none" />
 
       <div className="ticker-track flex items-center gap-8">
         {items.map((item, index) => (

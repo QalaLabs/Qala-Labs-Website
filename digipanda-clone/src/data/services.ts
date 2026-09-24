@@ -72,7 +72,7 @@ export const services: ServiceItem[] = [
     proof: [
       { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — market stall to digital marketplace' },
       { type: 'case-study', slug: 'kashmiri-sound-movement', label: 'The Kashmiri Sound Movement — label launch' },
-      { type: 'case-study', slug: 'playr-ipl-merchandise', label: 'playR IPL Merchandise — 8 franchise identity systems' },
+      { type: 'case-study', slug: 'chrono-seconds', label: 'Chrono Seconds — luxury provenance & marketplace' },
     ],
   },
   {

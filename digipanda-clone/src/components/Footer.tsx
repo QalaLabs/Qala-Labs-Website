@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
   }, []);
 
   return (
-    <footer className="bg-[#06070D] text-white border-t border-white/10">
+    <footer className="bg-[#06070D]/90 backdrop-blur-md text-white border-t border-white/10">
       <div className="container mx-auto px-4 lg:px-8">
         
         {/* Global Locations & Live Clocks Bar */}
@@ -71,52 +71,57 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">ABOUT QALA</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="/#who-we-are" className="hover:text-[#3FE0E0] transition-colors">Philosophy & Team</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Case Studies</a></li>
-              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Core Capabilities</a></li>
+              <li><Link to="/about" className="hover:text-[#3FE0E0] transition-colors">About Qala Labs</Link></li>
+              <li><Link to="/work" className="hover:text-[#3FE0E0] transition-colors font-medium text-white">Our Work</Link></li>
+              <li><Link to="/portfolio" className="hover:text-[#3FE0E0] transition-colors">Selected Works</Link></li>
+              <li><Link to="/case-studies" className="hover:text-[#3FE0E0] transition-colors">Case Studies & Proof</Link></li>
+              <li><Link to="/tools" className="hover:text-[#3FE0E0] transition-colors">Growth Tools</Link></li>
+              <li><Link to="/careers" className="hover:text-[#3FE0E0] transition-colors">Careers & Roles</Link></li>
             </ul>
 
-            <h4 className="font-bold text-white mt-6 mb-4 uppercase tracking-wider text-xs">INSIGHTS</h4>
+            <h4 className="font-bold text-white mt-6 mb-4 uppercase tracking-wider text-xs">FIELD NOTES</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="/#blog" className="hover:text-[#3FE0E0] transition-colors">D2C BNPL Strategy Guide</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">28x ROAS Funnel Blueprint</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">B2B Market Validation Playbook</a></li>
+              <li><Link to="/blog/d2c-bnpl-strategy-guide" className="hover:text-[#3FE0E0] transition-colors">D2C BNPL Strategy Guide</Link></li>
+              <li><Link to="/blog/28x-roas-funnel-blueprint" className="hover:text-[#3FE0E0] transition-colors">28x ROAS Funnel Blueprint</Link></li>
+              <li><Link to="/blog/b2b-market-validation-playbook" className="hover:text-[#3FE0E0] transition-colors">B2B Validation Playbook</Link></li>
+              <li><Link to="/blog" className="text-[#3FE0E0] hover:underline transition-colors">All Field Notes &rarr;</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CAPABILITIES</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Audience Engineering</a></li>
-              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">AI Creative Systems</a></li>
-              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Full-Stack Engineering</a></li>
-              <li><a href="/#services" className="hover:text-[#3FE0E0] transition-colors">Brand & Merchandise</a></li>
+              <li><Link to="/services/ai-automation" className="hover:text-[#3FE0E0] transition-colors">Autonomous AI Agents</Link></li>
+              <li><Link to="/services/branding" className="hover:text-[#3FE0E0] transition-colors">Brand Systems & 3D</Link></li>
+              <li><Link to="/services/web-development" className="hover:text-[#3FE0E0] transition-colors">Full-Stack Engineering</Link></li>
+              <li><Link to="/services/digital-marketing" className="hover:text-[#3FE0E0] transition-colors">High-Ticket Growth</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CASE STUDIES</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Nutrivend UK (B2B)</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">Trotr Travel (28x ROAS)</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">WWF India (AI Creative)</a></li>
-              <li><a href="/#case-studies" className="hover:text-[#3FE0E0] transition-colors">playR (IPL Merchandising)</a></li>
+              <li><Link to="/case-studies/gaffar-india" className="hover:text-[#3FE0E0] transition-colors">Gaffar India (Marketplace)</Link></li>
+              <li><Link to="/case-studies/nutrivend-uk" className="hover:text-[#3FE0E0] transition-colors">Nutrivend UK (B2B)</Link></li>
+              <li><Link to="/case-studies/trotr-spain-pivot" className="hover:text-[#3FE0E0] transition-colors">Trotr Travel (28x ROAS)</Link></li>
+              <li><Link to="/case-studies/chrono-seconds" className="hover:text-[#3FE0E0] transition-colors">Chrono Seconds (Luxury)</Link></li>
+              <li><Link to="/case-studies/mizuno-india" className="hover:text-[#3FE0E0] transition-colors">Mizuno India (D2C Scale)</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">CONNECT</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="/#contact-form" className="hover:text-[#3FE0E0] transition-colors">Start a Project</a></li>
+              <li><Link to="/contact-us" className="hover:text-[#3FE0E0] transition-colors">Start a Project</Link></li>
               <li><a href="mailto:hello@qalalabs.com" className="hover:text-[#3FE0E0] transition-colors">hello@qalalabs.com</a></li>
-              <li><a href="/#contact-form" className="hover:text-[#3FE0E0] transition-colors">Schedule Call</a></li>
+              <li><Link to="/contact-us" className="hover:text-[#3FE0E0] transition-colors">Schedule Diagnostic</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">FOLLOW US</h4>
             <ul className="space-y-2.5 text-xs text-white/70">
-              <li><a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#3FE0E0] transition-colors">LinkedIn</a></li>
+              <li><a href="https://www.linkedin.com/company/qala-labs/" target="_blank" rel="noreferrer" className="hover:text-[#3FE0E0] transition-colors">LinkedIn</a></li>
               <li><a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#3FE0E0] transition-colors">Instagram</a></li>
               <li><a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-[#3FE0E0] transition-colors">X (Twitter)</a></li>
             </ul>
@@ -124,16 +129,21 @@ export const Footer: React.FC = () => {
 
           <div>
             <h4 className="font-bold text-white mb-4 uppercase tracking-wider text-xs">ECOSYSTEM</h4>
-            <div className="space-y-4">
-              <a href="#" className="block opacity-80 hover:opacity-100 transition-opacity">
-                <img src="/assets/partner1.svg" alt="Shopify Partner" className="h-7 w-auto object-contain" />
-              </a>
-              <a href="#" className="block opacity-80 hover:opacity-100 transition-opacity">
-                <img src="/assets/partner2.svg" alt="Meta Partner" className="h-6 w-auto object-contain" />
-              </a>
-              <a href="#" className="block opacity-80 hover:opacity-100 transition-opacity">
-                <img src="/assets/partner3.svg" alt="Google Partner" className="h-7 w-auto object-contain" />
-              </a>
+            <ul className="space-y-2.5 text-xs text-white/70 mb-5">
+              <li><Link to="/tools" className="hover:text-[#3FE0E0] transition-colors">Free Growth Tools</Link></li>
+              <li><Link to="/portfolio" className="hover:text-[#3FE0E0] transition-colors">Client Portfolio</Link></li>
+              <li><Link to="/creator-collective" className="hover:text-[#3FE0E0] transition-colors">Creator Collective</Link></li>
+              <li><Link to="/agency-collective" className="hover:text-[#3FE0E0] transition-colors">Agency Collective</Link></li>
+            </ul>
+            <div className="space-y-2">
+              <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest block mb-1">
+                Verified Partners
+              </span>
+              <div className="flex flex-col gap-1.5 text-xs font-mono text-white/70">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[#3FE0E0]">TeleCMI (Voice & Telephony)</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[#34D399]">Interakt (WhatsApp Business)</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[#A78BFA]">Easebuzz (Payments)</span>
+              </div>
             </div>
           </div>
 

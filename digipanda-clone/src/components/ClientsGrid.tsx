@@ -17,8 +17,9 @@ const clients = [
 
 export const ClientsGrid: React.FC = () => {
   return (
-    <section id="who-we-are" className="relative py-24 bg-[#06070D] overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/assets/bgrk9.webp')] bg-center bg-cover opacity-15 pointer-events-none" />
+    <section id="who-we-are" className="relative py-24 bg-transparent overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(63,224,224,0.06),transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/assets/bgrk9.webp')] bg-center bg-cover opacity-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
         <div className="max-w-4xl mx-auto mb-16">

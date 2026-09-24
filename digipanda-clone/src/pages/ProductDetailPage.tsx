@@ -13,7 +13,7 @@ export const ProductDetailPage: React.FC = () => {
   return (
     <PageLayout>
       {/* Hero */}
-      <section className="relative pt-40 pb-24 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-24 bg-transparent overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.15),rgba(255,255,255,0))] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
@@ -43,7 +43,7 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* Feature Grid */}
-      <section className="relative py-20 bg-[#06070D] border-t border-white/10">
+      <section className="relative py-20 bg-transparent border-t border-white/10">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#3FE0E0]/10 border border-[#3FE0E0]/30 text-[#3FE0E0] text-xs font-mono font-bold uppercase tracking-wider mb-4">
@@ -75,7 +75,7 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* How It Works */}
-      <section className="relative py-20 bg-[#06070D] border-t border-white/10 overflow-hidden">
+      <section className="relative py-20 bg-transparent border-t border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#38bdf8]/5 via-transparent to-transparent pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -107,7 +107,7 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* CTA */}
-      <section className="relative py-24 bg-[#06070D] border-t border-white/10 overflow-hidden">
+      <section className="relative py-24 bg-transparent border-t border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(79,70,229,0.12),rgba(255,255,255,0))] pointer-events-none" />
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-medium text-white tracking-tight mb-4">

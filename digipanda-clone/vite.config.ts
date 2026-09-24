@@ -7,6 +7,13 @@ export default defineConfig({
     port: 5173,
     host: true
   },
+  // @ts-expect-error vitest config types
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    css: false,
+  },
   build: {
     chunkSizeWarningLimit: 800,
     rollupOptions: {

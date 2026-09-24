@@ -1,4 +1,5 @@
 import React from 'react';
+import { SEO } from './components/SEO';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Ticker } from './components/Ticker';
@@ -18,12 +19,22 @@ import { StickyCTA } from './components/StickyCTA';
 
 export const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#06070D] text-white selection:bg-[#3FE0E0] selection:text-black font-sans pb-20">
-      {/* Navigation Header */}
-      <Navbar />
+    <div className="min-h-screen bg-transparent qala-bg-ambient selection:bg-[#3FE0E0] selection:text-black font-sans pb-20 relative">
+      <SEO
+        title="Creative × Data × Impact • AI & Growth Studio"
+        description="Qala Labs blends art and engineering to build autonomous growth systems, AI creative engines, and high-converting digital products."
+        image="/assets/og/og-home.jpg"
+        url="/"
+      />
+      {/* Fixed Ambient Micro-Grid Texture */}
+      <div className="fixed inset-0 qala-grid-pattern opacity-25 pointer-events-none z-0" />
 
-      {/* Main Page Sections */}
-      <main>
+      <div className="relative z-10">
+        {/* Navigation Header */}
+        <Navbar />
+
+        {/* Main Page Sections */}
+        <main>
         {/* 1. Hero with macOS Widget & Interactive Dashboard */}
         <Hero />
 
@@ -69,6 +80,7 @@ export const App: React.FC = () => {
 
       {/* Persistent Floating Growth Plan Drawer (Images 1 & 2 bottom bar) */}
       <StickyCTA />
+      </div>
     </div>
   );
 };

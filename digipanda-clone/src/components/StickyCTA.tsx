@@ -73,7 +73,7 @@ export const StickyCTA: React.FC = () => {
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-xl transition-all duration-500 font-sans">
       {/* Drawer Overlay / Modal */}
       {isOpen && (
-        <div className="mb-3 p-6 rounded-3xl bg-[#090A15]/95 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] animate-in fade-in slide-in-from-bottom-6 duration-300">
+        <div className="dark-dock mb-3 p-6 rounded-3xl bg-slate-950/95 dark:bg-[#090A15]/95 backdrop-blur-2xl border border-slate-800 dark:border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] animate-in fade-in slide-in-from-bottom-6 duration-300">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_10px_#10B981]" />
@@ -196,7 +196,7 @@ export const StickyCTA: React.FC = () => {
       )}
 
       {/* Persistent Pill Bar (Matches Image 1 and Image 2 bottom widget) */}
-      <div className="flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-[#0A0C18]/90 backdrop-blur-xl border border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:border-white/40 transition-all">
+      <div className="dark-dock flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-slate-950/95 dark:bg-[#0A0C18]/90 backdrop-blur-xl border border-slate-800 dark:border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:border-slate-700 transition-all">
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
@@ -209,7 +209,7 @@ export const StickyCTA: React.FC = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
+          className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-slate-950 hover:text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
         >
           <span>Request Growth Plan</span>
           {isOpen ? (

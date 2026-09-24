@@ -5,11 +5,113 @@ interface ScaleHorizonTerrainProps {
   className?: string;
 }
 
-const MILESTONES = [
-  { label: '₹25L/mo', status: 'Validation', x: -4, z: -2, color: 0x3b82f6 },
-  { label: '₹50L/mo', status: 'Inflection', x: -1.5, z: -4, color: 0x3fe0e0 },
-  { label: '₹1Cr/mo', status: 'Scale Phase', x: 1.5, z: -6, color: 0x34d399 },
-  { label: '₹5Cr/mo', status: 'Category Leader', x: 4, z: -8, color: 0xf59e0b },
+interface MilestoneInfo {
+  label: string;
+  status: string;
+  x: number;
+  z: number;
+  color: number;
+  hex: string;
+  thesis: string;
+  dragSolved: string;
+  deployments: string[];
+  metrics: {
+    targetMargin: string;
+    blendedRoas: string;
+    cacTarget: string;
+    velocity: string;
+  };
+}
+
+const MILESTONES: MilestoneInfo[] = [
+  {
+    label: '₹25L/mo',
+    status: 'Validation Phase',
+    x: -4,
+    z: -2,
+    color: 0x3b82f6,
+    hex: '#3b82f6',
+    thesis: 'Establish unit economic proof and offer resonance before capital allocation.',
+    dragSolved: 'Ad fatigue and lack of statistical creative hook validation.',
+    deployments: [
+      '20-30 weekly high-variance ad creative variations',
+      'Server-Side Meta Conversions API (CAPI) instrumentation',
+      'Landing page conversion rate optimization (CRO > 2.8%)',
+      'Direct WhatsApp buyer qualification micro-funnels',
+    ],
+    metrics: {
+      targetMargin: '18% – 22%',
+      blendedRoas: '3.5x – 4.0x',
+      cacTarget: '₹450 – ₹650',
+      velocity: '20+ Hooks / Wk',
+    },
+  },
+  {
+    label: '₹50L/mo',
+    status: 'Inflection Phase',
+    x: -1.5,
+    z: -4,
+    color: 0x3fe0e0,
+    hex: '#3fe0e0',
+    thesis: 'Diversify paid channels and expand basket sizes without margin dilution.',
+    dragSolved: 'Single-channel audience fatigue on Meta and cart abandonment.',
+    deployments: [
+      'Multi-channel ad scaling (Google Search, PMax & Amazon Ads)',
+      'Dynamic Buy-Now-Pay-Later (BNPL) checkout widgets (+20% AOV)',
+      'Automated NDR handling & return-to-origin mitigation flows',
+      'Email/SMS lifecycle retention sequences (Klaviyo)',
+    ],
+    metrics: {
+      targetMargin: '24% – 28%',
+      blendedRoas: '4.0x – 4.5x',
+      cacTarget: '₹550 – ₹750',
+      velocity: '35+ Hooks / Wk',
+    },
+  },
+  {
+    label: '₹1Cr/mo',
+    status: 'Scale Phase',
+    x: 1.5,
+    z: -6,
+    color: 0x34d399,
+    hex: '#34d399',
+    thesis: 'Replace manual operational drag with autonomous multi-agent swarms.',
+    dragSolved: 'Payment reconciliation lag, inventory overselling, and CRM lead leaks.',
+    deployments: [
+      'MarksOps multi-agent operations swarms (CRM lead scoring & routing)',
+      'Real-time automated financial & payment gateway reconciliation',
+      'Omnichannel inventory synchronization across stores (Unicommerce)',
+      'AI ad creative engine generating 50+ on-brand assets weekly',
+    ],
+    metrics: {
+      targetMargin: '30% – 34%',
+      blendedRoas: '4.8x – 5.5x',
+      cacTarget: '< ₹850 Blended',
+      velocity: '50+ Assets / Wk',
+    },
+  },
+  {
+    label: '₹5Cr/mo',
+    status: 'Category Leader',
+    x: 4,
+    z: -8,
+    color: 0xf59e0b,
+    hex: '#f59e0b',
+    thesis: 'Defensible category dominance backed by predictive lifetime value bidding.',
+    dragSolved: 'Marginal efficiency decay at high-volume ad spend (>₹1Cr/mo spend).',
+    deployments: [
+      'Bespoke Media Mix Modeling (MMM) & predictive LTV cohort bidding',
+      'Dedicated fine-tuned LoRA generative pipelines for zero shoot friction',
+      'VIP concierge funnels and brand loyalty systems (>42% repeat rate)',
+      'Global multi-warehouse routing and international localized checkouts',
+    ],
+    metrics: {
+      targetMargin: '35%+',
+      blendedRoas: '5.5x+ Blended',
+      cacTarget: 'Defensible CAC',
+      velocity: 'Endless Variations',
+    },
+  },
 ];
 
 export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ className = "" }) => {
@@ -17,6 +119,8 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
   const [scaleLevel, setScaleLevel] = useState<number>(3); // 1 to 4 index
   const scaleRef = useRef(scaleLevel);
   scaleRef.current = scaleLevel;
+
+  const currentMilestone = MILESTONES[scaleLevel - 1];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -178,12 +282,17 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
 
       // Update beacon intensities based on active scale level
       beaconPillars.forEach(({ mesh, light, idx }) => {
-        const isActive = idx <= currentScale;
+        const isActive = idx === currentScale;
+        const isReached = idx <= currentScale;
         const bulb = mesh.children[0] as THREE.Mesh;
         if (isActive) {
-          light.intensity = 2.5 + Math.sin(elapsed * 4 + idx) * 0.8;
-          (mesh.material as THREE.MeshBasicMaterial).opacity = 0.95;
-          if (bulb) bulb.scale.set(1.2, 1.2, 1.2);
+          light.intensity = 3.5 + Math.sin(elapsed * 5) * 1.2;
+          (mesh.material as THREE.MeshBasicMaterial).opacity = 1.0;
+          if (bulb) bulb.scale.set(1.4, 1.4, 1.4);
+        } else if (isReached) {
+          light.intensity = 1.5;
+          (mesh.material as THREE.MeshBasicMaterial).opacity = 0.7;
+          if (bulb) bulb.scale.set(1.0, 1.0, 1.0);
         } else {
           light.intensity = 0.2;
           (mesh.material as THREE.MeshBasicMaterial).opacity = 0.2;
@@ -221,7 +330,7 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
   }, []);
 
   return (
-    <div className={`relative rounded-3xl border border-white/10 bg-[#06070d] p-5 md:p-6 overflow-hidden select-none ${className}`}>
+    <div className={`relative rounded-3xl border border-white/10 bg-[#06070d] p-5 md:p-6 overflow-hidden select-none shadow-2xl ${className}`}>
       {/* Card Header matching image 2 */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
         <span className="text-xs font-mono font-bold text-[#38bdf8] uppercase tracking-wider flex items-center gap-2">
@@ -236,36 +345,109 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
       {/* 3D Canvas */}
       <div 
         ref={containerRef} 
-        className="w-full h-[280px] md:h-[340px] cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden border border-white/5"
+        className="w-full h-[260px] md:h-[320px] cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden border border-white/5 relative"
         title="Drag horizontally to orbit the 3D scale terrain"
       />
 
       {/* Interactive Milestone Controller */}
       <div className="mt-4 pt-3 border-t border-white/10">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <span className="text-[11px] font-mono uppercase text-white/60 tracking-wider">
-            TARGET SCALE HORIZON // DRAG TO ORBIT
+            TARGET SCALE HORIZON // CLICK TIER TO INSPECT
           </span>
-          <span className="text-xs font-mono font-bold text-[#34D399]">
-            {MILESTONES[scaleLevel - 1].label} &bull; {MILESTONES[scaleLevel - 1].status}
+          <span className="text-xs font-mono font-bold" style={{ color: currentMilestone.hex }}>
+            {currentMilestone.label} &bull; {currentMilestone.status}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          {MILESTONES.map((m, idx) => (
-            <button
-              key={m.label}
-              onClick={() => setScaleLevel(idx + 1)}
-              className={`p-3 rounded-xl text-left transition-all font-mono border ${
-                scaleLevel === idx + 1
-                  ? 'bg-[#4F46E5]/25 border-[#4F46E5] text-white shadow-lg shadow-[#4F46E5]/20 ring-1 ring-[#4F46E5]'
-                  : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <div className="text-sm font-bold text-white">{m.label}</div>
-              <div className="text-[10px] text-white/50 truncate mt-0.5">{m.status}</div>
-            </button>
-          ))}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
+          {MILESTONES.map((m, idx) => {
+            const isSelected = scaleLevel === idx + 1;
+            return (
+              <button
+                key={m.label}
+                onClick={() => setScaleLevel(idx + 1)}
+                className={`p-3 rounded-xl text-left transition-all font-mono border ${
+                  isSelected
+                    ? 'bg-white/10 text-white shadow-lg ring-1'
+                    : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                }`}
+                style={{
+                  borderColor: isSelected ? m.hex : undefined,
+                  boxShadow: isSelected ? `0 0 20px -5px ${m.hex}40` : undefined,
+                }}
+              >
+                <div className="text-sm font-bold text-white flex items-center justify-between">
+                  <span>{m.label}</span>
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: m.hex }} />
+                </div>
+                <div className="text-[10px] text-white/50 truncate mt-0.5">{m.status}</div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Informative Diagnostic Telemetry Panel */}
+        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-4 border-b border-white/10">
+            <div>
+              <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest block">
+                Architectural Horizon Thesis
+              </span>
+              <p className="text-sm sm:text-base font-medium text-white mt-0.5">
+                {currentMilestone.thesis}
+              </p>
+            </div>
+            <div className="shrink-0 px-3 py-1 rounded-full text-xs font-mono font-bold border" style={{ color: currentMilestone.hex, borderColor: `${currentMilestone.hex}40`, backgroundColor: `${currentMilestone.hex}15` }}>
+              {currentMilestone.status}
+            </div>
+          </div>
+
+          {/* Key Metrics Benchmarks Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+              <span className="text-[10px] font-mono text-white/40 uppercase block">Contribution Margin</span>
+              <span className="text-base font-bold text-white mt-1 block">{currentMilestone.metrics.targetMargin}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+              <span className="text-[10px] font-mono text-white/40 uppercase block">Target Blended ROAS</span>
+              <span className="text-base font-bold text-[#34D399] mt-1 block">{currentMilestone.metrics.blendedRoas}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+              <span className="text-[10px] font-mono text-white/40 uppercase block">Blended CAC Target</span>
+              <span className="text-base font-bold text-[#3FE0E0] mt-1 block">{currentMilestone.metrics.cacTarget}</span>
+            </div>
+            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+              <span className="text-[10px] font-mono text-white/40 uppercase block">Creative Velocity</span>
+              <span className="text-base font-bold text-[#F59E0B] mt-1 block">{currentMilestone.metrics.velocity}</span>
+            </div>
+          </div>
+
+          {/* Critical Drag & Deployed Systems Breakdown */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
+            <div className="p-3.5 rounded-xl bg-red-500/[0.04] border border-red-500/20">
+              <span className="font-mono text-[10px] text-red-400 font-bold uppercase tracking-wider block mb-1">
+                ⚠ Critical Drag Solved At This Tier
+              </span>
+              <p className="text-white/80 leading-relaxed">
+                {currentMilestone.dragSolved}
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/20">
+              <span className="font-mono text-[10px] text-emerald-400 font-bold uppercase tracking-wider block mb-1.5">
+                ✓ Mandatory Production Systems Deployed
+              </span>
+              <ul className="space-y-1 text-white/70">
+                {currentMilestone.deployments.map((dep, dIdx) => (
+                  <li key={dIdx} className="flex items-center gap-1.5">
+                    <span className="text-emerald-400">•</span>
+                    <span>{dep}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -273,3 +455,4 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
 };
 
 export default ScaleHorizonTerrain;
+

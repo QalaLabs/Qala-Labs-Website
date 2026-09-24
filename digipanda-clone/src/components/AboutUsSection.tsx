@@ -17,9 +17,9 @@ export const AboutUsSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'team' | 'principles' | 'process' | 'framework' | 'stack'>('all');
 
   return (
-    <section id="about-qala" className="relative py-28 bg-[#06070D] border-t border-white/10 overflow-hidden">
+    <section id="about-qala" className="relative py-28 bg-transparent border-t border-white/10 overflow-hidden">
       {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.15),rgba(255,255,255,0))] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.18),rgba(255,255,255,0))] pointer-events-none" />
       <div className="absolute inset-0 bg-[url('/assets/bgrk1.webp')] bg-cover bg-center opacity-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">

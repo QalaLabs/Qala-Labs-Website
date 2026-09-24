@@ -15,6 +15,25 @@ export interface VercelResponse extends ServerResponse {
   redirect: (statusOrUrl: string | number, url?: string) => VercelResponse;
 }
 
+// In-memory sliding window cache to deduplicate concurrent submissions (e.g. double clicks / network retries)
+const recentSubmissions = new Map<string, number>();
+const DEDUP_WINDOW_MS = 10_000; // 10 seconds TTL
+
+function checkAndRecordSubmission(key: string): boolean {
+  const now = Date.now();
+  // Evict expired entries
+  for (const [k, timestamp] of recentSubmissions.entries()) {
+    if (now - timestamp > DEDUP_WINDOW_MS) {
+      recentSubmissions.delete(k);
+    }
+  }
+  if (recentSubmissions.has(key)) {
+    return true; // Is duplicate
+  }
+  recentSubmissions.set(key, now);
+  return false;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS configuration
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -90,6 +109,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
+  // Idempotency / Deduplication against concurrent race conditions
+  const dedupKey = `${email}:${phone}:${companyName}`;
+  const isDuplicate = checkAndRecordSubmission(dedupKey);
+
+  if (isDuplicate) {
+    console.log('[Lead Deduplicated - Concurrent Submission Handled Idempotently]:', dedupKey);
+    res.status(200).json({ success: true, message: 'Lead captured successfully' });
+    return;
+  }
+
   const lead = {
     name,
     companyName,
@@ -102,25 +131,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   console.log('[Lead Captured]', JSON.stringify(lead, null, 2));
 
-  // Forward to configured Webhook (Slack / Discord / Zapier / Make / CRM) if available
-  const webhookUrl =
-    process.env.LEAD_WEBHOOK_URL ||
-    process.env.SLACK_WEBHOOK_URL ||
-    process.env.DISCORD_WEBHOOK_URL;
-
-  if (webhookUrl) {
+  // Optional Transactional Autoresponder via Resend API if RESEND_API_KEY is configured
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (resendApiKey) {
     try {
-      await fetch(webhookUrl, {
+      const isCareer = source === 'careers_form' || source.includes('career');
+      const userSubject = isCareer
+        ? 'Application Received: Qala Labs Growth & Engineering'
+        : 'Thank You for Contacting Qala Labs | Discovery Confirmed';
+
+      const userText = isCareer
+        ? `Hi ${name},\n\nThank you for applying to Qala Labs. Our team reviews every application with care. If your background aligns with our sprint openings, we will contact you within 3-5 days.\n\nBest regards,\nThe Qala Labs Talent Team\nhttps://qalalabs.com`
+        : `Hi ${name},\n\nThank you for reaching out to Qala Labs regarding ${companyName}.\n\nOur growth strategy and performance team has begun reviewing your details. A specialist will follow up within 24 hours.\n\nIf you'd like to talk immediately:\n- WhatsApp: https://wa.me/916006760151\n- Book 30-min Google Meet: https://calendar.app.google/EvA2Kw9rgA4xq8798\n\nBest regards,\nAashirwad Bhansali & The Qala Labs Team\nhttps://qalalabs.com`;
+
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendApiKey}`,
+        },
         body: JSON.stringify({
-          text: `🚀 *New Lead on Qala Labs:*\n*Name:* ${name}\n*Company:* ${companyName}\n*Phone:* ${phone}\n*Email:* ${email}\n*Source:* ${source}\n*Message:* ${description}`,
-          lead,
+          from: 'Qala Labs <hello@qalalabs.com>',
+          to: [email],
+          subject: userSubject,
+          text: userText,
         }),
       });
-    } catch (webhookErr) {
-      console.error('[Lead Webhook Dispatch Failed]:', webhookErr);
-      // Non-blocking so response to client still succeeds
+    } catch (emailErr) {
+      console.error('[Resend Autoresponder Failed]:', emailErr);
     }
   }
 

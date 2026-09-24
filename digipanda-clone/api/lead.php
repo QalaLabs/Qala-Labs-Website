@@ -95,4 +95,57 @@ try {
     respond(500, ['success' => false, 'error' => 'Unable to save your inquiry right now']);
 }
 
+// --- Send Autoresponder & Admin Notification (fail-safe non-blocking) ---
+try {
+    $adminTo = 'hello@qalalabs.com';
+    $adminSubject = "New Lead Capture: {$name} ({$companyName})";
+    $adminHeaders = "From: Qala Labs System <no-reply@qalalabs.com>\r\n" .
+                    "Reply-To: {$email}\r\n" .
+                    "Content-Type: text/plain; charset=UTF-8\r\n";
+    $adminBody = "New inquiry submitted on Qala Labs:\n\n" .
+                 "Name: {$name}\n" .
+                 "Company: {$companyName}\n" .
+                 "Phone: {$phone}\n" .
+                 "Email: {$email}\n" .
+                 "Source: {$source}\n\n" .
+                 "Message / Details:\n{$description}\n\n" .
+                 "Submitted At: " . date('Y-m-d H:i:s T') . "\n";
+    @mail($adminTo, $adminSubject, $adminBody, $adminHeaders);
+
+    // Dynamic autoresponder to applicant / potential client
+    $isCareer = ($source === 'careers_form' || str_contains($source, 'career'));
+    $userSubject = $isCareer
+        ? "Application Received: Qala Labs Growth & Engineering"
+        : "Thank You for Contacting Qala Labs | Discovery Confirmed";
+
+    $userHeaders = "From: Qala Labs Team <hello@qalalabs.com>\r\n" .
+                   "Reply-To: hello@qalalabs.com\r\n" .
+                   "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    if ($isCareer) {
+        $userBody = "Hi {$name},\n\n" .
+                    "Thank you for your interest in joining Qala Labs.\n\n" .
+                    "We have received your application. Our core team reviews every submission with care. If your background and drive align with our current sprint openings, we will reach out within 3-5 business days to schedule an introductory conversation.\n\n" .
+                    "In the meantime, feel free to explore our case studies and open-source growth frameworks at https://qalalabs.com/case-studies\n\n" .
+                    "Best regards,\n" .
+                    "The Qala Labs Engineering & Talent Team\n" .
+                    "https://qalalabs.com\n";
+    } else {
+        $userBody = "Hi {$name},\n\n" .
+                    "Thank you for contacting Qala Labs. We have received your inquiry regarding {$companyName}.\n\n" .
+                    "Our growth strategy and performance team is reviewing your requirements. A specialist will get back to you within 24 hours.\n\n" .
+                    "If you would like to connect right away:\n" .
+                    "- Direct WhatsApp: https://wa.me/916006760151\n" .
+                    "- Schedule a 30-minute Google Meet: https://calendar.app.google/EvA2Kw9rgA4xq8798\n\n" .
+                    "Best regards,\n" .
+                    "Aashirwad Bhansali & The Qala Labs Team\n" .
+                    "Growth & Performance Strategy, Qala Labs\n" .
+                    "https://qalalabs.com\n";
+    }
+
+    @mail($email, $userSubject, $userBody, $userHeaders);
+} catch (\Throwable $mailErr) {
+    error_log('[lead.php] Autoresponder dispatch notice: ' . $mailErr->getMessage());
+}
+
 respond(200, ['success' => true]);

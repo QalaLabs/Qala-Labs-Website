@@ -13,7 +13,7 @@ export const CaseStudyDetailPage: React.FC = () => {
   return (
     <PageLayout>
       {/* Hero */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] border-b border-white/10 overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.15),rgba(255,255,255,0))] pointer-events-none" />
         <div className="absolute inset-0 bg-[url('/assets/caseStudyBg.webp')] bg-cover bg-center opacity-15 pointer-events-none" />
 
@@ -51,7 +51,7 @@ export const CaseStudyDetailPage: React.FC = () => {
       </section>
 
       {/* Challenge / Approach / Results */}
-      <section className="relative py-24 bg-[#06070D]">
+      <section className="relative py-24 bg-transparent">
         <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-7 space-y-14">
@@ -106,7 +106,7 @@ export const CaseStudyDetailPage: React.FC = () => {
 
       {/* Testimonial */}
       {study.testimonial && (
-        <section className="relative py-20 bg-[#06070D] border-t border-white/10">
+        <section className="relative py-20 bg-transparent border-t border-white/10">
           <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
             <div className="relative rounded-[36px] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 p-8 md:p-12 shadow-2xl backdrop-blur-md">
               <div className="text-[#3FE0E0] mb-6">
@@ -123,7 +123,7 @@ export const CaseStudyDetailPage: React.FC = () => {
       )}
 
       {/* CTA */}
-      <section className="relative py-24 bg-[#06070D] border-t border-white/10 text-center">
+      <section className="relative py-24 bg-transparent border-t border-white/10 text-center">
         <div className="container mx-auto px-4 lg:px-8 max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-medium text-white tracking-tight mb-6">
             Ready for results like this?

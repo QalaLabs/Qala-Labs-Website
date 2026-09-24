@@ -3,7 +3,7 @@ import { ImageAsciiArt } from './ImageAsciiArt';
 
 export const VideoBanner: React.FC = () => {
   return (
-    <section className="relative pt-20 md:pt-32 pb-16 overflow-hidden bg-[#06070D]">
+    <section className="relative pt-20 md:pt-32 pb-16 overflow-hidden bg-transparent">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-tight">

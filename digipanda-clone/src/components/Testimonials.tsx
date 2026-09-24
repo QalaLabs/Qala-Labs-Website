@@ -8,27 +8,7 @@ const testimonials = [
     company: 'Gaffar India',
     quote:
       'Qala Labs helped us turn a local market legacy into a modern marketplace identity. Their strategy balanced our Gaffar Market roots with digital usability — our sellers felt seen, buyers trusted the site more, and the brand is finally ready to scale.',
-  },
-  {
-    name: 'Siddharth Roy',
-    role: 'Co-Founder & CEO',
-    company: 'Trotr',
-    quote:
-      'We had zero paying customers for our high-ticket Spain trip despite running traditional travel ads. Qala Labs stepped in, rewrote our narrative with founder-led storytelling, and generated ₹14 Lakhs in revenue at a staggering 28x ROAS.',
-  },
-  {
-    name: 'Marcus Vance',
-    role: 'Managing Director',
-    company: 'Nutrivend UK',
-    quote:
-      'Qala Labs didn’t just run ads; they engineered a rigorous B2B market validation framework. Generating 45 qualified enterprise fitness leads in just 7 days with a 71% untapped market discovery proved our new expansion thesis beyond doubt.',
-  },
-  {
-    name: 'Vikram Mehta',
-    role: 'Head of Brand & Merchandising',
-    company: 'playR (IPL Partner)',
-    quote:
-      'Designing and deploying merchandise systems across 8 IPL franchises requires serious design finesse and manufacturing discipline. Qala Labs delivered full technical packs and fan loyalty funnels that generated ₹2.5Cr+ across teams.',
+    metric: '120+ Vendors • 28-Day Delivery',
   },
 ];
 
@@ -46,7 +26,8 @@ export const Testimonials: React.FC = () => {
   const item = testimonials[activeIndex];
 
   return (
-    <section className="relative py-28 bg-[#06070D] border-t border-white/10 overflow-hidden">
+    <section className="relative py-28 bg-transparent border-t border-white/10 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(63,224,224,0.06),transparent_60%)] pointer-events-none" />
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
@@ -62,25 +43,32 @@ export const Testimonials: React.FC = () => {
               We partner with founders who refuse to settle for vanity metrics. Here is what happens when deep engineering craft meets aggressive growth strategy.
             </p>
 
-            <div className="flex items-center gap-3">
-              <button
-                onClick={prev}
-                aria-label="Previous testimonial"
-                className="w-12 h-12 rounded-full border border-white/20 bg-[#0b0c16] hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={next}
-                aria-label="Next testimonial"
-                className="w-12 h-12 rounded-full border border-white/20 bg-[#0b0c16] hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-              <span className="text-xs text-white/50 ml-2 font-mono">
-                {activeIndex + 1} / {testimonials.length}
-              </span>
-            </div>
+            {testimonials.length > 1 ? (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={prev}
+                  aria-label="Previous testimonial"
+                  className="w-12 h-12 rounded-full border border-white/20 bg-[#0b0c16] hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Next testimonial"
+                  className="w-12 h-12 rounded-full border border-white/20 bg-[#0b0c16] hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                <span className="text-xs text-white/50 ml-2 font-mono">
+                  {activeIndex + 1} / {testimonials.length}
+                </span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>AUDITED CLIENT CASE STUDY</span>
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-8">

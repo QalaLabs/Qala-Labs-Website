@@ -2,23 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   QALA LABS LIGHT MODE: WHITE & BLUE GRADIENT DESIGN SYSTEM
+   ========================================================================== */
+
 :root {
-  --background: #06070D;
+  --background: #FFFFFF;
+  --foreground: #0F172A;
   --indigo: #4F46E5;
   --indigo-light: #6366F1;
-  --cyan: #3FE0E0;
-  --good: #34D399;
+  --cyan: #0284C7;
+  --good: #10B981;
 }
 
 body {
   margin: 0;
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #06070D;
-  color: #ffffff;
+  background-color: #FFFFFF;
+  color: #0F172A;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Qala Labs Eyebrow Badge */
+/* Light Mode White & Blue Ambient Gradient Mesh */
+.qala-bg-ambient {
+  background-color: #FFFFFF !important;
+  background-image:
+    radial-gradient(ellipse 90% 55% at 85% 5%, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 75% 50% at 15% 15%, rgba(14, 165, 233, 0.14) 0%, transparent 55%),
+    radial-gradient(circle 900px at 80% 50%, rgba(99, 102, 241, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 85% 55% at 18% 75%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 95% 65% at 75% 92%, rgba(37, 99, 235, 0.15) 0%, transparent 65%),
+    radial-gradient(circle 700px at 45% 98%, rgba(16, 185, 129, 0.07) 0%, transparent 60%) !important;
+  background-attachment: fixed;
+}
+
+/* High-Precision Cybernetic Micro-Grid Pattern in Light Mode */
+.qala-grid-pattern {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(30, 58, 138, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 58, 138, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Light Mode Card and Surface Containers */
+.glass-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 255, 0.85));
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.07);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: #0284C7;
+  box-shadow: 0 16px 35px -5px rgba(14, 165, 233, 0.2);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+/* Eyebrow Badge in Light Mode */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -27,9 +76,9 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #3FE0E0;
-  background: rgba(63, 224, 224, 0.08);
-  border: 1px solid rgba(63, 224, 224, 0.25);
+  color: #0284C7;
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.25);
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   margin-bottom: 1rem;
@@ -38,39 +87,19 @@ body {
 
 /* Qala Labs Primary Action Button */
 .BaCall-btn {
-  background: linear-gradient(135deg, #4F46E5 0%, #3FE0E0 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #4F46E5 0%, #0284C7 100%);
+  color: #ffffff !important;
   padding: 0.75rem 1.75rem;
   font-weight: 700;
   border-radius: 9999px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.25);
 }
 
 .BaCall-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(63, 224, 224, 0.45);
-  filter: brightness(1.1);
-}
-
-/* Glassmorphic Cards & Panels with Blue/Purple Tint */
-.glass-panel {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(79, 70, 229, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.glass-card {
-  background: rgba(12, 14, 23, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  border-color: #3FE0E0;
-  box-shadow: 0 0 35px -5px rgba(63, 224, 224, 0.3);
-  background: rgba(12, 14, 23, 0.95);
+  box-shadow: 0 8px 30px rgba(2, 132, 199, 0.4);
+  filter: brightness(1.05);
 }
 
 /* Ticker marquee animation */
@@ -89,21 +118,241 @@ body {
   animation-play-state: paused;
 }
 
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ==========================================================================
+   LIGHT MODE TYPOGRAPHY & CONTRAST OVERRIDES (DEFAULT)
+   ========================================================================== */
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6 {
+  color: #0F172A !important;
 }
 
-::-webkit-scrollbar-track {
-  background: #06070D;
+/* All text-white variations default to slate in Light Mode */
+html:not(.dark) [class*="text-white"] {
+  color: #1E293B !important;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #1e2238;
+html:not(.dark) .text-white,
+html:not(.dark) [class*="text-white/9"],
+html:not(.dark) [class*="text-white/8"] {
+  color: #0F172A !important;
+}
+
+html:not(.dark) [class*="text-white/7"],
+html:not(.dark) [class*="text-white/6"] {
+  color: #334155 !important;
+}
+
+html:not(.dark) [class*="text-white/5"],
+html:not(.dark) [class*="text-white/4"] {
+  color: #64748B !important;
+}
+
+html:not(.dark) [class*="text-white/3"],
+html:not(.dark) [class*="text-white/2"],
+html:not(.dark) [class*="text-white/1"] {
+  color: #94A3B8 !important;
+}
+
+/* Revert text inside gradient & solid filled BUTTONS/CTAs to crisp white */
+html:not(.dark) .BaCall-btn,
+html:not(.dark) .BaCall-btn *,
+html:not(.dark) button[class*="bg-gradient"],
+html:not(.dark) button[class*="bg-gradient"] *,
+html:not(.dark) button[class*="from-\[\#4F46E5\]"],
+html:not(.dark) button[class*="from-\[\#4F46E5\]"] *,
+html:not(.dark) a.rounded-full[class*="bg-gradient"],
+html:not(.dark) a.rounded-full[class*="bg-gradient"] *,
+html:not(.dark) a.rounded-full[class*="from-\[\#4F46E5\]"],
+html:not(.dark) a.rounded-full[class*="from-\[\#4F46E5\]"] *,
+html:not(.dark) a[class*="rounded-full"][class*="bg-gradient"],
+html:not(.dark) a[class*="rounded-full"][class*="bg-gradient"] *,
+html:not(.dark) button.bg-slate-900,
+html:not(.dark) button.bg-slate-900 *,
+html:not(.dark) button.bg-slate-950,
+html:not(.dark) button.bg-slate-950 *,
+html:not(.dark) button.bg-black,
+html:not(.dark) button.bg-black * {
+  color: #FFFFFF !important;
+}
+
+/* Glass cards with white gradient fills become crisp white card surfaces */
+html:not(.dark) [class*="from-white/"] {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  background-image: none !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.06);
+}
+
+/* Specific button text protections */
+html:not(.dark) button.bg-white,
+html:not(.dark) a.bg-white,
+html:not(.dark) button.bg-white span,
+html:not(.dark) a.bg-white span {
+  color: #0F172A !important;
+}
+
+/* Floating dark-dock HUD elements */
+html:not(.dark) .dark-dock,
+html:not(.dark) .dark-dock h4,
+html:not(.dark) .dark-dock p,
+html:not(.dark) .dark-dock .text-white,
+html:not(.dark) .dark-dock [class*="text-white"],
+html:not(.dark) .dark-dock span {
+  color: #FFFFFF !important;
+}
+
+html:not(.dark) .dark-dock .text-\[\#3FE0E0\] {
+  color: #3FE0E0 !important;
+}
+
+html:not(.dark) .dark-dock button.bg-white,
+html:not(.dark) .dark-dock button.bg-white *,
+html:not(.dark) .dark-dock a.bg-white,
+html:not(.dark) .dark-dock a.bg-white * {
+  color: #0F172A !important;
+}
+
+/* Accents in Light Mode */
+html:not(.dark) .text-\[\#3FE0E0\] {
+  color: #0284C7 !important;
+}
+
+html:not(.dark) .text-\[\#34D399\] {
+  color: #059669 !important;
+}
+
+/* Logo inversion for crisp dark-on-light rendering */
+html:not(.dark) img[src*="qala-logo-full"] {
+  filter: invert(0.9) brightness(0.2);
+}
+
+/* Section wrappers & articles remain transparent for ambient canvas */
+html:not(.dark) section,
+html:not(.dark) article,
+html:not(.dark) main {
+  background-color: transparent !important;
+}
+
+/* Card and Panel Backgrounds in Light Mode */
+html:not(.dark) div.bg-\[\#06070D\],
+html:not(.dark) div.bg-\[\#06070D\]\/85,
+html:not(.dark) div.bg-\[\#06070D\]\/90,
+html:not(.dark) div.bg-\[\#06070D\]\/95,
+html:not(.dark) .bg-\[\#080B14\],
+html:not(.dark) .bg-\[\#080B14\]\/80,
+html:not(.dark) .bg-\[\#0A0D18\],
+html:not(.dark) .bg-\[\#0C0E17\],
+html:not(.dark) .bg-\[\#070913\],
+html:not(.dark) .bg-\[\#070913\]\/90,
+html:not(.dark) .bg-\[\#0b0c16\],
+html:not(.dark) .bg-\[\#121324\],
+html:not(.dark) .bg-black\/60,
+html:not(.dark) .bg-black\/70,
+html:not(.dark) .bg-black\/75,
+html:not(.dark) .bg-black\/80,
+html:not(.dark) .bg-black\/85,
+html:not(.dark) .bg-white\/\[0\.02\],
+html:not(.dark) .bg-white\/\[0\.03\],
+html:not(.dark) .bg-white\/\[0\.04\],
+html:not(.dark) .bg-white\/\[0\.08\],
+html:not(.dark) .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px);
+}
+
+/* Header & Mobile Drawer in Light Mode */
+html:not(.dark) header.bg-\[\#06070D\]\/85,
+html:not(.dark) header[class*="bg-\[\#06070D\]"] {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  border-bottom-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+html:not(.dark) .lg\:hidden[class*="bg-\[\#06070D\]"] {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+/* Footer in Light Mode */
+html:not(.dark) footer.bg-\[\#06070D\]\/90,
+html:not(.dark) footer[class*="bg-\[\#06070D\]"],
+html:not(.dark) footer {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border-top-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Clean Borders in Light Mode */
+html:not(.dark) .border-white\/5,
+html:not(.dark) .border-white\/10,
+html:not(.dark) .border-white\/15,
+html:not(.dark) .border-white\/20,
+html:not(.dark) .border-white\/30 {
+  border-color: rgba(203, 213, 225, 0.85) !important;
+}
+
+/* Form Controls in Light Mode */
+html:not(.dark) input:not([type="checkbox"]):not([type="radio"]),
+html:not(.dark) textarea,
+html:not(.dark) select {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Scrollbars in Light Mode */
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
   border-radius: 4px;
 }
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+}
 
-::-webkit-scrollbar-thumb:hover {
-  background: #4F46E5;
+/* ==========================================================================
+   DARK MODE OVERRIDES (WHEN .dark CLASS IS PRESENT)
+   ========================================================================== */
+.dark {
+  --background: #06070D;
+  --foreground: #FFFFFF;
+  --indigo: #4F46E5;
+  --indigo-light: #6366F1;
+  --cyan: #3FE0E0;
+  --good: #34D399;
+}
+
+.dark body {
+  background-color: #06070D !important;
+  color: #FFFFFF !important;
+}
+
+.dark .qala-bg-ambient {
+  background-color: #06070D !important;
+  background-image:
+    radial-gradient(ellipse 90% 50% at 85% 5%, rgba(79, 70, 229, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 45% at 12% 18%, rgba(63, 224, 224, 0.12) 0%, transparent 55%),
+    radial-gradient(circle 800px at 80% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 50% at 20% 75%, rgba(63, 224, 224, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 60% at 75% 92%, rgba(79, 70, 229, 0.12) 0%, transparent 65%),
+    radial-gradient(circle 600px at 45% 98%, rgba(52, 211, 153, 0.05) 0%, transparent 60%) !important;
+}
+
+.dark .qala-grid-pattern {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px) !important;
+}
+
+.dark img[src*="qala-logo-full"] {
+  filter: none !important;
 }
