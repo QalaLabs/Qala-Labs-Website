@@ -163,7 +163,6 @@ export const portfolioProjects: PortfolioProject[] = [
       'Social Cutdowns & Paid Ad Performance Variants',
     ],
     technologies: ['Sony FX6 Cinema', 'DaVinci Resolve', 'Capture One', 'Photoshop'],
-    caseStudySlug: 'mizuno-india',
     featured: true,
   },
   {

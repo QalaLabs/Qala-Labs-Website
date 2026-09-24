@@ -69,10 +69,6 @@ export const allWorkItems: UnifiedWorkItem[] = [
   mappedCaseStudies.find((i) => i.slug === 'trotr-spain-pivot')!,
   // Flagship Performance Footwear Shoot
   mappedPortfolio.find((i) => i.slug === 'mizuno-india-launch-production')!,
-  // Flagship Performance Apparel Growth
-  mappedCaseStudies.find((i) => i.slug === 'mizuno-india')!,
-  // Flagship Luxury Horology Marketplace
-  mappedCaseStudies.find((i) => i.slug === 'chrono-seconds')!,
   // Flagship Real Estate Proptech Platform
   mappedPortfolio.find((i) => i.slug === 'capital-keys-real-estate-platform')!,
   // Flagship Proptech Case Study
@@ -85,8 +81,6 @@ export const allWorkItems: UnifiedWorkItem[] = [
   mappedCaseStudies.find((i) => i.slug === 'gaffar-india')!,
   // Flagship Marketplace Branding
   mappedPortfolio.find((i) => i.slug === 'gaffar-india-marketplace')!,
-  // Flagship Autonomous Swarm
-  mappedCaseStudies.find((i) => i.slug === 'marksops-autonomous-swarm')!,
   // Flagship Amazon Performance
   mappedCaseStudies.find((i) => i.slug === 'amazon-ads-scaling')!,
   // Flagship Cultural Sound Movement
@@ -97,8 +91,6 @@ export const allWorkItems: UnifiedWorkItem[] = [
   mappedPortfolio.find((i) => i.slug === 'instagram-ugc-lifestyle')!,
   // Flagship Sports League Hub
   mappedPortfolio.find((i) => i.slug === 'wpbl-fan-hub')!,
-  // Flagship BNPL Strategy
-  mappedCaseStudies.find((i) => i.slug === 'd2c-bnpl-strategy')!,
   // 3D Volumetric Horizon Engine
   mappedPortfolio.find((i) => i.slug === 'webgl-volumetric-engine')!,
 ].filter(Boolean);

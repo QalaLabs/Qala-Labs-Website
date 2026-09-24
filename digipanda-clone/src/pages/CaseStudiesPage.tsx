@@ -15,11 +15,9 @@ export const CaseStudiesPage: React.FC = () => {
     'All',
     'Meta Lead Gen',
     'Founder Storytelling',
-    'E-commerce & Retail',
-    'Performance Apparel',
-    'Luxury E-commerce',
     'Brand Identity & Web',
-    'AI & Automation',
+    'Web App & CRM',
+    'Amazon Performance',
     'Cultural Movement',
   ];
 
@@ -90,12 +88,12 @@ export const CaseStudiesPage: React.FC = () => {
               <div className="text-[11px] font-mono text-white/50 uppercase mt-1">Peak Funnel ROAS</div>
             </div>
             <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-[#A78BFA]">₹4.2Cr+</div>
-              <div className="text-[11px] font-mono text-white/50 uppercase mt-1">Pipeline Generated</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#A78BFA]">11.2x</div>
+              <div className="text-[11px] font-mono text-white/50 uppercase mt-1">Amazon Ads ROAS</div>
             </div>
             <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-[#34D399]">+400%</div>
-              <div className="text-[11px] font-mono text-white/50 uppercase mt-1">D2C YoY Growth</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[#34D399]">64.7%</div>
+              <div className="text-[11px] font-mono text-white/50 uppercase mt-1">Inquiry Conversion</div>
             </div>
             <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
               <div className="text-2xl sm:text-3xl font-bold text-white">45 B2B</div>

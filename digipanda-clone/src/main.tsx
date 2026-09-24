@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
 import { ScrollToTop } from './components/ScrollToTop';
 import './index.css';
@@ -60,6 +60,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/work" element={<OurWorkPage />} />
           <Route path="/our-work" element={<OurWorkPage />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/case-studies/d2c-bnpl-strategy" element={<Navigate to="/blog/d2c-bnpl-strategy-guide" replace />} />
           <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<PortfolioDetailPage />} />

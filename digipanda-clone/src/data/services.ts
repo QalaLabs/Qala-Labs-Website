@@ -72,7 +72,6 @@ export const services: ServiceItem[] = [
     proof: [
       { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — market stall to digital marketplace' },
       { type: 'case-study', slug: 'kashmiri-sound-movement', label: 'The Kashmiri Sound Movement — label launch' },
-      { type: 'case-study', slug: 'chrono-seconds', label: 'Chrono Seconds — luxury provenance & marketplace' },
     ],
   },
   {
@@ -214,7 +213,6 @@ export const services: ServiceItem[] = [
       { type: 'case-study', slug: 'trotr-spain-pivot', label: 'Trotr: Spain Pivot — 28x ROAS' },
       { type: 'case-study', slug: 'amazon-ads-scaling', label: 'Amazon Ads Scaling — 11.2x ROAS' },
       { type: 'case-study', slug: 'nutrivend-uk', label: 'Nutrivend UK — 45 enterprise leads' },
-      { type: 'case-study', slug: 'd2c-bnpl-strategy', label: 'D2C BNPL Strategy — conversion uplift' },
     ],
   },
   {

@@ -104,8 +104,8 @@ export const Footer: React.FC = () => {
               <li><Link to="/case-studies/gaffar-india" className="hover:text-[#3FE0E0] transition-colors">Gaffar India (Marketplace)</Link></li>
               <li><Link to="/case-studies/nutrivend-uk" className="hover:text-[#3FE0E0] transition-colors">Nutrivend UK (B2B)</Link></li>
               <li><Link to="/case-studies/trotr-spain-pivot" className="hover:text-[#3FE0E0] transition-colors">Trotr Travel (28x ROAS)</Link></li>
-              <li><Link to="/case-studies/chrono-seconds" className="hover:text-[#3FE0E0] transition-colors">Chrono Seconds (Luxury)</Link></li>
-              <li><Link to="/case-studies/mizuno-india" className="hover:text-[#3FE0E0] transition-colors">Mizuno India (D2C Scale)</Link></li>
+              <li><Link to="/case-studies/capital-keys" className="hover:text-[#3FE0E0] transition-colors">Capital Keys (Proptech)</Link></li>
+              <li><Link to="/case-studies/amazon-ads-scaling" className="hover:text-[#3FE0E0] transition-colors">Amazon Ads Scaling</Link></li>
             </ul>
           </div>
 

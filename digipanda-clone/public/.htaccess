@@ -2,6 +2,7 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^api/lead$ /api/lead.php [L,QSA]
+  RewriteRule ^case-studies/d2c-bnpl-strategy/?$ /blog/d2c-bnpl-strategy-guide [R=301,L]
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

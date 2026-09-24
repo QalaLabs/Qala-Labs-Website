@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { CareersPage } from '../../pages/CareersPage';
 import { CreatorCollectivePage } from '../../pages/CreatorCollectivePage';
@@ -74,21 +74,21 @@ describe('New Strategic Pages & Ecosystem Routes', () => {
     );
 
     expect(screen.getByText(/VERIFIED OUTCOMES/i)).toBeInTheDocument();
-    expect(screen.getAllByText('Mizuno India').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Capital Keys').length).toBeGreaterThan(0);
     expect(screen.getByText('Trotr: Spain Pivot')).toBeInTheDocument();
-    expect(screen.getByText('MarksOps Autonomous Operations Swarm')).toBeInTheDocument();
+    expect(screen.getAllByText('Amazon Ads Scaling').length).toBeGreaterThan(0);
   });
 
-  it('renders CaseStudyDetailPage for new case studies', () => {
+  it('renders CaseStudyDetailPage for valid case studies', () => {
     render(
-      <MemoryRouter initialEntries={['/case-studies/mizuno-india']}>
+      <MemoryRouter initialEntries={['/case-studies/capital-keys']}>
         <Routes>
           <Route path="/case-studies/:slug" element={<CaseStudyDetailPage />} />
         </Routes>
       </MemoryRouter>
     );
 
-    expect(screen.getByText('Mizuno India')).toBeInTheDocument();
+    expect(screen.getByText('Capital Keys')).toBeInTheDocument();
   });
 
   it('renders BlogPage with playbooks and private dispatch newsletter', () => {
@@ -129,5 +129,21 @@ describe('New Strategic Pages & Ecosystem Routes', () => {
     expect(screen.getByText(/Our Work:/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Nutrivend UK/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/WWF India: AI Ad Creatives/i).length).toBeGreaterThan(0);
+  });
+
+  it('redirects /case-studies/d2c-bnpl-strategy to /blog/d2c-bnpl-strategy-guide', () => {
+    render(
+      <MemoryRouter initialEntries={['/case-studies/d2c-bnpl-strategy']}>
+        <Routes>
+          <Route
+            path="/case-studies/d2c-bnpl-strategy"
+            element={<Navigate to="/blog/d2c-bnpl-strategy-guide" replace />}
+          />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText(/The D2C BNPL Strategy Guide/i)).toBeInTheDocument();
   });
 });

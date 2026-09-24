@@ -3,16 +3,16 @@ import { ArrowRight } from 'lucide-react';
 
 const clients = [
   { name: 'WWF India', role: 'AI Ad Creative System' },
-  { name: 'Chrono Seconds', role: 'Luxury Horology Marketplace' },
+  { name: 'Airborne Aviation', role: 'Aviation Academy SEO & Web' },
   { name: 'playR', role: '8 IPL Franchises Merch' },
   { name: 'Nutrivend UK', role: 'B2B Market Validation' },
   { name: 'Trotr', role: '28x ROAS Travel Funnel' },
   { name: 'Gaffar India', role: 'Multi-Vendor Marketplace' },
-  { name: 'Mizuno India', role: 'Performance Footwear Architecture' },
+  { name: 'WPBL', role: 'Sports League Fan Hub & Merch' },
   { name: 'Capital Keys', role: 'Real Estate Platform' },
   { name: 'Mystic Studio 8', role: '3.4M+ Kashmiri Sound Views' },
   { name: 'Amazon Ads', role: '11.2x ROAS Scaling' },
-  { name: 'BNPL D2C Strategy', role: '30% Conversion Uplift' },
+  { name: 'Mizuno India', role: 'Launch Production & Shoots' },
 ];
 
 export const ClientsGrid: React.FC = () => {

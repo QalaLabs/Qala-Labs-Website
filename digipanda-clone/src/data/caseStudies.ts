@@ -75,58 +75,6 @@ export const caseStudies: CaseStudy[] = [
   },
 
   {
-    slug: 'mizuno-india',
-    title: 'Mizuno India',
-    subtitle: 'Performance Apparel Brand & D2C Growth Engine',
-    result: '3.8x Blended ROAS • 400% D2C Growth',
-    thumb: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=1200',
-    category: 'Performance Apparel',
-    challenge:
-      'Mizuno held undisputed global acclaim among professional athletes, but its Indian digital footprint lagged behind legacy competitors with generic catalog ads failing to convey Japanese precision engineering.',
-    approach: [
-      'Rebuilt the digital visual identity highlighting technical shoe anatomy and biomechanics',
-      'Structured high-intent Google Search and Meta CAPI funnels targeting elite runners and badminton pros',
-      'Introduced dynamic fit-finder workflows and athlete endorsement storytelling',
-    ],
-    results: [
-      { label: 'Blended ROAS', value: '3.8x across channels' },
-      { label: 'D2C sales growth', value: '+400% YoY' },
-      { label: 'Return rate reduction', value: '28% drop via fit-finder' },
-    ],
-    testimonial: {
-      quote:
-        'Qala Labs translated Mizuno’s legacy of Japanese precision into a modern digital conversion engine. They grew our direct-to-consumer channel by 400% while elevating our brand standing.',
-      name: 'Rajeev Singhania',
-      role: 'Commercial Director, Mizuno India',
-    },
-  },
-  {
-    slug: 'chrono-seconds',
-    title: 'Chrono Seconds',
-    subtitle: 'Luxury Pre-Owned Horology Marketplace',
-    result: '₹4.2Cr+ Pipeline • High-Net-Worth Buyers',
-    thumb: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1200',
-    category: 'Luxury E-commerce',
-    challenge:
-      'Chrono Seconds operates in pre-owned luxury horology, a category where trust and provenance matter more than price — generic e-commerce marketing playbooks fail to reach genuinely high-net-worth buyers.',
-    approach: [
-      'Built a luxury-positioned marketplace experience calibrated to serious watch collectors',
-      'Targeted acquisition toward verified high-net-worth buyer segments rather than broad reach',
-      'Prioritized provenance, archival documentation, and vault authentication signals throughout the buying journey',
-    ],
-    results: [
-      { label: 'Pipeline generated', value: '₹4.2Cr+' },
-      { label: 'Average order value', value: '₹8.4 Lakhs' },
-      { label: 'Buyer segment', value: 'Verified HNW collectors' },
-    ],
-    testimonial: {
-      quote:
-        'Selling rare Patek Philippe and Rolex references online requires bulletproof credibility. Qala Labs crafted a digital provenance experience that gave collectors complete confidence, driving over ₹4.2Cr in verified pipeline.',
-      name: 'Rohan Kapoor',
-      role: 'Founder & Horological Curator, Chrono Seconds',
-    },
-  },
-  {
     slug: 'gaffar-india',
     title: 'Gaffar India',
     subtitle: 'Market Stall to Digital Multi-Vendor Marketplace',
@@ -173,32 +121,6 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: 'marksops-autonomous-swarm',
-    title: 'MarksOps Autonomous Operations Swarm',
-    subtitle: 'Enterprise AI Agent Orchestration',
-    result: '94% Less Manual Drag • 24/7 Autonomy',
-    thumb: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200',
-    category: 'AI & Automation',
-    challenge:
-      'Internal marketing, CRM lead scoring, and financial reconciliation required hours of daily manual spreadsheet reconciliation and repetitive copy-pasting between disparate software tools.',
-    approach: [
-      'Engineered an autonomous multi-agent swarm architecture with persistent state checkpointing',
-      'Integrated real-time webhooks connecting advertising spend, bank feeds, and CRM statuses',
-      'Deployed self-correcting error recovery routines allowing swarms to operate continuously without human intervention',
-    ],
-    results: [
-      { label: 'Manual task reduction', value: '94% automated' },
-      { label: 'Processing latency', value: '< 1.4 seconds per event' },
-      { label: 'Weekly hours saved', value: '160+ team hours' },
-    ],
-    testimonial: {
-      quote:
-        'MarksOps proved that AI agents are no longer experimental prototypes. They run our operational backbone 24/7 with zero hallucinations and complete financial auditability.',
-      name: 'Aashirwad Sharma',
-      role: 'Founder & Head of Systems, Qala Labs',
-    },
-  },
-  {
     slug: 'amazon-ads-scaling',
     title: 'Amazon Ads Scaling',
     subtitle: 'D2C Advertising Engine & Algorithmic Bidding',
@@ -238,26 +160,7 @@ export const caseStudies: CaseStudy[] = [
       { label: 'Streaming saves', value: '42,000+ Spotify saves' },
     ],
   },
-  {
-    slug: 'd2c-bnpl-strategy',
-    title: 'D2C BNPL Strategy',
-    subtitle: 'Payment Architecture Optimization & AOV Expansion',
-    result: '15-30% Conversion Uplift',
-    thumb: '/assets/qala/bnpl-featured.webp',
-    category: 'Growth Architecture',
-    challenge:
-      'A D2C brand was losing checkout conversions to price hesitation at the final step, with no flexible payment options to bridge the gap for hesitant buyers.',
-    approach: [
-      'Audited the checkout flow to isolate where price hesitation was costing conversions',
-      'Introduced and optimized Buy-Now-Pay-Later placement across the purchase funnel',
-      'Tuned messaging around the new payment architecture to normalize its use at checkout',
-    ],
-    results: [
-      { label: 'Conversion uplift', value: '15–30%' },
-      { label: 'Cart abandonment drop', value: '22% reduction' },
-      { label: 'Average order value', value: '+18% increase' },
-    ],
-  },
+
 ];
 
 export const getCaseStudyBySlug = (slug?: string) =>
