@@ -1,8 +1,8 @@
 -- ==============================================================================
--- Qala Labs Official MySQL Database Schema & Full Content Dump
+-- Qala Labs Production MySQL Database Complete Architecture & Content Dump
 -- Database: u742118922_QalaLabs
 -- Server Host: srv2205.hstgr.io (82.25.121.200 / localhost)
--- Auto-generated & verified
+-- Validated against repository source files
 -- ==============================================================================
 
 SET NAMES utf8mb4;
@@ -11,6 +11,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ------------------------------------------------------------
 -- Table structure for `case_studies`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `case_studies`;
 CREATE TABLE `case_studies` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
@@ -49,6 +50,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `portfolio_projects`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `portfolio_projects`;
 CREATE TABLE `portfolio_projects` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `project_id` varchar(100) NOT NULL,
@@ -99,6 +101,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `blog_posts`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `blog_posts`;
 CREATE TABLE `blog_posts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
@@ -136,6 +139,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `services`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
@@ -175,6 +179,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `products`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
@@ -204,6 +209,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `ai_agents`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `ai_agents`;
 CREATE TABLE `ai_agents` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
@@ -236,6 +242,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `job_openings`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `job_openings`;
 CREATE TABLE `job_openings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `job_id` varchar(100) NOT NULL,
@@ -272,6 +279,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `creator_tracks`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `creator_tracks`;
 CREATE TABLE `creator_tracks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `track_id` varchar(100) NOT NULL,
@@ -299,6 +307,7 @@ UNLOCK TABLES;
 -- ------------------------------------------------------------
 -- Table structure for `agency_models`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `agency_models`;
 CREATE TABLE `agency_models` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `model_id` varchar(100) NOT NULL,
@@ -323,8 +332,151 @@ INSERT INTO `agency_models` (`id`, `model_id`, `title`, `badge`, `headline`, `de
 UNLOCK TABLES;
 
 -- ------------------------------------------------------------
+-- Table structure for `faqs`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `faqs`;
+CREATE TABLE `faqs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `question` text NOT NULL,
+  `answer` text NOT NULL,
+  `category` varchar(100) DEFAULT 'General',
+  `display_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_faqs_display` (`display_order`),
+  KEY `idx_faqs_active` (`active`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for `faqs` (7 records)
+LOCK TABLES `faqs` WRITE;
+INSERT INTO `faqs` (`id`, `question`, `answer`, `category`, `display_order`, `active`, `created_at`, `updated_at`) VALUES
+  (1, 'What makes Qala Labs fundamentally different from traditional agencies?', 'Traditional agencies separate engineering, creative, and performance marketing into slow, disconnected silos. Qala Labs operates as an integrated growth and technology studio where full-stack engineers, AI modelers, and brand strategists collaborate directly. We engineer the software, craft the narrative, and scale the distribution under one unified system.', 'General', 1, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (2, 'How did Qala Labs achieve a 28x ROAS for high-ticket travel with Trotr?', 'For high-ticket purchases, generic ads fail because buyers require community proof and founder credibility. We pivoted Trotr to founder-led documentary storytelling combined with A/B audience engineering and sequential video retargeting. This drove ₹14 Lakhs in revenue with 100% lead booking conversion in 30 days.', 'Growth & Performance', 2, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (3, 'How does your AI Creative Engine reduce production costs by 80%?', 'As proven with WWF India, we build custom generative pipelines that adhere to brand guidelines, typography, and color tokens. The system produces dozens of on-brand creative variations automatically, cutting turnaround from weeks to minutes and lifting CTR by 23% through rapid A/B testing.', 'AI & Creative', 3, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (4, 'How does your B2B market validation framework work?', 'Instead of spending months and huge budgets guessing market demand, we deploy audience engineering campaigns that test real purchasing intent across multiple niche B2B segments simultaneously. For Nutrivend UK, we validated a 71% untapped fitness market and generated 45 qualified leads in just 7 days.', 'Validation', 4, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (5, 'Can Qala Labs build full-scale web platforms and marketplaces?', 'Yes. We have built multi-vendor marketplace engines like Gaffar India (vendor portals, 1,000+ live SKUs, rapid checkout) and proptech engines like Capital Keys (delivering 64.7% lead conversion and automated CRM routing).', 'Engineering', 5, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (6, 'How do you optimize D2C conversion rates through payment strategy?', 'Payment friction is often the single biggest conversion killer for D2C founders. We help brands integrate BNPL (Buy Now Pay Later) and optimized multi-provider checkout flows, which consistently yield a 15-30% conversion uplift and a 20-40% increase in Average Order Value (AOV).', 'Growth & Performance', 6, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (7, 'What does an engagement with Qala Labs look like?', 'We engage either through focused 30-day sprints (e.g. Market Validation, Marketplace Launch, AI Creative Setup) or long-term growth partnerships where we operate as your dedicated engineering and growth lab.', 'Engagement', 7, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `testimonials`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `testimonials`;
+CREATE TABLE `testimonials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `company` varchar(255) NOT NULL,
+  `quote` text NOT NULL,
+  `metric` varchar(255) DEFAULT NULL,
+  `avatar_url` varchar(500) DEFAULT NULL,
+  `case_study_slug` varchar(255) DEFAULT NULL,
+  `featured` tinyint(1) DEFAULT 1,
+  `display_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_testimonials_featured` (`featured`),
+  KEY `idx_testimonials_company` (`company`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for `testimonials` (6 records)
+LOCK TABLES `testimonials` WRITE;
+INSERT INTO `testimonials` (`id`, `name`, `role`, `company`, `quote`, `metric`, `avatar_url`, `case_study_slug`, `featured`, `display_order`, `created_at`, `updated_at`) VALUES
+  (1, 'Akaash Maskeen', 'Founder & CEO', 'Gaffar India', 'Qala Labs helped us turn a local market legacy into a modern marketplace identity. Their strategy balanced our Gaffar Market roots with digital usability — our sellers felt seen, buyers trusted the site more, and the brand is finally ready to scale.', '120+ Vendors • 28-Day Delivery', NULL, 'gaffar-india', 1, 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (2, 'Marcus Vance', 'Managing Director', 'Nutrivend UK', 'Qala Labs didn''t just run ads; they engineered a rigorous B2B market validation framework. Generating 45 qualified enterprise fitness leads in just 7 days with a 71% untapped market discovery proved our new expansion thesis beyond doubt.', '45 Leads • 71% Untapped Market', NULL, 'nutrivend-uk', 1, 2, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (3, 'Siddharth Roy', 'Co-Founder & CEO', 'Trotr', 'We had zero paying customers for our high-ticket Spain trip despite running traditional travel ads. Qala Labs stepped in, rewrote our narrative with founder-led storytelling, and generated ₹14 Lakhs in revenue at a staggering 28x ROAS.', '28x ROAS • ₹14L Revenue', NULL, 'trotr-spain-pivot', 1, 3, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (4, 'Rajeev Singhania', 'Commercial Director', 'Mizuno India', 'Qala Labs translated Mizuno’s legacy of Japanese precision into a modern digital conversion engine. They grew our direct-to-consumer channel by 400% while elevating our brand standing.', '3.8x Blended ROAS • 400% D2C Growth', NULL, 'mizuno-india', 1, 4, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (5, 'Rhea Pillai', 'Head of Partnerships', 'WWF India', 'Deploying Qala Labs’ AI creative pipeline transformed our campaign agility. Producing 50+ on-brand wildlife assets weekly at an 80% cost reduction gave our conservation outreach extraordinary momentum.', '80% Lower Cost • 50+ Assets/Wk', NULL, 'wwf-india', 1, 5, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (6, 'Devendra Mehta', 'Founder & Managing Partner', 'Capital Keys', 'Our high-net-worth real estate buyers expect seamless, responsive discovery. Qala Labs built an ultra-clean proptech portal that lifted our lead-to-viewing conversion to 64.7% in month one.', '17+ Qualified Leads • 64.7% Conversion', NULL, 'capital-keys', 1, 6, '2026-09-24 16:47:57', '2026-09-24 16:47:57');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `culture_pillars`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `culture_pillars`;
+CREATE TABLE `culture_pillars` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `icon_name` varchar(100) NOT NULL,
+  `display_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for `culture_pillars` (4 records)
+LOCK TABLES `culture_pillars` WRITE;
+INSERT INTO `culture_pillars` (`id`, `title`, `tagline`, `description`, `icon_name`, `display_order`, `created_at`, `updated_at`) VALUES
+  (1, 'Art Meets Engineering', 'Craft without technical depth is shallow; engineering without craft is soulless.', 'We believe the next generation of digital products and brand ecosystems will be built by polymaths. Our engineers obsess over motion and typography; our designers code shaders and prompt neural models.', 'Sparkles', 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (2, 'Autonomous Multi-Agent Leverage', 'Kill mundane drudgery with internal swarms.', 'We built MarksOps so our team does not spend hours on manual reconciliation, formatting ad variants, or copying spreadsheet cells. You will command and deploy AI agent swarms from day one.', 'Cpu', 2, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (3, 'Radical Agency & Low Bureaucracy', 'Default to aggressive action and thoughtful velocity.', 'No five-stage approval committees. If you have an intuition backed by data or high-conviction creative taste, prototype it, test it, and ship it.', 'Zap', 3, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (4, 'Global Stakes, Real Enterprise Impact', 'Not mock projects or toy sandboxes.', 'From global conservation campaigns with WWF India to high-ticket travel funnels in Spain and multi-vendor marketplace architectures in London, our work impacts millions of users worldwide.', 'Globe', 4, '2026-09-24 16:47:57', '2026-09-24 16:47:57');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `company_perks`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `company_perks`;
+CREATE TABLE `company_perks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `display_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`),
+  KEY `idx_perks_category` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for `company_perks` (5 records)
+LOCK TABLES `company_perks` WRITE;
+INSERT INTO `company_perks` (`id`, `title`, `description`, `category`, `display_order`, `created_at`, `updated_at`) VALUES
+  (1, 'Cutting-Edge Apple & AI Hardware Budget', 'Top-spec MacBook Pro M3/M4 Max plus unlimited subscriptions to leading AI dev & design tooling (Cursor, Claude, Midjourney, v0, Runway).', 'Setup & Tech', 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (2, 'Learning & Conference Sponsorship', 'Annual allowance for technical workshops, design masterclasses, and global technology / design conferences.', 'Growth & Learning', 2, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (3, 'Comprehensive Health & Wellness', 'Global health insurance coverage, mental wellness sessions, and gym or wellness stipend.', 'Health & Life', 3, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (4, 'Work From Anywhere & Flexible Hours', 'Remote-first culture with hubs in London, Delhi NCR, Dubai, and Amsterdam. Asynchronous by default.', 'Autonomy', 4, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (5, 'Performance Royalties & Profit Sharing', 'Competitive base salary paired with transparent venture upside and performance-based project bonuses.', 'Autonomy', 5, '2026-09-24 16:47:57', '2026-09-24 16:47:57');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `global_offices`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `global_offices`;
+CREATE TABLE `global_offices` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `country` varchar(150) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `flag_url` varchar(500) NOT NULL,
+  `timezone` varchar(100) NOT NULL,
+  `display_order` int(10) unsigned NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `country` (`country`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for `global_offices` (4 records)
+LOCK TABLES `global_offices` WRITE;
+INSERT INTO `global_offices` (`id`, `country`, `city`, `flag_url`, `timezone`, `display_order`, `created_at`, `updated_at`) VALUES
+  (1, 'India (Delhi NCR)', 'Delhi NCR', '/assets/india-flag.png', 'Asia/Kolkata', 1, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (2, 'United Kingdom (London)', 'London', '/assets/uk-flag.svg', 'Europe/London', 2, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (3, 'UAE (Dubai)', 'Dubai', '/assets/uae-flag.png', 'Asia/Dubai', 3, '2026-09-24 16:47:57', '2026-09-24 16:47:57'),
+  (4, 'Netherlands (Amsterdam)', 'Amsterdam', '/assets/nl-flag.png', 'Europe/Amsterdam', 4, '2026-09-24 16:47:57', '2026-09-24 16:47:57');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
 -- Table structure for `leads`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `leads`;
 CREATE TABLE `leads` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -346,6 +498,7 @@ CREATE TABLE `leads` (
 -- ------------------------------------------------------------
 -- Table structure for `crm_contacts`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `crm_contacts`;
 CREATE TABLE `crm_contacts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(150) NOT NULL,
@@ -369,6 +522,7 @@ CREATE TABLE `crm_contacts` (
 -- ------------------------------------------------------------
 -- Table structure for `crm_deals`
 -- ------------------------------------------------------------
+DROP TABLE IF EXISTS `crm_deals`;
 CREATE TABLE `crm_deals` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contact_id` int(10) unsigned DEFAULT NULL,
@@ -386,5 +540,48 @@ CREATE TABLE `crm_deals` (
   KEY `fk_crm_deals_contact` (`contact_id`),
   CONSTRAINT `fk_crm_deals_contact` FOREIGN KEY (`contact_id`) REFERENCES `crm_contacts` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- View structure for `unified_work_items`
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE VIEW unified_work_items AS
+SELECT
+    CONCAT('cs-', slug) AS id,
+    slug,
+    'case-study' AS type,
+    title,
+    title AS client,
+    category,
+    result AS metric,
+    thumb,
+    subtitle AS summary,
+    results,
+    testimonial,
+    NULL AS deliverables,
+    NULL AS technologies,
+    CONCAT('/case-studies/', slug) AS link,
+    TRUE AS featured,
+    created_at
+FROM case_studies
+UNION ALL
+SELECT
+    project_id AS id,
+    slug,
+    'portfolio' AS type,
+    title,
+    client,
+    category,
+    impact_metric AS metric,
+    cover_image AS thumb,
+    summary,
+    NULL AS results,
+    NULL AS testimonial,
+    deliverables,
+    technologies,
+    CONCAT('/portfolio/', slug) AS link,
+    featured,
+    created_at
+FROM portfolio_projects;
 
 SET FOREIGN_KEY_CHECKS = 1;
