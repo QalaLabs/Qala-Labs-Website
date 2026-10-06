@@ -290,15 +290,15 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
           onClick={() => setActiveTab(activeTab === 'creative' ? 'both' : 'creative')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
             activeTab === 'creative' || activeTab === 'both'
-              ? 'text-purple-300 bg-purple-950/60 border-purple-500/40 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
-              : 'text-white/40 bg-white/5 border-white/10'
+              ? 'text-purple-700 dark:text-purple-300 bg-purple-100/90 dark:bg-purple-950/60 border-purple-300 dark:border-purple-500/40 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+              : 'text-slate-500 dark:text-white/40 bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10'
           }`}
         >
-          <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-purple-400 animate-pulse" />
           <span className="font-semibold">Creative Craft</span>
         </button>
 
-        <div className="text-[10px] text-white/40 uppercase tracking-[2px] hidden sm:block">
+        <div className="text-[10px] text-slate-500 dark:text-white/40 uppercase tracking-[2px] hidden sm:block">
           Fused &times; Revenue Engine
         </div>
 
@@ -306,12 +306,12 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
           onClick={() => setActiveTab(activeTab === 'data' ? 'both' : 'data')}
           className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
             activeTab === 'data' || activeTab === 'both'
-              ? 'text-[#3FE0E0] bg-[#06b6d4]/15 border-[#3FE0E0]/40 shadow-[0_0_15px_rgba(63,224,224,0.3)]'
-              : 'text-white/40 bg-white/5 border-white/10'
+              ? 'text-sky-700 dark:text-[#3FE0E0] bg-sky-100/90 dark:bg-[#06b6d4]/15 border-sky-300 dark:border-[#3FE0E0]/40 shadow-sm dark:shadow-[0_0_15px_rgba(63,224,224,0.3)]'
+              : 'text-slate-500 dark:text-white/40 bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10'
           }`}
         >
           <span className="font-semibold">Data Discipline</span>
-          <span className="w-2 h-2 rounded-full bg-[#3FE0E0] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-sky-500 dark:bg-[#3FE0E0] animate-pulse" />
         </button>
       </div>
     </div>

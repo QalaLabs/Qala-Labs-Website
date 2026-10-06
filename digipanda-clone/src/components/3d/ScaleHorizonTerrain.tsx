@@ -330,14 +330,14 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
   }, []);
 
   return (
-    <div className={`relative rounded-3xl border border-white/10 bg-[#06070d] p-5 md:p-6 overflow-hidden select-none shadow-2xl ${className}`}>
+    <div className={`relative rounded-3xl border border-slate-200/90 dark:border-white/10 bg-white/85 dark:bg-[#06070d] p-5 md:p-6 overflow-hidden select-none shadow-xl shadow-blue-500/5 dark:shadow-2xl backdrop-blur-xl ${className}`}>
       {/* Card Header matching image 2 */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-        <span className="text-xs font-mono font-bold text-[#38bdf8] uppercase tracking-wider flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+        <span className="text-xs font-mono font-bold text-sky-600 dark:text-[#38bdf8] uppercase tracking-wider flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-sky-500 dark:bg-[#38bdf8] animate-pulse" />
           SCALE ARCHITECTURE // 3D VOLUMETRIC HORIZON
         </span>
-        <span className="text-xs font-mono text-white/50">
+        <span className="text-xs font-mono text-slate-500 dark:text-white/50">
           Unit economics held stable across revenue tiers
         </span>
       </div>
@@ -345,14 +345,14 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
       {/* 3D Canvas */}
       <div 
         ref={containerRef} 
-        className="w-full h-[260px] md:h-[320px] cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden border border-white/5 relative"
+        className="w-full h-[260px] md:h-[320px] cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden border border-slate-200/80 dark:border-white/5 relative"
         title="Drag horizontally to orbit the 3D scale terrain"
       />
 
       {/* Interactive Milestone Controller */}
-      <div className="mt-4 pt-3 border-t border-white/10">
+      <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-white/10">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-[11px] font-mono uppercase text-white/60 tracking-wider">
+          <span className="text-[11px] font-mono uppercase text-slate-600 dark:text-white/60 tracking-wider">
             TARGET SCALE HORIZON // CLICK TIER TO INSPECT
           </span>
           <span className="text-xs font-mono font-bold" style={{ color: currentMilestone.hex }}>
@@ -369,32 +369,32 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
                 onClick={() => setScaleLevel(idx + 1)}
                 className={`p-3 rounded-xl text-left transition-all font-mono border ${
                   isSelected
-                    ? 'bg-white/10 text-white shadow-lg ring-1'
-                    : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                    ? 'bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shadow-md ring-1'
+                    : 'bg-slate-50/70 dark:bg-white/5 border-slate-200/80 dark:border-white/5 text-slate-600 dark:text-white/60 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                 }`}
                 style={{
                   borderColor: isSelected ? m.hex : undefined,
                   boxShadow: isSelected ? `0 0 20px -5px ${m.hex}40` : undefined,
                 }}
               >
-                <div className="text-sm font-bold text-white flex items-center justify-between">
+                <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center justify-between">
                   <span>{m.label}</span>
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: m.hex }} />
                 </div>
-                <div className="text-[10px] text-white/50 truncate mt-0.5">{m.status}</div>
+                <div className="text-[10px] text-slate-500 dark:text-white/50 truncate mt-0.5">{m.status}</div>
               </button>
             );
           })}
         </div>
 
         {/* Informative Diagnostic Telemetry Panel */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-4 border-b border-white/10">
+        <div className="rounded-2xl border border-slate-200/90 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02] p-5 backdrop-blur-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-200/80 dark:border-white/10">
             <div>
-              <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest block">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase tracking-widest block">
                 Architectural Horizon Thesis
               </span>
-              <p className="text-sm sm:text-base font-medium text-white mt-0.5">
+              <p className="text-sm sm:text-base font-medium text-slate-900 dark:text-white mt-0.5">
                 {currentMilestone.thesis}
               </p>
             </div>
@@ -405,43 +405,43 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
 
           {/* Key Metrics Benchmarks Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-              <span className="text-[10px] font-mono text-white/40 uppercase block">Contribution Margin</span>
-              <span className="text-base font-bold text-white mt-1 block">{currentMilestone.metrics.targetMargin}</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/5 shadow-xs">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase block">Contribution Margin</span>
+              <span className="text-base font-bold text-slate-900 dark:text-white mt-1 block">{currentMilestone.metrics.targetMargin}</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-              <span className="text-[10px] font-mono text-white/40 uppercase block">Target Blended ROAS</span>
-              <span className="text-base font-bold text-[#34D399] mt-1 block">{currentMilestone.metrics.blendedRoas}</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/5 shadow-xs">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase block">Target Blended ROAS</span>
+              <span className="text-base font-bold text-emerald-600 dark:text-[#34D399] mt-1 block">{currentMilestone.metrics.blendedRoas}</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-              <span className="text-[10px] font-mono text-white/40 uppercase block">Blended CAC Target</span>
-              <span className="text-base font-bold text-[#3FE0E0] mt-1 block">{currentMilestone.metrics.cacTarget}</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/5 shadow-xs">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase block">Blended CAC Target</span>
+              <span className="text-base font-bold text-sky-600 dark:text-[#3FE0E0] mt-1 block">{currentMilestone.metrics.cacTarget}</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-              <span className="text-[10px] font-mono text-white/40 uppercase block">Creative Velocity</span>
-              <span className="text-base font-bold text-[#F59E0B] mt-1 block">{currentMilestone.metrics.velocity}</span>
+            <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/5 shadow-xs">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase block">Creative Velocity</span>
+              <span className="text-base font-bold text-amber-600 dark:text-[#F59E0B] mt-1 block">{currentMilestone.metrics.velocity}</span>
             </div>
           </div>
 
           {/* Critical Drag & Deployed Systems Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
-            <div className="p-3.5 rounded-xl bg-red-500/[0.04] border border-red-500/20">
-              <span className="font-mono text-[10px] text-red-400 font-bold uppercase tracking-wider block mb-1">
+            <div className="p-3.5 rounded-xl bg-red-500/[0.06] border border-red-500/20">
+              <span className="font-mono text-[10px] text-red-600 dark:text-red-400 font-bold uppercase tracking-wider block mb-1">
                 ⚠ Critical Drag Solved At This Tier
               </span>
-              <p className="text-white/80 leading-relaxed">
+              <p className="text-slate-800 dark:text-white/80 leading-relaxed">
                 {currentMilestone.dragSolved}
               </p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-emerald-500/[0.04] border border-emerald-500/20">
-              <span className="font-mono text-[10px] text-emerald-400 font-bold uppercase tracking-wider block mb-1.5">
+            <div className="p-3.5 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20">
+              <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block mb-1.5">
                 ✓ Mandatory Production Systems Deployed
               </span>
-              <ul className="space-y-1 text-white/70">
+              <ul className="space-y-1 text-slate-700 dark:text-white/70">
                 {currentMilestone.deployments.map((dep, dIdx) => (
                   <li key={dIdx} className="flex items-center gap-1.5">
-                    <span className="text-emerald-400">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">•</span>
                     <span>{dep}</span>
                   </li>
                 ))}

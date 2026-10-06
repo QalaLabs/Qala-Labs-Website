@@ -79,19 +79,19 @@ export const SuccessFramework: React.FC = () => {
       </div>
 
       {/* Integrated Banner */}
-      <div className="mt-12 p-8 md:p-10 rounded-3xl bg-gradient-to-r from-[#0E1022] to-[#121630] border border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+      <div className="mt-12 p-8 md:p-10 rounded-3xl bg-gradient-to-r from-[#4F46E5] via-[#4338CA] to-[#0284C7] dark:from-[#0E1022] dark:to-[#121630] border border-indigo-400/30 dark:border-white/15 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-indigo-500/20 dark:shadow-none dark-dock">
         <div>
           <h4 className="text-xl md:text-2xl font-bold text-white mb-2">
             Integrated architecture. Zero funnel leakage.
           </h4>
-          <p className="text-xs md:text-sm text-white/70 max-w-xl">
+          <p className="text-xs md:text-sm text-white/90 max-w-xl leading-relaxed">
             Our framework plugs the gaps between initial ad impressions, landing page experience, server attribution, and lifetime value repeat purchases.
           </p>
         </div>
 
         <a
           href="#contact-form"
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-[#3FE0E0] text-black font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl hover:scale-105 flex-shrink-0"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl hover:scale-105 flex-shrink-0"
         >
           <span>Audit Your Growth Engine</span>
           <ArrowRight className="w-4 h-4" />

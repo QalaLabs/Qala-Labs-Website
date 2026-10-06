@@ -60,18 +60,18 @@ export const FaqAccordion: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl bg-[#121324]/80 border border-white/10 overflow-hidden transition-all duration-300 hover:border-[#3FE0E0]/40"
+                className="rounded-2xl bg-white/85 dark:bg-[#121324]/80 border border-slate-200/90 dark:border-white/10 overflow-hidden transition-all duration-300 hover:border-indigo-400/50 dark:hover:border-[#3FE0E0]/40 shadow-sm"
               >
                 <button
                   onClick={() => toggle(idx)}
                   className="w-full text-left py-5 px-6 md:px-8 flex items-center justify-between gap-4 focus:outline-none"
                 >
-                  <span className="font-medium text-base md:text-lg text-white">
+                  <span className="font-semibold text-base md:text-lg text-slate-900 dark:text-white">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition-transform duration-300 shrink-0 ${
-                      isOpen ? 'rotate-180 bg-[#3FE0E0] text-black' : 'text-white/60'
+                    className={`w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center transition-transform duration-300 shrink-0 ${
+                      isOpen ? 'rotate-180 bg-indigo-600 dark:bg-[#3FE0E0] text-white dark:text-black' : 'text-slate-500 dark:text-white/60'
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -79,7 +79,7 @@ export const FaqAccordion: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 md:px-8 pb-6 pt-1 text-white/70 text-sm md:text-base leading-relaxed border-t border-white/5">
+                  <div className="px-6 md:px-8 pb-6 pt-1 text-slate-600 dark:text-white/70 text-sm md:text-base leading-relaxed border-t border-slate-200/60 dark:border-white/5">
                     {faq.a}
                   </div>
                 )}

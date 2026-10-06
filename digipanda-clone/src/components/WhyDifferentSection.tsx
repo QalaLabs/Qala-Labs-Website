@@ -161,16 +161,16 @@ export const WhyDifferentSection: React.FC = () => {
 
           {/* Right Column: 3D Interactive Creative × Data Dual Core */}
           <div className="lg:col-span-6">
-            <div className="rounded-[32px] border border-white/10 bg-[#0a0b14] p-6 shadow-2xl relative overflow-hidden group hover:border-white/20 transition-all">
+            <div className="rounded-[32px] border border-slate-200/90 dark:border-white/10 bg-white/85 dark:bg-[#0a0b14] p-6 shadow-xl shadow-blue-500/5 dark:shadow-2xl relative overflow-hidden group hover:border-slate-300 dark:hover:border-white/20 transition-all backdrop-blur-xl">
               <div className="absolute top-0 right-0 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#3FE0E0]/10 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-mono text-white/70 uppercase tracking-widest flex items-center gap-2">
+                <span className="text-[11px] font-mono text-slate-700 dark:text-white/70 uppercase tracking-widest flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
                   Dual-State Convergence // WebGL
                 </span>
-                <span className="text-[11px] font-mono text-white/40">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-white/40">
                   drag to inspect
                 </span>
               </div>
@@ -184,24 +184,24 @@ export const WhyDifferentSection: React.FC = () => {
         </div>
 
         {/* Bottom Module: Interactive Before/After Split Comparison Slider */}
-        <div className="mt-16 md:mt-24 pt-12 border-t border-white/10">
+        <div className="mt-16 md:mt-24 pt-12 border-t border-slate-200/80 dark:border-white/10">
           
           {/* Header & Controller */}
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#4F46E5]/15 border border-[#4F46E5]/40 text-[#3FE0E0] text-xs font-mono font-bold uppercase tracking-wider mb-3">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#3FE0E0]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#4F46E5]/15 border border-[#4F46E5]/40 text-[#4F46E5] dark:text-[#3FE0E0] text-xs font-mono font-bold uppercase tracking-wider mb-3">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#4F46E5] dark:text-[#3FE0E0]" />
               <span>OPERATIONAL ARCHITECTURE // BENCHMARK</span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
               Standard Agency{' '}
-              <span className="text-white/40 font-serif italic font-normal">vs.</span>{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#3FE0E0] to-[#34D399]">
+              <span className="text-slate-400 dark:text-white/40 font-serif italic font-normal">vs.</span>{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#0284C7] to-[#059669] dark:from-[#4F46E5] dark:via-[#3FE0E0] dark:to-[#34D399]">
                 Qala Revenue Engineering
               </span>
             </h3>
 
-            <p className="text-sm text-white/70 mb-8 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-white/70 mb-8 leading-relaxed">
               Drag the interactive comparison slider or switch presets below to inspect how legacy agency paradigms compare against Qala's deterministic revenue engine.
             </p>
 
@@ -212,8 +212,8 @@ export const WhyDifferentSection: React.FC = () => {
                 onClick={() => setSplitPos(15)}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos < 35
-                    ? 'bg-rose-500/20 text-rose-300 border border-rose-500/50 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
-                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white'
+                    ? 'bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/50 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
+                    : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Standard Agency View
@@ -223,8 +223,8 @@ export const WhyDifferentSection: React.FC = () => {
                 onClick={() => setSplitPos(50)}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos >= 35 && splitPos <= 65
-                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.2)]'
-                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white'
+                    ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.2)]'
+                    : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 50/50 Split View
@@ -234,8 +234,8 @@ export const WhyDifferentSection: React.FC = () => {
                 onClick={() => setSplitPos(85)}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos > 65
-                    ? 'bg-[#3FE0E0]/20 text-[#3FE0E0] border border-[#3FE0E0]/50 shadow-[0_0_15px_rgba(63,224,224,0.25)]'
-                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white'
+                    ? 'bg-sky-500/20 text-sky-700 dark:text-[#3FE0E0] border border-sky-500/50 dark:border-[#3FE0E0]/50 shadow-[0_0_15px_rgba(63,224,224,0.25)]'
+                    : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Qala Revenue Engine View
@@ -243,19 +243,19 @@ export const WhyDifferentSection: React.FC = () => {
             </div>
 
             {/* Tactile Slider Track */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0d0e1b] border border-white/10 max-w-xl mx-auto shadow-inner">
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/90 dark:bg-[#0d0e1b] border border-slate-200/90 dark:border-white/10 max-w-xl mx-auto shadow-sm dark:shadow-inner">
               <div className="flex items-center justify-between text-xs font-mono mb-2">
-                <span className={`transition-colors ${splitPos < 50 ? 'text-rose-400 font-bold' : 'text-white/50'}`}>
+                <span className={`transition-colors ${splitPos < 50 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-slate-500 dark:text-white/50'}`}>
                   Standard Agency (Legacy)
                 </span>
-                <span className="text-[11px] text-white/40 font-mono">
+                <span className="text-[11px] text-slate-500 dark:text-white/40 font-mono">
                   {splitPos === 50
                     ? 'Balanced Split (50/50)'
                     : splitPos > 50
                     ? `${splitPos}% Qala Bias`
                     : `${100 - splitPos}% Legacy Bias`}
                 </span>
-                <span className={`transition-colors ${splitPos >= 50 ? 'text-[#3FE0E0] font-bold' : 'text-white/50'}`}>
+                <span className={`transition-colors ${splitPos >= 50 ? 'text-sky-600 dark:text-[#3FE0E0] font-bold' : 'text-slate-500 dark:text-white/50'}`}>
                   Qala Engine (Autonomous)
                 </span>
               </div>
@@ -299,18 +299,18 @@ export const WhyDifferentSection: React.FC = () => {
                   className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] p-4 sm:p-6 backdrop-blur-md transition-all hover:border-white/20"
                 >
                   {/* Dimension Header */}
-                  <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/5">
+                  <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200/80 dark:border-white/5">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#3FE0E0]">
+                      <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-white/5 border border-indigo-200/80 dark:border-white/10 flex items-center justify-center text-[#4F46E5] dark:text-[#3FE0E0]">
                         <DimIcon className="w-4 h-4" />
                       </div>
-                      <span className="text-xs sm:text-sm font-mono font-bold text-white uppercase tracking-wider">
+                      <span className="text-xs sm:text-sm font-mono font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                         {item.dimension}
                       </span>
                     </div>
 
                     <div className="hidden sm:flex items-center gap-2">
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-white/50">
+                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/50">
                         Operational Delta
                       </span>
                     </div>
@@ -325,33 +325,33 @@ export const WhyDifferentSection: React.FC = () => {
                         isStandardFocused
                           ? 'bg-rose-500/10 border-rose-500/40 shadow-[0_0_20px_rgba(244,63,94,0.15)]'
                           : isQalaFocused
-                          ? 'bg-white/[0.02] border-white/5 opacity-40 grayscale-[40%]'
-                          : 'bg-white/[0.02] border-white/10 opacity-75'
+                          ? 'bg-slate-100/60 dark:bg-white/[0.02] border-slate-200/60 dark:border-white/5 opacity-40 grayscale-[40%]'
+                          : 'bg-slate-50/80 dark:bg-white/[0.02] border-slate-200/80 dark:border-white/10 opacity-85'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-rose-400/90 font-semibold flex items-center gap-1">
-                          <XCircle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-1">
+                          <XCircle className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400 shrink-0" />
                           Standard Agency
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 font-medium">
                           {item.standard.badge}
                         </span>
                       </div>
 
-                      <h4 className="text-sm sm:text-base font-bold text-white/90 mb-1.5 line-clamp-2">
+                      <h4 className="text-sm sm:text-base font-bold text-slate-800 dark:text-white/90 mb-1.5 line-clamp-2">
                         {item.standard.title}
                       </h4>
 
-                      <p className="text-xs text-white/60 leading-relaxed">
+                      <p className="text-xs text-slate-600 dark:text-white/60 leading-relaxed">
                         {item.standard.sub}
                       </p>
                     </div>
 
                     {/* Middle: Tactical VS Divider */}
                     <div className="md:col-span-1 flex justify-center py-1 md:py-0">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-rose-500/20 to-[#3FE0E0]/20 border border-white/20 flex items-center justify-center shadow-lg">
-                        <span className="text-[10px] font-black font-mono text-white/80 tracking-widest">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-rose-500/20 to-[#3FE0E0]/20 border border-slate-300 dark:border-white/20 flex items-center justify-center shadow-sm dark:shadow-lg">
+                        <span className="text-[10px] font-black font-mono text-slate-700 dark:text-white/80 tracking-widest">
                           VS
                         </span>
                       </div>
@@ -361,31 +361,31 @@ export const WhyDifferentSection: React.FC = () => {
                     <div
                       className={`md:col-span-5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 ${
                         isQalaFocused
-                          ? 'bg-gradient-to-br from-[#4F46E5]/20 via-[#3FE0E0]/15 to-[#34D399]/10 border-[#3FE0E0]/60 shadow-[0_0_30px_rgba(63,224,224,0.25)] scale-[1.01]'
+                          ? 'bg-gradient-to-br from-indigo-500/15 via-[#3FE0E0]/15 to-emerald-500/10 dark:from-[#4F46E5]/20 dark:via-[#3FE0E0]/15 dark:to-[#34D399]/10 border-indigo-400/60 dark:border-[#3FE0E0]/60 shadow-[0_0_30px_rgba(63,224,224,0.25)] scale-[1.01]'
                           : isStandardFocused
-                          ? 'bg-white/[0.02] border-white/5 opacity-40'
+                          ? 'bg-slate-100/60 dark:bg-white/[0.02] border-slate-200/60 dark:border-white/5 opacity-40'
                           : isQalaDominant
-                          ? 'bg-gradient-to-br from-[#4F46E5]/10 via-[#3FE0E0]/10 to-transparent border-[#3FE0E0]/40 shadow-[0_0_15px_rgba(63,224,224,0.1)]'
-                          : 'bg-white/[0.02] border-white/10 opacity-80'
+                          ? 'bg-gradient-to-br from-indigo-500/10 via-sky-500/10 to-transparent dark:from-[#4F46E5]/10 dark:via-[#3FE0E0]/10 dark:to-transparent border-indigo-300 dark:border-[#3FE0E0]/40 shadow-sm'
+                          : 'bg-indigo-50/40 dark:bg-white/[0.02] border-indigo-100 dark:border-white/10 opacity-95'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#3FE0E0] font-semibold flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#34D399] shrink-0" />
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-sky-700 dark:text-[#3FE0E0] font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-[#34D399] shrink-0" />
                           Qala Revenue Engine
                         </span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#3FE0E0]/10 border border-[#3FE0E0]/30 text-[#3FE0E0] font-medium">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/10 dark:bg-[#3FE0E0]/10 border border-sky-500/30 dark:border-[#3FE0E0]/30 text-sky-700 dark:text-[#3FE0E0] font-semibold">
                           {item.qala.badge}
                         </span>
                       </div>
 
-                      <h4 className="text-sm sm:text-base font-bold text-white mb-1.5 flex items-center gap-1.5">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[#3FE0E0]">
+                      <h4 className="text-sm sm:text-base font-bold mb-1.5 flex items-center gap-1.5">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-700 dark:from-white dark:via-white dark:to-[#3FE0E0]">
                           {item.qala.title}
                         </span>
                       </h4>
 
-                      <p className="text-xs text-white/75 leading-relaxed">
+                      <p className="text-xs text-slate-600 dark:text-white/75 leading-relaxed">
                         {item.qala.sub}
                       </p>
                     </div>
