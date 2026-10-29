@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search, Filter, CheckCircle2, TrendingUp, Sparkles } from 'lucide-react';
 import { PageLayout } from './PageLayout';
 import { SEO } from '../components/SEO';
-import { caseStudies } from '../data/caseStudies';
+import { caseStudies as defaultCaseStudies } from '../data/caseStudies';
+import { useDynamicCaseStudies } from '../services/contentSync';
 import { ClientsGrid } from '../components/ClientsGrid';
 import { Testimonials } from '../components/Testimonials';
 
 export const CaseStudiesPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const caseStudies = useDynamicCaseStudies();
 
   const categories = [
     'All',
-    'Transit & OOH Growth',
-    'Technical Audit & Growth',
     'Production & Shoots',
     'Meta Lead Gen',
     'Web App & Architecture',

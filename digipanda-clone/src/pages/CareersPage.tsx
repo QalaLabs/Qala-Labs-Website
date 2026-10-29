@@ -18,7 +18,8 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { PageLayout } from './PageLayout';
-import { openRoles, culturePillars, perksList, JobRole } from '../data/careersData';
+import { openRoles as defaultRoles, culturePillars as defaultPillars, perksList as defaultPerks, JobRole } from '../data/careersData';
+import { useDynamicCareers } from '../services/contentSync';
 
 const iconMap: Record<string, React.ReactNode> = {
   Sparkles: <Sparkles className="w-6 h-6 text-[#3FE0E0]" />,
@@ -28,6 +29,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export const CareersPage: React.FC = () => {
+  const { openRoles, culturePillars, perksList } = useDynamicCareers();
   const [selectedDept, setSelectedDept] = useState<string>('All');
   const [activeRoleModal, setActiveRoleModal] = useState<JobRole | null>(null);
 

@@ -63,9 +63,6 @@ const mappedPortfolio: UnifiedWorkItem[] = portfolioProjects.map((p) => ({
 export const allWorkItems: UnifiedWorkItem[] = [
   // Flagship AI & Creative
   mappedPortfolio.find((i) => i.slug === 'wwf-ai-creative-studio')!,
-  // Flagship Transit Saturation & QR Booking (District by Zomato)
-  mappedCaseStudies.find((i) => i.slug === 'district-movies-transit')!,
-  mappedPortfolio.find((i) => i.slug === 'district-movies-transit-activation')!,
   // Flagship B2B Validation
   mappedCaseStudies.find((i) => i.slug === 'nutrivend-uk')!,
   // Flagship High-Ticket Travel
@@ -73,12 +70,6 @@ export const allWorkItems: UnifiedWorkItem[] = [
   // Flagship Performance Footwear Shoot & Launch Runway
   mappedCaseStudies.find((i) => i.slug === 'mizuno-india-launch')!,
   mappedPortfolio.find((i) => i.slug === 'mizuno-india-launch-production')!,
-  // Flagship 3-Site Technical Ecosystem & Regulatory Audit (Ranfort / Vedique)
-  mappedCaseStudies.find((i) => i.slug === 'ranfort-wellness-audit')!,
-  mappedPortfolio.find((i) => i.slug === 'ranfort-wellness-ecosystem-audit')!,
-  // Flagship Conversational Commerce Funnel (Better Eats)
-  mappedCaseStudies.find((i) => i.slug === 'better-eats-whatsapp-funnel')!,
-  mappedPortfolio.find((i) => i.slug === 'better-eats-whatsapp-commerce')!,
   // Flagship Loyalty Progression Engine & Cloud Run Security (Nectar)
   mappedCaseStudies.find((i) => i.slug === 'nectar-loyalty-engine')!,
   mappedPortfolio.find((i) => i.slug === 'nectar-loyalty-progression-engine')!,

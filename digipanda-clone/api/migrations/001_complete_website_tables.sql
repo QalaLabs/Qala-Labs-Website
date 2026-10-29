@@ -1,0 +1,575 @@
+-- ==============================================================================
+-- Qala Labs Complete Production MySQL Database Architecture & Full Content Dump
+-- Database: u742118922_QalaLabs
+-- Host Target: Hostinger MySQL (srv2205.hstgr.io / localhost)
+-- Generated: 2026-10-29T17:52:43.899Z
+-- Strictly Synced with all application data models (100% MySQL coverage)
+-- ==============================================================================
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
+SET time_zone = '+00:00';
+
+-- ------------------------------------------------------------
+-- Table structure for `case_studies`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `case_studies`;
+CREATE TABLE `case_studies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `result` varchar(255) DEFAULT NULL,
+  `thumb` varchar(500) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `challenge` text DEFAULT NULL,
+  `approach` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`approach`)),
+  `results` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`results`)),
+  `testimonial` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`testimonial`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_cs_slug` (`slug`),
+  KEY `idx_cs_category` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `case_studies` WRITE;
+INSERT INTO `case_studies` (`slug`, `title`, `subtitle`, `result`, `thumb`, `category`, `challenge`, `approach`, `results`, `testimonial`) VALUES
+  ('nutrivend-uk', 'Nutrivend UK', 'B2B Market Validation & Lead Generation', '45 Leads • 71% Untapped Market', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1200', 'Meta Lead Gen', 'Nutrivend UK wanted to expand into the enterprise fitness vending space but had no data on whether the market was worth chasing — every prior outreach effort had been generic cold email with no signal on real demand.', '["Built a rigorous B2B market validation framework instead of running blind outreach","Ran targeted Meta lead-gen campaigns aimed squarely at enterprise fitness facility decision-makers","Instrumented every lead with qualification data to separate genuine demand from noise"]', '[{"label":"Qualified leads","value":"45 in 7 days"},{"label":"Market discovery","value":"71% untapped enterprise demand"},{"label":"Cost per qualified lead","value":"62% below benchmark"}]', '{"quote":"Qala Labs didn''t just run ads; they engineered a rigorous B2B market validation framework. Generating 45 qualified enterprise fitness leads in just 7 days with a 71% untapped market discovery proved our new expansion thesis beyond doubt.","name":"Marcus Vance","role":"Managing Director, Nutrivend UK"}'),
+  ('trotr-spain-pivot', 'Trotr: Spain Pivot', 'High-Ticket Travel Funnel & Founder Narrative', '28x ROAS • ₹14L Revenue', '/assets/qala/trotr-featured.jpeg', 'Founder Storytelling', 'Trotr had zero paying customers for its high-ticket Spain trip despite running conventional travel ads — the offer looked like every other travel package in the feed and never earned trust at a high price point.', '["Rewrote the entire funnel narrative around founder-led storytelling instead of generic destination marketing","Rebuilt creative and copy to sell the trip on trust and specificity rather than discounting","Optimized the funnel end-to-end from ad hook through checkout for a high-ticket buying decision"]', '[{"label":"ROAS","value":"28x"},{"label":"Revenue generated","value":"₹14 Lakhs"},{"label":"Conversion cycle","value":"Reduced from 21 days to 72 hours"}]', '{"quote":"We had zero paying customers for our high-ticket Spain trip despite running traditional travel ads. Qala Labs stepped in, rewrote our narrative with founder-led storytelling, and generated ₹14 Lakhs in revenue at a staggering 28x ROAS.","name":"Siddharth Roy","role":"Co-Founder & CEO, Trotr"}'),
+  ('gaffar-india', 'Gaffar India', 'Market Stall to Digital Multi-Vendor Marketplace', '6 Asset Packages • 28-Day Delivery', '/assets/qala/gaffar-new-logo.webp', 'Brand Identity & Web', 'Gaffar India carried decades of local market trust as a physical stall business, but had no digital identity or infrastructure to bring that trust online as a multi-vendor marketplace.', '["Rebuilt the brand identity to balance Gaffar Market heritage with modern digital usability","Shipped 6 complete asset packages covering brand, web, and marketplace UI","Delivered the full rebrand and platform in a rapid 28-day sprint"]', '[{"label":"Asset packages delivered","value":"6"},{"label":"Delivery timeline","value":"28 days"},{"label":"Merchant onboarding","value":"120+ vendors live on day one"}]', '{"quote":"Qala Labs helped us turn a local market legacy into a modern marketplace identity. Their strategy balanced our Gaffar Market roots with digital usability — our sellers felt seen, buyers trusted the site more, and the brand is finally ready to scale.","name":"Akaash Maskeen","role":"Founder & CEO, Gaffar India"}'),
+  ('capital-keys', 'Capital Keys', 'Real Estate Proptech Platform & CRM Engine', '64.7% Conversion • 17+ Leads', 'https://images.unsplash.com/photo-1486324803388-c52646db42da?auto=format&fit=crop&q=80&w=1200', 'Web App & CRM', 'Capital Keys needed a real estate platform that could convert serious property inquiries into qualified leads without losing buyers to a clunky web experience.', '["Designed and built a proptech web app with an integrated CRM for lead capture","Optimized the inquiry-to-lead flow to remove friction at every step","Built the platform to serve as the single source of truth for the sales pipeline"]', '[{"label":"Inquiry-to-lead conversion","value":"64.7%"},{"label":"Qualified leads","value":"17+ in initial rollout"},{"label":"Agent response latency","value":"< 90 seconds via webhook"}]', NULL),
+  ('amazon-ads-scaling', 'Amazon Ads Scaling', 'D2C Advertising Engine & Algorithmic Bidding', '11.2x ROAS • 47% Lower ACOS', '/assets/qala/amazon-ads-hero.webp', 'Amazon Performance', 'A D2C brand selling on Amazon was spending aggressively on ads but watching ACOS creep upward without a proportional gain in scale.', '["Rebuilt the Amazon advertising account structure around a performance-first bidding architecture","Systematically cut wasted spend while reallocating budget toward proven high-ROAS placements","Layered in continuous creative and keyword testing to keep performance compounding"]', '[{"label":"ROAS","value":"11.2x"},{"label":"ACOS reduction","value":"47% lower"},{"label":"Organic rank boost","value":"Top 3 for primary search terms"}]', NULL),
+  ('kashmiri-sound-movement', 'The Kashmiri Sound Movement', 'Mystic Studio 8 Label Launch & Organic Reach', '3.4M+ Views • Zero Ad Spend', '/assets/qala/kashmir-street-musician.webp', 'Cultural Movement', 'Mystic Studio 8 needed to launch a new music label rooted in Kashmiri sound and street culture without a paid media budget to manufacture reach.', '["Built a cultural movement narrative around authentic Kashmiri street musicians rather than a conventional label launch","Prioritized organic distribution and shareability over paid amplification","Let the story and the music carry the launch rather than manufactured hype"]', '[{"label":"Views generated","value":"3.4M+"},{"label":"Ad spend","value":"₹0 (fully organic)"},{"label":"Streaming saves","value":"42,000+ Spotify saves"}]', NULL),
+  ('mizuno-india-launch', 'Mizuno India', 'Commercial Production Shoot & 10-Week Pre-Launch Runway', '2-Day Shoot • 5 Creative Themes', 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=1200', 'Production & Shoots', 'Mizuno needed to enter the competitive Indian sports performance footwear market timed with the World Badminton Championship in New Delhi. They required an authentic narrative grounded in Japanese craftsmanship without resorting to generic lifestyle clichés.', '["Developed a 10-week pre-launch influencer runway structured around 5 creative themes: \\"Made in Silence\\", \\"Delhi Before the Arena\\", \\"The 1%\\", \\"The Coach Knows\\", and \\"First Blood\\"","Directed a 2-day multi-location commercial production shoot in New Delhi across elite competition indoor courts and golden-hour outdoor training parks","Captured cinema-grade athletic motion sequences, product engineering macro sequences, and unscripted coach testimonials for D2C e-commerce launch"]', '[{"label":"Commercial shoot scope","value":"2-day multi-location 4K cinema capture"},{"label":"Creative themes","value":"5 distinct narrative blocks produced"},{"label":"Market runway","value":"10-week pre-launch athlete & coach campaign"}]', '{"quote":"Qala Labs didn''t just produce videos; they built an entire cinematic world around Mizuno''s Japanese craft and Indian athletic grit. The 5 creative themes resonated deeply with academy coaches and elite athletes alike.","name":"Karan Singhal","role":"Country Marketing Director, Mizuno India"}'),
+  ('nectar-loyalty-engine', 'Nectar Loyalty Engine', 'High-Concurrency Dual-Currency Progression Architecture', 'Dual-Currency • 7-Stage Security Pipeline', 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=1200', 'Web App & Architecture', 'High-volume merchandise brands need customer retention without bleeding margin through unconstrained discount stacking. Nectar required a loyalty system that separated spendable currency from lifetime VIP status while strictly defending unit economics and preventing API abuse during high-traffic drops.', '["Architected a dual-currency engine: Nectar Points (spendable at 1 Pt = ₹1) and Nectar XP (lifetime progression score unlocking 5 VIP tiers: Rookie, Pro, Legend, Creators, Talent) with an automated 50% XP mirroring rule","Implemented a 10% maximum order value spend cap rule to ensure every transaction preserves positive margin over base product costs and fulfillment","Built a strict 7-stage server-side validation pipeline on Google Cloud Run: Identity verification, 20 req/min rate limiting, lifetime usage caps, tier multiplier validation, and tamper-proof ledger updates"]', '[{"label":"VIP progression","value":"5 tiers with dynamic 5 pts/₹100 earn rate"},{"label":"Margin defense","value":"10% strict order spend limit guardrail"},{"label":"API security","value":"7-stage validation pipeline on Cloud Run"}]', NULL);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `portfolio_projects`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `portfolio_projects`;
+CREATE TABLE `portfolio_projects` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `project_id` varchar(100) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `client` varchar(255) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `year` varchar(20) NOT NULL,
+  `cover_image` varchar(500) NOT NULL,
+  `summary` text NOT NULL,
+  `impact_metric` varchar(255) NOT NULL,
+  `deliverables` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`deliverables`)),
+  `technologies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`technologies`)),
+  `live_url` varchar(500) DEFAULT NULL,
+  `case_study_slug` varchar(255) DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `project_id` (`project_id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_pp_slug` (`slug`),
+  KEY `idx_pp_category` (`category`),
+  KEY `idx_pp_featured` (`featured`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `portfolio_projects` WRITE;
+INSERT INTO `portfolio_projects` (`project_id`, `slug`, `title`, `client`, `category`, `year`, `cover_image`, `summary`, `impact_metric`, `deliverables`, `technologies`, `featured`) VALUES
+  ('wwf-india-featured', 'wwf-ai-creative-studio', 'WWF India: AI Ad Creatives', 'WWF India', 'AI Creative', '2025', 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200', 'Generative AI creative pipeline trained on conservation guidelines, delivering wildlife campaign assets at 80% lower production cost.', '80% Lower Production Cost • 50+ Assets/Wk', '["Bespoke LoRA Model Fine-Tuning","ComfyUI Node-Based Multi-Format Generation","Aspect Ratio Batch Export Pipeline (9:16, 1:1, 16:9)","Brand Guideline Automated Enforcement Guardrails"]', '["ComfyUI","Flux","PyTorch","Next.js","Python","Tailwind"]', 1),
+  ('capital-keys-featured', 'capital-keys-real-estate-platform', 'Capital Keys: Real Estate Platform', 'Capital Keys', 'Web Development', '2025', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200', 'High-converting luxury proptech web platform featuring interactive property map filters, buyer registration funnels, and real-time CRM webhooks.', '17+ Leads • 64.7% Conversion', '["Custom React Proptech Architecture","Interactive Map & Property Tour Hub","Real-Time Broker CRM Webhook Engine","Instant Lead Qualification Funnel"]', '["React","Node.js","PostgreSQL","Twilio API","SendGrid"]', 1),
+  ('amazon-ads-featured', 'amazon-ads-scaling', 'Amazon Ads: Performance Scaling', 'Amazon Brand Ecosystem', 'Performance Marketing', '2025', '/assets/qala/amazon-ads-hero.webp', 'Strategic restructuring of Amazon Sponsored Products and Brand placements, cutting wasted spend and maximizing conversion share.', '11.2x ROAS • ₹2.7L Sales', '["Sponsored Products & Brand Store Restructuring","Algorithmic Dayparting & Bid Management","Negative Keyword Harvesting Routines","ACOS Leak Elimination Architecture"]', '["Amazon Advertising Console","Helium 10","Dataflow","BigQuery"]', 1),
+  ('streetplayr-featured', 'streetplayr-storefront', 'StreetplayR: Brand, UX & Storefront', 'playR Streetwear', 'Web Development', '2025', '/assets/qala/streetplayr/hero.jpg', 'Custom e-commerce build and brand system for playR’s urban streetwear division, optimized for mobile conversion velocity and drop culture.', 'Brand System + Commerce Build', '["Headless Shopify Plus Front-End Architecture","Drop-Countdown Notification Modules","Mobile-First Cart Drawer & Fast Checkout Flow","Streetwear Design System & Typography Pack"]', '["Shopify Plus","React","Liquid","Tailwind CSS","Figma"]', 1),
+  ('instagram-ugc-featured', 'instagram-ugc-lifestyle', 'Instagram UGC: Style Meets Real Life', 'D2C Apparel & Lifestyle Brands', 'Content Creation', '2025', '/assets/qala/csk-ugc-hero.webp', 'Relatable creator-led short-form content designed to bypass ad blindness and convert organic social scrollers into first-time buyers.', 'Relatability Converts Better', '["Creator Casting & Briefing Protocols","High-Conversion Hook Scripting","9:16 Vertical Video Production & Color Grading","Meta Whitelisting & Dark Post Orchestration"]', '["CapCut Pro","Premiere Pro","Meta Ads Manager","Figma"]', 1),
+  ('csk-influencer-featured', 'playr-real-fans-content', 'playR: Real Fans, Real Roar', 'playR Merchandise (Official IPL Merchandise Partner)', 'Content Creation', '2025', 'https://images.unsplash.com/photo-1552667466-07d71e725e34?auto=format&fit=crop&q=80&w=1200', 'Viral fan loyalty campaigns, matchday content, and official team merchandise kits engineered for playR x Chennai Super Kings Merch for IPL 2025 and 7 other IPL franchises.', 'Viral Fandom Momentum • 12,000+ Orders', '["Franchise Technical Design Packs (Apparel & Accessories)","Matchday Social Fandom Video Challenges","High-Concurrency Matchday Shopify Plus Architecture","Official Chennai Super Kings Fan Merchandise Packaging"]', '["Shopify Plus","Figma","Liquid","React","Meta CAPI"]', 1),
+  ('mizuno-india-featured', 'mizuno-india-launch-production', 'Mizuno India: Launch Campaign', 'Mizuno India', 'Production & Shoots', '2025', 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=1200', 'Commercial multi-day production shoot capturing Mizuno’s elite running footwear and apparel in dynamic athletic motion across track and turf.', '2-Day Shoot • 5 Content Themes', '["Full On-Location Commercial Shoot Direction","Athlete Action Capture & Slow-Mo Video Packs","High-Res Commercial Hero Banners for D2C Store","Social Cutdowns & Paid Ad Performance Variants"]', '["Sony FX6 Cinema","DaVinci Resolve","Capture One","Photoshop"]', 1),
+  ('hi-astro-featured', 'hi-astro-ai-character-videos', 'Hi Astro: AI Character Videos', 'Hi Astro Media', 'AI Creative', '2025', 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200', 'Automated synthetic media pipeline generating 48 hyper-realistic AI character videos in 9:16 vertical format with automated lip-sync.', '48 Videos • 9:16 Vertical', '["Synthetic AI Persona Character Rigging","Automated Script Generation & Voice Synthesis","Dynamic Lip-Sync & Micro-Expression Alignment","Batch Video Rendering & Export Pipeline"]', '["ElevenLabs","ComfyUI","HeyGen API","Python","FFmpeg"]', 1),
+  ('billu-campaign-featured', 'billu-salon-social-content', 'Billu: Salon-at-Home Content', 'Billu Care', 'Content Creation', '2025', 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1200', 'Monthly creator program producing 15 native beauty and salon-at-home demonstration videos highlighting trust, hygiene, and convenience.', '15 Posts/Month • Creator-Led', '["Regional Creator Onboarding & Storyboard Briefs","Hygiene Verification Narrative Framework","Call-To-Action Booking App Link Embeds","Monthly Retargeting Ad Refresh Batches"]', '["Meta Creator Studio","CapCut Pro","Canva Enterprise","Airtable"]', 0),
+  ('airtel-business-featured', 'airtel-business-exhibition', 'Airtel Business: Exhibition Coverage', 'Airtel Business', 'Production & Shoots', '2024', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200', 'High-impact enterprise video coverage capturing Airtel’s flagship B2B technology exhibition, keynote demos, and executive partner interactions.', 'Enterprise B2B Launch Coverage', '["Multi-Cam On-Site Event Video Production","Executive Leadership Soundbites & Micro-Interviews","Same-Day Social Highlight Teasers","Post-Event Enterprise Recap Film for Key Accounts"]', '["Canon Cinema EOS","DJI Ronin","DaVinci Resolve","Premiere Pro"]', 0),
+  ('airborne-aviation-featured', 'airborne-aviation-academy', 'Airborne Aviation: Pilot Academy Website', 'Airborne Aviation Academy', 'Web Development', '2025', '/portfolio/airborne-aviation/hero.jpg', 'Complete digital academy platform featuring commercial pilot training course catalogs, alumni airline route maps, and admission inquiry flows.', 'Course Catalog + Alumni Route Map', '["Bespoke Aviation Training Website UI/UX","Interactive Flight Hours & Fleet Explorer","Admission Screening Application Workflow","Automated Counselor CRM Routing"]', '["Next.js","React","Tailwind CSS","Framer Motion","Vercel"]', 1),
+  ('gaffar-india-featured', 'gaffar-india-marketplace', 'Gaffar India: Wholesale & Retail Marketplace', 'Gaffar India', 'Web Development', '2025', '/portfolio/gaffar-india/hero-thumb.jpg', 'Multi-vendor electronics marketplace bringing 120+ merchants and 1,000+ SKUs online with fast merchant payouts and consumer counterfeit protections.', 'Multi-Vendor Marketplace • 1,000+ SKUs', '["Multi-Vendor Architecture & Merchant Onboarding Hub","1,000+ Electronics SKU Catalog Database","Automated Merchant Escrow & Settlement Ledger","Mobile-Optimized Fast Checkout Experience"]', '["Next.js","PostgreSQL","Node.js","Tailwind CSS","Razorpay"]', 1),
+  ('shakti-bhog-featured', 'shakti-bhog-ugc-content', 'Shakti Bhog: Recipe-Led UGC Content', 'Shakti Bhog Foods', 'Content Creation', '2024', 'https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=1200', 'Authentic culinary recipe reels spotlighting staple wheat, flour, and grains in everyday household meals, driving viral organic engagement.', 'Creator-Led Recipe Reel', '["Culinary Creator Cooking Series & Food Styling","Traditional Recipe Video Directing & Editing","Nutritional Fact Graphic Overlays","Festive Campaign Organic Social Calendars"]', '["Premiere Pro","After Effects","Instagram Reels","YouTube Shorts"]', 0),
+  ('world-pickleball-league-featured', 'world-pickleball-league', 'World Pickleball League Official Apparel & Brand System', 'World Pickleball League (CSC & Bharat Jammers)', 'Brand Systems', '2025', '/assets/qala/pickleball/csc-banner.png', 'Complete pro tournament apparel identity, team kits, and performance fan merchandise system for the premier international pickleball circuit.', 'Pro-Tour Apparel & Merch Identity', '["Pro-Tour Team Kits & Player Performance Jerseys","Court-Side Event Merch & Fan Apparel Line","Custom Typography & Team Badging System","Manufacturing Tech Packs & Spec Sheets"]', '["Figma","Illustrator","Apparel Tech Packs","Shopify Plus"]', 1),
+  ('marksops-platform', 'marksops-autonomous-suite', 'MarksOps Autonomous Operations Platform', 'Qala Labs Internal Software', 'AI Creative', '2026', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200', 'Autonomous multi-agent swarms orchestrating marketing, CRM lead enrichment, financial reconciliation, and multi-channel attribution as a unified real-time system.', '94% Reduction in Manual Ops Drag', '["Multi-Agent State Machine Architecture","Event-Driven Streaming Queues (Redis/FastAPI)","Vector Memory & Checkpointing (pgvector)","Real-Time Webhook Reconciliation Engine"]', '["FastAPI","LangGraph","TypeScript","pgvector","Docker","Tailwind"]', 1),
+  ('volumetric-horizon-webgl', 'volumetric-horizon-3d', 'Interactive 3D Volumetric Horizon WebGL Engine', 'Qala Labs Design Lab', '3D & WebGL', '2026', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=1200', 'Cinematic 60fps real-time WebGL interactive canvas rendering dual-core creative/data intelligence with physics-driven particles and audio reactivity.', '60 FPS Smooth Rendering across Mobile & Web', '["Custom GLSL Fragment & Vertex Shaders","Memory-Optimized Particle Buffers","Dynamic Camera Spline Navigation","Zero-Dependency Fallback Rendering"]', '["Three.js","WebGL","GLSL","Vite","TypeScript"]', 1),
+  ('nectar-loyalty-featured', 'nectar-loyalty-progression-engine', 'Nectar Loyalty: High-Concurrency Progression Engine', 'Nectar / playR Brand Ecosystem', 'Web Development', '2026', 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=1200', 'High-concurrency dual-currency loyalty engine separating spendable Points from lifetime VIP XP, with strict 10% cart spend caps and a 7-stage security pipeline.', 'Dual-Currency Engine • 7-Stage Security Pipeline', '["Dual-Currency Mathematical Engine Specification (Points & XP)","5-Tier VIP Progression & Multiplier Architecture","7-Stage Cloud Run API Security & Validation Middleware","Shopify Plus Webhook Event Ingestion Pipeline"]', '["Google Cloud Run","FastAPI","PostgreSQL","Redis","Shopify Webhooks","Docker"]', 1);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `blog_posts`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `blog_posts`;
+CREATE TABLE `blog_posts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `excerpt` text NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `read_time` varchar(50) NOT NULL,
+  `published_at` varchar(100) NOT NULL,
+  `cover_image` varchar(500) NOT NULL,
+  `author` varchar(150) NOT NULL,
+  `tags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tags`)),
+  `featured` tinyint(1) NOT NULL DEFAULT 0,
+  `content` longtext NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_bp_slug` (`slug`),
+  KEY `idx_bp_category` (`category`),
+  KEY `idx_bp_featured` (`featured`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `blog_posts` WRITE;
+INSERT INTO `blog_posts` (`slug`, `title`, `subtitle`, `excerpt`, `category`, `read_time`, `published_at`, `cover_image`, `author`, `tags`, `featured`, `content`) VALUES
+  ('d2c-bnpl-strategy-guide', 'The D2C BNPL Strategy Guide: Unlocking 15-30% Conversion Uplift Without Cannibalizing Margin', 'How premium and high-AOV brands configure checkout financing for maximum payback velocity.', 'Buy Now, Pay Later is rarely an issue of payment processing—it is an exercise in behavioural psychology. Here is the exact architectural playbook we used to lift checkout conversions by up to 30%.', 'Growth & Funnels', '6 min read', 'February 2026', '/assets/qala/bnpl-featured.webp', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["E-commerce","BNPL","Conversion Rate","Checkout Architecture","Fintech"]', 1, '[{"sectionHeading":"The Price Hesitation Cliff at Checkout","paragraphs":["Every D2C founder obsessively audits top-of-funnel CAC. But in high-AOV segments (luxury goods, horology, specialty equipment, or curated travel), the most brutal bleed occurs not in the ad feed, but during the final three seconds on the checkout screen.","When a consumer with strong purchase intent faces a single lump-sum charge of ₹15,000 or $500, a cognitive defense mechanism activates: loss aversion. They hesitate, tab out to search for promo codes, and 68% never return."],"callout":"Payment architecture is not finance plumbing; it is the final persuasion interface. If you do not frame affordability upfront, you lose the deal before the card touches the screen."},{"sectionHeading":"The Three-Tier Placement Architecture","paragraphs":["Most stores fail at BNPL because they simply enable a provider checkbox on the checkout gateway. By that point, half the buyers have already bounced.","To generate genuine incremental volume, BNPL must be surfaced progressively across three key touchpoints:"],"bulletPoints":["1. Product Detail Page (PDP) Dynamic Widget: Instantly break down prices into 3 or 4 interest-free instalments right next to the Add to Cart CTA (e.g. \\"or 4 interest-free payments of ₹2,499\\").","2. Cart Drawer Micro-Commitment: Reiterate zero hidden fees and pre-approved credit lines before the customer enters full address inputs.","3. Frictionless Gateway Default: Surface 1-click OTP payment options directly alongside cards and UPI."]},{"sectionHeading":"The Unit Economics: Balancing MDR Against Incremental Volume","paragraphs":["The primary objection founders raise is Merchant Discount Rate (MDR)—BNPL providers take between 2.5% and 5.5% per transaction. If your contribution margin is paper-thin, that fee feels prohibitive.","However, when calibrated properly, BNPL delivers two compounding offsets: Average Order Value (AOV) expansion of 18-24%, and paid ad ROAS efficiency because purchase friction drops across every ad click. You trade 3% MDR for a 20% increase in net revenue throughput."]}]'),
+  ('28x-roas-funnel-blueprint', 'The 28x ROAS Funnel Blueprint: Why Generic Performance Marketing Fails High-Ticket Offers', 'Breaking down the exact narrative strategy that generated ₹14L in revenue for Trotr Spain.', 'When an offer costs thousands of dollars, traditional direct-response "buy now" ads incinerate capital. Learn how we inverted the funnel around founder-led vulnerability, trust sequencing, and micro-commitments.', 'Growth & Funnels', '8 min read', 'January 2026', '/assets/qala/trotr-featured.jpeg', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["Meta Ads","High Ticket","Founder Narrative","ROAS","Case Study"]', 1, '[{"sectionHeading":"The Fallacy of the Polish Paradigm","paragraphs":["When Trotr approached Qala Labs, they had spent months running pristine, agency-produced destination travel ads. Drone shots of Madrid rooftops, cinematic 4K beach zooms, upbeat royalty-free electronic music. Result? Zero paying travelers.","Why? Because high-ticket decisions are never made on aesthetics alone. High-ticket decisions are made on trust, safety, and mutual values. Slick ads looked like corporate tourist traps."],"callout":"When selling a high-friction experience, high production polish often reduces credibility. Audiences instinctively smell an agency brief. Raw founder vulnerability builds defensible conviction."},{"sectionHeading":"Inverting The Creative: The Founder Direct-Camera Thesis","paragraphs":["We immediately stripped away the stock footage and placed the founder, Siddharth, front and center on an unscripted iPhone video walking through the cobblestone alleys of Seville. He explained why commercial group tours felt hollow, and shared the exact intimate dining experiences he personally curated with local artisans.","The hook was not \\"Book Your Spain Holiday\\". The hook was: \\"Why I stopped traveling with tourist groups and spent 6 months finding the hidden backstreets of Andalusia.\\""],"bulletPoints":["Hook rate jumped from 14% to 41% within 48 hours of launch.","Comment sections turned from spam into deep dialogues about bespoke travel philosophy.","Direct messages poured in asking about pricing before users even clicked the website."]},{"sectionHeading":"The 72-Hour Decision Engine","paragraphs":["Rather than sending traffic to a cold checkout page, we created a 3-step diagnostic: \\"Is Trotr Spain Right for You?\\" Prospective travelers answered four questions regarding travel tempo, group camaraderie, and budget flexibility.","Qualified prospects were immediately invited to coordinate questions directly over private WhatsApp voice notes with the founder. Within 3 weeks, ₹14 Lakhs was collected at an unprecedented 28x return on ad spend."]}]'),
+  ('b2b-market-validation-playbook', 'The B2B Market Validation Playbook: From Blind Cold Outreach to 71% Untapped Demand', 'How Nutrivend UK proved enterprise market demand in 7 days before spending on sales reps.', 'Hiring an enterprise sales team to cold-call blindly is an expensive way to test a hypothesis. Discover how targeted Meta lead funnels can validate enterprise B2B appetite in days.', 'Growth & Funnels', '5 min read', 'January 2026', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1200', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["B2B Growth","Market Validation","Lead Generation","Nutrivend UK"]', NULL, '[{"sectionHeading":"The Trap of Blind Cold Outreach","paragraphs":["Traditional B2B advice dictates: scrape 5,000 Apollo or ZoomInfo contacts, hire 2 SDRs, and blast automated cold email sequences. Within 30 days, your domain reputation is burnt, deliverability collapses, and you still have no statistical clue whether target buyers actually care.","When Nutrivend UK evaluated expanding their automated nutritional vending machines into commercial gyms and enterprise fitness clubs, we recommended an inverse approach: Quantitative Market Prototyping."]},{"sectionHeading":"Meta Ads for Enterprise Decision-Makers?","paragraphs":["Most founders incorrectly assume B2B only lives on LinkedIn. But gym directors, facility owners, and regional managers spend 4x more time browsing Instagram and Facebook than scrolling LinkedIn InMails.","We created hyper-targeted audience segments combining fitness business administrative page managers, commercial fitness franchise owners, and leisure facility keywords."],"bulletPoints":["The Value Hook: \\"The 2026 Facility Revenue Audit: How Gyms Monetize Unstaffed Vending.\\"","The Frictionless Gate: Native Meta Lead Forms with mandatory facility square footage and member count inputs.","The Speed: 45 qualified facility operators captured in the first 7 days."]},{"sectionHeading":"The Strategic Takeaway","paragraphs":["The data uncovered that 71% of operators had never been approached with an automated revenue-share model for cold-pressed protein beverages. Nutrivend UK secured enterprise distribution agreements before competing suppliers even knew the market existed."]}]'),
+  ('autonomous-ai-swarms-marksops', 'Autonomous Multi-Agent Swarms in Production: Replacing Operational Drudgery with MarksOps', 'Behind the engineering decisions of state machines, checkpointing, and real-time reconciliation.', 'Forget toy chat wrappers. Learn how we built a production-grade multi-agent operations platform coordinating CRM leads, ad spend reconciliation, and customer support with 94% less human drag.', 'AI & Engineering', '9 min read', 'March 2026', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["AI Agents","MarksOps","FastAPI","LangGraph","Architecture"]', 1, '[{"sectionHeading":"The Problem with Single-Prompt LLM Applications","paragraphs":["In 2023, the industry flooded the web with simple prompt-and-response applications. Ask a question, get a completion. But in real-world business operations, a single prompt cannot handle side effects, network timeouts, database mutations, or multi-step approvals.","If an AI agent needs to reconcile $50,000 in monthly ad spend against bank statements, a hallucination is catastrophic. We built MarksOps on an explicit principle: Deterministic State Machines Around Probabilistic Reasoning."],"callout":"LLMs are probabilistic reasoning engines. Production systems require deterministic state machines. Never let an LLM directly execute an irreversible database write without transactional validation."},{"sectionHeading":"The Architecture: State, Memory & Verification","paragraphs":["MarksOps decomposes complex operations into four discrete agent layers that communicate through strongly-typed event buses:"],"bulletPoints":["1. Ingestion Agent: Normalizes incoming webhooks from Stripe, Meta CAPI, Google Ads, and form submissions into validated JSON schemas.","2. Qualification & Enrichment Agent: Queries vector memory (pgvector) and public business registries to score lead quality and enterprise tier.","3. Execution Agent: Formulates exact SQL mutations or CRM status transitions within isolated sandboxes.","4. Verifier Agent: Cross-checks proposed mutations against financial balance constraints before committing the transaction."]},{"sectionHeading":"The Real Impact on Agency & Brand Velocity","paragraphs":["By deploying MarksOps internally and across certified partners, our operational overhead plummeted by 94%. Client leads are enriched in under 1.4 seconds, ad creative fatigue is flagged autonomously, and weekly reports are compiled without a single human spreadsheet copy-paste."]}]'),
+  ('threejs-webgl-modern-brands', 'Why Static Web Design is Dead: Engineering 60fps 3D WebGL Experiences for Luxury & Tech', 'How spatial typography, shaders, and micro-interactions elevate brand perception and pricing power.', 'Flat templates are commoditized. To command luxury valuations and hold user attention in 2026, websites must become interactive digital worlds. Here is our technical approach to high-performance Three.js.', 'Brand & 3D', '7 min read', 'February 2026', 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=1200', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["Three.js","WebGL","GLSL","Creative Tech","Design Systems"]', NULL, '[{"sectionHeading":"The Sea of Sameness in Modern Web Design","paragraphs":["Look at 90% of SaaS and luxury D2C websites today: white background, standard 12-column grid, two Inter font weights, and an illustration of a laptop screen. The web has become visually sterile.","When brands lack tactile texture or spatial atmosphere, visitors treat them as disposable commodities. Introducing custom 3D WebGL canvases transforms a passive reading experience into an exploratory encounter."]},{"sectionHeading":"Technical Guardrails: Maintaining 60fps on Mobile","paragraphs":["The biggest hesitation founders have with 3D web is performance: \\"Won’t it slow down my page speed and hurt SEO?\\" The answer is yes—if built carelessly with 15MB GLTF files and unoptimized render loops.","At Qala Labs, every interactive canvas follows strict mathematical and memory constraints:"],"bulletPoints":["Procedural Geometry over Heavy Meshes: We generate particle fields and volumetric horizons in custom GLSL vertex shaders rather than loading huge binary 3D assets.","Pixel-Ratio Clamping: We strictly cap renderer pixel ratio to Math.min(window.devicePixelRatio, 2) to protect mobile GPUs.","IntersectionObserver Idle Pausing: When a 3D section scrolls out of the viewport, the render loop completely suspends RAF (requestAnimationFrame) cycles, consuming 0% CPU."]},{"sectionHeading":"The Conversion Payoff","paragraphs":["On pages where we introduced interactive WebGL elements (such as the Dual-Core visualizer on Qala Labs), average time-on-page surged by 3.4x, and bounce rates declined by 42%. Memorable craft commands premium pricing."]}]'),
+  ('viral-ugc-community-playbook', 'Engineering 125M+ Organic Impressions: The Viral Fandom & UGC Architecture Behind IPL Franchises', 'Inside the decentralized creator war-room model that hijacked social algorithms with zero ad spend.', 'Millions in brand value aren’t won with polished TV commercials during match breaks. They are won in the 20-minute window right after a match-winning moment. Here is how we orchestrated fan merchandise ecosystems and stadium creator war-rooms with playR for IPL 2025.', 'Culture & UGC', '6 min read', 'January 2026', 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=1200', '{"name":"Aashirwad Bhansali","role":"Growth & Performance Strategy, Qala Labs","avatar":"/assets/qala/Aashirwad.webp"}', '["Viral UGC","IPL","Community Growth","TikTok","Instagram Reels"]', NULL, '[{"sectionHeading":"The 20-Minute Algorithmic Window","paragraphs":["In modern short-form algorithms (Instagram Reels, YouTube Shorts, TikTok), timeliness is everything. When an epic sports moment occurs, millions of fans reach for their phones within 90 seconds to witness the cultural reaction.","If your agency takes 3 days to script, film, color-grade, and approve a video through brand committees, the moment is dead. The viral wave has already moved on."],"callout":"Culture moves in minutes, not quarters. If you cannot publish within 20 minutes of a cultural event, do not bother competing in organic viral distribution."},{"sectionHeading":"The Stadium Creator Collective","paragraphs":["Instead of flying a traditional film crew with 50kg of cinema cameras, we embedded creators equipped with iPhone 16 Pro rigs directly into passionate fan zones, stadium bleachers, and regional watch parties.","Cloud-synced camera rolls uploaded raw clips to our remote video editors instantaneously. The moment the match concluded, high-energy edits with localized audio tracks were live across feeds before the stadium floodlights even dimmed."],"bulletPoints":["125M+ organic video impressions during the tournament run.","14,000+ authentic user-submitted clips aggregated into shared fan anthems.","Zero rupees allocated to sponsored post boosts or paid media amplification."]}]');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `services`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `services`;
+CREATE TABLE `services` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `track` varchar(100) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `deliverables` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`deliverables`)),
+  `agents` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`agents`)),
+  `proof` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`proof`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_services_slug` (`slug`),
+  KEY `idx_services_track` (`track`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `services` WRITE;
+INSERT INTO `services` (`slug`, `name`, `track`, `tagline`, `description`, `deliverables`, `agents`, `proof`) VALUES
+  ('ai-automation', 'AI Automation', 'AI', 'Multi-agent systems that run marketing, sales, ops, and finance as one workflow.', 'We don''t bolt AI onto your stack — we build the agents ourselves. MarksOps, our in-house multi-agent operations platform, unifies a LangGraph agent engine with a FastAPI backend so Marketing, Sales, Operations, and Finance share one native data layer instead of six disconnected SaaS tools. On top of it runs a deployed ops-automation layer that ingests real vendor emails, CRM leads, and marketplace listings and turns them into staged, human-approved actions — never silent auto-execution.', '["CRM lead intake & scoring agents with a 24-hour SLA-backed follow-up loop","Finance-bill ingestion (Amazon VC, Meta/Google Ads, logistics, SaaS renewals) parsed and staged as draft entries — zero auto-posting, every write needs human approval","Marketplace price-discrepancy crawler and multichannel inventory sync (Unicommerce)","Post-purchase logistics tracking, NDR handling, and payment reconciliation agents (Shiprocket, gateway feeds)","AI ad-creative generation that cut cost 80% and produced 50+ on-brand creatives/week for WWF India"]', '[{"slug":"financial-reconciliation-agent","name":"Financial Reconciliation Agent","desc":"Matches payment-gateway settlements against orders and bank feeds automatically, flags mismatches for human review — never auto-posts."},{"slug":"finance-bills-agent","name":"Finance Bills Agent","desc":"Reads incoming vendor emails (Amazon VC, Meta/Google Ads, logistics, SaaS renewals), extracts and classifies spend, stages draft entries in Odoo ERP."},{"slug":"ai-voice-receptionist","name":"AI Voice Agent / Receptionist","desc":"RAG-grounded voice agent that answers, qualifies, and routes calls 24/7, grounded in our own knowledge base."},{"slug":"crm-leads-agent","name":"CRM Leads Agent","desc":"Scores inbound leads and enforces a 24-hour SLA-backed follow-up loop so nothing goes cold."},{"slug":"marketplace-crawler","name":"Marketplace Crawler","desc":"Watches competitor and marketplace listings for price discrepancies and alerts the team in real time."},{"slug":"inventory-sync-agent","name":"Inventory Sync Agent","desc":"Keeps stock levels consistent across channels via Unicommerce, so nothing oversells."},{"slug":"logistics-ndr-agent","name":"Logistics & NDR Agent","desc":"Tracks post-purchase shipments end to end (Shiprocket) and manages non-delivery-report resolution automatically."},{"slug":"tally-connector-agent","name":"Tally Connector Agent","desc":"Syncs approved financial entries into Tally Prime via a native XML connector."},{"slug":"customer-support-agent","name":"Customer Support Agent","desc":"Handles omnichannel support conversations, escalating only what a human genuinely needs to see."}]', '[{"type":"product","slug":"marksops","label":"MarksOps — the platform these agents run on"}]'),
+  ('ai-voice-agents', 'AI Voice Agents', 'AI', 'A RAG-grounded voice agent that answers, qualifies, and routes calls 24/7.', 'Our AI Receptionist is a voice agent built on retrieval-augmented generation — it answers calls grounded in your own knowledge base, not a generic script. It qualifies callers, answers common questions correctly the first time, and routes anything it can''t resolve to the right human, so no lead sits in a missed-call log overnight.', '["RAG pipeline grounded in your product docs, FAQs, and pricing — no hallucinated answers","24/7 call answering, qualification, and routing to the right team member","Booking and follow-up capture wired straight into your CRM/lead pipeline","Call transcripts and structured summaries for every conversation"]', NULL, '[{"type":"product","slug":"ai-receptionist","label":"AI Receptionist — the product itself"}]'),
+  ('branding', 'Branding', 'Design', 'Identity systems built for brands making the leap from stall to storefront to scale.', 'Branding work at Qala Labs is judged by one thing: does it convert once it ships. We''ve taken a market-stall business to a full digital marketplace identity, launched an independent music label from zero, and built merchandise systems across 8 IPL franchises — always shipped as a real, usable asset kit, not a moodboard.', '["Gaffar India: market-stall brand rebuilt into a full digital marketplace identity — 6 asset packages, 28-day delivery","The Kashmiri Sound Movement: Mystic Studio 8 label launch — 3.4M+ views, zero ad spend, organic-only","playR: 8 IPL franchise merchandise identity systems, ₹2.5Cr+ merchandise revenue","Brand guideline kits, logo systems, and packaging design ready for production"]', NULL, '[{"type":"case-study","slug":"gaffar-india","label":"Gaffar India — market stall to digital marketplace"},{"type":"case-study","slug":"kashmiri-sound-movement","label":"The Kashmiri Sound Movement — label launch"}]'),
+  ('ui-ux-design', 'UI/UX Design', 'Design', 'Interfaces designed around one metric: does the user complete the task.', 'We design UI/UX for the products we then build — real estate portals, CRM dashboards, multi-vendor marketplaces — so the design has to survive contact with real workflows and real data, not just a Figma prototype. Capital Keys is the clearest proof: a proptech CRM/web-app interface that converted at 64.7% and generated 17+ qualified leads.', '["Capital Keys: real estate proptech web-app UI/UX — 64.7% conversion, 17+ leads","Marketplace UI/UX systems (Gaffar India multi-vendor storefront)","CRM/dashboard interface design (MarksOps, Q Manager Work OS)","Design-to-dev handoff as production-ready component specs, not static mockups"]', NULL, '[{"type":"case-study","slug":"capital-keys","label":"Capital Keys — proptech web app & CRM"},{"type":"case-study","slug":"gaffar-india","label":"Gaffar India — marketplace UI/UX"},{"type":"product","slug":"q-manager","label":"Q Manager — Work OS dashboard"}]'),
+  ('web-design', 'Web Design', 'Design', 'Web design built to launch inside weeks, not quarters.', 'Every web design engagement we run ends in a live, indexable site — we''ve taken brands from a market stall to a fully digitized marketplace storefront in a 28-day delivery window, and we design every page with SEO and crawlability baked in from the wireframe stage, not bolted on after launch.', '["Full marketplace storefront design & build (Gaffar India, 28-day delivery)","Responsive, SEO-structured page templates from day one","Design systems reusable across a growing page catalog","Direct handoff into our own Web Development track — no design-to-dev drop-off"]', NULL, '[{"type":"case-study","slug":"gaffar-india","label":"Gaffar India — full marketplace storefront"}]'),
+  ('mobile-app-designing', 'Mobile App Designing', 'Design', 'Mobile-first interfaces for the same products we design and ship end to end.', 'Our mobile app design work follows the same rule as everything else we design: it has to be buildable by our own engineering team, and it has to convert. We design mobile experiences for the client portals and dashboards behind products like Q Manager and Capital Keys, where a client checking project status or a lead reviewing a listing needs to complete the task in seconds, not minutes.', '["Mobile-first dashboard and portal UI (client-facing and internal)","Component libraries shared between web and mobile builds for consistency","Usability passes focused on task completion time, not just visual polish"]', NULL, '[{"type":"product","slug":"q-manager","label":"Q Manager — client/team mobile-first portal"}]'),
+  ('landing-page-designing', 'Landing Page Designing', 'Design', 'Landing pages built around a single conversion event, tested until it wins.', 'A landing page from us is a hypothesis with a design attached. Trotr''s founder-storytelling travel funnel used this approach to hit 28x ROAS and ₹14L revenue on a single high-ticket offer — the page existed to test one narrative angle, and we iterated the layout until the numbers proved it out.', '["Trotr: founder-storytelling high-ticket funnel — 28x ROAS, ₹14L revenue","Single-offer, single-CTA landing pages built for paid traffic","On-page A/B test variants tied directly to ad creative hooks","Server-side conversion tracking wired in from launch, not retrofitted"]', NULL, '[{"type":"case-study","slug":"trotr-spain-pivot","label":"Trotr: Spain Pivot — 28x ROAS funnel"}]'),
+  ('web-development', 'Web Development', 'Development', 'Next.js/React builds engineered for multi-vendor scale, not a template site.', 'We build the marketplaces, CRM portals, and proptech platforms our design and marketing work runs on — Next.js/React on the frontend, MySQL/Postgres and custom APIs underneath, built to hold up under real transaction volume and multi-vendor complexity, not just to demo well.', '["Multi-vendor marketplace engines (Gaffar India digital marketplace)","Custom CRM/proptech web portals (Capital Keys, 64.7% conversion)","High-performance MySQL/PostgreSQL-backed data layers with secure access controls","Performance-tuned builds (SSR, code-splitting) engineered for Core Web Vitals","Dual-currency loyalty and gamification progression engines with 7-stage security pipelines (Nectar)"]', NULL, '[{"type":"case-study","slug":"gaffar-india","label":"Gaffar India — multi-vendor marketplace engine"},{"type":"case-study","slug":"capital-keys","label":"Capital Keys — proptech CRM web portal"},{"type":"case-study","slug":"nectar-loyalty-engine","label":"Nectar Loyalty Engine — dual-currency Cloud Run API"}]'),
+  ('mobile-app-development', 'Mobile App Development', 'Development', 'Mobile builds that share the same backend and design system as the web product.', 'Mobile development at Qala Labs isn''t a separate codebase bolted onto the web app after the fact — it''s built against the same API layer and design system as everything else we ship, so client portals and internal tools behave identically whether someone opens them on desktop or on their phone.', '["React Native / mobile-web hybrid builds sharing one backend","Push notification and offline-state handling for field/on-the-go use","App builds tied to the same CI/build pipeline as the web product"]', NULL, '[{"type":"product","slug":"q-manager","label":"Q Manager — shared backend across web & mobile"}]'),
+  ('software-development', 'Software Development', 'Development', 'The same multi-agent, multi-tenant systems engineering we run our own products on.', 'This is the engineering discipline behind our own products: MarksOps'' LangGraph agent engine and FastAPI backend, and Q Manager, our internal Work OS unifying project management, shared client/team comms, and AI-assisted task creation across Admin/Team Lead/Team Member/Client roles. We build custom software the same way — role-scoped access, real data models, and zero-auto-execution safety rails on anything that touches money or client data.', '["Multi-agent backend architecture (LangGraph + FastAPI), the exact stack behind MarksOps","Role-based multi-tenant systems (Admin / Team Lead / Team Member / Client scoping)","Integration engineering: Odoo ERP, WhatsApp (Convertway), Unicommerce, Shiprocket, Tally Prime","Safety-first automation: staged/draft writes with mandatory human approval on financial actions"]', NULL, '[{"type":"product","slug":"marksops","label":"MarksOps — multi-agent backend platform"},{"type":"product","slug":"q-manager","label":"Q Manager — role-based multi-tenant Work OS"}]'),
+  ('digital-marketing', 'Performance Marketing', 'Marketing', 'Performance marketing measured in contribution margin, not impressions.', 'Every performance campaign we run is built around one number: contribution margin, not vanity reach. That discipline is what took Trotr to 28x ROAS on a single high-ticket funnel and Amazon Ads scaling to 11.2x ROAS with a 47% lower ACOS — real profit outcomes, tracked with server-side attribution so the numbers hold up under scrutiny.', '["Trotr: 28x ROAS, ₹14L revenue on a founder-led high-ticket funnel","Amazon Ads scaling: 11.2x ROAS, 47% lower ACOS","Nutrivend UK: 45 enterprise leads, 71% untapped market identified via B2B audience engineering","Server-side conversion tracking (Meta CAPI, GA4) so attribution survives iOS/ad-blocker signal loss"]', NULL, '[{"type":"case-study","slug":"trotr-spain-pivot","label":"Trotr: Spain Pivot — 28x ROAS"},{"type":"case-study","slug":"amazon-ads-scaling","label":"Amazon Ads Scaling — 11.2x ROAS"},{"type":"case-study","slug":"nutrivend-uk","label":"Nutrivend UK — 45 enterprise leads"}]'),
+  ('search-engine-optimization', 'Search Engine Optimization', 'Marketing', 'SEO built for how people find you now — search engines, AI answer engines, and generative search alike.', 'We run SEO as three overlapping disciplines: classic technical/on-page SEO, AEO (answer-engine optimization for featured snippets and AI Overviews), and GEO (generative-engine optimization for how tools like ChatGPT and Perplexity cite you). Our Airborne Aviation Academy engagement was built and audited around exactly this stack — global areaServed schema, crawlability fixes, and structured content built to be quoted, not just ranked.', '["Technical SEO audits (Core Web Vitals, crawlability, structured data/schema)","AEO: content structured to win featured snippets and AI Overview placements","GEO: content and schema built to be cited correctly by AI answer engines","Global areaServed and multi-region schema expansion (proven on Airborne Aviation Academy)"]', NULL, NULL),
+  ('social-media-marketing', 'Social Media Marketing', 'Marketing', 'Community and creator programs that earn reach organically, and paid social that doesn''t waste it.', 'Some of our best social results cost nothing in ad spend — The Kashmiri Sound Movement label launch hit 3.4M+ organic views on zero paid budget. Where we do run paid social, like the CSK influencer/UGC program, we hold ourselves to the same bar: 5M+ reach and 12% engagement, not just impressions.', '["Mizuno India: 10-week pre-launch athlete runway & 5 creative themes for BWC Delhi launch","CSK influencer & UGC program: 5M+ reach, 12% engagement","The Kashmiri Sound Movement: 3.4M+ organic views, zero ad spend","Creator/UGC funnel design and management end to end","Community loyalty and lifecycle programs layered on top of acquisition"]', NULL, '[{"type":"case-study","slug":"mizuno-india-launch","label":"Mizuno India — BWC Delhi launch runway"},{"type":"case-study","slug":"kashmiri-sound-movement","label":"The Kashmiri Sound Movement — 3.4M+ organic views"}]');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `products`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `features` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`features`)),
+  `how_it_works` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`how_it_works`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_products_slug` (`slug`),
+  KEY `idx_products_category` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `products` WRITE;
+INSERT INTO `products` (`slug`, `name`, `tagline`, `category`, `description`, `features`, `how_it_works`) VALUES
+  ('marksops', 'MarksOps', 'Agentic Marketing, Sales, Ops & Finance — running as one system', 'AI Automation', 'MarksOps is Qala Labs'' own multi-agent operations platform: a LangGraph agent engine and FastAPI backend that unify Marketing, Sales, Operations, and Finance into a single native data layer instead of a stack of disconnected SaaS tools. On top of it runs a deployed ops-automation layer that reads real vendor emails, CRM leads, and marketplace listings and turns them into staged, human-approved actions — never silent auto-execution. Every financial write is a draft until a person approves it, every price alert is checked against a master catalog, and every lead gets a scored, 24-hour SLA-backed follow-up.', '[{"icon":{},"title":"Zero-auto-post finance ingestion","description":"Parses Amazon VC, Meta/Google Ads, logistics, and SaaS invoices into draft bills in Odoo — every entry stays in draft with a strict zero-auto-posting policy until a human approves it."},{"icon":{},"title":"Marketplace price monitoring","description":"Crawls Amazon and Flipkart listings twice daily, flags >5% deviations from your master price list, classifies root cause (own listing, seller, or competitor), and fires a WhatsApp alert."},{"icon":{},"title":"Unicommerce inventory sync","description":"Keeps stock levels reconciled across Amazon, Flipkart, Myntra, and your own storefronts, and flags discrepancies over 10 units straight to Operations."},{"icon":{},"title":"Shiprocket logistics & NDR recovery","description":"Tracks every shipment event end to end, auto-alerts on delays past the expected delivery date, and drives non-delivery-report recovery without manual chasing."},{"icon":{},"title":"Payment reconciliation & Tally sync","description":"Matches gateway settlements (Razorpay, Stripe, Cashfree, PayU) against expected net payouts down to the rupee, and mirrors approved vouchers into Tally over its XML gateway."},{"icon":{},"title":"Omnichannel customer support agent","description":"Classifies WhatsApp and email support intents, answers from order and return data, and escalates automatically on legal risk, high-value B2B tickets, or unresolved negative sentiment."}]', '[{"title":"Ingest","description":"Emails, webhooks, and marketplace crawls feed structured events into the native FastAPI backend."},{"title":"Reason","description":"The LangGraph agent engine classifies, scores, and drafts the next action per domain (Marketing, Sales, Ops, Finance)."},{"title":"Approve","description":"Every financially or customer-facing action stages as a draft — a human reviews and approves before it goes live."},{"title":"Execute & alert","description":"Approved actions post to Odoo, Tally, or the storefront, with WhatsApp alerts keeping the right team looped in."}]'),
+  ('ai-recruiter', 'AI Recruiter', 'AI-run screening, cognitive interviews, and candidate synthesis', 'AI Hiring', 'AI Recruiter is Qala Labs'' end-to-end hiring platform, covering the full loop from job creation to offer. Recruiters build a role through a guided wizard that captures screening criteria and cognitive interview parameters up front, then candidates are evaluated through a live conversational AI interview and an embedded code or skills assessment. Every candidate profile resolves into an AI-generated synthesis — qualifications, strengths, growth areas, and a score breakdown — so recruiters spend their time on decisions, not first-pass reading.', '[{"icon":{},"title":"Guided job & screening wizard","description":"A five-step flow — role basics, requirements, cognitive screening questions, compensation, and publish — turns a vacancy into a fully configured screening pipeline before it goes live."},{"icon":{},"title":"Live AI interview panel","description":"Candidates speak directly to a conversational AI interviewer that runs the cognitive screening questions set during job creation, no scheduling required for the first pass."},{"icon":{},"title":"Embedded skills assessment","description":"Role-specific challenges (e.g. a frontend engineering test) run inline in the candidate flow, scored alongside the interview for a single combined signal."},{"icon":{},"title":"AI candidate synthesis","description":"Every applicant resolves into a structured summary — qualifications, strengths, growth areas, and a score breakdown — instead of a raw resume dump."},{"icon":{},"title":"Interviewer availability heatmap","description":"A combined-availability calendar view lets recruiters set up final-round interviews across a team without the usual back-and-forth."},{"icon":{},"title":"Full pipeline visibility","description":"A recruiter dashboard tracks candidate counts, active roles, and stage progression across the whole hiring pipeline in one workspace."}]', '[{"title":"Define the role","description":"Recruiters set requirements and cognitive screening criteria through the job-creation wizard."},{"title":"Candidates apply","description":"Applicants submit through a matched job listing and complete the AI interview and any embedded assessment."},{"title":"AI synthesizes","description":"Responses and assessment results resolve into a scored, structured candidate profile."},{"title":"Recruiter decides","description":"The team reviews synthesized profiles, schedules final interviews off the availability heatmap, and moves candidates to offer."}]'),
+  ('ai-receptionist', 'AI Receptionist', 'A RAG-grounded voice agent that answers, qualifies, and books — 24/7', 'AI Voice', 'AI Receptionist is a voice agent built on real telephony infrastructure (TeleCMI, with Twilio fallback), not a chatbot with a phone number bolted on. Every call is transcribed, grounded against a Retrieval-Augmented Generation knowledge base of your own website and course content via vector search, and answered by a persona-driven conversational model tuned to your brand''s tone. Conversation history persists in Postgres rather than in-process memory, so the agent stays consistent across serverless instance recycles — a real operational detail, not a demo shortcut. Calls that show buying intent get scored, tagged, and pushed into the CRM with a WhatsApp booking confirmation, without a human ever picking up the phone.', '[{"icon":{},"title":"Real telephony, not a widget","description":"Inbound and outbound calls run over TeleCMI SIP trunking with a Twilio fallback path — this answers actual phone numbers, not just a website chat bubble."},{"icon":{},"title":"RAG-grounded knowledge base","description":"Every answer is retrieved via OpenAI embeddings against a vector store of your own site and course content, with a hard-coded fallback so the agent never goes silent."},{"icon":{},"title":"Persona-driven conversation engine","description":"A tuned system prompt gives the agent a consistent mentor voice and a consultative, non-pushy steering framework instead of a generic script."},{"icon":{},"title":"Durable multi-turn memory","description":"Conversation history is persisted in PostgreSQL per caller, so the dialogue stays coherent even when a serverless instance recycles mid-call — a detail most voice-bot demos skip."},{"icon":{},"title":"Lead scoring & CRM sync","description":"Calls are classified Hot / Warm / Cold based on buying signals, synced straight to the CRM, and routed into the right nurture sequence automatically."},{"icon":{},"title":"WhatsApp booking confirmation","description":"When a caller agrees to a next step, the agent locks the slot and sends an instant WhatsApp confirmation — no human handoff needed to close the loop."}]', '[{"title":"Call comes in","description":"TeleCMI (or Twilio) routes the call to the assistant and streams the audio for transcription."},{"title":"Retrieve context","description":"The caller’s question is embedded and matched against your knowledge base via vector search."},{"title":"Respond in voice","description":"A grounded, persona-tuned response is generated and synthesized back to the caller in real time."},{"title":"Qualify & book","description":"Buying signals score the lead, sync it to the CRM, and — on agreement — lock a slot with a WhatsApp confirmation."}]'),
+  ('q-manager', 'Q Manager', 'A Work OS that unifies projects, client comms, and AI-drafted replies', 'Agency Ops', 'Q Manager is the Work OS Qala Labs runs its own agency operations on — replacing the fragmented spread of a PM tool, a chat app, and email threads with one system scoped by role (Admin, Team Lead, Team Member, Client). Projects, tasks, time tracking, and a shared team-and-client comms layer sit on one data model, so "what is this client waiting on" and "who is overloaded this week" are one query, not five different tools cross-referenced by hand. An AI layer drafts replies and turns conversations into structured tasks, but strictly proposes — a human always approves before anything sends.', '[{"icon":{},"title":"Full project & task management","description":"List, board, calendar, and Gantt views with subtasks, dependencies, custom statuses, and per-project custom fields — ClickUp-Business-level parity, built for how Qala actually works."},{"icon":{},"title":"Unified client comms timeline","description":"Chat channels, task comments, and a connected email inbox interleave into one timeline per client or project — nothing lives only in someone’s personal inbox."},{"icon":{},"title":"AI draft replies & task extraction","description":"AI proposes email/chat replies and turns long threads or client feedback into structured task proposals — it never sends or creates without an explicit human approval click."},{"icon":{},"title":"Role-scoped client portal","description":"Clients get their own login to see project status, leave feedback, and message the team — without visibility into internal notes, other clients, or team productivity data."},{"icon":{},"title":"Client feedback with SLA tracking","description":"Every feedback item (Bug, Change Request, Praise, Question) runs through a tracked lifecycle with time-to-acknowledge and time-to-resolve metrics and CSAT scoring."},{"icon":{},"title":"Workload & capacity dashboards","description":"Role-specific dashboards roll up utilization, throughput, and workload heatmaps — Team Leads see their team, Admins see the company, without activity-monitoring creepiness."}]', '[{"title":"One workspace","description":"Clients, projects, tasks, chat, and connected inboxes live in a single multi-tenant data model."},{"title":"Work happens in view","description":"Teams track tasks and time directly against client work; clients see status through their own scoped portal."},{"title":"AI proposes","description":"Long threads and feedback resolve into draft replies or structured task proposals for one-click creation."},{"title":"A human approves","description":"Every send, post, or record edit needs an explicit human confirmation — AI never acts unsupervised."}]');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `ai_agents`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `ai_agents`;
+CREATE TABLE `ai_agents` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `what_it_does` text NOT NULL,
+  `how_built` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`how_built`)),
+  `integrations` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`integrations`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `idx_ai_agents_slug` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `ai_agents` WRITE;
+INSERT INTO `ai_agents` (`slug`, `name`, `tagline`, `what_it_does`, `how_built`, `integrations`) VALUES
+  ('financial-reconciliation-agent', 'Financial Reconciliation Agent', 'Matches payment-gateway settlements against orders and bank feeds — automatically, safely.', 'Every day, money moves between payment gateways, bank accounts, and the order ledger — and small mismatches compound into real accounting drift if nobody catches them fast. This agent pulls settlement records from payment gateways, cross-references them against orders and bank statement lines, and surfaces every discrepancy the moment it appears. It never fixes the books itself — it hands a human a short, prioritized list of exactly what doesn''t match and why.', '["Part of the Marksops Agents platform (Module 6: payment_reconciliation), deployed on Google Cloud Run with FastAPI","Pulls gateway settlement feeds and bank statement lines, joins them against the order ledger by transaction reference","Flags amount/timing/reference mismatches as structured discrepancy records — no silent auto-correction","Runs on a recurring schedule via the orchestrator module (Cloud Scheduler), so reconciliation happens automatically without anyone remembering to run it"]', '["Payment gateway settlement feeds","Bank statement ingestion","Order ledger (core data layer)"]'),
+  ('finance-bills-agent', 'Finance Bills Agent', 'Reads vendor emails, extracts the numbers, stages the entry — a human always approves the post.', 'Vendor invoices and ad-spend receipts arrive by email in wildly inconsistent formats — PDFs, HTML receipts, forwarded threads. This agent ingests those emails, extracts the real financial data (PO number, invoice number, GST breakdown, pre-tax/post-tax amounts), classifies the spend category, and stages a draft bill in the ERP. It is built around one hard invariant: it can never post that entry itself.', '["Marksops Agents Module 2 (finance_bills), FastAPI service with dedicated parsers per source: amazon_vc.py, ads_invoices.py, logistics_invoices.py, credit_card_alerts.py, saas_subscriptions.py","A `detect_and_parse()` router auto-identifies the document type and extracts text from PDFs before routing to the right parser","Classifies spend into [ADS, LOGISTICS, SAAS, VENDOR, UTILITY] and stages the record as `account.move` with move_type=''in_invoice'' and state=''draft'' in Odoo ERP","Zero Auto-Posting Policy is enforced in code — any call to action_post() is blocked and raises a ZeroAutoPostingViolationError","Two entry points: POST /webhooks/gmail/incoming-bill (real-time push) and POST /tasks/daily-bill-sweep (Cloud Scheduler fallback at 8am IST), then a WhatsApp approval alert goes out via the Convertway client"]', '["Gmail (incoming invoices)","Odoo ERP (draft staging)","WhatsApp via Convertway (approval alerts)"]'),
+  ('ai-voice-receptionist', 'AI Voice Agent / Receptionist', 'Answers, qualifies, and routes calls 24/7 — grounded in your own knowledge base.', 'This is a voice agent that actually answers the phone. It''s grounded via retrieval-augmented generation (RAG) against your real product docs, FAQs, and pricing — so it answers correctly the first time instead of guessing — and it qualifies the caller before deciding whether to book them, route them to a human, or just answer the question outright. Every call produces a transcript and a structured summary, so nothing said on the phone disappears.', '["Speech-to-text -> RAG retrieval over an indexed knowledge base -> LLM response -> text-to-speech pipeline","Knowledge base built from real product documentation, FAQs, and pricing sheets, kept current so answers never go stale","Call routing logic decides in real time: answer directly, book a follow-up, or escalate to a human line","Every call logged as a transcript plus a structured summary (intent, outcome, next action) pushed into the CRM/lead pipeline"]', '["Telephony/voice pipeline","RAG knowledge base","CRM lead pipeline"]'),
+  ('crm-leads-agent', 'CRM Leads Agent', 'Scores inbound leads and enforces a 24-hour SLA-backed follow-up loop — nothing goes cold.', 'Leads that don''t get a fast, relevant follow-up die quietly. This agent watches every inbound lead the moment it lands, scores it against a fit/intent model, and enforces a follow-up SLA — if a lead hasn''t been touched within 24 hours, it escalates. It''s the difference between a lead list and an actual pipeline.', '["Marksops Agents Module 7 (crm_leads), with a dedicated CRMLeadService handling scoring logic","Webhook + scheduled-task router (router.py) ingests leads in real time and on a recurring sweep","Mock-payload test harness (mocks.py) lets the scoring model be validated against realistic lead shapes before it touches production data","SLA breaches trigger an alert through the same WhatsApp/Convertway channel used across the platform"]', '["CRM/lead intake webhooks","WhatsApp via Convertway (SLA alerts)"]'),
+  ('marketplace-crawler', 'Marketplace Crawler', 'Watches competitor and marketplace listings for price discrepancies — in real time.', 'Prices on marketplaces move constantly, and a single stale listing can quietly bleed margin for weeks before anyone notices. This agent continuously crawls marketplace and competitor listings, compares them against your master catalog, and flags discrepancies the moment they appear — so pricing decisions get made on current data, not last month''s screenshot.', '["Marksops Agents Module 3 (marketplace_crawler), FastAPI-hosted crawl + diff service","Every observed price is checked against a master catalog record before an alert fires — no false positives from untracked SKUs","Runs as a scheduled sweep via the orchestrator module rather than a one-off script, so drift gets caught continuously"]', '["Marketplace listing feeds","Master product catalog"]'),
+  ('inventory-sync-agent', 'Inventory Sync Agent', 'Keeps stock levels consistent across every channel — so nothing oversells.', 'Selling the same SKU across multiple channels only works if stock numbers agree everywhere. This agent keeps inventory counts synchronized across channels in near-real time via Unicommerce, so a sale on one channel correctly decrements availability everywhere else before an oversell can happen.', '["Marksops Agents Module 4 (unicommerce_inventory), a dedicated multichannel inventory sync engine","Reconciles stock deltas across connected sales channels through the Unicommerce integration layer","Runs on the same Cloud Run + Cloud Scheduler orchestration pattern as the rest of the platform for consistent, automatic execution"]', '["Unicommerce","Connected sales channels"]'),
+  ('logistics-ndr-agent', 'Logistics & NDR Agent', 'Tracks every shipment end to end and resolves non-delivery reports automatically.', 'Once an order ships, the real risk is a non-delivery report (NDR) sitting unresolved while a customer waits. This agent tracks shipments post-purchase through to delivery, and when an NDR fires, it manages the resolution workflow (retry, reschedule, refund escalation) plus COD reconciliation — instead of that becoming a manual support ticket queue.', '["Marksops Agents Module 5 (shiprocket_logistics), integrated with the Shiprocket logistics API","Tracks shipment state transitions end to end and reacts specifically to NDR events","Handles COD reconciliation as part of the same workflow, closing the loop between logistics and finance"]', '["Shiprocket","COD reconciliation ledger"]'),
+  ('tally-connector-agent', 'Tally Connector Agent', 'Syncs approved financial entries into Tally Prime — natively, no manual re-entry.', 'Most ERP-to-Tally integrations mean someone re-typing numbers. This agent takes entries that have already been approved elsewhere in the platform (e.g. from the Finance Bills Agent) and syncs them into Tally Prime through a native XML connector, so the accounting system of record stays current without duplicate manual work.', '["Marksops Agents Module 8 (tally_connector), built around Tally Prime''s native XML API","Consumes already-approved entries from upstream agents (e.g. finance_bills) rather than re-deriving data itself","Keeps Tally as the accounting source of truth while every other agent in the platform stays advisory/staging-only"]', '["Tally Prime (XML API)","Finance Bills Agent (upstream approved entries)"]'),
+  ('customer-support-agent', 'Customer Support Agent', 'Handles omnichannel support conversations, and escalates only what a human genuinely needs to see.', 'Most support volume is repetitive — order status, return policy, shipping timelines. This agent handles that omnichannel (WhatsApp, email, chat) so your human support team only sees the conversations that actually need judgment, not the ones that need a lookup.', '["Marksops Agents Module 10 (customer_support), omnichannel agent built on the shared core/ infrastructure (structured logging, security tokens, MCP clients)","Uses the same Convertway (WhatsApp) and Gmail MCP clients as the rest of the platform for a single conversation layer across channels","Escalation logic routes only genuinely ambiguous or high-stakes conversations to a human — resolved conversations close automatically"]', '["WhatsApp via Convertway","Gmail","Order/CRM data layer"]');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `job_openings`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `job_openings`;
+CREATE TABLE `job_openings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `job_id` varchar(100) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `department` varchar(100) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `experience` varchar(50) NOT NULL,
+  `compensation` varchar(100) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `responsibilities` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`responsibilities`)),
+  `requirements` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`requirements`)),
+  `tech_stack` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tech_stack`)),
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_id` (`job_id`),
+  KEY `idx_job_id` (`job_id`),
+  KEY `idx_jobs_active` (`active`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `job_openings` WRITE;
+INSERT INTO `job_openings` (`job_id`, `title`, `department`, `location`, `type`, `experience`, `compensation`, `tagline`, `description`, `responsibilities`, `requirements`, `tech_stack`, `active`) VALUES
+  ('senior-ai-agent-architect', 'Senior AI Agent Architect & Systems Engineer', 'AI & Agents', 'Remote / London / Delhi NCR', 'Full-time', '4+ years in Python / TypeScript & LLM Systems', 'Competitive Base + Equity Tier', 'Design and deploy multi-agent coordination architectures for MarksOps and enterprise clients.', 'We are looking for a systems engineer who views LLMs not as simple chat endpoints, but as probabilistic reasoning kernels in complex event-driven state machines. You will build resilient autonomous agent swarms that coordinate CRM pipelines, ad creative generation, and operational reconciliation.', '["Architect robust multi-agent swarms with state machines, checkpointing, and vector memory systems.","Build low-latency streaming backends with FastAPI, Node.js, and Redis.","Deploy production-ready fine-tuned models, structured output extractors, and automated evaluation harnesses.","Partner with client engineering leaders to embed Qala Labs agent infrastructure into existing enterprise CRMs and ERPs."]', '["Deep fluency with LangGraph, LlamaIndex, LiteLLM, or custom agent loop architectures.","Proven experience shipping production Python and TypeScript applications with high reliability.","Strong grasp of vector databases (pgvector, Qdrant), PostgreSQL performance, and asynchronous queues.","Relentless curiosity about autonomous workflows and tool-calling reliability."]', '["Python","TypeScript","LangGraph","FastAPI","pgvector","Redis","Docker"]', 1),
+  ('lead-creative-technologist', 'Lead Creative Technologist & 3D WebGL Developer', 'Creative & Design', 'Remote / Hybrid (London / Delhi NCR)', 'Full-time', '3+ years in Three.js, WebGL & Modern React', 'Competitive Base + Creative Bonus', 'Craft interactive digital worlds that blur the line between software and cinema.', 'You are the rare bridge who can talk GLSL shaders, camera frustums, and physics simulation while having impeccable editorial taste in typography and spatial composition. You will lead our next-generation immersive web experiences for global brands.', '["Develop fluid, 60fps WebGL/Three.js interactive web graphics and volumetric visualizer components.","Collaborate with brand directors to translate brand guidelines into kinetic, interactive digital systems.","Optimize 3D models, texture budgets, and shader passes for instant loading on mobile and desktop devices.","Pioneer the integration of real-time AI-generated assets into interactive 3D web canvases."]', '["Mastery of Three.js / React Three Fiber, GLSL shaders, and modern CSS/Tailwind.","Deep appreciation for micro-interactions, spring physics, and Apple-grade polish.","Strong portfolio demonstrating high-craft interactive web design or generative visual experiments.","Familiarity with WebGPU and headless 3D asset optimization pipelines is a strong plus."]', '["Three.js","React","GLSL","WebGL","Tailwind CSS","Vite","Blender"]', 1),
+  ('staff-full-stack-engineer', 'Staff Full-Stack Engineer (React, Node, Cloud)', 'Engineering', 'Remote (UK / India / EMEA Timezones)', 'Full-time', '5+ years in Scaled Web Applications', 'Competitive Base + Performance Bonuses', 'Own the core web engine, data pipelines, and multi-tenant SaaS architectures.', 'We build high-performance web products, multi-vendor marketplace engines, and custom analytics backends. We need an experienced full-stack engineer who values rock-solid type safety, graceful offline fallbacks, and sub-100ms API response times.', '["Lead architecture and development of scalable React/Next.js and Node.js microservices.","Ensure resilient client-side UX with optimistic mutations, error boundaries, and dual-target API fallbacks.","Design modular database schemas (PostgreSQL / MySQL / Redis) with high data integrity.","Mentor junior engineers and establish rigorous CI/CD, testing, and performance budgets."]', '["Expert-level TypeScript, React, and server-side runtimes (Node.js, edge workers).","Track record of architecting resilient REST/GraphQL APIs and serverless backends.","Obsession with performance metrics (Core Web Vitals, bundle tree-shaking, manual chunking).","Clear, empathetic technical communication and pride in software craftsmanship."]', '["React","TypeScript","Node.js","PostgreSQL","Tailwind CSS","Docker","Vercel / Cloud Run"]', 1),
+  ('director-growth-performance', 'Director of Growth & Performance Architecture', 'Growth & Strategy', 'Remote / Dubai / London', 'Full-time', '5+ years scaling $1M+ paid media budgets', 'High Base + Performance Profit-Share', 'Engineer high-ticket conversion funnels, attribution architectures, and viral engines.', 'Forget vanity metrics. We engineer full-funnel customer acquisition systems for D2C market leaders and B2B disruptors. You will lead paid acquisition strategy across Meta, Google, TikTok, and Amazon, while partnering with our AI engineering team to automate ad creative variant testing.', '["Lead media strategy and ROAS optimization for top-tier international brands.","Deploy server-side Conversions API (CAPI), multi-touch attribution, and predictive LTV models.","Direct our creative team on high-converting ad angles, hook scripts, and UGC frameworks.","Leverage AI generative tools to rapidly produce and test 100+ creative variations per sprint."]', '["Demonstrated history of scaling e-commerce or B2B accounts from 5-figure to 7-figure monthly budgets.","Mastery of Meta Ads Manager, Google Ads (Search & PMax), TikTok Ads, and attribution tools (TripleWhale, Northbeam).","Strong understanding of unit economics (CAC, LTV, payback period, blended ROAS).","Exceptional analytical mindset paired with high creative intuition."]', '["Meta CAPI","Google Ads","TikTok Ads","TripleWhale","GA4","SQL / BigQuery","Figma"]', 1),
+  ('ai-prompt-creative-fellow', 'AI Prompt & Generative Media Fellow', 'Creative & Design', 'Remote', 'Fellowship', '1-3 years portfolio in Generative Media', 'Monthly Fellowship Grant + Project Bonuses', 'Push the bleeding edge of diffusion models, LoRA fine-tuning, and AI cinematic storytelling.', 'Are you the creator everyone asks "how did you generate that shot?" We are looking for an obsessive prompt engineer and generative artist to join our creative laboratory, producing mind-bending campaign visuals for global clients.', '["Generate ultra-high-fidelity imagery and video assets using Midjourney, Flux, ComfyUI, Runway, and Kling.","Train bespoke LoRA weights and styling embeddings for client brand worlds.","Collaborate with our video editors and 3D artists to compose hybrid generative-CGI motion spots.","Document prompting workflows and build reusable node setups for internal creative tools."]', '["A jaw-dropping portfolio of AI-generated cinematic visuals or experimental motion design.","Fluency with ComfyUI workflows, ControlNet, IP-Adapter, and prompt tuning.","Keen eye for lighting, composition, lens focal lengths, and color theory.","Ability to rapidly iterate based on client art direction."]', '["ComfyUI","Flux","Midjourney","Runway Gen-3","Photoshop","Premiere / DaVinci"]', 1);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `creator_tracks`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `creator_tracks`;
+CREATE TABLE `creator_tracks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `track_id` varchar(100) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `badge` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `deliverables` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`deliverables`)),
+  `tools` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tools`)),
+  `ideal_for` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `track_id` (`track_id`),
+  KEY `idx_track_id` (`track_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `creator_tracks` WRITE;
+INSERT INTO `creator_tracks` (`track_id`, `title`, `badge`, `description`, `deliverables`, `tools`, `ideal_for`) VALUES
+  ('short-form-ugc', 'Short-Form Video & UGC Virtuosos', '100M+ VIEWS', 'Master the first 3 seconds. Create scroll-stopping TikToks, Instagram Reels, and YouTube Shorts for international D2C brands, sports franchises, and high-growth apps.', '["Authentic founder/creator style UGC videos","High-velocity hook testing packs (5 hooks × 2 bodies)","Product unboxing & cinematic lifestyle showcases","Viral reaction & storytelling formats"]', '["CapCut","Premiere Pro","DaVinci Resolve","iPhone 15/16 Pro / Sony FX3"]', 'On-camera creators, lifestyle storytellers, and conversion-focused video directors.'),
+  ('3d-motion-cgi', '3D Motion & CGI Visualists', 'CINEMATIC POLISH', 'Push past flat design. Build physics-defying product reveals, futuristic industrial renderings, and hyper-realistic CGI mockups for luxury and tech brands.', '["Photorealistic 3D product animations & explodes","Futuristic typography & motion graphic bumpers","Real-time WebGL asset preparation for interactive sites","Virtual production & visual effects compositing"]', '["Blender","Cinema 4D","Octane / Redshift","After Effects","Unreal Engine 5"]', '3D artists, motion designers, and industrial design visualizers.'),
+  ('ai-prompt-cinema', 'AI Filmmakers & Prompt Architects', 'NEXT-GEN GENERATIVE', 'Pioneer AI cinematography. Blend diffusion models, custom LoRAs, and cinematic prompts to build hyper-creative visual worlds previously restricted to $500K Hollywood budgets.', '["Hyper-realistic AI cinematic commercial spots","Custom visual worldbuilding & brand lookbooks","Generative concept art & key visual exploration","Hybrid AI + live-action motion integration"]', '["Midjourney v6","Flux","ComfyUI","Runway Gen-3 Alpha","Kling AI","Luma Dream Machine"]', 'AI artists, concept visualizers, and experimental directors.'),
+  ('creative-dev', 'Creative Technologists & Web Experimenters', 'CODE AS ART', 'Build generative web canvas experiences, interactive micro-sites, GLSL shader experiments, and dynamic product customizers that redefine the browser experience.', '["Interactive 3D landing page hero sections","Custom Three.js particle systems and physics simulations","Dynamic audio-reactive visualizers","Generative SVG / CSS micro-animations"]', '["Three.js","React Three Fiber","GLSL","Vite","Tailwind","WebGPU"]', 'Creative developers, frontend artists, and interactive web craftsmen.');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `agency_models`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `agency_models`;
+CREATE TABLE `agency_models` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `model_id` varchar(100) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `badge` varchar(100) NOT NULL,
+  `headline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `features` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`features`)),
+  `best_for` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `model_id` (`model_id`),
+  KEY `idx_model_id` (`model_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `agency_models` WRITE;
+INSERT INTO `agency_models` (`model_id`, `title`, `badge`, `headline`, `description`, `features`, `best_for`) VALUES
+  ('white-label', 'White-Label AI & Engineering Infrastructure', '100% UNBRANDED BACKING', 'You own the client relationship. We power the deep tech.', 'Deliver complex autonomous AI agent swarms, bespoke 3D WebGL experiences, and high-scale full-stack platforms under your agency brand. We operate as your elite upstream engineering SWAT team.', '["Dedicated solution engineers attending scoping calls under your domain","Custom instance deployment of MarksOps autonomous multi-agent pipelines","Strict NDAs and unbranded repositories, documentation, and staging links","Guaranteed enterprise SLAs with 24/7 technical on-call escalation"]', 'Boutique design studios, marketing agencies, and consultancies wanting to close $50k-$200k technical contracts without hiring 10 engineers.'),
+  ('co-pitch', 'Enterprise Joint Ventures & Co-Pitching', 'WIN BIGGER TENDERS', 'Partner with Qala Labs to win enterprise RFPs that neither could take alone.', 'When your dream client requires both high-touch agency creative and deep enterprise AI/systems architecture, pitch together. Combine your brand resonance with Qala Labs deep tech pedigree.', '["Joint RFP response architecture and tailored technical proposal decks","Direct pitch participation from Qala Labs technical founders and AI architects","Transparent revenue split and unified project delivery governance","Shared case study rights and co-branded industry thought leadership"]', 'Established agencies competing against monolithic consulting giants (Accenture, Publicis, Deloitte) for digital transformation projects.'),
+  ('referral-syndicate', 'Inbound Referral & Reciprocal Deal Flow', 'HIGH MARGIN REVENUE', 'Monetize leads outside your niche and receive qualified referrals.', 'Do clients ask you for custom AI agent swarms, complex marketplace architectures, or deep Three.js work that falls outside your core focus? Route them to Qala Labs and earn generous recurring retainers.', '["Up to 20% recurring referral commission on total project value or monthly retainers","Reciprocal referral priority: We route branding, PR, and regional media requests back to our certified partner network","Transparent deal tracking dashboard and immediate fee disbursements","Zero operational overhead or delivery responsibility on your end"]', 'Agencies with high inbound deal flow looking to create a passive, high-margin revenue stream while serving their clients better.');
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `faqs`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `faqs`;
+CREATE TABLE `faqs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `question` varchar(500) NOT NULL,
+  `answer` text NOT NULL,
+  `category` varchar(100) NOT NULL DEFAULT 'General',
+  `display_order` int(11) NOT NULL DEFAULT 0,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_faqs_category` (`category`),
+  KEY `idx_faqs_active` (`active`),
+  KEY `idx_faqs_order` (`display_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `faqs` WRITE;
+INSERT INTO `faqs` (`question`, `answer`, `category`, `display_order`, `active`) VALUES
+  ('What makes Qala Labs fundamentally different from traditional agencies?', 'Traditional agencies separate engineering, creative, and performance marketing into slow, disconnected silos. Qala Labs operates as an integrated growth and technology studio where full-stack engineers, AI modelers, and brand strategists collaborate directly. We engineer the software, craft the narrative, and scale the distribution under one unified system.', 'General', 1, 1),
+  ('How did Qala Labs achieve a 28x ROAS for high-ticket travel with Trotr?', 'For high-ticket purchases, generic ads fail because buyers require community proof and founder credibility. We pivoted Trotr to founder-led documentary storytelling combined with A/B audience engineering and sequential video retargeting. This drove ₹14 Lakhs in revenue with 100% lead booking conversion in 30 days.', 'Performance', 2, 1),
+  ('How does your AI Creative Engine reduce production costs by 80%?', 'As proven with WWF India, we build custom generative pipelines that adhere to brand guidelines, typography, and color tokens. The system produces dozens of on-brand creative variations automatically, cutting turnaround from weeks to minutes and lifting CTR by 23% through rapid A/B testing.', 'AI Engineering', 3, 1),
+  ('How does your B2B market validation framework work?', 'Instead of spending months and huge budgets guessing market demand, we deploy audience engineering campaigns that test real purchasing intent across multiple niche B2B segments simultaneously. For Nutrivend UK, we validated a 71% untapped fitness market and generated 45 qualified leads in just 7 days.', 'Validation', 4, 1),
+  ('Can Qala Labs build full-scale web platforms and marketplaces?', 'Yes. We have built multi-vendor marketplace engines like Gaffar India (vendor portals, 1,000+ live SKUs, rapid checkout) and proptech engines like Capital Keys (delivering 64.7% lead conversion and automated CRM routing).', 'Web Apps', 5, 1),
+  ('How do you optimize D2C conversion rates through payment strategy?', 'Payment friction is often the single biggest conversion killer for D2C founders. We help brands integrate BNPL (Buy Now Pay Later) and optimized multi-provider checkout flows, which consistently yield a 15-30% conversion uplift and a 20-40% increase in Average Order Value (AOV).', 'Conversion', 6, 1),
+  ('What does an engagement with Qala Labs look like?', 'We engage either through focused 30-day sprints (e.g. Market Validation, Marketplace Launch, AI Creative Setup) or long-term growth partnerships where we operate as your dedicated engineering and growth lab.', 'Engagement', 7, 1);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `testimonials`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `testimonials`;
+CREATE TABLE `testimonials` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `role` varchar(150) NOT NULL,
+  `company` varchar(150) NOT NULL,
+  `quote` text NOT NULL,
+  `metric` varchar(255) DEFAULT NULL,
+  `avatar_url` varchar(500) DEFAULT NULL,
+  `case_study_slug` varchar(255) DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT 1,
+  `display_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_testimonials_featured` (`featured`),
+  KEY `idx_testimonials_case_study` (`case_study_slug`),
+  KEY `idx_testimonials_order` (`display_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `testimonials` WRITE;
+INSERT INTO `testimonials` (`name`, `role`, `company`, `quote`, `metric`, `case_study_slug`, `featured`, `display_order`) VALUES
+  ('Akaash Maskeen', 'Founder & CEO', 'Gaffar India', 'Qala Labs helped us turn a local market legacy into a modern marketplace identity. Their strategy balanced our Gaffar Market roots with digital usability — our sellers felt seen, buyers trusted the site more, and the brand is finally ready to scale.', '120+ Vendors • 28-Day Delivery', 'gaffar-india', 1, 1),
+  ('Marcus Vance', 'Managing Director', 'Nutrivend UK', 'Qala Labs didn''t just run ads; they engineered a rigorous B2B market validation framework. Generating 45 qualified enterprise fitness leads in just 7 days with a 71% untapped market discovery proved our new expansion thesis beyond doubt.', '45 Leads • 71% Untapped Market', 'nutrivend-uk', 1, 2),
+  ('Siddharth Roy', 'Co-Founder & CEO', 'Trotr', 'We had zero paying customers for our high-ticket Spain trip despite running traditional travel ads. Qala Labs stepped in, rewrote our narrative with founder-led storytelling, and generated ₹14 Lakhs in revenue at a staggering 28x ROAS.', '28x ROAS • ₹14L Revenue', 'trotr-spain-pivot', 1, 3);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `culture_pillars`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `culture_pillars`;
+CREATE TABLE `culture_pillars` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `tagline` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `icon_name` varchar(100) NOT NULL,
+  `display_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_cp_order` (`display_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `culture_pillars` WRITE;
+INSERT INTO `culture_pillars` (`title`, `tagline`, `description`, `icon_name`, `display_order`) VALUES
+  ('Art Meets Engineering', 'Craft without technical depth is shallow; engineering without craft is soulless.', 'We believe the next generation of digital products and brand ecosystems will be built by polymaths. Our engineers obsess over motion and typography; our designers code shaders and prompt neural models.', 'Sparkles', 1),
+  ('Autonomous Multi-Agent Leverage', 'Kill mundane drudgery with internal swarms.', 'We built MarksOps so our team does not spend hours on manual reconciliation, formatting ad variants, or copying spreadsheet cells. You will command and deploy AI agent swarms from day one.', 'Cpu', 2),
+  ('Radical Agency & Low Bureaucracy', 'Default to aggressive action and thoughtful velocity.', 'No five-stage approval committees. If you have an intuition backed by data or high-conviction creative taste, prototype it, test it, and ship it.', 'Zap', 3),
+  ('Global Stakes, Real Enterprise Impact', 'Not mock projects or toy sandboxes.', 'From global conservation campaigns with WWF India to high-ticket travel funnels in Spain and multi-vendor marketplace architectures in London, our work impacts millions of users worldwide.', 'Globe', 4);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `company_perks`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `company_perks`;
+CREATE TABLE `company_perks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `display_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_perks_order` (`display_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `company_perks` WRITE;
+INSERT INTO `company_perks` (`title`, `description`, `category`, `display_order`) VALUES
+  ('Top-Tier Workstation Stipend', 'Latest Apple Silicon MacBook Pro or high-spec Linux/Windows dev machine plus 4K display and ergonomic accessories.', 'Setup & Tech', 1),
+  ('Generous AI API & Research Budget', 'Unlimited access to Claude, OpenAI, Midjourney, Cursor, HuggingFace, and dedicated GPU compute credits for experimentation.', 'Setup & Tech', 2),
+  ('Learning & Conference Sponsorship', 'Annual allowance for technical workshops, design masterclasses, and global technology / design conferences.', 'Growth & Learning', 3),
+  ('Comprehensive Health & Wellness', 'Global health insurance coverage, mental wellness sessions, and gym or wellness stipend.', 'Health & Life', 4),
+  ('Work From Anywhere & Flexible Hours', 'Remote-first culture with hubs in London, Delhi NCR, Dubai, and Amsterdam. Asynchronous by default.', 'Autonomy', 5),
+  ('Performance Royalties & Profit Sharing', 'Competitive base salary paired with transparent venture upside and performance-based project bonuses.', 'Autonomy', 6);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `global_offices`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `global_offices`;
+CREATE TABLE `global_offices` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `country` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `flag_url` varchar(500) NOT NULL,
+  `timezone` varchar(100) NOT NULL,
+  `display_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_offices_order` (`display_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `global_offices` WRITE;
+INSERT INTO `global_offices` (`country`, `city`, `flag_url`, `timezone`, `display_order`) VALUES
+  ('India', 'Delhi NCR', '/assets/india-flag.png', 'Asia/Kolkata', 1),
+  ('United Kingdom', 'London', '/assets/uk-flag.svg', 'Europe/London', 2),
+  ('UAE', 'Dubai', '/assets/uae-flag.png', 'Asia/Dubai', 3),
+  ('Netherlands', 'Amsterdam', '/assets/nl-flag.png', 'Europe/Amsterdam', 4);
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------
+-- Table structure for `leads`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `leads`;
+CREATE TABLE `leads` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `company_name` varchar(255) DEFAULT NULL,
+  `phone` varchar(64) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `budget` varchar(100) DEFAULT NULL,
+  `timeline` varchar(100) DEFAULT NULL,
+  `source` varchar(64) NOT NULL DEFAULT 'contact_section',
+  `tool_used` varchar(64) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_leads_created_at` (`created_at` DESC),
+  KEY `idx_leads_email` (`email`),
+  KEY `idx_leads_source` (`source`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- Table structure for `crm_contacts`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `crm_contacts`;
+CREATE TABLE `crm_contacts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(150) NOT NULL,
+  `last_name` varchar(150) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(64) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `job_title` varchar(150) DEFAULT NULL,
+  `status` enum('lead','prospect','customer','churned') NOT NULL DEFAULT 'lead',
+  `source` varchar(100) DEFAULT NULL,
+  `tags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tags`)),
+  `notes` text DEFAULT NULL,
+  `avatar_url` varchar(500) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_crm_contacts_email` (`email`),
+  KEY `idx_crm_contacts_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- Table structure for `crm_deals`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `crm_deals`;
+CREATE TABLE `crm_deals` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `contact_id` int(10) unsigned DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `value` decimal(12,2) DEFAULT NULL,
+  `currency` varchar(10) NOT NULL DEFAULT 'INR',
+  `stage` enum('discovery','proposal','negotiation','won','lost') NOT NULL DEFAULT 'discovery',
+  `probability` int(11) NOT NULL DEFAULT 0,
+  `expected_close_date` date DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_crm_deals_stage` (`stage`),
+  KEY `fk_crm_deals_contact` (`contact_id`),
+  CONSTRAINT `fk_crm_deals_contact` FOREIGN KEY (`contact_id`) REFERENCES `crm_contacts` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- View structure for `unified_work_items`
+-- ------------------------------------------------------------
+CREATE OR REPLACE VIEW `unified_work_items` AS
+SELECT
+    CONCAT('cs-', `slug`) AS `id`,
+    `slug`,
+    'case-study' AS `type`,
+    `title`,
+    `title` AS `client`,
+    `category`,
+    `result` AS `metric`,
+    `thumb`,
+    `subtitle` AS `summary`,
+    `results`,
+    `testimonial`,
+    NULL AS `deliverables`,
+    NULL AS `technologies`,
+    CONCAT('/case-studies/', `slug`) AS `link`,
+    TRUE AS `featured`,
+    `created_at`
+FROM `case_studies`
+UNION ALL
+SELECT
+    `project_id` AS `id`,
+    `slug`,
+    'portfolio' AS `type`,
+    `title`,
+    `client`,
+    `category`,
+    `impact_metric` AS `metric`,
+    `cover_image` AS `thumb`,
+    `summary`,
+    NULL AS `results`,
+    NULL AS `testimonial`,
+    `deliverables`,
+    `technologies`,
+    CONCAT('/portfolio/', `slug`) AS `link`,
+    `featured`,
+    `created_at`
+FROM `portfolio_projects`;
+
+SET FOREIGN_KEY_CHECKS = 1;

@@ -15,9 +15,11 @@ import {
 } from 'lucide-react';
 import { PageLayout } from './PageLayout';
 import { SEO } from '../components/SEO';
-import { portfolioProjects, PortfolioProject } from '../data/portfolioData';
+import { portfolioProjects as defaultPortfolioProjects, PortfolioProject } from '../data/portfolioData';
+import { useDynamicPortfolio } from '../services/contentSync';
 
 export const PortfolioPage: React.FC = () => {
+  const portfolioProjects = useDynamicPortfolio();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalProject, setActiveModalProject] = useState<PortfolioProject | null>(null);

@@ -14,9 +14,11 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { PageLayout } from './PageLayout';
-import { blogPosts, BlogPost } from '../data/blogsData';
+import { blogPosts as defaultBlogPosts, BlogPost } from '../data/blogsData';
+import { useDynamicBlogPosts } from '../services/contentSync';
 
 export const BlogPage: React.FC = () => {
+  const blogPosts = useDynamicBlogPosts();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 

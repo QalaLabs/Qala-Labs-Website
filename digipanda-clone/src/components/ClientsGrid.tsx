@@ -3,12 +3,9 @@ import { ArrowRight } from 'lucide-react';
 
 const clients = [
   { name: 'WWF India', role: 'AI Ad Creative System' },
-  { name: 'District (Zomato)', role: 'Mumbai Transit Saturation' },
-  { name: 'Ranfort Wellness', role: '3-Site Ecosystem Audit' },
   { name: 'Mizuno India', role: 'Launch Production & Shoots' },
   { name: 'playR', role: '8 IPL Franchises Merch' },
   { name: 'Nutrivend UK', role: 'B2B Market Validation' },
-  { name: 'Better Eats', role: 'Click-to-WhatsApp Funnel' },
   { name: 'Trotr', role: '28x ROAS Travel Funnel' },
   { name: 'Nectar Loyalty', role: 'Dual-Currency Engine' },
   { name: 'Gaffar India', role: 'Multi-Vendor Marketplace' },

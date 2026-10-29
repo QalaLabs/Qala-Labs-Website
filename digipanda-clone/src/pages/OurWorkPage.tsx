@@ -17,7 +17,8 @@ import {
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { PageLayout } from './PageLayout';
-import { allWorkItems, UnifiedWorkItem, WorkItemType } from '../data/workData';
+import { allWorkItems as defaultWorkItems, UnifiedWorkItem, WorkItemType } from '../data/workData';
+import { useDynamicUnifiedWork } from '../services/contentSync';
 
 const categories = [
   'All',
@@ -30,6 +31,7 @@ const categories = [
 ];
 
 export const OurWorkPage: React.FC = () => {
+  const allWorkItems = useDynamicUnifiedWork();
   const [selectedType, setSelectedType] = useState<'all' | WorkItemType>('all');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,10 +55,7 @@ export const OurWorkPage: React.FC = () => {
             !itemCat.includes('performance') &&
             !itemCat.includes('meta') &&
             !itemCat.includes('amazon') &&
-            !itemCat.includes('lead gen') &&
-            !itemCat.includes('transit') &&
-            !itemCat.includes('ooh') &&
-            !itemCat.includes('audit')
+            !itemCat.includes('lead gen')
           ) {
             return false;
           }

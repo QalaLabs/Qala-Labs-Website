@@ -205,18 +205,12 @@ export const services: ServiceItem[] = [
     description:
       'Every performance campaign we run is built around one number: contribution margin, not vanity reach. That discipline is what took Trotr to 28x ROAS on a single high-ticket funnel and Amazon Ads scaling to 11.2x ROAS with a 47% lower ACOS — real profit outcomes, tracked with server-side attribution so the numbers hold up under scrutiny.',
     deliverables: [
-      'District Movies (Zomato): 9 Mumbai clusters saturated via auto-rickshaw fleet and 6 railway nodes with scan-to-book QR funnels',
-      'Better Eats: Click-to-WhatsApp conversational order funnels with 100% attributed sales',
-      'Ranfort Wellness: 246-URL ecosystem audit, ASCI regulatory de-risking, and ad account restructure',
       'Trotr: 28x ROAS, ₹14L revenue on a founder-led high-ticket funnel',
       'Amazon Ads scaling: 11.2x ROAS, 47% lower ACOS',
       'Nutrivend UK: 45 enterprise leads, 71% untapped market identified via B2B audience engineering',
       'Server-side conversion tracking (Meta CAPI, GA4) so attribution survives iOS/ad-blocker signal loss',
     ],
     proof: [
-      { type: 'case-study', slug: 'district-movies-transit', label: 'District Movies (Zomato) — Mumbai Transit Activation' },
-      { type: 'case-study', slug: 'better-eats-whatsapp-funnel', label: 'Better Eats — Click-to-WhatsApp order funnel' },
-      { type: 'case-study', slug: 'ranfort-wellness-audit', label: 'Ranfort Wellness — 246-URL audit & ad restructure' },
       { type: 'case-study', slug: 'trotr-spain-pivot', label: 'Trotr: Spain Pivot — 28x ROAS' },
       { type: 'case-study', slug: 'amazon-ads-scaling', label: 'Amazon Ads Scaling — 11.2x ROAS' },
       { type: 'case-study', slug: 'nutrivend-uk', label: 'Nutrivend UK — 45 enterprise leads' },
@@ -234,10 +228,6 @@ export const services: ServiceItem[] = [
       'AEO: content structured to win featured snippets and AI Overview placements',
       'GEO: content and schema built to be cited correctly by AI answer engines',
       'Global areaServed and multi-region schema expansion (proven on Airborne Aviation Academy)',
-      'Multi-domain crawl & architectural restructuring (proven on Ranfort Wellness 246-URL ecosystem)',
-    ],
-    proof: [
-      { type: 'case-study', slug: 'ranfort-wellness-audit', label: 'Ranfort Wellness — 246-URL ecosystem audit' },
     ],
   },
   {
