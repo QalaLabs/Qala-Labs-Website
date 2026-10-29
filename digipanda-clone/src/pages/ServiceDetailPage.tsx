@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
@@ -22,6 +23,25 @@ export const ServiceDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title={`${service.name} • ${service.tagline}`}
+        description={service.description.slice(0, 155)}
+        image="/assets/og/og-services.jpg"
+        url={`/services/${service.slug}`}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          name: service.name,
+          serviceType: service.track,
+          provider: {
+            '@type': 'Organization',
+            name: 'Qala Labs',
+            url: 'https://qalalabs.com',
+          },
+          description: service.description,
+          url: `https://qalalabs.com/services/${service.slug}`,
+        }}
+      />
       <section className="relative pt-40 pb-16 bg-transparent overflow-hidden">
         <div
           className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none"

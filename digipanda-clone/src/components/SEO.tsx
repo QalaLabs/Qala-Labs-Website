@@ -6,6 +6,8 @@ export interface SEOProps {
   image?: string;
   url?: string;
   type?: string;
+  noindex?: boolean;
+  schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const DEFAULT_TITLE = 'Qala Labs | Creative × Data × Impact • AI & Growth Studio';
@@ -20,10 +22,23 @@ export const SEO: React.FC<SEOProps> = ({
   image = DEFAULT_IMAGE,
   url,
   type = 'website',
+  noindex = false,
+  schema,
 }) => {
-  const fullTitle = title ? `${title} | Qala Labs` : DEFAULT_TITLE;
-  const canonicalUrl = url ? (url.startsWith('http') ? url : `${SITE_URL}${url}`) : SITE_URL;
-  const imageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+  const fullTitle = title
+    ? title.includes('Qala Labs')
+      ? title
+      : `${title} | Qala Labs`
+    : DEFAULT_TITLE;
+
+  const resolvedUrl = url || (typeof window !== 'undefined' ? window.location.pathname : '/');
+  const canonicalUrl = resolvedUrl.startsWith('http')
+    ? resolvedUrl
+    : `${SITE_URL}${resolvedUrl.startsWith('/') ? resolvedUrl : `/${resolvedUrl}`}`;
+
+  const imageUrl = image.startsWith('http')
+    ? image
+    : `${SITE_URL}${image.startsWith('/') ? image : `/${image}`}`;
 
   useEffect(() => {
     // Set page title
@@ -40,8 +55,11 @@ export const SEO: React.FC<SEOProps> = ({
       element.setAttribute('content', content);
     };
 
-    // Standard meta
+    // Standard meta description
     setMetaTag('name', 'description', description);
+
+    // Robots meta tag
+    setMetaTag('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');
 
     // Canonical link
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -60,12 +78,26 @@ export const SEO: React.FC<SEOProps> = ({
     setMetaTag('property', 'og:type', type);
     setMetaTag('property', 'og:site_name', 'Qala Labs');
 
-    // Twitter
+    // Twitter Card
     setMetaTag('name', 'twitter:card', 'summary_large_image');
     setMetaTag('name', 'twitter:title', fullTitle);
     setMetaTag('name', 'twitter:description', description);
     setMetaTag('name', 'twitter:image', imageUrl);
-  }, [fullTitle, description, imageUrl, canonicalUrl, type]);
+
+    // Dynamic JSON-LD Structured Data
+    let schemaScript = document.getElementById('qala-jsonld-page') as HTMLScriptElement | null;
+    if (schema) {
+      if (!schemaScript) {
+        schemaScript = document.createElement('script');
+        schemaScript.id = 'qala-jsonld-page';
+        schemaScript.type = 'application/ld+json';
+        document.head.appendChild(schemaScript);
+      }
+      schemaScript.textContent = JSON.stringify(schema);
+    } else if (schemaScript) {
+      schemaScript.remove();
+    }
+  }, [fullTitle, description, imageUrl, canonicalUrl, type, noindex, schema]);
 
   return null;
 };

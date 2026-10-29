@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
@@ -6,6 +7,12 @@ import { Home, Compass, ArrowLeft, ArrowRight, ShieldAlert, Cpu } from 'lucide-r
 export const NotFoundPage: React.FC = () => {
   return (
     <PageLayout>
+      <SEO
+        title="404 - Horizon Not Found"
+        description="The requested page could not be found. Navigate back to Qala Labs home or explore our growth capabilities."
+        url="/404"
+        noindex={true}
+      />
       <div className="relative min-h-[75vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden py-16">
         {/* Background ambient lighting and grid */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(79,70,229,0.25),rgba(6,7,13,0))] pointer-events-none" />

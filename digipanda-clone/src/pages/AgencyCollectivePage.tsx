@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React, { useState } from 'react';
 import {
   Building2,
@@ -94,6 +95,12 @@ export const AgencyCollectivePage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title="Agency Collective & White-Label Partner Network"
+        description="Scale your agency retainers with Qala Labs deep AI swarms, 3D WebGL architectures, and enterprise engineering capabilities."
+        image="/assets/og/og-agency.jpg"
+        url="/agency-collective"
+      />
       {/* 1. Hero Section */}
       <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[400px] bg-gradient-to-r from-[#4F46E5]/20 via-[#3FE0E0]/15 to-[#34D399]/10 blur-[130px] pointer-events-none" />
@@ -319,8 +326,10 @@ export const AgencyCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Agency / Studio Name *</label>
+                    <label htmlFor="agency-name" className="block text-xs font-mono text-white/60 mb-1.5">Agency / Studio Name *</label>
                     <input
+                      id="agency-name"
+                      aria-label="Agency or Studio Name"
                       type="text"
                       required
                       placeholder="Apex Digital Studios"
@@ -330,8 +339,10 @@ export const AgencyCollectivePage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Your Name & Role *</label>
+                    <label htmlFor="agency-contact" className="block text-xs font-mono text-white/60 mb-1.5">Your Name & Role *</label>
                     <input
+                      id="agency-contact"
+                      aria-label="Your Name and Role"
                       type="text"
                       required
                       placeholder="Marcus Chen, Managing Director"
@@ -344,8 +355,10 @@ export const AgencyCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Business Email Address *</label>
+                    <label htmlFor="agency-email" className="block text-xs font-mono text-white/60 mb-1.5">Business Email Address *</label>
                     <input
+                      id="agency-email"
+                      aria-label="Business Email Address"
                       type="email"
                       required
                       placeholder="marcus@apexdigital.com"
@@ -355,8 +368,10 @@ export const AgencyCollectivePage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Direct Phone / WhatsApp *</label>
+                    <label htmlFor="agency-phone" className="block text-xs font-mono text-white/60 mb-1.5">Direct Phone / WhatsApp *</label>
                     <input
+                      id="agency-phone"
+                      aria-label="Direct Phone or WhatsApp"
                       type="tel"
                       required
                       placeholder="+44 20 7946 0958 or +1 415 555 2671"
@@ -369,8 +384,10 @@ export const AgencyCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Agency Website URL *</label>
+                    <label htmlFor="agency-website" className="block text-xs font-mono text-white/60 mb-1.5">Agency Website URL *</label>
                     <input
+                      id="agency-website"
+                      aria-label="Agency Website URL"
                       type="text"
                       required
                       placeholder="https://apexdigital.com"
@@ -380,8 +397,10 @@ export const AgencyCollectivePage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Agency Team Size *</label>
+                    <label htmlFor="agency-size" className="block text-xs font-mono text-white/60 mb-1.5">Agency Team Size *</label>
                     <select
+                      id="agency-size"
+                      aria-label="Agency Team Size"
                       value={agencySize}
                       onChange={(e) => setAgencySize(e.target.value)}
                       className="w-full px-4 py-3 bg-[#0B0C16] border border-white/20 rounded-xl text-sm text-white focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -395,8 +414,10 @@ export const AgencyCollectivePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-white/60 mb-1.5">Primary Collaboration Model *</label>
+                  <label htmlFor="agency-model" className="block text-xs font-mono text-white/60 mb-1.5">Primary Collaboration Model *</label>
                   <select
+                    id="agency-model"
+                    aria-label="Primary Collaboration Model"
                     value={preferredModel}
                     onChange={(e) => setPreferredModel(e.target.value)}
                     className="w-full px-4 py-3 bg-[#0B0C16] border border-white/20 rounded-xl text-sm text-white focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -414,10 +435,12 @@ export const AgencyCollectivePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-white/60 mb-1.5">
+                  <label htmlFor="agency-needs" className="block text-xs font-mono text-white/60 mb-1.5">
                     Current Needs or Target Opportunities *
                   </label>
                   <textarea
+                    id="agency-needs"
+                    aria-label="Current Needs or Target Opportunities"
                     rows={4}
                     required
                     placeholder="Tell us about a client brief you want to win, an AI workflow you want to offer, or where your current technical bottlenecks are..."
@@ -438,7 +461,7 @@ export const AgencyCollectivePage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
+                    className="cursor-pointer inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
                   >
                     {loading ? (
                       <>

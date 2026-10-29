@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -98,6 +99,12 @@ export const BlogPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title="Field Notes, Perspectives & Playbooks"
+        description="Unfiltered tactical playbooks on autonomous multi-agent systems, high-ticket conversion architectures, 3D WebGL craft, and viral fandom engineering."
+        image="/assets/og/og-blog.jpg"
+        url="/blog"
+      />
       {/* 1. Hero Section */}
       <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-gradient-to-r from-[#4F46E5]/20 via-[#3FE0E0]/15 to-transparent blur-[120px] pointer-events-none" />
@@ -364,7 +371,7 @@ export const BlogPage: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="text"
-                    placeholder="Your Name (Optional)"
+                    aria-label="Your Name (Optional)" placeholder="Your Name (Optional)"
                     value={newsletterName}
                     onChange={(e) => setNewsletterName(e.target.value)}
                     className="px-4 py-3 bg-white/[0.04] border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors sm:w-1/3"
@@ -372,7 +379,7 @@ export const BlogPage: React.FC = () => {
                   <input
                     type="email"
                     required
-                    placeholder="Enter your work email *"
+                    aria-label="Work Email Address" placeholder="Enter your work email *"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     className="px-4 py-3 bg-white/[0.04] border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors flex-1"
@@ -380,7 +387,7 @@ export const BlogPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={newsletterLoading}
-                    className="px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-lg shrink-0 inline-flex items-center justify-center gap-2"
+                    className="cursor-pointer px-6 py-3 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-lg shrink-0 inline-flex items-center justify-center gap-2"
                   >
                     {newsletterLoading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />

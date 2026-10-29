@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
@@ -12,6 +13,24 @@ export const ProductDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title={`${product.name} • ${product.tagline}`}
+        description={product.description.slice(0, 155)}
+        image="/assets/og/og-products.jpg"
+        url={`/products/${product.slug}`}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.name,
+          description: product.description,
+          category: product.category,
+          brand: {
+            '@type': 'Brand',
+            name: 'Qala Labs',
+          },
+          url: `https://qalalabs.com/products/${product.slug}`,
+        }}
+      />
       {/* Hero */}
       <section className="relative pt-40 pb-24 bg-transparent overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.15),rgba(255,255,255,0))] pointer-events-none" />

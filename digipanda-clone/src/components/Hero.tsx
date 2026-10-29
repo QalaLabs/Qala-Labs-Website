@@ -488,7 +488,7 @@ export const Hero: React.FC = () => {
                       <button
                         key={key}
                         onClick={() => handleSelectEngine(key)}
-                        className={`flex-1 py-2 px-2 rounded-xl text-xs font-semibold transition-all duration-200 border ${
+                        className={`cursor-pointer flex-1 py-2 px-2 rounded-xl text-xs font-semibold transition-all duration-200 border ${
                           isActive
                             ? 'bg-white text-black border-white shadow-md'
                             : 'bg-transparent text-white/80 border-white/10 hover:border-white/30 hover:bg-white/[0.04]'

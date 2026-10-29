@@ -13,10 +13,13 @@ export const CaseStudiesPage: React.FC = () => {
 
   const categories = [
     'All',
+    'Transit & OOH Growth',
+    'Technical Audit & Growth',
+    'Production & Shoots',
     'Meta Lead Gen',
+    'Web App & Architecture',
     'Founder Storytelling',
     'Brand Identity & Web',
-    'Web App & CRM',
     'Amazon Performance',
     'Cultural Movement',
   ];

@@ -150,7 +150,7 @@ export const ToolsPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-3xl mx-auto p-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
             <button
               onClick={() => setActiveTab('ecom')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                 activeTab === 'ecom'
                   ? 'bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white shadow-lg shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -162,7 +162,7 @@ export const ToolsPage: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('roi')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                 activeTab === 'roi'
                   ? 'bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white shadow-lg shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -174,7 +174,7 @@ export const ToolsPage: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('profit')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                 activeTab === 'profit'
                   ? 'bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white shadow-lg shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -186,7 +186,7 @@ export const ToolsPage: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('ltv')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                 activeTab === 'ltv'
                   ? 'bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white shadow-lg shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -221,7 +221,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={sellingPrice}
+                        aria-label="Selling Price" value={sellingPrice}
                         onChange={(e) => setSellingPrice(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -232,7 +232,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={cogs}
+                        aria-label="Cost of Goods Sold" value={cogs}
                         onChange={(e) => setCogs(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -248,7 +248,7 @@ export const ToolsPage: React.FC = () => {
                         <label className="block text-[10px] font-mono text-white/50 mb-1">Referral (%)</label>
                         <input
                           type="number"
-                          value={referralPercent}
+                          aria-label="Referral Fee Percentage" value={referralPercent}
                           onChange={(e) => setReferralPercent(Number(e.target.value))}
                           className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#3FE0E0]"
                         />
@@ -257,7 +257,7 @@ export const ToolsPage: React.FC = () => {
                         <label className="block text-[10px] font-mono text-white/50 mb-1">Closing / Gateway (₹)</label>
                         <input
                           type="number"
-                          value={closingFee}
+                          aria-label="Closing Fee" value={closingFee}
                           onChange={(e) => setClosingFee(Number(e.target.value))}
                           className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#3FE0E0]"
                         />
@@ -266,7 +266,7 @@ export const ToolsPage: React.FC = () => {
                         <label className="block text-[10px] font-mono text-white/50 mb-1">Shipping & Packaging (₹)</label>
                         <input
                           type="number"
-                          value={shippingFee}
+                          aria-label="Shipping Fee" value={shippingFee}
                           onChange={(e) => setShippingFee(Number(e.target.value))}
                           className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#3FE0E0]"
                         />
@@ -280,7 +280,7 @@ export const ToolsPage: React.FC = () => {
                     </label>
                     <input
                       type="number"
-                      value={cpa}
+                      aria-label="Estimated Customer Acquisition Cost" value={cpa}
                       onChange={(e) => setCpa(Number(e.target.value))}
                       className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                     />
@@ -331,9 +331,9 @@ export const ToolsPage: React.FC = () => {
 
                   <div className="mt-6 text-[11px] font-mono text-white/50 bg-white/[0.02] p-3 rounded-xl border border-white/5">
                     {netMargin >= 20 ? (
-                      <span className="text-emerald-400">✓ Healthy unit economics. Ready for aggressive ad spend scaling.</span>
+                      <span className="inline-flex items-center gap-1.5 text-emerald-400"><CheckCircle2 className="w-3.5 h-3.5 shrink-0" /><span>Healthy unit economics. Ready for aggressive ad spend scaling.</span></span>
                     ) : (
-                      <span className="text-amber-400">⚠ Margin compressed. Recommend increasing AOV with bundles or reducing COGS.</span>
+                      <span className="inline-flex items-center gap-1.5 text-amber-400"><AlertCircle className="w-3.5 h-3.5 shrink-0" /><span>Margin compressed. Recommend increasing AOV with bundles or reducing COGS.</span></span>
                     )}
                   </div>
                 </div>
@@ -355,7 +355,7 @@ export const ToolsPage: React.FC = () => {
                     </label>
                     <input
                       type="number"
-                      value={adSpend}
+                      aria-label="Monthly Ad Spend" value={adSpend}
                       onChange={(e) => setAdSpend(Number(e.target.value))}
                       className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                     />
@@ -368,7 +368,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={roiCpa}
+                        aria-label="Average Cost per Acquisition" value={roiCpa}
                         onChange={(e) => setRoiCpa(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -379,7 +379,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={avgOrderValue}
+                        aria-label="Average Order Value" value={avgOrderValue}
                         onChange={(e) => setAvgOrderValue(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -449,7 +449,7 @@ export const ToolsPage: React.FC = () => {
                     </label>
                     <input
                       type="number"
-                      value={currentGmv}
+                      aria-label="Current Monthly GMV" value={currentGmv}
                       onChange={(e) => setCurrentGmv(Number(e.target.value))}
                       className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                     />
@@ -462,7 +462,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={targetGrowth}
+                        aria-label="Target Growth Rate" value={targetGrowth}
                         onChange={(e) => setTargetGrowth(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -473,7 +473,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={profitMargin}
+                        aria-label="Target Profit Margin" value={profitMargin}
                         onChange={(e) => setProfitMargin(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -531,7 +531,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={ltvAov}
+                        aria-label="Average Order Value for LTV" value={ltvAov}
                         onChange={(e) => setLtvAov(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -543,7 +543,7 @@ export const ToolsPage: React.FC = () => {
                       <input
                         type="number"
                         step="0.1"
-                        value={purchaseFrequency}
+                        aria-label="Annual Purchase Frequency" value={purchaseFrequency}
                         onChange={(e) => setPurchaseFrequency(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -558,7 +558,7 @@ export const ToolsPage: React.FC = () => {
                       <input
                         type="number"
                         step="0.5"
-                        value={retentionYears}
+                        aria-label="Customer Retention Span Years" value={retentionYears}
                         onChange={(e) => setRetentionYears(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -569,7 +569,7 @@ export const ToolsPage: React.FC = () => {
                       </label>
                       <input
                         type="number"
-                        value={acquisitionCost}
+                        aria-label="Target Acquisition Cost" value={acquisitionCost}
                         onChange={(e) => setAcquisitionCost(Number(e.target.value))}
                         className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/15 text-white font-mono text-sm focus:outline-none focus:border-[#3FE0E0]"
                       />
@@ -602,9 +602,9 @@ export const ToolsPage: React.FC = () => {
 
                     <div className="mt-6 p-4 rounded-2xl bg-white/5 border border-white/10 text-xs font-mono text-center">
                       {Number(ltvCacRatio) >= 3 ? (
-                        <span className="text-emerald-400">✓ Healthy unit economics (&ge; 3:1). High reinvestment efficiency.</span>
+                        <span className="inline-flex items-center gap-1.5 text-emerald-400"><CheckCircle2 className="w-3.5 h-3.5 shrink-0" /><span>Healthy unit economics (&ge; 3:1). High reinvestment efficiency.</span></span>
                       ) : (
-                        <span className="text-amber-400">⚠ Ratio is tight (&lt; 3:1). Recommend improving repeat orders or lowering CAC.</span>
+                        <span className="inline-flex items-center gap-1.5 text-amber-400"><AlertCircle className="w-3.5 h-3.5 shrink-0" /><span>Ratio is tight (&lt; 3:1). Recommend improving repeat orders or lowering CAC.</span></span>
                       )}
                     </div>
                   </div>
@@ -632,7 +632,7 @@ export const ToolsPage: React.FC = () => {
                     <input
                       type="email"
                       required
-                      placeholder="work@company.com"
+                      aria-label="Work Email Address" placeholder="work@company.com"
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
                       className="flex-1 px-4 py-3 rounded-full bg-white/[0.05] border border-white/15 text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
@@ -640,7 +640,7 @@ export const ToolsPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={emailLoading}
-                      className="px-6 py-3 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
+                      className="cursor-pointer px-6 py-3 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all disabled:opacity-50"
                     >
                       {emailLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                       <span>Send Strategy Copy</span>

@@ -11,8 +11,15 @@ export const WhoWeArePage: React.FC = () => {
         description="Meet the engineers, growth strategists, and performance architects scaling high-ticket and D2C brands at Qala Labs."
         image="/assets/og/og-about.jpg"
         url="/about"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'AboutPage',
+          name: 'Who We Are | Qala Labs',
+          description: 'Meet the engineers, growth strategists, and performance architects scaling high-ticket and D2C brands at Qala Labs.',
+          url: 'https://qalalabs.com/about',
+        }}
       />
-      <AboutUsSection />
+      <AboutUsSection titleAs="h1" />
     </PageLayout>
   );
 };

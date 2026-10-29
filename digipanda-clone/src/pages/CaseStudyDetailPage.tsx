@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
@@ -12,6 +13,13 @@ export const CaseStudyDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title={`${study.title} • ${study.subtitle}`}
+        description={`${study.title} case study: ${study.result}. ${study.challenge.slice(0, 100)}`}
+        image={study.thumb}
+        url={`/case-studies/${study.slug}`}
+        type="article"
+      />
       {/* Hero */}
       <section className="relative pt-40 pb-20 bg-transparent border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.15),rgba(255,255,255,0))] pointer-events-none" />

@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React, { useState } from 'react';
 import {
   Briefcase,
@@ -122,6 +123,12 @@ export const CareersPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title="Careers • Build The Future Of Creative Intelligence"
+        description="Join Qala Labs as an AI systems engineer, performance architect, or creative technologist. View open roles across engineering, creative, and growth."
+        image="/assets/og/og-careers.jpg"
+        url="/careers"
+      />
       {/* 1. Hero Section */}
       <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
         {/* Subtle cybernetic glow */}
@@ -303,7 +310,7 @@ export const CareersPage: React.FC = () => {
                   <div className="flex items-center gap-3 shrink-0">
                     <button
                       onClick={() => handleOpenApply(role)}
-                      className="px-6 py-3 rounded-full text-xs font-bold bg-white/10 hover:bg-[#3FE0E0] hover:text-black text-white transition-all flex items-center gap-2 border border-white/10"
+                      className="cursor-pointer px-6 py-3 rounded-full text-xs font-bold bg-white/10 hover:bg-[#3FE0E0] hover:text-black text-white transition-all flex items-center gap-2 border border-white/10"
                     >
                       <span>Role Details & Apply</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -325,7 +332,7 @@ export const CareersPage: React.FC = () => {
                 setActiveRoleModal(null);
                 handleOpenApply();
               }}
-              className="px-8 py-3 rounded-full text-sm font-bold bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 shadow-lg transition-all inline-flex items-center gap-2"
+              className="cursor-pointer px-8 py-3 rounded-full text-sm font-bold bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 shadow-lg transition-all inline-flex items-center gap-2"
             >
               <span>Pitch Your Craft</span>
               <Send className="w-4 h-4" />
@@ -450,8 +457,10 @@ export const CareersPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-white/60 mb-1.5">Full Name *</label>
+                      <label htmlFor="applicant-name" className="block text-xs font-mono text-white/60 mb-1.5">Full Name *</label>
                       <input
+                        id="applicant-name"
+                        aria-label="Full Name"
                         type="text"
                         required
                         placeholder="Ada Lovelace"
@@ -462,8 +471,10 @@ export const CareersPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-white/60 mb-1.5">Email Address *</label>
+                      <label htmlFor="applicant-email" className="block text-xs font-mono text-white/60 mb-1.5">Email Address *</label>
                       <input
+                        id="applicant-email"
+                        aria-label="Email Address"
                         type="email"
                         required
                         placeholder="ada@domain.com"
@@ -476,8 +487,10 @@ export const CareersPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-white/60 mb-1.5">Phone Number (with Country Code) *</label>
+                      <label htmlFor="applicant-phone" className="block text-xs font-mono text-white/60 mb-1.5">Phone Number (with Country Code) *</label>
                       <input
+                        id="applicant-phone"
+                        aria-label="Phone Number"
                         type="tel"
                         required
                         placeholder="+44 7123 456789 or +91 98765 43210"
@@ -488,8 +501,10 @@ export const CareersPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-white/60 mb-1.5">Portfolio / GitHub / LinkedIn *</label>
+                      <label htmlFor="portfolio-link" className="block text-xs font-mono text-white/60 mb-1.5">Portfolio / GitHub / LinkedIn *</label>
                       <input
+                        id="portfolio-link"
+                        aria-label="Portfolio, GitHub, or LinkedIn URL"
                         type="text"
                         required
                         placeholder="https://github.com/... or https://readcv.com/..."
@@ -501,10 +516,12 @@ export const CareersPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">
+                    <label htmlFor="cover-note" className="block text-xs font-mono text-white/60 mb-1.5">
                       Why Qala Labs & Proof of Work *
                     </label>
                     <textarea
+                      id="cover-note"
+                      aria-label="Why Qala Labs and Proof of Work"
                       rows={4}
                       required
                       placeholder="Tell us about the hardest technical or creative problem you solved, or why you want to collaborate with our team..."
@@ -525,7 +542,7 @@ export const CareersPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
+                      className="cursor-pointer inline-flex items-center gap-2 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
                     >
                       {loading ? (
                         <>

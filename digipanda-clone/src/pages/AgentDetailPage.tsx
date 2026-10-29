@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, Cpu, Wrench, Plug } from 'lucide-react';
@@ -14,6 +15,21 @@ export const AgentDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title={`${agent.name} • Autonomous Agent Architecture`}
+        description={agent.whatItDoes.slice(0, 155)}
+        image="/assets/og/og-services.jpg"
+        url={`/agents/${agent.slug}`}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: agent.name,
+          applicationCategory: 'BusinessApplication',
+          description: agent.whatItDoes,
+          url: `https://qalalabs.com/agents/${agent.slug}`,
+          operatingSystem: 'Cloud Run / Linux',
+        }}
+      />
       <section className="relative pt-40 pb-16 bg-transparent overflow-hidden">
         <div
           className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none"

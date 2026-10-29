@@ -210,7 +210,7 @@ export const WhyDifferentSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSplitPos(15)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                className={`cursor-pointer px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos < 35
                     ? 'bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/50 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
                     : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
@@ -221,7 +221,7 @@ export const WhyDifferentSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSplitPos(50)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                className={`cursor-pointer px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos >= 35 && splitPos <= 65
                     ? 'bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.2)]'
                     : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
@@ -232,7 +232,7 @@ export const WhyDifferentSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSplitPos(85)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                className={`cursor-pointer px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   splitPos > 65
                     ? 'bg-sky-500/20 text-sky-700 dark:text-[#3FE0E0] border border-sky-500/50 dark:border-[#3FE0E0]/50 shadow-[0_0_15px_rgba(63,224,224,0.25)]'
                     : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 border border-slate-200 dark:border-white/10 hover:bg-slate-200/70 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'

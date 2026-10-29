@@ -167,7 +167,12 @@ const qalaPillars = [
   },
 ];
 
-export const ServicesSection: React.FC = () => {
+export interface ServicesSectionProps {
+  titleAs?: 'h1' | 'h2';
+}
+
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ titleAs = 'h2' }) => {
+  const TitleTag = titleAs;
   const [activeCapId, setActiveCapId] = useState<string>('ai-creative');
 
   const activeCap =
@@ -184,9 +189,9 @@ export const ServicesSection: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-[#3FE0E0] animate-blink" />
             Full-Stack Growth & Engineering
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-tight mb-4">
+          <TitleTag className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-tight mb-4">
             The Power We Deliver
-          </h2>
+          </TitleTag>
           <p className="text-white/70 text-base md:text-lg">
             From creative storytelling to high-performance engineering — one dedicated growth partner uniting art and technology to scale category leaders.
           </p>
@@ -394,10 +399,10 @@ export const ServicesSection: React.FC = () => {
                       {/* Deliverable Metrics Badges */}
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-[#3FE0E0]/40 bg-[#3FE0E0]/15 text-[#3FE0E0] text-xs font-bold shadow-sm">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white/70 text-xs font-mono">
                           Render: 1.2s • 4K Raster
@@ -442,10 +447,10 @@ export const ServicesSection: React.FC = () => {
 
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-[#4F46E5]/40 bg-[#4F46E5]/20 text-[#818cf8] text-xs font-bold">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                       </div>
                     </div>
@@ -490,7 +495,7 @@ export const ServicesSection: React.FC = () => {
                           </div>
 
                           <div className="relative flex items-center justify-between p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                            <span className="absolute -left-6 w-4 h-4 rounded-full bg-[#34D399] flex items-center justify-center text-[9px] text-black font-bold">✓</span>
+                            <span className="absolute -left-6 w-4 h-4 rounded-full bg-[#34D399] flex items-center justify-center"><Check className="w-2.5 h-2.5 text-black stroke-[3]" /></span>
                             <div>
                               <div className="text-xs font-bold text-emerald-300">Closed Bookings (72h Cycle)</div>
                               <div className="text-[11px] text-white/70">₹14L revenue generated</div>
@@ -502,10 +507,10 @@ export const ServicesSection: React.FC = () => {
 
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-[#34D399]/40 bg-[#34D399]/15 text-[#34D399] text-xs font-bold">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white/70 text-xs font-mono">
                           Cycle: Reduced from 21d to 72h
@@ -550,10 +555,10 @@ export const ServicesSection: React.FC = () => {
 
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-amber-500/40 bg-amber-500/15 text-amber-400 text-xs font-bold">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                       </div>
                     </div>
@@ -603,10 +608,10 @@ export const ServicesSection: React.FC = () => {
 
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-purple-500/40 bg-purple-500/20 text-purple-300 text-xs font-bold">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                       </div>
                     </div>
@@ -657,10 +662,10 @@ export const ServicesSection: React.FC = () => {
 
                       <div className="flex flex-wrap justify-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full border border-[#3FE0E0]/40 bg-[#3FE0E0]/15 text-[#3FE0E0] text-xs font-bold">
-                          ✓ {activeCap.badge1}
+                          <Check className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge1}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/20 bg-white/5 text-white text-xs font-bold">
-                          ⚡ {activeCap.badge2}
+                          <Zap className="w-3.5 h-3.5 inline mr-1" />{activeCap.badge2}
                         </span>
                       </div>
                     </div>
@@ -716,7 +721,7 @@ export const ServicesSection: React.FC = () => {
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-white/10 bg-white/[0.03] text-white/80 hover:border-[#3FE0E0] hover:text-[#3FE0E0] transition-colors cursor-pointer"
                     >
                       {pill}
-                      <img src="/assets/process-arrow.svg" alt="" className="w-2.5 h-2.5 -rotate-90 opacity-60" />
+                      <img src="/assets/process-arrow.svg" alt="Arrow indicator" aria-hidden="true" loading="lazy" className="w-2.5 h-2.5 -rotate-90 opacity-60" />
                     </span>
                   ))}
                 </div>

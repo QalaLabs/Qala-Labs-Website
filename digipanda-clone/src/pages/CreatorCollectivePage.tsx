@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React, { useState } from 'react';
 import {
   Sparkles,
@@ -111,6 +112,12 @@ export const CreatorCollectivePage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title="Creator Collective • Turn Creative Craft Into High-Ticket Equity"
+        description="Join our invite-only creator syndicate. Co-produce viral UGC, 3D motion CGI, and AI-assisted campaigns for top-tier brands."
+        image="/assets/og/og-creator.jpg"
+        url="/creator-collective"
+      />
       {/* 1. Hero Section */}
       <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#3FE0E0]/15 via-[#4F46E5]/10 to-transparent blur-[140px] pointer-events-none" />
@@ -351,8 +358,10 @@ export const CreatorCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Your Full Name *</label>
+                    <label htmlFor="creator-name" className="block text-xs font-mono text-white/60 mb-1.5">Your Full Name *</label>
                     <input
+                      id="creator-name"
+                      aria-label="Your Full Name"
                       type="text"
                       required
                       placeholder="e.g. Liam Vance"
@@ -362,8 +371,10 @@ export const CreatorCollectivePage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Creator Handle / Moniker *</label>
+                    <label htmlFor="creator-handle" className="block text-xs font-mono text-white/60 mb-1.5">Creator Handle / Moniker *</label>
                     <input
+                      id="creator-handle"
+                      aria-label="Creator Handle or Moniker"
                       type="text"
                       required
                       placeholder="@liam.visuals"
@@ -376,8 +387,10 @@ export const CreatorCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Email Address *</label>
+                    <label htmlFor="creator-email" className="block text-xs font-mono text-white/60 mb-1.5">Email Address *</label>
                     <input
+                      id="creator-email"
+                      aria-label="Email Address"
                       type="email"
                       required
                       placeholder="liam@creator.io"
@@ -387,8 +400,10 @@ export const CreatorCollectivePage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Phone Number (with Country Code) *</label>
+                    <label htmlFor="creator-phone" className="block text-xs font-mono text-white/60 mb-1.5">Phone Number (with Country Code) *</label>
                     <input
+                      id="creator-phone"
+                      aria-label="Phone Number"
                       type="tel"
                       required
                       placeholder="+44 7911 123456 or +91 98765 43210"
@@ -401,8 +416,10 @@ export const CreatorCollectivePage: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Primary Discipline *</label>
+                    <label htmlFor="creator-discipline" className="block text-xs font-mono text-white/60 mb-1.5">Primary Discipline *</label>
                     <select
+                      id="creator-discipline"
+                      aria-label="Primary Discipline"
                       value={discipline}
                       onChange={(e) => setDiscipline(e.target.value)}
                       className="w-full px-4 py-3 bg-[#0B0C16] border border-white/20 rounded-xl text-sm text-white focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -416,8 +433,10 @@ export const CreatorCollectivePage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-white/60 mb-1.5">Audience Reach / Volume *</label>
+                    <label htmlFor="creator-reach" className="block text-xs font-mono text-white/60 mb-1.5">Audience Reach / Volume *</label>
                     <select
+                      id="creator-reach"
+                      aria-label="Audience Reach Volume"
                       value={audienceReach}
                       onChange={(e) => setAudienceReach(e.target.value)}
                       className="w-full px-4 py-3 bg-[#0B0C16] border border-white/20 rounded-xl text-sm text-white focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -432,10 +451,12 @@ export const CreatorCollectivePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-white/60 mb-1.5">
+                  <label htmlFor="creator-links" className="block text-xs font-mono text-white/60 mb-1.5">
                     Portfolio / Social Links (TikTok, Instagram, YouTube, Behance, GitHub) *
                   </label>
                   <input
+                    id="creator-links"
+                    aria-label="Portfolio or Social Links"
                     type="text"
                     required
                     placeholder="https://instagram.com/... or https://tiktok.com/@..."
@@ -446,10 +467,12 @@ export const CreatorCollectivePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-white/60 mb-1.5">
+                  <label htmlFor="creator-style" className="block text-xs font-mono text-white/60 mb-1.5">
                     Your Signature Style & Top Performing Piece *
                   </label>
                   <textarea
+                    id="creator-style"
+                    aria-label="Your Signature Style & Top Performing Piece"
                     rows={4}
                     required
                     placeholder="Describe your creative edge, what tools you love, or links to your favorite 2-3 videos or visual assets..."
@@ -470,7 +493,7 @@ export const CreatorCollectivePage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
+                    className="cursor-pointer inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-xl hover:scale-105"
                   >
                     {loading ? (
                       <>

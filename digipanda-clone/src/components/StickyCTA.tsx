@@ -124,7 +124,7 @@ export const StickyCTA: React.FC = () => {
                       key={opt}
                       type="button"
                       onClick={() => setTargetScale(opt)}
-                      className={`py-2 px-1 text-xs rounded-xl font-bold font-mono transition-all border ${
+                      className={`cursor-pointer py-2 px-1 text-xs rounded-xl font-bold font-mono transition-all border ${
                         targetScale === opt
                           ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-[0_0_15px_rgba(63,224,224,0.4)]'
                           : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30'
@@ -139,7 +139,7 @@ export const StickyCTA: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
-                  placeholder="Your Name (Optional)"
+                  aria-label="Your Name (Optional)" placeholder="Your Name (Optional)"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
@@ -147,7 +147,7 @@ export const StickyCTA: React.FC = () => {
                 <input
                   type="tel"
                   required
-                  placeholder="Phone / WhatsApp Number *"
+                  aria-label="Phone or WhatsApp Number" placeholder="Phone / WhatsApp Number *"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
@@ -157,7 +157,7 @@ export const StickyCTA: React.FC = () => {
               <input
                 type="email"
                 required
-                placeholder="Business Email Address *"
+                aria-label="Business Email Address" placeholder="Business Email Address *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
@@ -167,7 +167,7 @@ export const StickyCTA: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all"
+                  className="cursor-pointer flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all"
                 >
                   {loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -209,7 +209,8 @@ export const StickyCTA: React.FC = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-slate-950 hover:text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
+          aria-expanded={isOpen}
+          className="cursor-pointer flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-slate-950 hover:text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
         >
           <span>Request Growth Plan</span>
           {isOpen ? (

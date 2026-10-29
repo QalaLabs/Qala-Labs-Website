@@ -160,7 +160,118 @@ export const caseStudies: CaseStudy[] = [
       { label: 'Streaming saves', value: '42,000+ Spotify saves' },
     ],
   },
-
+  {
+    slug: 'district-movies-transit',
+    title: 'District Movies (Zomato)',
+    subtitle: 'Hyperlocal Mumbai Transit Saturation & Scan-to-Book Funnel',
+    result: '9 Mumbai Clusters • 6 Station Hubs',
+    thumb: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&q=80&w=1200',
+    category: 'Transit & OOH Growth',
+    challenge:
+      'District (by Zomato) needed to scale theatre movie-ticket bookings across Mumbai. While digital influencer campaigns drove curiosity, commuters lacked high-frequency physical touchpoints at daily transit choke points to trigger immediate ticket reservations.',
+    approach: [
+      'Mapped 9 high-density commuter clusters across Mumbai: Malad, Vasai, Borivali, Kalyan, Thane, Navi Mumbai, Andheri, and airport arterial routes',
+      'Orchestrated auto-rickshaw fleet saturation combined with commuter domination across 6 major railway station nodes',
+      'Integrated scan-to-book QR codes on all physical assets, routing directly into localized District app theatre listings with exclusive ticket offers',
+    ],
+    results: [
+      { label: 'Geographic saturation', value: '9 high-density Mumbai clusters' },
+      { label: 'Commuter nodes', value: '6 major railway hubs dominated' },
+      { label: 'Booking friction', value: 'Instant QR routing to nearest 2-3 theatres' },
+    ],
+    testimonial: {
+      quote:
+        'Qala Labs bridged our digital influencer campaign with unavoidable physical daily frequency across Mumbai. Combining auto-rickshaw saturation with railway node branding and QR booking routes gave District cinema bookings massive local lift.',
+      name: 'Soumya',
+      role: 'Growth & Marketing Lead, District (Zomato)',
+    },
+  },
+  {
+    slug: 'ranfort-wellness-audit',
+    title: 'Ranfort Wellness (Vedique)',
+    subtitle: '246-URL Full-Stack Ecosystem Audit & Regulatory De-Risking',
+    result: '246 URLs Audited • 5 Funnel 404s Resolved',
+    thumb: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200',
+    category: 'Technical Audit & Growth',
+    challenge:
+      'Ranfort Wellness operated across three fragmented domains (drshikhasharma.com, vedique.life, ranfortwellness.com) with 246 URLs plagued by broken funnel links (404s on high-intent blog traffic), 830KB payload bloat, and regulatory exposure under ASCI and Magic Remedies regulations in active ad campaigns.',
+    approach: [
+      'Executed an automated Python agent-reach crawl across all 246 URLs, uncovering HTTP errors, header caching defects, heading hierarchy breaks (4 H1s per post), and missing OpenGraph metadata',
+      'Synthesized 438 multi-platform app reviews to pinpoint client attrition factors: billing opacity, response latency, and onboarding bottlenecks',
+      'Restructured Meta and Google ad messaging away from high-risk medical disease claims into ASCI-compliant dietary lifestyle propositions, fixing expired festive offers and fragmented landing domains',
+    ],
+    results: [
+      { label: 'Technical crawl depth', value: '246 URLs across 3 brand domains' },
+      { label: 'Funnel leaks patched', value: '5 critical 404 cross-domain routes' },
+      { label: 'Regulatory de-risking', value: '100% ASCI & Magic Remedies alignment' },
+    ],
+  },
+  {
+    slug: 'mizuno-india-launch',
+    title: 'Mizuno India',
+    subtitle: 'Commercial Production Shoot & 10-Week Pre-Launch Runway',
+    result: '2-Day Shoot • 5 Creative Themes',
+    thumb: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=1200',
+    category: 'Production & Shoots',
+    challenge:
+      'Mizuno needed to enter the competitive Indian sports performance footwear market timed with the World Badminton Championship in New Delhi. They required an authentic narrative grounded in Japanese craftsmanship without resorting to generic lifestyle clichés.',
+    approach: [
+      'Developed a 10-week pre-launch influencer runway structured around 5 creative themes: "Made in Silence", "Delhi Before the Arena", "The 1%", "The Coach Knows", and "First Blood"',
+      'Directed a 2-day multi-location commercial production shoot in New Delhi across elite competition indoor courts and golden-hour outdoor training parks',
+      'Captured cinema-grade athletic motion sequences, product engineering macro sequences, and unscripted coach testimonials for D2C e-commerce launch',
+    ],
+    results: [
+      { label: 'Commercial shoot scope', value: '2-day multi-location 4K cinema capture' },
+      { label: 'Creative themes', value: '5 distinct narrative blocks produced' },
+      { label: 'Market runway', value: '10-week pre-launch athlete & coach campaign' },
+    ],
+    testimonial: {
+      quote:
+        "Qala Labs didn't just produce videos; they built an entire cinematic world around Mizuno's Japanese craft and Indian athletic grit. The 5 creative themes resonated deeply with academy coaches and elite athletes alike.",
+      name: 'Karan Singhal',
+      role: 'Country Marketing Director, Mizuno India',
+    },
+  },
+  {
+    slug: 'better-eats-whatsapp-funnel',
+    title: 'Better Eats',
+    subtitle: 'Click-to-WhatsApp Conversational Funnel & Attribution Engine',
+    result: '100% Attributed Orders • Sub-2-Min Turnaround',
+    thumb: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1200',
+    category: 'Meta Lead Gen',
+    challenge:
+      'Better Eats faced high drop-off rates on mobile web checkouts where hungry customers abandoned food orders midway through multi-step forms. They needed a zero-friction conversational ordering experience directly inside WhatsApp.',
+    approach: [
+      'Built high-intent Instagram and Facebook ad campaigns with Click-to-WhatsApp deep links opening dynamic pre-populated order chats',
+      'Configured the WhatsApp Business catalog, interactive menu browsing, instant greetings, and quick-reply decision trees',
+      'Engineered standard operating operator scripts for address verification, automatic delivery charge calculation, and monthly attributed revenue tracking',
+    ],
+    results: [
+      { label: 'Order attribution', value: '100% verified from ad click to delivery' },
+      { label: 'Confirmation speed', value: '< 2 minutes per WhatsApp order' },
+      { label: 'Form abandonment', value: 'Eliminated via conversational cart drawer' },
+    ],
+  },
+  {
+    slug: 'nectar-loyalty-engine',
+    title: 'Nectar Loyalty Engine',
+    subtitle: 'High-Concurrency Dual-Currency Progression Architecture',
+    result: 'Dual-Currency • 7-Stage Security Pipeline',
+    thumb: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=1200',
+    category: 'Web App & Architecture',
+    challenge:
+      'High-volume merchandise brands need customer retention without bleeding margin through unconstrained discount stacking. Nectar required a loyalty system that separated spendable currency from lifetime VIP status while strictly defending unit economics and preventing API abuse during high-traffic drops.',
+    approach: [
+      'Architected a dual-currency engine: Nectar Points (spendable at 1 Pt = ₹1) and Nectar XP (lifetime progression score unlocking 5 VIP tiers: Rookie, Pro, Legend, Creators, Talent) with an automated 50% XP mirroring rule',
+      'Implemented a 10% maximum order value spend cap rule to ensure every transaction preserves positive margin over base product costs and fulfillment',
+      'Built a strict 7-stage server-side validation pipeline on Google Cloud Run: Identity verification, 20 req/min rate limiting, lifetime usage caps, tier multiplier validation, and tamper-proof ledger updates',
+    ],
+    results: [
+      { label: 'VIP progression', value: '5 tiers with dynamic 5 pts/₹100 earn rate' },
+      { label: 'Margin defense', value: '10% strict order spend limit guardrail' },
+      { label: 'API security', value: '7-stage validation pipeline on Cloud Run' },
+    ],
+  },
 ];
 
 export const getCaseStudyBySlug = (slug?: string) =>

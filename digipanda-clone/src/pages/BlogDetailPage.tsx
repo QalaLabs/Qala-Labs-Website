@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import {
@@ -40,6 +41,35 @@ export const BlogDetailPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        image={post.coverImage}
+        url={`/blog/${post.slug}`}
+        type="article"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          image: post.coverImage.startsWith('http') ? post.coverImage : `https://qalalabs.com${post.coverImage}`,
+          datePublished: post.publishedAt,
+          author: {
+            '@type': 'Person',
+            name: post.author.name,
+            jobTitle: post.author.role,
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Qala Labs',
+            url: 'https://qalalabs.com',
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://qalalabs.com/blog/${post.slug}`,
+          },
+        }}
+      />
       <article className="relative pt-36 pb-24 bg-[#06070D] overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
           {/* Back to Blog */}
@@ -90,8 +120,7 @@ export const BlogDetailPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleShare}
-                className="p-2.5 rounded-full bg-white/[0.04] border border-white/10 text-white/70 hover:text-white hover:border-[#3FE0E0]/50 transition-all flex items-center gap-2 text-xs"
-                title="Share article"
+                title="Share article" aria-label="Share article" className="cursor-pointer p-2.5 rounded-full bg-white/[0.04] border border-white/10 text-white/70 hover:text-white hover:border-[#3FE0E0]/50 transition-all flex items-center gap-2 text-xs"
               >
                 <Share2 className="w-4 h-4 text-[#3FE0E0]" />
                 <span className="hidden sm:inline">Share</span>

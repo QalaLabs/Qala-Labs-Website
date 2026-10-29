@@ -155,10 +155,12 @@ export const services: ServiceItem[] = [
       'Custom CRM/proptech web portals (Capital Keys, 64.7% conversion)',
       'High-performance MySQL/PostgreSQL-backed data layers with secure access controls',
       'Performance-tuned builds (SSR, code-splitting) engineered for Core Web Vitals',
+      'Dual-currency loyalty and gamification progression engines with 7-stage security pipelines (Nectar)',
     ],
     proof: [
       { type: 'case-study', slug: 'gaffar-india', label: 'Gaffar India — multi-vendor marketplace engine' },
       { type: 'case-study', slug: 'capital-keys', label: 'Capital Keys — proptech CRM web portal' },
+      { type: 'case-study', slug: 'nectar-loyalty-engine', label: 'Nectar Loyalty Engine — dual-currency Cloud Run API' },
     ],
   },
   {
@@ -203,13 +205,18 @@ export const services: ServiceItem[] = [
     description:
       'Every performance campaign we run is built around one number: contribution margin, not vanity reach. That discipline is what took Trotr to 28x ROAS on a single high-ticket funnel and Amazon Ads scaling to 11.2x ROAS with a 47% lower ACOS — real profit outcomes, tracked with server-side attribution so the numbers hold up under scrutiny.',
     deliverables: [
+      'District Movies (Zomato): 9 Mumbai clusters saturated via auto-rickshaw fleet and 6 railway nodes with scan-to-book QR funnels',
+      'Better Eats: Click-to-WhatsApp conversational order funnels with 100% attributed sales',
+      'Ranfort Wellness: 246-URL ecosystem audit, ASCI regulatory de-risking, and ad account restructure',
       'Trotr: 28x ROAS, ₹14L revenue on a founder-led high-ticket funnel',
       'Amazon Ads scaling: 11.2x ROAS, 47% lower ACOS',
       'Nutrivend UK: 45 enterprise leads, 71% untapped market identified via B2B audience engineering',
-      'D2C BNPL payment-architecture optimization: 15–30% conversion uplift',
       'Server-side conversion tracking (Meta CAPI, GA4) so attribution survives iOS/ad-blocker signal loss',
     ],
     proof: [
+      { type: 'case-study', slug: 'district-movies-transit', label: 'District Movies (Zomato) — Mumbai Transit Activation' },
+      { type: 'case-study', slug: 'better-eats-whatsapp-funnel', label: 'Better Eats — Click-to-WhatsApp order funnel' },
+      { type: 'case-study', slug: 'ranfort-wellness-audit', label: 'Ranfort Wellness — 246-URL audit & ad restructure' },
       { type: 'case-study', slug: 'trotr-spain-pivot', label: 'Trotr: Spain Pivot — 28x ROAS' },
       { type: 'case-study', slug: 'amazon-ads-scaling', label: 'Amazon Ads Scaling — 11.2x ROAS' },
       { type: 'case-study', slug: 'nutrivend-uk', label: 'Nutrivend UK — 45 enterprise leads' },
@@ -227,6 +234,10 @@ export const services: ServiceItem[] = [
       'AEO: content structured to win featured snippets and AI Overview placements',
       'GEO: content and schema built to be cited correctly by AI answer engines',
       'Global areaServed and multi-region schema expansion (proven on Airborne Aviation Academy)',
+      'Multi-domain crawl & architectural restructuring (proven on Ranfort Wellness 246-URL ecosystem)',
+    ],
+    proof: [
+      { type: 'case-study', slug: 'ranfort-wellness-audit', label: 'Ranfort Wellness — 246-URL ecosystem audit' },
     ],
   },
   {
@@ -237,12 +248,14 @@ export const services: ServiceItem[] = [
     description:
       "Some of our best social results cost nothing in ad spend — The Kashmiri Sound Movement label launch hit 3.4M+ organic views on zero paid budget. Where we do run paid social, like the CSK influencer/UGC program, we hold ourselves to the same bar: 5M+ reach and 12% engagement, not just impressions.",
     deliverables: [
+      'Mizuno India: 10-week pre-launch athlete runway & 5 creative themes for BWC Delhi launch',
       'CSK influencer & UGC program: 5M+ reach, 12% engagement',
       'The Kashmiri Sound Movement: 3.4M+ organic views, zero ad spend',
       'Creator/UGC funnel design and management end to end',
       'Community loyalty and lifecycle programs layered on top of acquisition',
     ],
     proof: [
+      { type: 'case-study', slug: 'mizuno-india-launch', label: 'Mizuno India — BWC Delhi launch runway' },
       { type: 'case-study', slug: 'kashmiri-sound-movement', label: 'The Kashmiri Sound Movement — 3.4M+ organic views' },
     ],
   },

@@ -1,9 +1,15 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { PageLayout } from './PageLayout';
 
 export const PrivacyPolicyPage: React.FC = () => {
   return (
     <PageLayout>
+      <SEO
+        title="Privacy Policy"
+        description="Review how Qala Labs collects, uses, and protects personal data and client information across our platform and digital services."
+        url="/privacy-policy"
+      />
       <div className="pt-36 pb-20 container mx-auto px-4 lg:px-8 max-w-4xl">
         <div className="border-b border-white/10 pb-8 mb-10">
           <span className="text-xs font-mono text-[#3FE0E0] uppercase tracking-widest block mb-2">Legal Documentation</span>

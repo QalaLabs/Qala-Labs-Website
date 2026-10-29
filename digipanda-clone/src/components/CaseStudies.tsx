@@ -134,14 +134,14 @@ export const CaseStudies: React.FC = () => {
             <button
               onClick={prevSlide}
               aria-label="Previous work item"
-              className="w-12 h-12 rounded-full border border-white/20 bg-[#06070D]/80 hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
+              className="cursor-pointer w-12 h-12 rounded-full border border-white/20 bg-[#06070D]/80 hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextSlide}
               aria-label="Next work item"
-              className="w-12 h-12 rounded-full border border-white/20 bg-[#06070D]/80 hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
+              className="cursor-pointer w-12 h-12 rounded-full border border-white/20 bg-[#06070D]/80 hover:bg-[#3FE0E0] text-white hover:text-black transition-colors flex items-center justify-center shadow-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -153,7 +153,7 @@ export const CaseStudies: React.FC = () => {
           <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-white/10">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`cursor-pointer px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 filter === 'all'
                   ? 'bg-[#3FE0E0] text-black shadow-md shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white'
@@ -163,7 +163,7 @@ export const CaseStudies: React.FC = () => {
             </button>
             <button
               onClick={() => setFilter('case-study')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`cursor-pointer px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 filter === 'case-study'
                   ? 'bg-[#3FE0E0] text-black shadow-md shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white'
@@ -173,7 +173,7 @@ export const CaseStudies: React.FC = () => {
             </button>
             <button
               onClick={() => setFilter('portfolio')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`cursor-pointer px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 filter === 'portfolio'
                   ? 'bg-[#3FE0E0] text-black shadow-md shadow-[#3FE0E0]/20'
                   : 'text-white/70 hover:text-white'

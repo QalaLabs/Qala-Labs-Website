@@ -176,7 +176,7 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
     // Visibility observer
     let animId: number;
     let isVisible = true;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const observer = new IntersectionObserver(([entry]) => {
       isVisible = entry.isIntersecting;
@@ -187,7 +187,7 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
       animId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const elapsed = clock.getElapsedTime();
+      const elapsed = (performance.now() - startTime) * 0.001;
 
       // 1. Organic wave displacement on Creative Mesh
       if (!prefersReducedMotion) {
@@ -288,7 +288,7 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
       <div className="flex items-center justify-between w-full px-4 sm:px-6 -mt-3 z-10 text-xs font-mono select-none">
         <button
           onClick={() => setActiveTab(activeTab === 'creative' ? 'both' : 'creative')}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
             activeTab === 'creative' || activeTab === 'both'
               ? 'text-purple-700 dark:text-purple-300 bg-purple-100/90 dark:bg-purple-950/60 border-purple-300 dark:border-purple-500/40 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.3)]'
               : 'text-slate-500 dark:text-white/40 bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10'
@@ -304,7 +304,7 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
 
         <button
           onClick={() => setActiveTab(activeTab === 'data' ? 'both' : 'data')}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
             activeTab === 'data' || activeTab === 'both'
               ? 'text-sky-700 dark:text-[#3FE0E0] bg-sky-100/90 dark:bg-[#06b6d4]/15 border-sky-300 dark:border-[#3FE0E0]/40 shadow-sm dark:shadow-[0_0_15px_rgba(63,224,224,0.3)]'
               : 'text-slate-500 dark:text-white/40 bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10'

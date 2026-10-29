@@ -11,9 +11,9 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  { label: '🤖 Explore MarksOps Agents', text: 'Tell me about MarksOps multi-agent automation systems.' },
-  { label: '📈 28x ROAS Funnels', text: 'How do you engineer high-converting B2B and D2C funnels?' },
-  { label: '🚀 Book Discovery Call', text: 'How do I start a project with Qala Labs?' },
+  { label: 'Explore MarksOps Agents', text: 'Tell me about MarksOps multi-agent automation systems.' },
+  { label: '28x ROAS Funnels', text: 'How do you engineer high-converting B2B and D2C funnels?' },
+  { label: 'Book Discovery Call', text: 'How do I start a project with Qala Labs?' },
 ];
 
 export const ChatbotToggle: React.FC = () => {
@@ -48,7 +48,7 @@ export const ChatbotToggle: React.FC = () => {
       {
         id: 'welcome-1',
         from: 'bot',
-        text: 'Welcome to Qala Labs! 👋 I am your autonomous growth and architecture assistant. How can we elevate your brand today?',
+        text: 'Welcome to Qala Labs! I am your autonomous growth and architecture assistant. How can we elevate your brand today?',
         timestamp: Date.now(),
       },
     ];
@@ -161,7 +161,7 @@ export const ChatbotToggle: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Qala Assistant"
-        className="relative group w-14 h-14 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 text-white shadow-[0_4px_25px_rgba(63,224,224,0.4)] flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 font-bold text-xl"
+        className="relative group w-14 h-14 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 text-white shadow-[0_4px_25px_rgba(63,224,224,0.4)] flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 font-bold text-xl cursor-pointer"
       >
         <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] opacity-40 blur group-hover:opacity-75 transition duration-300 animate-pulse" />
         <span className="relative z-10 flex items-center justify-center">
@@ -170,7 +170,7 @@ export const ChatbotToggle: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-3xl bg-[#090A15]/95 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col h-[480px] max-h-[calc(100vh-8rem)] animate-in fade-in slide-in-from-bottom-6 duration-300">
+        <div className="dark-dock absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-3xl bg-[#090A15]/95 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col h-[480px] max-h-[calc(100vh-8rem)] animate-in fade-in slide-in-from-bottom-6 duration-300">
           
           {/* Header */}
           <div className="bg-[#121324]/90 p-4 border-b border-white/10 flex items-center justify-between">
@@ -248,7 +248,7 @@ export const ChatbotToggle: React.FC = () => {
                 type="button"
                 disabled={isTyping}
                 onClick={() => handleSendText(qp.text)}
-                className="shrink-0 text-[10px] bg-white/[0.06] hover:bg-white/[0.12] disabled:opacity-50 text-white/80 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors whitespace-nowrap"
+                className="shrink-0 text-[10px] bg-white/[0.06] hover:bg-white/[0.12] disabled:opacity-50 text-white/80 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors whitespace-nowrap cursor-pointer"
               >
                 {qp.label}
               </button>
@@ -260,7 +260,7 @@ export const ChatbotToggle: React.FC = () => {
             <input
               type="text"
               disabled={isTyping}
-              placeholder={isTyping ? "Generating answer..." : "Type your inquiry..."}
+              aria-label="Type your inquiry" placeholder={isTyping ? "Generating answer..." : "Type your inquiry..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] disabled:opacity-50 transition-colors"
@@ -269,7 +269,7 @@ export const ChatbotToggle: React.FC = () => {
               type="submit"
               disabled={!input.trim() || isTyping}
               aria-label="Send message"
-              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] text-white flex items-center justify-center shrink-0 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100 transition-all shadow-md"
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] text-white flex items-center justify-center shrink-0 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100 transition-all shadow-md cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

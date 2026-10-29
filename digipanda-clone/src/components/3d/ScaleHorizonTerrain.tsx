@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface ScaleHorizonTerrainProps {
   className?: string;
@@ -254,7 +255,7 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
     // Animation Loop
     let animId: number;
     let isVisible = true;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const observer = new IntersectionObserver(([entry]) => {
       isVisible = entry.isIntersecting;
@@ -265,7 +266,7 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
       animId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const elapsed = clock.getElapsedTime();
+      const elapsed = (performance.now() - startTime) * 0.001;
       const currentScale = scaleRef.current;
 
       // Animate terrain vertices (advancing wave)
@@ -367,7 +368,7 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
               <button
                 key={m.label}
                 onClick={() => setScaleLevel(idx + 1)}
-                className={`p-3 rounded-xl text-left transition-all font-mono border ${
+                className={`p-3 rounded-xl text-left transition-all font-mono border cursor-pointer ${
                   isSelected
                     ? 'bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shadow-md ring-1'
                     : 'bg-slate-50/70 dark:bg-white/5 border-slate-200/80 dark:border-white/5 text-slate-600 dark:text-white/60 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
@@ -426,8 +427,9 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
           {/* Critical Drag & Deployed Systems Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
             <div className="p-3.5 rounded-xl bg-red-500/[0.06] border border-red-500/20">
-              <span className="font-mono text-[10px] text-red-600 dark:text-red-400 font-bold uppercase tracking-wider block mb-1">
-                ⚠ Critical Drag Solved At This Tier
+              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-red-600 dark:text-red-400 font-bold uppercase tracking-wider block mb-1">
+                <AlertTriangle className="w-3 h-3 text-red-500 shrink-0" />
+                <span>Critical Drag Solved At This Tier</span>
               </span>
               <p className="text-slate-800 dark:text-white/80 leading-relaxed">
                 {currentMilestone.dragSolved}
@@ -435,8 +437,9 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
             </div>
 
             <div className="p-3.5 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20">
-              <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block mb-1.5">
-                ✓ Mandatory Production Systems Deployed
+              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block mb-1.5">
+                <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />
+                <span>Mandatory Production Systems Deployed</span>
               </span>
               <ul className="space-y-1 text-slate-700 dark:text-white/70">
                 {currentMilestone.deployments.map((dep, dIdx) => (

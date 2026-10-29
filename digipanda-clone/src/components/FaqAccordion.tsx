@@ -64,7 +64,9 @@ export const FaqAccordion: React.FC = () => {
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full text-left py-5 px-6 md:px-8 flex items-center justify-between gap-4 focus:outline-none"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
+                  className="cursor-pointer w-full text-left py-5 px-6 md:px-8 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-2xl"
                 >
                   <span className="font-semibold text-base md:text-lg text-slate-900 dark:text-white">
                     {faq.q}
@@ -79,7 +81,7 @@ export const FaqAccordion: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 md:px-8 pb-6 pt-1 text-slate-600 dark:text-white/70 text-sm md:text-base leading-relaxed border-t border-slate-200/60 dark:border-white/5">
+                  <div id={`faq-answer-${idx}`} className="px-6 md:px-8 pb-6 pt-1 text-slate-600 dark:text-white/70 text-sm md:text-base leading-relaxed border-t border-slate-200/60 dark:border-white/5">
                     {faq.a}
                   </div>
                 )}

@@ -3,16 +3,20 @@ import { ArrowRight } from 'lucide-react';
 
 const clients = [
   { name: 'WWF India', role: 'AI Ad Creative System' },
-  { name: 'Airborne Aviation', role: 'Aviation Academy SEO & Web' },
+  { name: 'District (Zomato)', role: 'Mumbai Transit Saturation' },
+  { name: 'Ranfort Wellness', role: '3-Site Ecosystem Audit' },
+  { name: 'Mizuno India', role: 'Launch Production & Shoots' },
   { name: 'playR', role: '8 IPL Franchises Merch' },
   { name: 'Nutrivend UK', role: 'B2B Market Validation' },
+  { name: 'Better Eats', role: 'Click-to-WhatsApp Funnel' },
   { name: 'Trotr', role: '28x ROAS Travel Funnel' },
+  { name: 'Nectar Loyalty', role: 'Dual-Currency Engine' },
   { name: 'Gaffar India', role: 'Multi-Vendor Marketplace' },
-  { name: 'WPBL', role: 'Sports League Fan Hub & Merch' },
   { name: 'Capital Keys', role: 'Real Estate Platform' },
+  { name: 'Airborne Aviation', role: 'Aviation Academy SEO & Web' },
   { name: 'Mystic Studio 8', role: '3.4M+ Kashmiri Sound Views' },
+  { name: 'WPBL', role: 'Sports League Fan Hub & Merch' },
   { name: 'Amazon Ads', role: '11.2x ROAS Scaling' },
-  { name: 'Mizuno India', role: 'Launch Production & Shoots' },
 ];
 
 export const ClientsGrid: React.FC = () => {
@@ -50,7 +54,7 @@ export const ClientsGrid: React.FC = () => {
             <a
               href="#case-studies"
               className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white hover:bg-[#3FE0E0] text-black hover:text-black transition-all duration-300 flex items-center justify-center shadow-lg hover:scale-110 group"
-              title="Explore Case Studies"
+              title="Explore Case Studies" aria-label="Explore Case Studies"
             >
               <ArrowRight className="w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:translate-x-1" />
             </a>

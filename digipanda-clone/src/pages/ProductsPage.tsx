@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
@@ -6,6 +7,12 @@ import { products } from '../data/products';
 export const ProductsPage: React.FC = () => {
   return (
     <PageLayout>
+      <SEO
+        title="Proprietary AI Products & Growth Software"
+        description="Explore Qala Labs' in-house software products: MarksOps multi-agent operations platform, AI Recruiter, AI Voice Receptionist, and Q-Manager."
+        image="/assets/og/og-products.jpg"
+        url="/products"
+      />
       <section className="relative pt-40 pb-24 bg-transparent">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">

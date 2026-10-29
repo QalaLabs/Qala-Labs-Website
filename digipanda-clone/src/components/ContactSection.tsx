@@ -20,7 +20,12 @@ const partnersList = [
   'Mystic Studio 8',
 ];
 
-export const ContactSection: React.FC = () => {
+export interface ContactSectionProps {
+  titleAs?: 'h1' | 'h2';
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ titleAs = 'h2' }) => {
+  const TitleTag = titleAs;
   const [formData, setFormData] = useState({
     name: '',
     companyName: '',
@@ -116,14 +121,14 @@ export const ContactSection: React.FC = () => {
         </div>
 
         {/* Section Headline */}
-        <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium text-center text-white mb-10 leading-tight flex flex-wrap items-center justify-center gap-3">
+        <TitleTag className="text-3xl sm:text-5xl md:text-6xl font-medium text-center text-white mb-10 leading-tight flex flex-wrap items-center justify-center gap-3">
           <span>Let's Build</span>
           <span className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-extrabold text-2xl md:text-3xl shadow-[0_0_25px_rgba(63,224,224,0.4)]">
             Q
           </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0]">Greatness</span>
           <span>Together!</span>
-        </h2>
+        </TitleTag>
 
         {/* 3-Step Engagement Roadmap Visualizer */}
         <div className="max-w-4xl mx-auto mb-12">
@@ -263,7 +268,7 @@ export const ContactSection: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setShowCalendarEmbed((prev) => !prev)}
-                      className="p-4 rounded-2xl bg-[#4F46E5]/10 border border-[#4F46E5]/30 hover:border-[#3FE0E0] hover:bg-[#4F46E5]/20 transition-all flex flex-col justify-between text-left group"
+                      className="cursor-pointer p-4 rounded-2xl bg-[#4F46E5]/10 border border-[#4F46E5]/30 hover:border-[#3FE0E0] hover:bg-[#4F46E5]/20 transition-all flex flex-col justify-between text-left group"
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2">
@@ -349,7 +354,7 @@ export const ContactSection: React.FC = () => {
                     <input
                       type="text"
                       required
-                      placeholder="Full Name *"
+                      aria-label="Full Name" placeholder="Full Name *"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -357,7 +362,7 @@ export const ContactSection: React.FC = () => {
                     <input
                       type="text"
                       required
-                      placeholder="Company / Brand Name *"
+                      aria-label="Company or Brand Name" placeholder="Company / Brand Name *"
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -373,7 +378,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="tel"
                         required
-                        placeholder="Contact Number *"
+                        aria-label="Contact Phone Number" placeholder="Contact Number *"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-4 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
@@ -383,7 +388,7 @@ export const ContactSection: React.FC = () => {
                     <input
                       type="email"
                       required
-                      placeholder="Email Address *"
+                      aria-label="Business Email Address" placeholder="Email Address *"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -393,7 +398,7 @@ export const ContactSection: React.FC = () => {
                   <div>
                     <input
                       type="text"
-                      placeholder="Website URL (e.g. https://yourbrand.com)"
+                      aria-label="Website URL" placeholder="Website URL (e.g. https://yourbrand.com)"
                       value={formData.website}
                       onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                       className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
@@ -403,7 +408,7 @@ export const ContactSection: React.FC = () => {
                   <textarea
                     rows={4}
                     required
-                    placeholder="Tell us about your project, goals, or bottlenecks *"
+                    aria-label="Project details and goals" placeholder="Tell us about your project, goals, or bottlenecks *"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-3xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors resize-none"
@@ -425,7 +430,7 @@ export const ContactSection: React.FC = () => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 disabled:opacity-50 text-white py-3 px-8 rounded-full font-bold text-sm transition-all duration-300 shadow-xl hover:scale-105 group"
+                      className="cursor-pointer inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 disabled:opacity-50 text-white py-3 px-8 rounded-full font-bold text-sm transition-all duration-300 shadow-xl hover:scale-105 group"
                     >
                       {loading ? (
                         <>

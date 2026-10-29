@@ -1,12 +1,16 @@
 import React from 'react';
 
 const tickerItems = [
+  'Hyperlocal Transit OOH',
   'Meta Lead Gen',
   'AI Ad Creatives',
   '28x ROAS Funnels',
+  'Click-to-WhatsApp Funnels',
   'IPL Merchandise Ecosystem',
+  'Dual-Currency Loyalty Engines',
   'Multi-Vendor Marketplaces',
   'B2B Market Validation',
+  '246-URL Full-Stack Crawls',
   'Viral Fandom Activation',
   'Unit Economics Optimization',
 ];

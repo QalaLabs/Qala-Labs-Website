@@ -13,6 +13,7 @@ import {
   Globe,
   Filter,
   CheckCircle2,
+  Check,
 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { PageLayout } from './PageLayout';
@@ -47,10 +48,25 @@ export const OurWorkPage: React.FC = () => {
         const selCat = selectedCategory.toLowerCase();
         if (!itemCat.includes(selCat) && !selCat.includes(itemCat)) {
           // Additional friendly match
-          if (selectedCategory === 'Performance Marketing' && !itemCat.includes('performance') && !itemCat.includes('meta') && !itemCat.includes('amazon') && !itemCat.includes('lead gen')) {
+          if (
+            selectedCategory === 'Performance Marketing' &&
+            !itemCat.includes('performance') &&
+            !itemCat.includes('meta') &&
+            !itemCat.includes('amazon') &&
+            !itemCat.includes('lead gen') &&
+            !itemCat.includes('transit') &&
+            !itemCat.includes('ooh') &&
+            !itemCat.includes('audit')
+          ) {
             return false;
           }
-          if (selectedCategory === 'Web Development' && !itemCat.includes('web') && !itemCat.includes('crm') && !itemCat.includes('app')) {
+          if (
+            selectedCategory === 'Web Development' &&
+            !itemCat.includes('web') &&
+            !itemCat.includes('crm') &&
+            !itemCat.includes('app') &&
+            !itemCat.includes('architecture')
+          ) {
             return false;
           }
           if (selectedCategory === 'Brand Systems' && !itemCat.includes('brand') && !itemCat.includes('identity')) {
@@ -185,7 +201,7 @@ export const OurWorkPage: React.FC = () => {
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs"
+                  aria-label="Clear search query" className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs cursor-pointer"
                 >
                   ✕
                 </button>
@@ -315,7 +331,7 @@ export const OurWorkPage: React.FC = () => {
                         <div className="space-y-1 mb-4 text-xs">
                           {item.deliverables.slice(0, 2).map((d, i) => (
                             <div key={i} className="flex items-center gap-1.5 text-[11px] text-white/70 truncate">
-                              <span className="text-[#3FE0E0]">✓</span>
+                              <Check className="w-3.5 h-3.5 text-[#3FE0E0] inline shrink-0" />
                               <span className="truncate">{d}</span>
                             </div>
                           ))}

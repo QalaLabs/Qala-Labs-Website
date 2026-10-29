@@ -13,8 +13,13 @@ const kpis = [
   { value: "100%", label: "Server CAPI Accuracy", icon: ShieldCheck, color: "text-[#A78BFA]" },
 ];
 
-export const AboutUsSection: React.FC = () => {
+export interface AboutUsSectionProps {
+  titleAs?: 'h1' | 'h2';
+}
+
+export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ titleAs = 'h2' }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'team' | 'principles' | 'process' | 'framework' | 'stack'>('all');
+  const TitleTag = titleAs;
 
   return (
     <section id="about-qala" className="relative py-28 bg-transparent border-t border-white/10 overflow-hidden">
@@ -31,12 +36,12 @@ export const AboutUsSection: React.FC = () => {
             <span>WHO WE ARE &bull; ABOUT QALA LABS</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight leading-tight mb-6">
+          <TitleTag className="text-3xl sm:text-5xl md:text-6xl font-medium text-white tracking-tight leading-tight mb-6">
             Where Engineering Discipline Meets{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] via-[#3FE0E0] to-[#34D399]">
               Aggressive Growth
             </span>
-          </h2>
+          </TitleTag>
 
           <p className="text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
             We started Qala Labs because we watched great D2C and high-ticket brands get burned by agencies chasing vanity impressions instead of income. Every system we build exists to protect and scale one core number: your contribution margin.
@@ -75,7 +80,7 @@ export const AboutUsSection: React.FC = () => {
         <div className="flex items-center justify-center gap-2 mb-12 flex-wrap">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'all'
                 ? 'bg-white text-black border-white shadow-lg'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
@@ -85,7 +90,7 @@ export const AboutUsSection: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('team')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'team'
                 ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-lg shadow-[#3FE0E0]/20'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
@@ -96,7 +101,7 @@ export const AboutUsSection: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('principles')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'principles'
                 ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-lg shadow-[#3FE0E0]/20'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
@@ -107,7 +112,7 @@ export const AboutUsSection: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('process')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'process'
                 ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-lg shadow-[#3FE0E0]/20'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
@@ -118,7 +123,7 @@ export const AboutUsSection: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('framework')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'framework'
                 ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-lg shadow-[#3FE0E0]/20'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
@@ -129,7 +134,7 @@ export const AboutUsSection: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('stack')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
+            className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all border ${
               activeTab === 'stack'
                 ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-lg shadow-[#3FE0E0]/20'
                 : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white'
