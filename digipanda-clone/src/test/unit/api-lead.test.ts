@@ -191,4 +191,76 @@ describe('API Lead Handler (/api/lead)', () => {
     expect(res.data).toEqual({ success: true, message: 'Lead captured successfully' });
     expect(res.headers['Access-Control-Allow-Origin']).toBe('*');
   });
+
+  it('captures appointment / growth call bookings and dispatches appropriate confirmation', async () => {
+    const { req, res } = createMockReqRes({
+      method: 'POST',
+      body: {
+        name: 'Marcus Vance',
+        companyName: 'Nutrivend',
+        phone: '+44 20 7946 0912',
+        email: 'marcus@nutrivend.co.uk',
+        description: 'Schedule a call: 30-min growth diagnostic to review B2B lead pipelines',
+        source: 'appointment_booking',
+      },
+    });
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.data).toEqual({ success: true, message: 'Lead captured successfully' });
+  });
+
+  it('captures career applications and triggers talent team autoresponder', async () => {
+    const { req, res } = createMockReqRes({
+      method: 'POST',
+      body: {
+        name: 'Alex Rivera',
+        companyName: 'Applicant: Senior Growth Engineer',
+        phone: '+1 415-555-0182',
+        email: 'alex@rivera.dev',
+        description: 'Role Applied: Senior Growth Engineer\nPortfolio/Links: github.com/alexrivera\nPitch: 6 years building distributed agents',
+        source: 'careers_page',
+      },
+    });
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.data).toEqual({ success: true, message: 'Lead captured successfully' });
+  });
+
+  it('captures creator collective syndicate applications', async () => {
+    const { req, res } = createMockReqRes({
+      method: 'POST',
+      body: {
+        name: 'Elena Rostova',
+        companyName: 'Creator: 3D Motion & CGI',
+        phone: '+91 91234 56789',
+        email: 'elena@cgi-studio.art',
+        description: 'Creator Track: 3D Motion & CGI\nPortfolio: behance.net/elena\nTools: Blender, Unreal Engine 5',
+        source: 'creator_collective',
+      },
+    });
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.data).toEqual({ success: true, message: 'Lead captured successfully' });
+  });
+
+  it('captures agency collective partnership requests', async () => {
+    const { req, res } = createMockReqRes({
+      method: 'POST',
+      body: {
+        name: 'David Sterling',
+        companyName: 'Sterling Media Group',
+        phone: '+1 212-555-0144',
+        email: 'david@sterlingmedia.com',
+        description: 'Agency Size: 10-25 Specialists\nPreferred Model: White-Label AI & Engineering\nScope: Need AI automation pipeline for 14 e-commerce clients',
+        source: 'agency_collective',
+      },
+    });
+    await handler(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.data).toEqual({ success: true, message: 'Lead captured successfully' });
+  });
 });

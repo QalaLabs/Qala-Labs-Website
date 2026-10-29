@@ -2,7 +2,7 @@
 -- Qala Labs Complete Production MySQL Database Architecture & Full Content Dump
 -- Database: u742118922_QalaLabs
 -- Host Target: Hostinger MySQL (srv2205.hstgr.io / localhost)
--- Generated: 2026-10-29T17:52:43.899Z
+-- Generated: 2026-10-29T18:41:03.671Z
 -- Strictly Synced with all application data models (100% MySQL coverage)
 -- ==============================================================================
 
@@ -477,12 +477,41 @@ CREATE TABLE `leads` (
   `timeline` varchar(100) DEFAULT NULL,
   `source` varchar(64) NOT NULL DEFAULT 'contact_section',
   `tool_used` varchar(64) DEFAULT NULL,
+  `email_status` enum('pending','sent','failed') NOT NULL DEFAULT 'pending',
+  `email_sent_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_leads_created_at` (`created_at` DESC),
   KEY `idx_leads_email` (`email`),
-  KEY `idx_leads_source` (`source`)
+  KEY `idx_leads_source` (`source`),
+  KEY `idx_leads_email_status` (`email_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- Table structure for `email_notifications`
+-- ------------------------------------------------------------
+DROP TABLE IF EXISTS `email_notifications`;
+CREATE TABLE `email_notifications` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lead_id` int(10) unsigned DEFAULT NULL,
+  `recipient_name` varchar(255) NOT NULL,
+  `recipient_email` varchar(255) NOT NULL,
+  `category` enum('lead', 'appointment', 'career', 'creator', 'agency') NOT NULL DEFAULT 'lead',
+  `subject` varchar(255) NOT NULL,
+  `body_text` text NOT NULL,
+  `body_html` longtext DEFAULT NULL,
+  `status` enum('pending', 'sent', 'failed') NOT NULL DEFAULT 'pending',
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `error_message` text DEFAULT NULL,
+  `sent_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_en_status` (`status`),
+  KEY `idx_en_category` (`category`),
+  KEY `idx_en_created_at` (`created_at` DESC),
+  KEY `fk_en_lead` (`lead_id`),
+  CONSTRAINT `fk_en_lead` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------
 -- Table structure for `crm_contacts`

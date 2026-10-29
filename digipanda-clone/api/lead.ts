@@ -131,19 +131,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   console.log('[Lead Captured]', JSON.stringify(lead, null, 2));
 
+  // Multi-Category Intent Detection
+  const s = source.toLowerCase();
+  const d = description.toLowerCase();
+  const c = companyName.toLowerCase();
+
+  let category = 'lead';
+  let userSubject = `Thank You for Contacting Qala Labs | Discovery Confirmed (${companyName})`;
+  let userText = `Hi ${name},\n\nThank you for reaching out to Qala Labs regarding ${companyName}.\n\nOur growth strategy and performance team has begun reviewing your details. A specialist will follow up within 24 hours.\n\nIf you'd like to talk immediately:\n- WhatsApp: https://wa.me/916006760151\n- Book 30-min Google Meet: https://calendar.app.google/EvA2Kw9rgA4xq8798\n\nBest regards,\nAashirwad Bhansali & The Qala Labs Team\nhttps://qalalabs.com`;
+
+  if (s.includes('career') || s.includes('job') || c.includes('applicant:') || d.includes('role applied:')) {
+    category = 'career';
+    userSubject = `Application Received: Qala Labs Engineering & Growth Swarm (${name})`;
+    userText = `Hi ${name},\n\nThank you for applying to Qala Labs. Our core builders review every portfolio and codebase submission with care. If your background aligns with our sprint openings, a team lead will contact you within 3-5 business days.\n\nBest regards,\nThe Qala Labs Talent Team\nhttps://qalalabs.com`;
+  } else if (s.includes('creator') || s.includes('syndicate') || d.includes('creator track')) {
+    category = 'creator';
+    userSubject = `Creator Collective Application Confirmed | Qala Labs Syndicate`;
+    userText = `Hi ${name},\n\nWelcome to the Qala Labs Creator Collective intake! Our Creative Director reviews your portfolio links within 48 hours to match you with high-growth brand sprints.\n\nJoin our direct WhatsApp creator fast-track:\nhttps://wa.me/916006760151\n\nBest regards,\nQala Labs Creator Syndicate\nhttps://qalalabs.com/creator-collective`;
+  } else if (s.includes('agency') || s.includes('partner') || d.includes('white-label') || d.includes('agency size')) {
+    category = 'agency';
+    userSubject = `Agency Partnership Request Confirmed | Qala Labs Studio Network`;
+    userText = `Hi ${name},\n\nThank you for your interest in partnering with Qala Labs through our Agency Collective regarding ${companyName}.\n\nOur agency partnership team reviews white-label AI engineering and co-pitch requests within 24 hours.\n\nSchedule an intro call: https://calendar.app.google/EvA2Kw9rgA4xq8798\n\nBest regards,\nThe Qala Labs Studio Team\nhttps://qalalabs.com/agency-collective`;
+  } else if (s.includes('appointment') || s.includes('booking') || s.includes('calendar') || d.includes('schedule a call') || d.includes('preferred slot')) {
+    category = 'appointment';
+    userSubject = `Confirmed: 30-Minute Growth Strategy Session | Qala Labs × ${name}`;
+    userText = `Hi ${name},\n\nYour request for a 30-minute Growth Diagnostic consultation with Qala Labs is confirmed.\n\nDirect Google Calendar & Meet Sync: https://calendar.app.google/EvA2Kw9rgA4xq8798\nWhatsApp Fast Reschedule: https://wa.me/916006760151\n\nBest regards,\nAashirwad Bhansali & The Qala Labs Growth Team\nhttps://qalalabs.com`;
+  }
+
   // Optional Transactional Autoresponder via Resend API if RESEND_API_KEY is configured
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey) {
     try {
-      const isCareer = source === 'careers_form' || source.includes('career');
-      const userSubject = isCareer
-        ? 'Application Received: Qala Labs Growth & Engineering'
-        : 'Thank You for Contacting Qala Labs | Discovery Confirmed';
-
-      const userText = isCareer
-        ? `Hi ${name},\n\nThank you for applying to Qala Labs. Our team reviews every application with care. If your background aligns with our sprint openings, we will contact you within 3-5 days.\n\nBest regards,\nThe Qala Labs Talent Team\nhttps://qalalabs.com`
-        : `Hi ${name},\n\nThank you for reaching out to Qala Labs regarding ${companyName}.\n\nOur growth strategy and performance team has begun reviewing your details. A specialist will follow up within 24 hours.\n\nIf you'd like to talk immediately:\n- WhatsApp: https://wa.me/916006760151\n- Book 30-min Google Meet: https://calendar.app.google/EvA2Kw9rgA4xq8798\n\nBest regards,\nAashirwad Bhansali & The Qala Labs Team\nhttps://qalalabs.com`;
-
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
