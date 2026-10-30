@@ -10,7 +10,7 @@ export const ProductsPage: React.FC = () => {
       <SEO
         title="Proprietary AI Products & Growth Software"
         description="Explore Qala Labs' in-house software products: MarksOps multi-agent operations platform, AI Recruiter, AI Voice Receptionist, and Q-Manager."
-        image="/assets/og/og-products.jpg"
+        image="/assets/og/og-services.jpg"
         url="/products"
       />
       <section className="relative pt-40 pb-24 bg-transparent">

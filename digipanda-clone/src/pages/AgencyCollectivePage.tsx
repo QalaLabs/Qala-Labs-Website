@@ -98,7 +98,7 @@ export const AgencyCollectivePage: React.FC = () => {
       <SEO
         title="Agency Collective & White-Label Partner Network"
         description="Scale your agency retainers with Qala Labs deep AI swarms, 3D WebGL architectures, and enterprise engineering capabilities."
-        image="/assets/og/og-agency.jpg"
+        image="/assets/og/og-default.jpg"
         url="/agency-collective"
       />
       {/* 1. Hero Section */}

@@ -11,7 +11,8 @@ import { ClientsGrid } from './components/ClientsGrid';
 import { CaseStudies } from './components/CaseStudies';
 import { ScaleArchitectureSection } from './components/ScaleArchitectureSection';
 import { Testimonials } from './components/Testimonials';
-import { FaqAccordion } from './components/FaqAccordion';
+import { FaqAccordion, homeFaqs } from './components/FaqAccordion';
+import { faqSchema } from './lib/seo';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ChatbotToggle } from './components/ChatbotToggle';
@@ -25,6 +26,7 @@ export const App: React.FC = () => {
         description="Qala Labs blends art and engineering to build autonomous growth systems, AI creative engines, and high-converting digital products."
         image="/assets/og/og-home.jpg"
         url="/"
+        schema={faqSchema(homeFaqs)}
       />
       {/* Fixed Ambient Micro-Grid Texture */}
       <div className="fixed inset-0 qala-grid-pattern opacity-25 pointer-events-none z-0" />

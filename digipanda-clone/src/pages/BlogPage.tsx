@@ -104,7 +104,7 @@ export const BlogPage: React.FC = () => {
       <SEO
         title="Field Notes, Perspectives & Playbooks"
         description="Unfiltered tactical playbooks on autonomous multi-agent systems, high-ticket conversion architectures, 3D WebGL craft, and viral fandom engineering."
-        image="/assets/og/og-blog.jpg"
+        image="/assets/og/og-default.jpg"
         url="/blog"
       />
       {/* 1. Hero Section */}

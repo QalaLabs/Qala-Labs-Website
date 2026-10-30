@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { breadcrumbSchema } from '../lib/seo';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
@@ -14,22 +15,29 @@ export const ProductDetailPage: React.FC = () => {
   return (
     <PageLayout>
       <SEO
-        title={`${product.name} • ${product.tagline}`}
-        description={product.description.slice(0, 155)}
-        image="/assets/og/og-products.jpg"
+        title={`${product.name} | ${product.category}`}
+        description={product.description}
+        image="/assets/og/og-services.jpg"
         url={`/products/${product.slug}`}
-        schema={{
+        schema={[{
           '@context': 'https://schema.org',
-          '@type': 'Product',
+          '@type': 'SoftwareApplication',
           name: product.name,
           description: product.description,
-          category: product.category,
-          brand: {
-            '@type': 'Brand',
+          applicationCategory: 'BusinessApplication',
+          applicationSubCategory: product.category,
+          publisher: {
+            '@type': 'Organization',
             name: 'Qala Labs',
+            url: 'https://qalalabs.com',
           },
           url: `https://qalalabs.com/products/${product.slug}`,
-        }}
+        },
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Products', url: '/products' },
+          { name: product.name, url: `/products/${product.slug}` },
+        ])]}
       />
       {/* Hero */}
       <section className="relative pt-40 pb-24 bg-transparent overflow-hidden">

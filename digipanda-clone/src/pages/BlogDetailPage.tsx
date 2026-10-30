@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { breadcrumbSchema, shortTitle, toIsoDate } from '../lib/seo';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import {
@@ -42,18 +43,19 @@ export const BlogDetailPage: React.FC = () => {
   return (
     <PageLayout>
       <SEO
-        title={post.title}
+        title={shortTitle(post.title)}
         description={post.excerpt}
         image={post.coverImage}
         url={`/blog/${post.slug}`}
         type="article"
-        schema={{
+        schema={[{
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
           headline: post.title,
           description: post.excerpt,
           image: post.coverImage.startsWith('http') ? post.coverImage : `https://qalalabs.com${post.coverImage}`,
-          datePublished: post.publishedAt,
+          datePublished: toIsoDate(post.publishedAt),
+          dateModified: toIsoDate(post.publishedAt),
           author: {
             '@type': 'Person',
             name: post.author.name,
@@ -68,7 +70,12 @@ export const BlogDetailPage: React.FC = () => {
             '@type': 'WebPage',
             '@id': `https://qalalabs.com/blog/${post.slug}`,
           },
-        }}
+        },
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: post.title, url: `/blog/${post.slug}` },
+        ])]}
       />
       <article className="relative pt-36 pb-24 bg-[#06070D] overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">

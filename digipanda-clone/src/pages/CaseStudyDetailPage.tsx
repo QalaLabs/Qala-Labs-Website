@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { breadcrumbSchema } from '../lib/seo';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { PageLayout } from './PageLayout';
@@ -14,11 +15,26 @@ export const CaseStudyDetailPage: React.FC = () => {
   return (
     <PageLayout>
       <SEO
-        title={`${study.title} • ${study.subtitle}`}
-        description={`${study.title} case study: ${study.result}. ${study.challenge.slice(0, 100)}`}
+        title={`${study.title} Case Study`}
+        description={`${study.result}. ${study.subtitle}. ${study.challenge}`}
         image={study.thumb}
         url={`/case-studies/${study.slug}`}
         type="article"
+        schema={[{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: `${study.title}: ${study.subtitle}`,
+          description: study.result,
+          image: study.thumb.startsWith('http') ? study.thumb : `https://qalalabs.com${study.thumb}`,
+          author: { '@type': 'Organization', name: 'Qala Labs' },
+          publisher: { '@type': 'Organization', name: 'Qala Labs', url: 'https://qalalabs.com' },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': `https://qalalabs.com/case-studies/${study.slug}` },
+        },
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Case Studies', url: '/case-studies' },
+          { name: study.title, url: `/case-studies/${study.slug}` },
+        ])]}
       />
       {/* Hero */}
       <section className="relative pt-40 pb-20 bg-transparent border-b border-white/10 overflow-hidden">

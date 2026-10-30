@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { breadcrumbSchema } from '../lib/seo';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, Cpu, Wrench, Plug } from 'lucide-react';
@@ -16,11 +17,11 @@ export const AgentDetailPage: React.FC = () => {
   return (
     <PageLayout>
       <SEO
-        title={`${agent.name} • Autonomous Agent Architecture`}
-        description={agent.whatItDoes.slice(0, 155)}
+        title={`${agent.name} | AI Automation`}
+        description={agent.whatItDoes}
         image="/assets/og/og-services.jpg"
         url={`/agents/${agent.slug}`}
-        schema={{
+        schema={[{
           '@context': 'https://schema.org',
           '@type': 'SoftwareApplication',
           name: agent.name,
@@ -28,7 +29,12 @@ export const AgentDetailPage: React.FC = () => {
           description: agent.whatItDoes,
           url: `https://qalalabs.com/agents/${agent.slug}`,
           operatingSystem: 'Cloud Run / Linux',
-        }}
+        },
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'AI Automation', url: '/services/ai-automation' },
+          { name: agent.name, url: `/agents/${agent.slug}` },
+        ])]}
       />
       <section className="relative pt-40 pb-16 bg-transparent overflow-hidden">
         <div

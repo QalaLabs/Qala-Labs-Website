@@ -115,7 +115,7 @@ export const CreatorCollectivePage: React.FC = () => {
       <SEO
         title="Creator Collective • Turn Creative Craft Into High-Ticket Equity"
         description="Join our invite-only creator syndicate. Co-produce viral UGC, 3D motion CGI, and AI-assisted campaigns for top-tier brands."
-        image="/assets/og/og-creator.jpg"
+        image="/assets/og/og-default.jpg"
         url="/creator-collective"
       />
       {/* 1. Hero Section */}

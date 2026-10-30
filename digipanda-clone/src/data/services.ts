@@ -229,6 +229,9 @@ export const services: ServiceItem[] = [
       'GEO: content and schema built to be cited correctly by AI answer engines',
       'Global areaServed and multi-region schema expansion (proven on Airborne Aviation Academy)',
     ],
+    proof: [
+      { type: 'case-study', slug: 'airborne-aviation-seo-aeo-geo', label: 'Airborne Aviation: SEO, AEO & GEO (Search Console data)' },
+    ],
   },
   {
     slug: 'social-media-marketing',

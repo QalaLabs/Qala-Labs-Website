@@ -128,7 +128,7 @@ export const CareersPage: React.FC = () => {
       <SEO
         title="Careers • Build The Future Of Creative Intelligence"
         description="Join Qala Labs as an AI systems engineer, performance architect, or creative technologist. View open roles across engineering, creative, and growth."
-        image="/assets/og/og-careers.jpg"
+        image="/assets/og/og-default.jpg"
         url="/careers"
       />
       {/* 1. Hero Section */}

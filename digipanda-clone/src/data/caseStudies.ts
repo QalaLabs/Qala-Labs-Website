@@ -206,6 +206,30 @@ export const caseStudies: CaseStudy[] = [
       { label: 'API security', value: '7-stage validation pipeline on Cloud Run' },
     ],
   },
+  {
+    slug: 'airborne-aviation-seo-aeo-geo',
+    title: 'Airborne Aviation: SEO, AEO & GEO',
+    subtitle: 'Search Console-Backed Organic Visibility Programme',
+    result: '26.3K Impressions • 484 Organic Clicks in 12 Weeks',
+    thumb: '/portfolio/airborne-aviation/hero.jpg',
+    category: 'SEO, AEO & GEO',
+    challenge:
+      'Airborne Aviation Academy already ranks for its own name: "airborne aviation" sits at position 1.9 with a 27.8% click-through rate. The harder problem is everything a prospective cadet searches before they know the brand. Non-branded queries such as "atpl ground training india" (491 impressions, average position 12.3) and "pilot training in delhi" (315 impressions, position 9.4) appear on Google but earn almost no clicks, and mobile (average position 8.4) outranks desktop (23.4) by a wide margin.',
+    approach: [
+      'Long-tail blog content built around real buyer questions: pilot training cost, salary progression and how to become a pilot',
+      'FAQ and answer-block formatting on cost, salary and course pages so AI Overviews, ChatGPT and Perplexity have a clean passage to cite',
+      'Schema markup (Course, FAQPage, Organization) across course and blog templates, with global areaServed coverage',
+      'Mobile-first technical SEO to close the ranking gap against a much weaker desktop position',
+      'Weekly rank and impression monitoring in Search Console to catch volatility early',
+    ],
+    results: [
+      { label: 'Impressions', value: '26.3K over 12 weeks (1 Jul to 20 Sep 2026, Search Console, web search)' },
+      { label: 'Organic clicks', value: '484' },
+      { label: 'Average position', value: '13.6 in week 1 to 10.6 in week 12 (dipped to 20.4 in week 7 as new pages entered the index)' },
+      { label: 'Brand query', value: '"airborne aviation" at position 1.9, 27.8% CTR' },
+      { label: 'Still open', value: 'Non-branded queries earn near-zero clicks; AI-citation tracking begins next' },
+    ],
+  },
 ];
 
 export const getCaseStudyBySlug = (slug?: string) =>

@@ -1,0 +1,67 @@
+# Qala Labs
+
+> Qala Labs is an AI and growth studio with teams in Delhi NCR and London. We build the revenue system brands run on: performance marketing, AI agents and automation, search visibility (SEO, AEO, GEO), custom software, and creative production.
+
+Qala Labs is a studio, not a single-service agency. Work is proven in public: every case study below lists the numbers, the approach and what was measured. Contact: hello@qalalabs.com
+
+## Services
+
+- [AI Automation](https://qalalabs.com/services/ai-automation): Multi-agent systems for finance, CRM, inventory, logistics, support and voice.
+- [AI Voice Agents](https://qalalabs.com/services/ai-voice-agents): 24/7 voice agents that answer, qualify and route calls.
+- [Digital Marketing](https://qalalabs.com/services/digital-marketing): Performance marketing across Meta, Google and Amazon.
+- [Search Engine Optimization](https://qalalabs.com/services/search-engine-optimization): SEO, AEO (answer engines) and GEO (generative engines).
+- [Social Media Marketing](https://qalalabs.com/services/social-media-marketing): Organic community and creator programmes plus paid social.
+- [Branding](https://qalalabs.com/services/branding)
+- [UI/UX Design](https://qalalabs.com/services/ui-ux-design)
+- [Web Design](https://qalalabs.com/services/web-design)
+- [Mobile App Designing](https://qalalabs.com/services/mobile-app-designing)
+- [Landing Page Designing](https://qalalabs.com/services/landing-page-designing)
+- [Web Development](https://qalalabs.com/services/web-development)
+- [Mobile App Development](https://qalalabs.com/services/mobile-app-development)
+- [Software Development](https://qalalabs.com/services/software-development)
+
+## Products
+
+- [MarksOps](https://qalalabs.com/products/marksops): Multi-agent operations platform unifying marketing, sales, operations and finance.
+- [AI Recruiter](https://qalalabs.com/products/ai-recruiter)
+- [AI Receptionist](https://qalalabs.com/products/ai-receptionist)
+- [Q Manager](https://qalalabs.com/products/q-manager): Role-based Work OS for teams and clients.
+
+## AI agents
+
+- [Financial Reconciliation Agent](https://qalalabs.com/agents/financial-reconciliation-agent)
+- [Finance Bills Agent](https://qalalabs.com/agents/finance-bills-agent)
+- [AI Voice Receptionist](https://qalalabs.com/agents/ai-voice-receptionist)
+- [CRM Leads Agent](https://qalalabs.com/agents/crm-leads-agent)
+- [Marketplace Crawler](https://qalalabs.com/agents/marketplace-crawler)
+- [Inventory Sync Agent](https://qalalabs.com/agents/inventory-sync-agent)
+- [Logistics & NDR Agent](https://qalalabs.com/agents/logistics-ndr-agent)
+- [Tally Connector Agent](https://qalalabs.com/agents/tally-connector-agent)
+- [Customer Support Agent](https://qalalabs.com/agents/customer-support-agent)
+
+## Case studies
+
+- [Trotr: Spain Pivot](https://qalalabs.com/case-studies/trotr-spain-pivot): 28x ROAS and Rs 14L revenue from a high-ticket travel funnel.
+- [Amazon Ads Scaling](https://qalalabs.com/case-studies/amazon-ads-scaling): 11.2x ROAS and 47% lower ACOS.
+- [Nutrivend UK](https://qalalabs.com/case-studies/nutrivend-uk): 45 qualified B2B leads and 71% untapped market discovered.
+- [The Kashmiri Sound Movement](https://qalalabs.com/case-studies/kashmiri-sound-movement): 3.4M+ organic views with zero ad spend.
+- [Airborne Aviation: SEO, AEO & GEO](https://qalalabs.com/case-studies/airborne-aviation-seo-aeo-geo): 26.3K impressions and 484 clicks in 12 weeks, with open problems stated.
+- [Gaffar India](https://qalalabs.com/case-studies/gaffar-india): Market stall to digital multi-vendor marketplace.
+- [Capital Keys](https://qalalabs.com/case-studies/capital-keys): Real estate proptech platform and CRM engine.
+- [Mizuno India](https://qalalabs.com/case-studies/mizuno-india-launch): Commercial production shoot and 10-week pre-launch runway.
+- [Nectar Loyalty Engine](https://qalalabs.com/case-studies/nectar-loyalty-engine): Dual-currency loyalty architecture on Google Cloud Run.
+
+## Field notes
+
+- [All posts](https://qalalabs.com/blog)
+- [The 28x ROAS Funnel Blueprint](https://qalalabs.com/blog/28x-roas-funnel-blueprint)
+- [The D2C BNPL Strategy Guide](https://qalalabs.com/blog/d2c-bnpl-strategy-guide)
+- [The B2B Market Validation Playbook](https://qalalabs.com/blog/b2b-market-validation-playbook)
+- [Autonomous Multi-Agent Swarms in Production](https://qalalabs.com/blog/autonomous-ai-swarms-marksops)
+
+## Company
+
+- [Who we are](https://qalalabs.com/who-we-are)
+- [Contact](https://qalalabs.com/contact-us)
+- [Careers](https://qalalabs.com/careers)
+- [Growth tools](https://qalalabs.com/tools)

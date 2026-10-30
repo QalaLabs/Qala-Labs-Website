@@ -1,4 +1,5 @@
 import { SEO } from '../components/SEO';
+import { breadcrumbSchema } from '../lib/seo';
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
@@ -24,11 +25,11 @@ export const ServiceDetailPage: React.FC = () => {
   return (
     <PageLayout>
       <SEO
-        title={`${service.name} • ${service.tagline}`}
-        description={service.description.slice(0, 155)}
+        title={`${service.name} Services`}
+        description={service.description}
         image="/assets/og/og-services.jpg"
         url={`/services/${service.slug}`}
-        schema={{
+        schema={[{
           '@context': 'https://schema.org',
           '@type': 'Service',
           name: service.name,
@@ -40,7 +41,13 @@ export const ServiceDetailPage: React.FC = () => {
           },
           description: service.description,
           url: `https://qalalabs.com/services/${service.slug}`,
-        }}
+          areaServed: ['IN', 'GB'],
+        },
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' },
+          { name: service.name, url: `/services/${service.slug}` },
+        ])]}
       />
       <section className="relative pt-40 pb-16 bg-transparent overflow-hidden">
         <div

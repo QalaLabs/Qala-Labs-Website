@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { canonicalPath, trimToWords } from '../lib/seo';
 
 export interface SEOProps {
   title?: string;
@@ -32,9 +33,14 @@ export const SEO: React.FC<SEOProps> = ({
     : DEFAULT_TITLE;
 
   const resolvedUrl = url || (typeof window !== 'undefined' ? window.location.pathname : '/');
-  const canonicalUrl = resolvedUrl.startsWith('http')
-    ? resolvedUrl
-    : `${SITE_URL}${resolvedUrl.startsWith('/') ? resolvedUrl : `/${resolvedUrl}`}`;
+  // Duplicate routes (/our-work, /blogs, /career, ...) canonicalise to the sitemap URL.
+  const resolvedPath = resolvedUrl.startsWith('http') ? resolvedUrl : canonicalPath(resolvedUrl);
+  const canonicalUrl = resolvedPath.startsWith('http')
+    ? resolvedPath
+    : `${SITE_URL}${resolvedPath.startsWith('/') ? resolvedPath : `/${resolvedPath}`}`;
+
+  // Keep snippets inside the ~155 character limit without cutting words in half.
+  const metaDescription = trimToWords(description, 155);
 
   const imageUrl = image.startsWith('http')
     ? image
@@ -56,7 +62,7 @@ export const SEO: React.FC<SEOProps> = ({
     };
 
     // Standard meta description
-    setMetaTag('name', 'description', description);
+    setMetaTag('name', 'description', metaDescription);
 
     // Robots meta tag
     setMetaTag('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');
@@ -72,7 +78,7 @@ export const SEO: React.FC<SEOProps> = ({
 
     // Open Graph
     setMetaTag('property', 'og:title', fullTitle);
-    setMetaTag('property', 'og:description', description);
+    setMetaTag('property', 'og:description', metaDescription);
     setMetaTag('property', 'og:image', imageUrl);
     setMetaTag('property', 'og:url', canonicalUrl);
     setMetaTag('property', 'og:type', type);
@@ -81,7 +87,7 @@ export const SEO: React.FC<SEOProps> = ({
     // Twitter Card
     setMetaTag('name', 'twitter:card', 'summary_large_image');
     setMetaTag('name', 'twitter:title', fullTitle);
-    setMetaTag('name', 'twitter:description', description);
+    setMetaTag('name', 'twitter:description', metaDescription);
     setMetaTag('name', 'twitter:image', imageUrl);
 
     // Dynamic JSON-LD Structured Data
@@ -97,7 +103,7 @@ export const SEO: React.FC<SEOProps> = ({
     } else if (schemaScript) {
       schemaScript.remove();
     }
-  }, [fullTitle, description, imageUrl, canonicalUrl, type, noindex, schema]);
+  }, [fullTitle, metaDescription, imageUrl, canonicalUrl, type, noindex, schema]);
 
   return null;
 };

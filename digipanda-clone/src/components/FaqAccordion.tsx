@@ -32,6 +32,8 @@ const faqs = [
   },
 ];
 
+export const homeFaqs = faqs;
+
 export const FaqAccordion: React.FC = () => {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
