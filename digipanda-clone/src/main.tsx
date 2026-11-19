@@ -21,6 +21,7 @@ const PrivacyPolicyPage = React.lazy(() => import('./pages/PrivacyPolicyPage').t
 const TermsPage = React.lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })));
 const CareersPage = React.lazy(() => import('./pages/CareersPage').then((m) => ({ default: m.CareersPage })));
 const CreatorCollectivePage = React.lazy(() => import('./pages/CreatorCollectivePage').then((m) => ({ default: m.CreatorCollectivePage })));
+const CreatorCampaignApplyPage = React.lazy(() => import('./pages/CreatorCampaignApplyPage').then((m) => ({ default: m.CreatorCampaignApplyPage })));
 const AgencyCollectivePage = React.lazy(() => import('./pages/AgencyCollectivePage').then((m) => ({ default: m.AgencyCollectivePage })));
 const PortfolioPage = React.lazy(() => import('./pages/PortfolioPage').then((m) => ({ default: m.PortfolioPage })));
 const PortfolioDetailPage = React.lazy(() => import('./pages/PortfolioDetailPage').then((m) => ({ default: m.PortfolioDetailPage })));
@@ -75,6 +76,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/career" element={<CareersPage />} />
           <Route path="/creator-collective" element={<CreatorCollectivePage />} />
           <Route path="/creators" element={<CreatorCollectivePage />} />
+          <Route path="/creator-collective/c/:slug" element={<CreatorCampaignApplyPage />} />
+          <Route path="/creators/c/:slug" element={<CreatorCampaignApplyPage />} />
           <Route path="/agency-collective" element={<AgencyCollectivePage />} />
           <Route path="/agencies" element={<AgencyCollectivePage />} />
           <Route path="/blog" element={<BlogPage />} />

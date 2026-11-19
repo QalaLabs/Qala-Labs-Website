@@ -4,6 +4,7 @@ import { MemoryRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { CareersPage } from '../../pages/CareersPage';
 import { CreatorCollectivePage } from '../../pages/CreatorCollectivePage';
+import { CreatorCampaignApplyPage } from '../../pages/CreatorCampaignApplyPage';
 import { AgencyCollectivePage } from '../../pages/AgencyCollectivePage';
 import { PortfolioPage } from '../../pages/PortfolioPage';
 import { BlogPage } from '../../pages/BlogPage';
@@ -38,6 +39,22 @@ describe('New Strategic Pages & Ecosystem Routes', () => {
     expect(screen.getAllByText(/3D Motion & CGI Visualists/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/125M\+/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/Request Your Invite/i)).toBeInTheDocument();
+  });
+
+  it('renders CreatorCampaignApplyPage for campaign quote and terms (/creator-collective/c/:slug)', () => {
+    render(
+      <MemoryRouter initialEntries={['/creator-collective/c/mizuno-wave-revolt']}>
+        <Routes>
+          <Route path="/creator-collective/c/:slug" element={<CreatorCampaignApplyPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Mizuno Wave Revolt 3 Performance Launch')).toBeInTheDocument();
+    expect(screen.getByText(/ACTIVE BRAND BRIEF \/\/ VERIFIED BUDGET/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/₹55,000 - ₹85,000/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Submit Your Campaign Quote & Terms/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Full Name/i)).toBeInTheDocument();
   });
 
   it('renders AgencyCollectivePage with partnership models and intake form', () => {
