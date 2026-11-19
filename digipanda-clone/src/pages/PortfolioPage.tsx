@@ -53,7 +53,7 @@ export const PortfolioPage: React.FC = () => {
         url="/portfolio"
       />
       {/* 1. Hero Section */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent overflow-hidden">
         <div className="absolute top-1/4 right-1/3 w-[600px] h-[350px] bg-gradient-to-r from-[#3FE0E0]/15 via-[#4F46E5]/15 to-[#A78BFA]/10 blur-[130px] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-4xl">

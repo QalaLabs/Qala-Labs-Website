@@ -16,6 +16,7 @@ describe('Navbar Component', () => {
     expect(homeLinks.length).toBeGreaterThan(0);
 
     // Desktop nav items
+    expect(screen.getByRole('link', { name: /gaas/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Products' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Our Work' })).toBeInTheDocument();

@@ -25,7 +25,7 @@ export const AboutUsSection: React.FC<AboutUsSectionProps> = ({ titleAs = 'h2' }
     <section id="about-qala" className="relative py-28 bg-transparent border-t border-white/10 overflow-hidden">
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,70,229,0.18),rgba(255,255,255,0))] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/assets/bgrk1.webp')] bg-cover bg-center opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,rgba(79,70,229,0.12),transparent_60%),radial-gradient(ellipse_50%_40%_at_10%_80%,rgba(63,224,224,0.08),transparent_55%)] pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         

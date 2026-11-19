@@ -156,12 +156,12 @@ export const ChatbotToggle: React.FC = () => {
   };
 
   return (
-    // Responsive Floating Safety: bottom-24 on mobile (<640px) to clear StickyCTA, bottom-6 on desktop
-    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50">
+    // One mobile floating action: StickyCTA owns the bottom bar; chat FAB from sm+ only (AGENTS A10)
+    <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-50 hidden sm:block">
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Qala Assistant"
-        className="relative group w-14 h-14 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 text-white shadow-[0_4px_25px_rgba(63,224,224,0.4)] flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 font-bold text-xl cursor-pointer"
+        className="relative group w-14 h-14 min-w-[44px] min-h-[44px] rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] hover:brightness-110 text-white shadow-[0_4px_25px_rgba(63,224,224,0.4)] flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 font-bold text-xl cursor-pointer"
       >
         <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] opacity-40 blur group-hover:opacity-75 transition duration-300 animate-pulse" />
         <span className="relative z-10 flex items-center justify-center">

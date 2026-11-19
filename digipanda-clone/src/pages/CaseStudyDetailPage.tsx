@@ -43,12 +43,34 @@ export const CaseStudyDetailPage: React.FC = () => {
               {study.title}
             </h1>
             <p className="text-lg sm:text-xl text-white/70 max-w-2xl">{study.subtitle}</p>
+
+            {/* Headline metrics above the fold (B5) */}
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+              {study.results.slice(0, 3).map((r) => (
+                <div
+                  key={r.label}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md px-4 py-3 sm:px-5 sm:py-4"
+                >
+                  <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                    {r.value}
+                  </div>
+                  <div className="text-xs font-mono text-white/60 uppercase tracking-wider mt-1">
+                    {r.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-10 rounded-2xl overflow-hidden border border-white/10 aspect-[16/7] bg-black/40">
             <img
               src={study.thumb}
-              alt={study.title}
+              alt={`${study.title} — ${study.result}`}
+              width={1200}
+              height={525}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-cover"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/assets/caseStudyBg.webp';

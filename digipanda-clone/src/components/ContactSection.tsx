@@ -351,68 +351,113 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ titleAs = 'h2' }
                     </div>
                   )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      required
-                      aria-label="Full Name" placeholder="Full Name *"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
-                    />
-                    <input
-                      type="text"
-                      required
-                      aria-label="Company or Brand Name" placeholder="Company / Brand Name *"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
-                    />
+                    <div>
+                      <label htmlFor="contact-name" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                        Full name *
+                      </label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        name="name"
+                        autoComplete="name"
+                        required
+                        placeholder="Your full name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full min-h-[44px] px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-company" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                        Company / brand *
+                      </label>
+                      <input
+                        id="contact-company"
+                        type="text"
+                        name="organization"
+                        autoComplete="organization"
+                        required
+                        placeholder="Company or brand name"
+                        value={formData.companyName}
+                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                        className="w-full min-h-[44px] px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
+                      />
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center border border-white/20 rounded-full px-4 bg-transparent focus-within:border-[#3FE0E0] transition-colors">
-                      <span className="text-sm text-white/50 pr-2 border-r border-white/10 flex items-center gap-1.5">
-                        <img src="/assets/india-flag.png" alt="India" className="w-4 h-4 rounded-sm object-cover" />
-                        +91
-                      </span>
-                      <input
-                        type="tel"
-                        required
-                        aria-label="Contact Phone Number" placeholder="Contact Number *"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-4 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
-                      />
+                    <div>
+                      <label htmlFor="contact-phone" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                        Phone *
+                      </label>
+                      <div className="flex items-center border border-white/20 rounded-full px-4 bg-transparent focus-within:border-[#3FE0E0] transition-colors min-h-[44px]">
+                        <span className="text-sm text-white/50 pr-2 border-r border-white/10 flex items-center gap-1.5">
+                          <img src="/assets/india-flag.png" alt="" width={16} height={16} loading="lazy" decoding="async" className="w-4 h-4 rounded-sm object-cover" />
+                          +91
+                        </span>
+                        <input
+                          id="contact-phone"
+                          type="tel"
+                          name="tel"
+                          autoComplete="tel-national"
+                          required
+                          placeholder="Contact number"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className="w-full px-4 py-4 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                        />
+                      </div>
                     </div>
 
+                    <div>
+                      <label htmlFor="contact-email" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                        Email *
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        name="email"
+                        autoComplete="email"
+                        required
+                        placeholder="you@company.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full min-h-[44px] px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-website" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                      Website <span className="text-white/40">(optional)</span>
+                    </label>
                     <input
-                      type="email"
-                      required
-                      aria-label="Business Email Address" placeholder="Email Address *"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
+                      id="contact-website"
+                      type="url"
+                      name="url"
+                      autoComplete="url"
+                      placeholder="https://yourbrand.com"
+                      value={formData.website}
+                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                      className="w-full min-h-[44px] px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
                     />
                   </div>
 
                   <div>
-                    <input
-                      type="text"
-                      aria-label="Website URL" placeholder="Website URL (e.g. https://yourbrand.com)"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                      className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-full text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors"
+                    <label htmlFor="contact-description" className="block text-xs font-medium text-white/70 mb-1.5 px-1">
+                      Project details *
+                    </label>
+                    <textarea
+                      id="contact-description"
+                      name="description"
+                      rows={4}
+                      required
+                      placeholder="Tell us about your goals or bottlenecks"
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-3xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors resize-none"
                     />
                   </div>
-
-                  <textarea
-                    rows={4}
-                    required
-                    aria-label="Project details and goals" placeholder="Tell us about your project, goals, or bottlenecks *"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-6 py-4 bg-transparent border border-white/20 rounded-3xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0] transition-colors resize-none"
-                  />
 
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
                     <label className="flex items-center gap-2 cursor-pointer text-xs text-white/70 select-none">

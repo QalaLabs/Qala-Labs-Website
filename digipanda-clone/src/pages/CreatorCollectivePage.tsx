@@ -119,7 +119,7 @@ export const CreatorCollectivePage: React.FC = () => {
         url="/creator-collective"
       />
       {/* 1. Hero Section */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#3FE0E0]/15 via-[#4F46E5]/10 to-transparent blur-[140px] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-4xl">
@@ -202,7 +202,7 @@ export const CreatorCollectivePage: React.FC = () => {
       </section>
 
       {/* 3. Creator Tracks */}
-      <section className="py-24 bg-[#06070D] border-t border-white/10">
+      <section className="py-24 bg-transparent border-t border-white/10">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/30 text-[#4F46E5] text-xs font-mono font-bold uppercase tracking-wider mb-4">
@@ -291,7 +291,7 @@ export const CreatorCollectivePage: React.FC = () => {
       </section>
 
       {/* 5. Application Section */}
-      <section id="apply-collective" className="py-24 bg-[#06070D] border-t border-white/10 relative">
+      <section id="apply-collective" className="py-24 bg-transparent border-t border-white/10 relative">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="eyebrow">

@@ -13,10 +13,10 @@
 - **Bundle Architecture**: Heavy 3D libraries (e.g. `three.js`) and core frameworks must be split into dedicated chunks in `vite.config.ts` via `rollupOptions.output.manualChunks`.
 
 ## 4. Visual Identity & Background Atmosphere
-- **Cosmic Foundation**: The canonical dark background is `#06070D` (deep space near-black with cold indigo undertones). Never default to flat `#000000` or neutral grey.
-- **Ambient Gradient Mesh**: The application root (`App.tsx` and `PageLayout.tsx`) must mount `.qala-bg-ambient` (multi-stop radial mesh featuring Electric Indigo `#4F46E5`, Neon Cyan `#3FE0E0`, and Growth Emerald `#34D399`) and `.qala-grid-pattern` (48px × 48px micro-grid at 0.025 opacity).
+- **Light Foundation (canonical)**: The site is light-theme only. Canonical background is `#FFFFFF` with slate text (`#0F172A`). Do not default to dark (`#06070D`), flat `#000000`, or neutral grey as the page canvas. Do not ship a dark-mode toggle.
+- **Ambient Gradient Mesh**: The application root (`App.tsx` and `PageLayout.tsx`) must mount `.qala-bg-ambient` (white canvas + multi-stop blue/cyan/indigo radial mesh) and `.qala-grid-pattern` (48px × 48px micro-grid at low opacity). Accent tokens: Electric Indigo `#4F46E5`, Sky Cyan `#0284C7`, Growth Emerald `#10B981`.
 - **No Legacy DigiPanda Raster Banners**: Never use legacy template raster images (e.g. `top-banner-background-new.webp`) for hero backgrounds. Hero sections must use pure CSS ambient lighting (dual-core glowing orbs and radial-masked grid textures).
-- **Atmospheric Continuity**: Subpages and section wrappers must use `bg-transparent` (or translucent glassmorphic blends like `bg-[#06070D]/90 backdrop-blur-md`) rather than opaque solid fills (`bg-[#06070D]`), preserving continuous gradient illumination across the site.
+- **Atmospheric Continuity**: Subpages and section wrappers must use `bg-transparent` (or translucent glassmorphic blends like `bg-white/90 backdrop-blur-md`) rather than opaque solid fills, preserving continuous gradient illumination across the site.
 
 ## 5. SPA Analytics & Navigation Integrity
 - **Virtual Pageview Tracking**: In React Router SPAs, browser navigation events (`popstate`/`load`) do not capture client-side route transitions. Any tracking script (Meta Pixel, Google Tag Manager, Google Analytics) must be wired to a `useLocation()` observer (`RouteTracker`) triggering explicit `fbq('track', 'PageView')` and `dataLayer.push({ event: 'page_view', page_path: ... })`.

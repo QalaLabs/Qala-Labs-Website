@@ -262,9 +262,24 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
     }, { threshold: 0.1 });
     observer.observe(container);
 
+    let tabVisible = document.visibilityState === 'visible';
+    const onVisibility = () => {
+      tabVisible = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      if (!isVisible) return;
+      if (!isVisible || !tabVisible) {
+        if (prefersReducedMotion && isVisible) {
+          renderer.render(scene, camera);
+        }
+        return;
+      }
+      if (prefersReducedMotion) {
+        renderer.render(scene, camera);
+        return;
+      }
 
       const elapsed = (performance.now() - startTime) * 0.001;
       const currentScale = scaleRef.current;
@@ -316,6 +331,7 @@ export const ScaleHorizonTerrain: React.FC<ScaleHorizonTerrainProps> = ({ classN
       window.removeEventListener('mouseup', onMouseUp);
       container.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
       cancelAnimationFrame(animId);
       observer.disconnect();
 

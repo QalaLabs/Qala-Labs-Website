@@ -9,11 +9,13 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
+  // Dark (#06070D) is the canonical AGENTS.md default; light remains available via toggle
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('qala-theme') === 'dark';
-    }
-    return false;
+    if (typeof window === 'undefined') return true;
+    const stored = localStorage.getItem('qala-theme');
+    if (stored === 'light') return false;
+    if (stored === 'dark') return true;
+    return true;
   });
 
   useEffect(() => {
@@ -60,25 +62,34 @@ export const Navbar: React.FC = () => {
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
           <Link
             to="/"
-            className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3.5 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Home
           </Link>
           <Link
+            to="/gaas"
+            className="text-white hover:text-[#3FE0E0] px-3.5 py-2 min-h-[44px] inline-flex items-center text-sm font-semibold transition-colors gap-1.5"
+          >
+            <span>GAAS</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-mono bg-[#3FE0E0]/20 text-[#3FE0E0] border border-[#3FE0E0]/40 font-bold animate-pulse">
+              SWARMS
+            </span>
+          </Link>
+          <Link
             to="/about"
-            className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3.5 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             About
           </Link>
           <Link
             to="/products"
-            className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3.5 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Products
           </Link>
           <Link
             to="/tools"
-            className="text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3.5 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Tools
           </Link>
@@ -89,7 +100,7 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
           >
-            <button className="flex items-center gap-1 text-white hover:text-[#3FE0E0] px-4 py-2 text-sm font-medium transition-colors">
+            <button className="flex items-center gap-1 text-white hover:text-[#3FE0E0] px-4 py-2 min-h-[44px] text-sm font-medium transition-colors">
               Capabilities
               <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
             </button>
@@ -248,7 +259,7 @@ export const Navbar: React.FC = () => {
 
           <Link
             to="/work"
-            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Our Work
           </Link>
@@ -259,7 +270,7 @@ export const Navbar: React.FC = () => {
             onMouseEnter={() => setEcosystemOpen(true)}
             onMouseLeave={() => setEcosystemOpen(false)}
           >
-            <button className="flex items-center gap-1 text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 text-sm font-medium transition-colors">
+            <button className="flex items-center gap-1 text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 min-h-[44px] text-sm font-medium transition-colors">
               Ecosystem
               <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
             </button>
@@ -302,13 +313,13 @@ export const Navbar: React.FC = () => {
 
           <Link
             to="/blog"
-            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Blog
           </Link>
           <Link
             to="/contact-us"
-            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 text-sm font-medium transition-colors"
+            className="text-white hover:text-[#3FE0E0] px-3 xl:px-4 py-2 min-h-[44px] inline-flex items-center text-sm font-medium transition-colors"
           >
             Contact
           </Link>
@@ -317,17 +328,17 @@ export const Navbar: React.FC = () => {
         {/* Right CTA Button & Theme Toggle */}
         <div className="hidden md:flex items-center gap-3">
           <button
+            type="button"
             onClick={() => setIsDark(!isDark)}
-            className="p-2 rounded-full border border-slate-300/80 dark:border-white/10 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-white transition-all duration-200 shadow-sm"
+            className="p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-full border border-slate-300/80 dark:border-white/10 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-white transition-all duration-200 shadow-sm"
             aria-label="Toggle theme"
-            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
-
           <Link
             to="/contact-us"
-            className="group relative bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white py-2.5 px-6 rounded-full font-semibold text-sm transition-all duration-300 flex items-center gap-3 overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(63,224,224,0.4)] hover:brightness-110"
+            className="group relative bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white py-2.5 px-6 min-h-[44px] rounded-full font-semibold text-sm transition-all duration-300 flex items-center gap-3 overflow-hidden shadow-lg hover:shadow-[0_0_25px_rgba(63,224,224,0.4)] hover:brightness-110"
           >
             <span className="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm text-white flex items-center justify-center font-bold text-xs transition-transform duration-500 transform group-hover:translate-x-14">
               Q
@@ -341,15 +352,16 @@ export const Navbar: React.FC = () => {
         {/* Mobile Header Controls */}
         <div className="lg:hidden flex items-center gap-2">
           <button
+            type="button"
             onClick={() => setIsDark(!isDark)}
-            className="p-2 rounded-full border border-slate-300/80 dark:border-white/10 bg-white/80 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-white transition-all duration-200 shadow-sm"
+            className="p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-full border border-slate-300/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-slate-700 dark:text-white transition-all"
             aria-label="Toggle theme"
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-white hover:text-[#3FE0E0] transition-colors focus:outline-none"
+            className="p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-white hover:text-[#3FE0E0] transition-colors focus:outline-none"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
@@ -367,6 +379,16 @@ export const Navbar: React.FC = () => {
               className="text-white hover:text-[#3FE0E0] text-lg font-medium py-2 border-b border-white/5"
             >
               Home
+            </Link>
+            <Link
+              to="/gaas"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[#3FE0E0] hover:text-white text-lg font-bold py-2 border-b border-white/5 flex items-center justify-between"
+            >
+              <span>GAAS Swarms Platform</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-[#3FE0E0]/20 text-[#3FE0E0] border border-[#3FE0E0]/40 font-bold">
+                NEW
+              </span>
             </Link>
             <Link
               to="/about"

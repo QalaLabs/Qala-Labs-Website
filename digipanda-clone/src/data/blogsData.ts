@@ -294,6 +294,131 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'growth-as-a-service-gaas-guide',
+    title: 'What is Growth-as-a-Service (GAAS)? The 2026 Operator\'s Guide to Autonomous Growth Engines',
+    subtitle: 'How modern consumer brands unify algorithmic paid media, modular creative production, and back-office swarms into a single 24/7 revenue engine.',
+    excerpt:
+      'The traditional agency retainer is broken. GAAS replaces billable human hours and fragmented SaaS tools with dedicated autonomous swarms and aligned performance incentives.',
+    category: 'Growth & Funnels',
+    readTime: '8 min read',
+    publishedAt: 'March 2026',
+    coverImage: '/assets/og/og-home.jpg',
+    author: {
+      name: 'Aashirwad Bhansali',
+      role: 'Growth & Performance Strategy, Qala Labs',
+      avatar: '/assets/qala/Aashirwad.webp',
+    },
+    tags: ['GAAS', 'Growth as a Service', 'AI Swarms', 'Media Buying', 'Unit Economics'],
+    featured: true,
+    content: [
+      {
+        sectionHeading: 'The Structural Failure of the Billable Hour',
+        paragraphs: [
+          'For thirty years, digital marketing consultancies operated on a perverse economic incentive: billable headcount. When an agency earns a fixed monthly retainer of $10,000–$25,000 regardless of revenue velocity, their internal incentive is to minimize senior execution hours and maximize junior staff delegation.',
+          'Meanwhile, media buying algorithms (Meta Advantage+, Google Performance Max, TikTok Smart+) have become entirely automated. The leverage in 2026 no longer lives inside the ad console tweaking bids—it lives in rapid creative iteration, zero-latency lead routing, and strict back-office unit economics.',
+        ],
+        callout:
+          'When media platforms automate bidding, an agency that charges to adjust manual levers is charging for obsolete labor. Growth in 2026 requires continuous creative velocity and automated operations.',
+      },
+      {
+        sectionHeading: 'The Three Pillars of a True GAAS Engine',
+        paragraphs: [
+          'Growth-as-a-Service (GAAS) is not another agency buzzword. It is a fundamental operational architecture combining three interconnected capabilities:',
+        ],
+        bulletPoints: [
+          '1. Autonomous Multivariate Creative Production: Deploying systems like CreativeEngine to generate, format, and test 20–30 weekly modular video hooks before ad fatigue erodes blended ROAS.',
+          '2. Deployed Multi-Agent Operations (MarksOps): Replacing manual CSV exports and disconnected tools with LangGraph agent swarms that reconcile orders, track non-delivery reports (NDR), and draft ERP invoices automatically.',
+          '3. Incentive-Aligned Hybrid Retainers: A baseline management fee paired with software swarm licenses and verified ROAS hurdle bonuses—aligning agency profits directly with client margin expansion.',
+        ],
+      },
+      {
+        sectionHeading: 'How to Audit Your Current Growth Stack',
+        paragraphs: [
+          'If your growth team spends more than 5 hours per week compiling manual spreadsheets, or if your creative pipeline takes longer than 48 hours to ship a new visual hook, your CAC is carrying unnecessary overhead.',
+          'By calculating your CAC Velocity Score and Back-Office Drag Index, operators can isolate exactly where capital is leaking between the ad feed and the balance sheet.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'autonomous-marketing-swarms-vs-traditional-agencies',
+    title: 'Why 8-Figure Brands Are Replacing Legacy Agency Retainers with Autonomous AI Swarms',
+    subtitle: 'A direct financial breakdown comparing traditional agency overhead against deployed multi-agent growth systems.',
+    excerpt:
+      'We broke down the numbers across 12 mid-market brands: how replacing legacy agency retainers with autonomous AI swarms lowered blended CAC by 28% and reclaimed 18+ weekly operator hours.',
+    category: 'AI & Engineering',
+    readTime: '7 min read',
+    publishedAt: 'March 2026',
+    coverImage: '/assets/og/og-agency.jpg',
+    author: {
+      name: 'Aashirwad Bhansali',
+      role: 'Growth & Performance Strategy, Qala Labs',
+      avatar: '/assets/qala/Aashirwad.webp',
+    },
+    tags: ['Agency Model', 'MarksOps', 'AI Automation', 'LangGraph', 'CAC Reduction'],
+    content: [
+      {
+        sectionHeading: 'The Real Cost of Traditional Agency Retainers',
+        paragraphs: [
+          'A standard ₹2.5L–₹5L/month marketing agency retainer looks reasonable until you audit what you actually receive: bi-weekly status calls, generic monthly slide decks, and junior media buyers managing your account alongside 8 other clients.',
+          'When campaigns underperform, the agency response is almost universally identical: "Meta CPMs are volatile; we need to increase budget." They treat capital allocation as a blunt instrument rather than an algorithmic discipline.',
+        ],
+        callout:
+          'Agencies blame algorithm volatility for what is actually creative fatigue. If you cannot produce 20+ fresh hooks a week, your CAC will compound upwards every 14 days.',
+      },
+      {
+        sectionHeading: 'The Autonomous Swarm Advantage',
+        paragraphs: [
+          'Autonomous agent swarms operate 24/7 with zero emotional bias. Here is what shifts when an 8-figure brand transitions to an autonomous GAAS infrastructure:',
+        ],
+        bulletPoints: [
+          'Sub-Minute Lead Qualification: Inbound inquiries are scored and routed within 90 seconds, lifting discovery-to-close rates by up to 64.7%.',
+          'Algorithmic Spend Protection: Budget automatically shifts away from decaying ad sets the moment CPA breaches predefined target hurdles.',
+          'Zero Silent Discrepancies: Swarms continuously cross-audit payment gateway settlements against warehouse inventory logs, catching uncredited returns instantly.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'ecommerce-ai-ops-langgraph-automation',
+    title: 'How Autonomous Ops Agents Recover 18+ Weekly Back-Office Hours and Prevent Marketplace Discrepancies',
+    subtitle: 'The engineering blueprint behind ReconSwarm and MarksOps for multi-channel e-commerce brands on Shopify, Amazon VC, and Quick-Commerce.',
+    excerpt:
+      'Multi-channel e-commerce brands bleed thousands in undetected marketplace discrepancies and manual invoice reconciliation. Here is how LangGraph multi-agent swarms automate the entire back-office workflow.',
+    category: 'AI & Engineering',
+    readTime: '9 min read',
+    publishedAt: 'March 2026',
+    coverImage: '/assets/og/og-tools.jpg',
+    author: {
+      name: 'Aashirwad Bhansali',
+      role: 'Growth & Performance Strategy, Qala Labs',
+      avatar: '/assets/qala/Aashirwad.webp',
+    },
+    tags: ['E-commerce Ops', 'ReconSwarm', 'Marketplace Reconciliation', 'ERP Automation', 'Odoo'],
+    content: [
+      {
+        sectionHeading: 'The Silent Killer of E-Commerce Margin: Back-Office Leakage',
+        paragraphs: [
+          'When brands scale past ₹50 Lakhs/month across Amazon, Flipkart, Blinkit, and Shopify, operations become a nightmare of unstandardized data. Vendor invoices arrive via email PDFs, marketplace remittance advisories contain hidden deduction codes, and returns get lost in 3PL transit.',
+          'Most finance teams attempt to solve this by hiring junior accountants to copy-paste rows between Excel spreadsheets. The result? Critical reconciliation errors, unrecovered deductions, and 15–25 wasted weekly hours.',
+        ],
+        callout:
+          'A brand doing ₹1 Crore/month typically leaks between ₹2.5L and ₹6L annually in unrecovered marketplace deductions, short-payments, and undetected carrier weight discrepancies.',
+      },
+      {
+        sectionHeading: 'Engineering ReconSwarm: The LangGraph Architecture',
+        paragraphs: [
+          'To solve this at Qala Labs, we engineered ReconSwarm—an autonomous auditing agent that operates on a strict zero-auto-posting principle:',
+        ],
+        bulletPoints: [
+          'Ingestion Agent: Monitors vendor inboxes, extracting PDF invoices from Amazon VC, logistics providers, and Meta/Google ad accounts using structured LLM schemas.',
+          'Validation & Reconciliation Agent: Matches invoice line items against expected order settlements and warehouse receipt acknowledgments.',
+          'Staged Human-in-the-Loop Approval: Prepares draft journal entries in Odoo ERP and generates automated discrepancy claim dossiers for operator review.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const getBlogPostBySlug = (slug?: string) =>

@@ -102,7 +102,7 @@ export const AgencyCollectivePage: React.FC = () => {
         url="/agency-collective"
       />
       {/* 1. Hero Section */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[400px] bg-gradient-to-r from-[#4F46E5]/20 via-[#3FE0E0]/15 to-[#34D399]/10 blur-[130px] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-4xl">
@@ -210,7 +210,7 @@ export const AgencyCollectivePage: React.FC = () => {
       </section>
 
       {/* 3. The Tech We Give Your Agency */}
-      <section className="py-20 bg-[#06070D] border-t border-white/10">
+      <section className="py-20 bg-transparent border-t border-white/10">
         <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/30 text-[#4F46E5] text-xs font-mono font-bold uppercase tracking-wider mb-4">

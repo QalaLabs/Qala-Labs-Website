@@ -63,7 +63,57 @@ export const ServiceDetailPage: React.FC = () => {
           <p className="text-xl md:text-2xl font-medium" style={{ color: accent }}>
             {service.tagline}
           </p>
-          <p className="text-white/70 leading-relaxed mt-6 max-w-3xl">{service.description}</p>
+          <p className="text-white/70 leading-relaxed mt-6 max-w-3xl text-base">
+            {service.description}
+          </p>
+          <p className="text-sm text-white/55 mt-4 max-w-2xl">
+            <span className="font-semibold text-white/80">Who this is for:</span>{' '}
+            {service.track === 'AI' && 'Operators and founders replacing manual ops, sales, or support with supervised agents.'}
+            {service.track === 'Design' && 'Brands that need conversion-ready identity and product UI, not moodboards.'}
+            {service.track === 'Development' && 'Teams shipping performance-critical web or app surfaces that must convert.'}
+            {service.track === 'Marketing' && 'Growth leads who need measurable ROAS, not vanity campaigns.'}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link
+              to="/contact-us"
+              className="inline-flex items-center justify-center gap-2 min-h-[44px] px-7 py-3 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:brightness-110 transition-all"
+            >
+              Start a Project
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/work"
+              className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 rounded-full border border-white/20 text-white/80 hover:text-white hover:border-white/40 text-sm font-medium transition-colors"
+            >
+              See related work
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 bg-transparent border-t border-white/5">
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+          <h2 className="text-sm font-bold uppercase tracking-widest mb-6" style={{ color: accent }}>
+            How we deliver
+          </h2>
+          <ol className="grid sm:grid-cols-3 gap-4">
+            {[
+              { step: '01', title: 'Diagnose', body: 'Map bottlenecks, unit economics, and the systems already in play.' },
+              { step: '02', title: 'Build', body: 'Ship the agents, creatives, or product surfaces with human approval gates.' },
+              { step: '03', title: 'Scale', body: 'Instrument results, tighten loops, and expand what is already converting.' },
+            ].map((item) => (
+              <li
+                key={item.step}
+                className="p-5 rounded-2xl border border-white/10 bg-white/[0.03]"
+              >
+                <span className="font-mono text-xs font-bold" style={{ color: accent }}>
+                  {item.step}
+                </span>
+                <h3 className="text-white font-bold mt-2 mb-1">{item.title}</h3>
+                <p className="text-sm text-white/65 leading-relaxed">{item.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

@@ -2,19 +2,37 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ContactSection } from '../../components/ContactSection';
 
+const fillForm = () => {
+  fireEvent.change(screen.getByLabelText(/Full name/i), {
+    target: { value: 'Test Lead' },
+  });
+  fireEvent.change(screen.getByLabelText(/Company \/ brand/i), {
+    target: { value: 'Test Corp' },
+  });
+  fireEvent.change(screen.getByLabelText(/^Phone/i), {
+    target: { value: '+91 9876543210' },
+  });
+  fireEvent.change(screen.getByLabelText(/^Email/i), {
+    target: { value: 'test@example.com' },
+  });
+  fireEvent.change(screen.getByLabelText(/Project details/i), {
+    target: { value: 'Need an AI agent swarm' },
+  });
+};
+
 describe('ContactSection Component (Lead Capture & Resilience)', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('renders all form input fields', () => {
+  it('renders all form input fields with visible labels', () => {
     render(<ContactSection />);
 
-    expect(screen.getByPlaceholderText('Full Name *')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Company / Brand Name *')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Contact Number *')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Email Address *')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Tell us about your project, goals, or bottlenecks *')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Full name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Company \/ brand/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Phone/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Project details/i)).toBeInTheDocument();
   });
 
   it('submits successfully when /api/lead responds with 200', async () => {
@@ -26,22 +44,7 @@ describe('ContactSection Component (Lead Capture & Resilience)', () => {
     global.fetch = fetchMock;
 
     render(<ContactSection />);
-
-    fireEvent.change(screen.getByPlaceholderText('Full Name *'), {
-      target: { value: 'Test Lead' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Company / Brand Name *'), {
-      target: { value: 'Test Corp' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Contact Number *'), {
-      target: { value: '+91 9876543210' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Email Address *'), {
-      target: { value: 'test@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Tell us about your project, goals, or bottlenecks *'), {
-      target: { value: 'Need an AI agent swarm' },
-    });
+    fillForm();
 
     const submitBtn = screen.getByRole('button', { name: /send message/i });
     fireEvent.click(submitBtn);
@@ -74,22 +77,7 @@ describe('ContactSection Component (Lead Capture & Resilience)', () => {
     global.fetch = fetchMock;
 
     render(<ContactSection />);
-
-    fireEvent.change(screen.getByPlaceholderText('Full Name *'), {
-      target: { value: 'Fallback User' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Company / Brand Name *'), {
-      target: { value: 'Fallback Corp' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Contact Number *'), {
-      target: { value: '+91 9876543210' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Email Address *'), {
-      target: { value: 'fallback@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Tell us about your project, goals, or bottlenecks *'), {
-      target: { value: 'Need migration' },
-    });
+    fillForm();
 
     const submitBtn = screen.getByRole('button', { name: /send message/i });
     fireEvent.click(submitBtn);
@@ -107,22 +95,7 @@ describe('ContactSection Component (Lead Capture & Resilience)', () => {
     global.fetch = fetchMock;
 
     render(<ContactSection />);
-
-    fireEvent.change(screen.getByPlaceholderText('Full Name *'), {
-      target: { value: 'Error Test' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Company / Brand Name *'), {
-      target: { value: 'Error Corp' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Contact Number *'), {
-      target: { value: '+91 9876543210' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Email Address *'), {
-      target: { value: 'err@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Tell us about your project, goals, or bottlenecks *'), {
-      target: { value: 'Testing network failure resilience' },
-    });
+    fillForm();
 
     const submitBtn = screen.getByRole('button', { name: /send message/i });
     fireEvent.click(submitBtn);
@@ -133,7 +106,6 @@ describe('ContactSection Component (Lead Capture & Resilience)', () => {
       ).toBeInTheDocument();
     });
 
-    // Verify submitted message is NOT present (no unconditional success)
     expect(screen.queryByText('Inquiry Received!')).not.toBeInTheDocument();
   });
 });

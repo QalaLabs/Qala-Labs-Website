@@ -360,3 +360,87 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover {
 .dark img[src*="qala-logo-full"] {
   filter: none !important;
 }
+
+/* ==========================================================================
+   ACCESSIBILITY, MOTION & TAP TARGETS
+   ========================================================================== */
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid #3FE0E0;
+  outline-offset: 3px;
+}
+
+html:not(.dark) :focus-visible {
+  outline-color: #0284C7;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: nowrap;
+  border-radius: 0.75rem;
+  background: #3FE0E0;
+  color: #06070D;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Footer / nav links: padding expands hit area without changing visual weight */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tap-target-block {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* Mono eyebrows stay compact but never below 12px */
+.eyebrow {
+  font-size: max(0.75rem, 12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ticker-track,
+  .animate-marquee,
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin,
+  .animate-bounce,
+  .animate-blink {
+    animation: none !important;
+  }
+}

@@ -44,7 +44,7 @@ export const CaseStudiesPage: React.FC = () => {
         url="/case-studies"
       />
       {/* 1. Hero Section */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-[#4F46E5]/20 via-[#3FE0E0]/15 to-transparent blur-[120px] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-4xl">

@@ -16,11 +16,8 @@ export const VideoBanner: React.FC = () => {
 
         <div className="relative rounded-[36px] md:rounded-[60px] overflow-hidden border border-white/10 shadow-2xl bg-gradient-to-br from-white/5 to-white/0 p-2 md:p-4">
           <div className="relative rounded-[28px] md:rounded-[50px] overflow-hidden aspect-[16/9] md:aspect-[21/9] bg-[#06070D] flex items-center justify-center group select-none">
-            {/* Ambient Background matching the section visual */}
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none transition-opacity duration-700"
-              style={{ backgroundImage: `url('/assets/caseStudyBg.webp')` }}
-            />
+            {/* CSS ambient only — avoid shipping a second heavy raster behind the ASCII canvas */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(79,70,229,0.25),transparent_70%),radial-gradient(ellipse_60%_50%_at_80%_20%,rgba(63,224,224,0.18),transparent_60%)] pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-tr from-[#4F46E5]/20 via-transparent to-[#3FE0E0]/15 pointer-events-none" />
 
             {/* Interactive ASCII Art Canvas */}

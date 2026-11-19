@@ -183,9 +183,20 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
     }, { threshold: 0.1 });
     observer.observe(container);
 
+    let tabVisible = document.visibilityState === 'visible';
+    const onVisibility = () => {
+      tabVisible = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      if (!isVisible) return;
+      if (!isVisible || !tabVisible || prefersReducedMotion) {
+        if (prefersReducedMotion) {
+          renderer.render(scene, camera);
+        }
+        return;
+      }
 
       const elapsed = (performance.now() - startTime) * 0.001;
 
@@ -253,6 +264,7 @@ export const CreativeDataDualCore: React.FC<CreativeDataDualCoreProps> = ({ clas
       window.removeEventListener('mouseup', onMouseUp);
       container.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
       cancelAnimationFrame(animId);
       observer.disconnect();
 

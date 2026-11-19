@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const words = ['AI Automation', '28x ROAS Funnels', '125M+ Viral Reach', 'Autonomous Scale'];
+const rotatingProof = ['28x ROAS funnels', '125M+ viral reach', 'Autonomous agent swarms', '₹2.5Cr+ ecosystem revenue'];
 
 interface TelemetryPoint {
   day: string;
@@ -110,23 +110,33 @@ const teamAvatars: TeamAvatar[] = [
 ];
 
 export const Hero: React.FC = () => {
-  const [wordIndex, setWordIndex] = useState(0);
+  const [proofIndex, setProofIndex] = useState(0);
   const [activeEngine, setActiveEngine] = useState<EngineKey>('Trotr Funnel');
   const [scrubIndex, setScrubIndex] = useState<number | null>(null);
   const [isInteracting, setIsInteracting] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const chartRef = useRef<HTMLDivElement>(null);
 
-  // Dynamic headline word rotation
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mq.matches);
+    const onChange = () => setReduceMotion(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  // Rotate proof sub-line only (H1 stays fixed for SEO / readability)
+  useEffect(() => {
+    if (reduceMotion) return;
     const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
+      setProofIndex((prev) => (prev + 1) % rotatingProof.length);
     }, 2800);
     return () => clearInterval(interval);
-  }, []);
+  }, [reduceMotion]);
 
   // Auto-switching engine timer: rotates every 6.5s, pauses on user interaction
   useEffect(() => {
-    if (isInteracting) return;
+    if (isInteracting || reduceMotion) return;
 
     const interval = setInterval(() => {
       setActiveEngine((prev) => {
@@ -137,7 +147,7 @@ export const Hero: React.FC = () => {
     }, 6500);
 
     return () => clearInterval(interval);
-  }, [isInteracting]);
+  }, [isInteracting, reduceMotion]);
 
   const currentEngine = qalaEngines[activeEngine];
   const activeIndex = scrubIndex !== null ? scrubIndex : currentEngine.points.length - 1;
@@ -204,20 +214,23 @@ export const Hero: React.FC = () => {
               {/* Eyebrow badge */}
               <div className="eyebrow">
                 <span className="w-2 h-2 rounded-full bg-[#3FE0E0] animate-blink" />
-                AI & Creative Growth Lab • London & Delhi
+                THE PREMIER GAAS STUDIO • AUTONOMOUS AGENT SWARMS
               </div>
 
-              {/* Dynamic Headline */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-semibold text-white leading-tight md:leading-[1.15] mb-5 tracking-tight">
-                Where Ideas Turn Into Revenues <br />
-                <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] font-bold uppercase transition-all duration-500 transform">
-                  {words[wordIndex]}
-                </span>
+              {/* Stable keyword-bearing H1 — rotating proof lives in the sub-line */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-semibold text-white leading-tight md:leading-[1.15] mb-3 tracking-tight">
+                AI Automation &amp; Growth Systems for Brands Scaling in India
               </h1>
+              <p
+                className="text-lg md:text-xl font-bold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] mb-5"
+                aria-live="off"
+              >
+                {rotatingProof[proofIndex]}
+              </p>
 
               {/* Subtitle */}
               <p className="text-white/80 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
-                Qala Labs blends art and engineering to build autonomous growth systems, bespoke software, and high-converting brand movements.
+                Qala Labs is an AI agency and marketing studio based in India. We deploy autonomous agent swarms, high-converting landers, and full-funnel media engineering so brands scale without headcount drag.
               </p>
 
               {/* Founders & Core Team Avatar Stack with Interactive Hover Bio Cards */}
@@ -232,6 +245,10 @@ export const Hero: React.FC = () => {
                       <img
                         src={person.image}
                         alt={person.name}
+                        width={48}
+                        height={48}
+                        loading="eager"
+                        decoding="async"
                         className="w-11 h-11 md:w-12 md:h-12 rounded-full object-cover border-2 border-black group-hover/avatar:scale-115 group-hover/avatar:z-30 group-hover/avatar:border-[#3FE0E0] transition-all duration-300 cursor-pointer shadow-md"
                       />
                       {/* Interactive Hover Bio Card Flyout */}
@@ -250,18 +267,10 @@ export const Hero: React.FC = () => {
                     </div>
                   ))}
 
-                  {/* Revenue Metric Badge */}
-                  <div className="relative group/avatar">
-                    <div className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center border-2 border-black shadow-md cursor-pointer group-hover/avatar:scale-115 group-hover/avatar:z-30 transition-all duration-300">
-                      ₹2.5Cr+
-                    </div>
-                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover/avatar:opacity-100 group-hover/avatar:translate-y-0 translate-y-2 transition-all duration-200 z-50 whitespace-nowrap">
-                      <div className="bg-[#0B0C16]/95 border border-white/15 backdrop-blur-xl px-3.5 py-2 rounded-xl shadow-[0_12px_30px_rgba(0,0,0,0.85)] text-left">
-                        <div className="text-white font-bold text-xs">₹2.5Cr+ Generated</div>
-                        <div className="text-[#3FE0E0] text-[10px] font-mono">Direct Ecosystem Revenue</div>
-                      </div>
-                      <div className="w-2.5 h-2.5 bg-[#0B0C16] border-r border-b border-white/15 rotate-45 mx-auto -mt-1" />
-                    </div>
+                  {/* Revenue Metric — readable counter (not clipped avatar badge) */}
+                  <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-gradient-to-r from-[#4F46E5]/20 to-[#3FE0E0]/20 border border-[#3FE0E0]/40 text-white text-xs sm:text-sm font-bold whitespace-nowrap">
+                    <span className="text-[#3FE0E0] font-mono">₹2.5Cr+</span>
+                    <span className="text-white/80 font-medium hidden xs:inline sm:inline">ecosystem revenue</span>
                   </div>
                 </div>
               </div>
@@ -276,9 +285,10 @@ export const Hero: React.FC = () => {
                 </a>
                 
                 <a
-                  href="#services"
+
                   className="group relative w-12 h-12 rounded-full flex items-center justify-center p-1 bg-white/[0.04] border border-cyan-500/20 hover:border-cyan-400/60 shadow-[0_0_15px_rgba(63,224,224,0.15)] hover:shadow-[0_0_25px_rgba(63,224,224,0.35)] hover:scale-110 active:scale-95 transition-all duration-300"
-                  title="Explore AI Capabilities"
+                  title="Explore GAAS Swarms"
+                  href="/gaas"
                 >
                   <img
                     src="/assets/ai-sparkle.svg"

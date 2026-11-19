@@ -108,7 +108,7 @@ export const BlogPage: React.FC = () => {
         url="/blog"
       />
       {/* 1. Hero Section */}
-      <section className="relative pt-40 pb-20 bg-[#06070D] overflow-hidden">
+      <section className="relative pt-40 pb-20 bg-transparent overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-gradient-to-r from-[#4F46E5]/20 via-[#3FE0E0]/15 to-transparent blur-[120px] pointer-events-none" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center max-w-4xl">
@@ -132,7 +132,7 @@ export const BlogPage: React.FC = () => {
 
       {/* 2. Featured Article Spotlight */}
       {featuredPost && (
-        <section className="py-8 bg-[#06070D]">
+        <section className="py-8 bg-transparent">
           <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
             <Link
               to={`/blog/${featuredPost.slug}`}
@@ -319,7 +319,7 @@ export const BlogPage: React.FC = () => {
       </section>
 
       {/* 4. Newsletter Subscription Box */}
-      <section className="py-20 bg-[#06070D] border-t border-white/10 relative">
+      <section className="py-20 bg-transparent border-t border-white/10 relative">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
           <div className="p-8 sm:p-12 rounded-[36px] bg-gradient-to-br from-white/[0.06] to-white/[0.015] border border-white/15 backdrop-blur-xl text-center shadow-2xl">
             <div className="eyebrow">

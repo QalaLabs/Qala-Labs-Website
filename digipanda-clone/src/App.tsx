@@ -1,5 +1,6 @@
 import React from 'react';
 import { SEO } from './components/SEO';
+import { SkipLink } from './components/SkipLink';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Ticker } from './components/Ticker';
@@ -20,9 +21,10 @@ import { StickyCTA } from './components/StickyCTA';
 export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-transparent qala-bg-ambient selection:bg-[#3FE0E0] selection:text-black font-sans pb-20 relative">
+      <SkipLink />
       <SEO
-        title="Creative × Data × Impact • AI & Growth Studio"
-        description="Qala Labs blends art and engineering to build autonomous growth systems, AI creative engines, and high-converting digital products."
+        title="AI Agency & Marketing Studio India • Creative × Data × Impact"
+        description="Qala Labs is an AI agency and marketing studio in India — autonomous growth systems, agent swarms, and high-converting digital products."
         image="/assets/og/og-home.jpg"
         url="/"
       />
@@ -34,7 +36,7 @@ export const App: React.FC = () => {
         <Navbar />
 
         {/* Main Page Sections */}
-        <main>
+        <main id="main-content">
         {/* 1. Hero with macOS Widget & Interactive Dashboard */}
         <Hero />
 

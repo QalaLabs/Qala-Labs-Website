@@ -70,7 +70,7 @@ export const BlogDetailPage: React.FC = () => {
           },
         }}
       />
-      <article className="relative pt-36 pb-24 bg-[#06070D] overflow-hidden">
+      <article className="relative pt-36 pb-24 bg-transparent overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
           {/* Back to Blog */}
           <Link

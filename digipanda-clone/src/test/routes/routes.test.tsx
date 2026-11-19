@@ -125,7 +125,7 @@ describe('Website Pages & Dynamic Routes', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByPlaceholderText('Full Name *')).toBeInTheDocument();
+    expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
   });
 
   it('renders WhoWeArePage, ServicesPage, and CaseStudiesPage without error', () => {

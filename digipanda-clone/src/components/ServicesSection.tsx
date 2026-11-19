@@ -180,7 +180,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ titleAs = 'h2'
 
   return (
     <section id="services" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/assets/bgrk1.webp')] bg-cover bg-center opacity-15 pointer-events-none" />
+      {/* CSS ambient only — no heavy raster banner (AGENTS.md / A2) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,rgba(79,70,229,0.14),transparent_60%),radial-gradient(ellipse_50%_40%_at_10%_80%,rgba(63,224,224,0.1),transparent_55%)] pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}

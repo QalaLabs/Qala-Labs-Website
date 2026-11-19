@@ -1,7 +1,12 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth bg-white text-slate-900 dark:bg-[#06070D] dark:text-white">
+<html lang="en" class="scroll-smooth bg-white text-slate-900">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Light theme only — strip any legacy dark class / preference before paint
+      document.documentElement.classList.remove('dark');
+      try { localStorage.setItem('qala-theme', 'light'); } catch (e) {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -20,7 +25,7 @@
     <title>Qala Labs | Creative × Data × Impact • AI & Growth Studio</title>
     <meta name="description" content="Qala Labs blends art and engineering to build autonomous growth systems, AI creative engines, and high-converting digital products." />
     <link rel="canonical" href="https://qalalabs.com/" />
-    <meta name="theme-color" content="#06070D" />
+    <meta name="theme-color" content="#FFFFFF" />
 
     <!-- Verification Meta Tags -->
     <meta name="facebook-domain-verification" content="4ibwlekuils239ol7r3o3cc0cl7jrp" />
@@ -108,7 +113,7 @@
     </script>
     <!-- End Meta Pixel Code -->
   </head>
-  <body class="bg-[#06070D] text-white font-sans antialiased selection:bg-[#4F46E5] selection:text-white overflow-x-hidden">
+  <body class="bg-white text-slate-900 font-sans antialiased selection:bg-[#4F46E5] selection:text-white overflow-x-hidden">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PFN9PZRS"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

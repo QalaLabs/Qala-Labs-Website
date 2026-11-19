@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronUp, ChevronDown, X, Sparkles, Send, CheckCircle2, MessageSquare, Loader2, AlertCircle } from 'lucide-react';
+import { ChevronUp, ChevronDown, X, Send, CheckCircle2, MessageSquare, Loader2, AlertCircle } from 'lucide-react';
 
 export const StickyCTA: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,12 +10,22 @@ export const StickyCTA: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const scaleOptions = ['₹25L/mo', '₹50L/mo', '₹1Cr/mo', '₹5Cr/mo+'];
 
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (!phone.trim()) next.phone = 'Phone or WhatsApp is required.';
+    if (!email.trim()) next.email = 'Business email is required.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = 'Enter a valid email.';
+    setFieldErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email && !phone) return;
+    if (!validate()) return;
     setLoading(true);
     setErrorMessage(null);
     try {
@@ -28,7 +38,6 @@ export const StickyCTA: React.FC = () => {
         source: 'sticky_growth_plan_drawer',
       };
 
-      // Try serverless endpoint first, fallback to PHP if 404
       let response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,7 +80,6 @@ export const StickyCTA: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-xl transition-all duration-500 font-sans">
-      {/* Drawer Overlay / Modal */}
       {isOpen && (
         <div className="dark-dock mb-3 p-6 rounded-3xl bg-slate-950/95 dark:bg-[#090A15]/95 backdrop-blur-2xl border border-slate-800 dark:border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] animate-in fade-in slide-in-from-bottom-6 duration-300">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
@@ -84,7 +92,7 @@ export const StickyCTA: React.FC = () => {
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close drawer"
-              className="p-1 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+              className="tap-target p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -92,39 +100,58 @@ export const StickyCTA: React.FC = () => {
 
           {submitted ? (
             <div className="py-6 text-center">
-              <CheckCircle2 className="w-12 h-12 text-[#10B981] mx-auto mb-3 animate-bounce" />
+              <CheckCircle2 className="w-12 h-12 text-[#10B981] mx-auto mb-3" />
               <h4 className="text-lg font-bold text-white mb-1">Growth Plan Request Logged</h4>
-              <p className="text-xs text-white/70">
+              <p className="text-sm text-white/70">
                 Our principal growth architect will review your {targetScale} roadmap and connect shortly.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               {errorMessage && (
-                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-200 text-xs flex items-center justify-between gap-2 animate-in fade-in duration-200">
+                <div role="alert" className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-200 text-xs flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
-                  <a
-                    href="mailto:hello@qalalabs.com"
-                    className="underline font-bold text-[#3FE0E0] hover:text-white shrink-0 text-[11px]"
-                  >
-                    Email
-                  </a>
+                  <div className="flex gap-3 shrink-0">
+                    <a href="mailto:hello@qalalabs.com" className="underline font-bold text-[#3FE0E0] hover:text-white text-xs">
+                      Email
+                    </a>
+                    <a
+                      href="https://wa.me/916006760151"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline font-bold text-[#25D366] hover:text-white text-xs"
+                    >
+                      WhatsApp
+                    </a>
+                  </div>
                 </div>
               )}
+
+              {Object.keys(fieldErrors).length > 0 && (
+                <div role="alert" className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-100 text-xs">
+                  <p className="font-bold mb-1">Please fix the following:</p>
+                  <ul className="list-disc pl-4 space-y-0.5">
+                    {Object.values(fieldErrors).map((msg) => (
+                      <li key={msg}>{msg}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <div>
-                <label className="block text-[11px] font-mono uppercase text-white/60 mb-2">
-                  Select Your Target Revenue Horizon:
-                </label>
-                <div className="grid grid-cols-4 gap-2">
+                <span id="scale-label" className="block text-xs font-mono uppercase text-white/70 mb-2">
+                  Target revenue horizon
+                </span>
+                <div className="grid grid-cols-4 gap-2" role="group" aria-labelledby="scale-label">
                   {scaleOptions.map((opt) => (
                     <button
                       key={opt}
                       type="button"
                       onClick={() => setTargetScale(opt)}
-                      className={`cursor-pointer py-2 px-1 text-xs rounded-xl font-bold font-mono transition-all border ${
+                      className={`cursor-pointer min-h-[44px] py-2 px-1 text-xs rounded-xl font-bold font-mono transition-all border ${
                         targetScale === opt
                           ? 'bg-[#3FE0E0] text-black border-[#3FE0E0] shadow-[0_0_15px_rgba(63,224,224,0.4)]'
                           : 'bg-white/5 text-white/70 border-white/10 hover:border-white/30'
@@ -137,37 +164,75 @@ export const StickyCTA: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input
-                  type="text"
-                  aria-label="Your Name (Optional)" placeholder="Your Name (Optional)"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
-                />
-                <input
-                  type="tel"
-                  required
-                  aria-label="Phone or WhatsApp Number" placeholder="Phone / WhatsApp Number *"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
-                />
+                <div>
+                  <label htmlFor="sticky-name" className="block text-xs font-medium text-white/70 mb-1.5">
+                    Name <span className="text-white/40">(optional)</span>
+                  </label>
+                  <input
+                    id="sticky-name"
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full min-h-[44px] px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="sticky-phone" className="block text-xs font-medium text-white/70 mb-1.5">
+                    Phone / WhatsApp *
+                  </label>
+                  <input
+                    id="sticky-phone"
+                    type="tel"
+                    name="tel"
+                    autoComplete="tel"
+                    required
+                    placeholder="+91…"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      if (fieldErrors.phone) setFieldErrors((f) => ({ ...f, phone: '' }));
+                    }}
+                    onBlur={() => {
+                      if (!phone.trim()) setFieldErrors((f) => ({ ...f, phone: 'Phone or WhatsApp is required.' }));
+                    }}
+                    aria-invalid={!!fieldErrors.phone}
+                    className="w-full min-h-[44px] px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
+                  />
+                </div>
               </div>
 
-              <input
-                type="email"
-                required
-                aria-label="Business Email Address" placeholder="Business Email Address *"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
-              />
+              <div>
+                <label htmlFor="sticky-email" className="block text-xs font-medium text-white/70 mb-1.5">
+                  Business email *
+                </label>
+                <input
+                  id="sticky-email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (fieldErrors.email) setFieldErrors((f) => ({ ...f, email: '' }));
+                  }}
+                  onBlur={() => {
+                    if (!email.trim()) setFieldErrors((f) => ({ ...f, email: 'Business email is required.' }));
+                  }}
+                  aria-invalid={!!fieldErrors.email}
+                  className="w-full min-h-[44px] px-4 py-3 bg-white/5 border border-white/15 rounded-xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#3FE0E0]"
+                />
+              </div>
 
               <div className="flex items-center gap-3 pt-2">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="cursor-pointer flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-xs flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all"
+                  className="cursor-pointer flex-1 min-h-[44px] py-3 px-5 rounded-xl bg-gradient-to-r from-[#4F46E5] to-[#3FE0E0] text-white font-bold text-sm flex items-center justify-center gap-2 hover:brightness-110 shadow-lg transition-all"
                 >
                   {loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -183,7 +248,7 @@ export const StickyCTA: React.FC = () => {
                   href="https://wa.me/916006760151?text=Hi%20Qala%20Labs%2C%20I%20want%20to%20scale%20my%20business%20to%201Cr%2Fmo."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-3 px-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 hover:bg-[#25D366]/30 text-[#25D366] font-bold text-xs flex items-center gap-1.5 transition-all"
+                  className="min-h-[44px] py-3 px-4 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 hover:bg-[#25D366]/30 text-[#25D366] font-bold text-sm flex items-center gap-1.5 transition-all"
                   title="Direct WhatsApp Chat"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -195,24 +260,25 @@ export const StickyCTA: React.FC = () => {
         </div>
       )}
 
-      {/* Persistent Pill Bar (Matches Image 1 and Image 2 bottom widget) */}
-      <div className="dark-dock flex items-center justify-between gap-3 px-5 py-3 rounded-full bg-slate-950/95 dark:bg-[#0A0C18]/90 backdrop-blur-xl border border-slate-800 dark:border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:border-slate-700 transition-all">
-        <div className="flex items-center gap-2.5 min-w-0">
+      {/* Compact mobile copy — avoids "Ready to scale pa..." truncation */}
+      <div className="dark-dock flex items-center justify-between gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-950/95 dark:bg-[#0A0C18]/90 backdrop-blur-xl border border-slate-800 dark:border-white/20 shadow-[0_10px_35px_rgba(0,0,0,0.6)] hover:border-slate-700 transition-all">
+        <div className="flex items-center gap-2 min-w-0">
           <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10B981]" />
           </span>
-          <span className="text-xs sm:text-sm font-medium text-white truncate">
-            Ready to scale past <strong className="text-[#3FE0E0] font-bold">₹1Cr/mo</strong>?
+          <span className="text-sm font-medium text-white truncate">
+            Scale past <strong className="text-[#3FE0E0] font-bold">₹1Cr/mo</strong>?
           </span>
         </div>
 
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
-          className="cursor-pointer flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-slate-950 hover:text-black font-bold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
+          className="cursor-pointer flex-shrink-0 inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full bg-white hover:bg-[#3FE0E0] text-slate-950 hover:text-black font-bold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(63,224,224,0.4)] group"
         >
-          <span>Request Growth Plan</span>
+          <span className="sm:hidden">Get Plan</span>
+          <span className="hidden sm:inline">Request Growth Plan</span>
           {isOpen ? (
             <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:translate-y-0.5" />
           ) : (

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
 import { ScrollToTop } from './components/ScrollToTop';
+import { RouteTracker } from './components/RouteTracker';
 import './index.css';
 
 // Lazy-loaded subpages for code-splitting and optimized initial load
@@ -27,16 +28,17 @@ const ToolsPage = React.lazy(() => import('./pages/ToolsPage').then((m) => ({ de
 const BlogPage = React.lazy(() => import('./pages/BlogPage').then((m) => ({ default: m.BlogPage })));
 const BlogDetailPage = React.lazy(() => import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage })));
 const OurWorkPage = React.lazy(() => import('./pages/OurWorkPage').then((m) => ({ default: m.OurWorkPage })));
+const GaasPage = React.lazy(() => import('./pages/GaasPage').then((m) => ({ default: m.GaasPage })));
 
 // Elegant minimal loading spinner matching Qala Labs futuristic aesthetic
 const PageLoadingFallback: React.FC = () => (
-  <div className="min-h-screen bg-[#06070D] flex flex-col items-center justify-center text-white selection:bg-[#3FE0E0]">
+  <div className="min-h-screen bg-white flex flex-col items-center justify-center text-slate-900 selection:bg-[#4F46E5] selection:text-white">
     <div className="relative flex items-center justify-center">
       <div className="w-14 h-14 rounded-full border-2 border-[#4F46E5]/20 animate-ping absolute" />
-      <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-[#3FE0E0] border-r-[#4F46E5] animate-spin" />
-      <div className="w-2 h-2 rounded-full bg-[#3FE0E0] shadow-[0_0_12px_#3FE0E0] absolute" />
+      <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-[#0284C7] border-r-[#4F46E5] animate-spin" />
+      <div className="w-2 h-2 rounded-full bg-[#0284C7] shadow-[0_0_12px_rgba(2,132,199,0.45)] absolute" />
     </div>
-    <div className="mt-5 text-[11px] font-mono tracking-widest text-white/50 uppercase">
+    <div className="mt-5 text-[11px] font-mono tracking-widest text-slate-500 uppercase">
       INITIALIZING HORIZON...
     </div>
   </div>
@@ -46,9 +48,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ScrollToTop />
+      <RouteTracker />
       <React.Suspense fallback={<PageLoadingFallback />}>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/gaas" element={<GaasPage />} />
+          <Route path="/growth-as-a-service" element={<GaasPage />} />
           <Route path="/about" element={<WhoWeArePage />} />
           <Route path="/who-we-are" element={<WhoWeArePage />} />
           <Route path="/team" element={<WhoWeArePage />} />

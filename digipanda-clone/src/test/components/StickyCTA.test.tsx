@@ -10,20 +10,19 @@ describe('StickyCTA Drawer Component', () => {
   it('renders collapsed floating bottom bar initially', () => {
     render(<StickyCTA />);
 
-    expect(screen.getByText(/Ready to scale past/i)).toBeInTheDocument();
-    expect(screen.getByText('Request Growth Plan')).toBeInTheDocument();
+    expect(screen.getByText(/Scale past/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /request growth plan|get plan/i })).toBeInTheDocument();
   });
 
   it('expands drawer when CTA button is clicked', () => {
     render(<StickyCTA />);
 
-    const openBtn = screen.getByText('Request Growth Plan');
-    fireEvent.click(openBtn);
+    fireEvent.click(screen.getByRole('button', { name: /request growth plan|get plan/i }));
 
     expect(screen.getByText(/Direct Growth Plan Architect/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Your Name (Optional)')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Business Email Address *')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Phone / WhatsApp Number *')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Business email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Phone \/ WhatsApp/i)).toBeInTheDocument();
   });
 
   it('submits growth plan request successfully', async () => {
@@ -36,17 +35,15 @@ describe('StickyCTA Drawer Component', () => {
 
     render(<StickyCTA />);
 
-    // Open drawer
-    fireEvent.click(screen.getByText('Request Growth Plan'));
+    fireEvent.click(screen.getByRole('button', { name: /request growth plan|get plan/i }));
 
-    // Fill form
-    fireEvent.change(screen.getByPlaceholderText('Your Name (Optional)'), {
+    fireEvent.change(screen.getByLabelText(/Name/i), {
       target: { value: 'Alex Founder' },
     });
-    fireEvent.change(screen.getByPlaceholderText('Business Email Address *'), {
+    fireEvent.change(screen.getByLabelText(/Business email/i), {
       target: { value: 'alex@brand.com' },
     });
-    fireEvent.change(screen.getByPlaceholderText('Phone / WhatsApp Number *'), {
+    fireEvent.change(screen.getByLabelText(/Phone \/ WhatsApp/i), {
       target: { value: '+91 9876543210' },
     });
 
