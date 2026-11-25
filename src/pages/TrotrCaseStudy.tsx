@@ -265,7 +265,7 @@ const TrotrCaseStudy = () => {
               <div className="space-y-3 text-sm font-bold text-slate-700">
                 <Link to="/services/performance" className="block text-blue-600 hover:underline">Explore our Meta Ads and performance marketing service</Link>
                 <Link to="/case-studies/Meta-Lead-Generation-Ad-UK-Market" className="block text-blue-600 hover:underline">Read another B2B Meta lead generation case study</Link>
-                <Link to="/contact" className="block text-blue-600 hover:underline">Book a Meta lead generation audit</Link>
+                <Link to="/contact?service=meta-ads&tier=scale&source=trotr-faq" className="block text-blue-600 hover:underline">Book a Meta lead generation audit</Link>
               </div>
             </div>
           </section>
@@ -277,7 +277,7 @@ const TrotrCaseStudy = () => {
                 <h2 className="text-4xl md:text-6xl font-black mb-10 leading-tight text-white">
                   Ready to turn clicks <br /> into <i>bookings?</i>
                 </h2>
-                <Link to="/contact">
+                <Link to="/contact?service=meta-ads&tier=scale&source=trotr-cta">
                   <Button className="bg-white text-blue-600 hover:bg-slate-100 px-12 py-10 rounded-3xl text-2xl font-black group transition-all shadow-xl">
                     Book Your Scale Audit <ArrowRight className="ml-3 w-8 h-8 group-hover:translate-x-2 transition-transform" />
                   </Button>

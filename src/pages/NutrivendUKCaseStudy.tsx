@@ -335,7 +335,7 @@ const NutrivendUKCaseStudy = () => {
               <div className="mt-8 space-y-3 text-sm font-bold">
                 <Link to="/services/performance" className="block text-blue-600 hover:underline">Explore Meta Ads and performance marketing services</Link>
                 <Link to="/case-studies/Trotr-Meta-Lead-Generation" className="block text-blue-600 hover:underline">Read another Meta lead generation case study</Link>
-                <Link to="/contact" className="block text-blue-600 hover:underline">Book a B2B lead generation audit</Link>
+                <Link to="/contact?service=meta-ads&tier=growth&source=nutrivend-b2b" className="block text-blue-600 hover:underline">Book a B2B lead generation audit</Link>
               </div>
             </div>
           </div>
@@ -353,7 +353,7 @@ const NutrivendUKCaseStudy = () => {
                     We design audience tests that reduce risk, qualify buyer intent, and convert market curiosity into a measurable sales pipeline.
                   </p>
                 </div>
-                <Link to="/contact" className="lg:justify-self-end">
+                <Link to="/contact?service=meta-ads&tier=growth&source=nutrivend-cta" className="lg:justify-self-end">
                   <Button className="w-full rounded-lg bg-cyan-400 px-10 py-8 text-lg font-black text-slate-950 hover:bg-cyan-300 lg:w-auto">
                     Book a Growth Audit <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
